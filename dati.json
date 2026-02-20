@@ -1,0 +1,94 @@
+{
+  "socials": {
+    "instagram": {
+      "link": "https://www.instagram.com/agriturismogiuggioloni"
+    },
+    "facebook": {
+      "link": "https://www.facebook.com/agriturismogiuggioloni"
+    },
+    "tiktok": {
+      "link": "https://www.tiktok.com/@agriturismogiuggioloni"
+    }
+  },
+  "contatto": {
+    "via": "Via Acquaviva 34",
+    "comune": "60027 Osimo (AN) - Marche",
+    "numeri_telefono": [
+      "+39 333 987654",
+      "+39 0733 123456"
+    ],
+    "mail": "info@agriturismogiuggioloni.it"
+  },
+  "shop": {
+    "titolo": "Giuggioloni",
+    "sottotitolo": "I Sapori dell'acqua viva",
+    "descrizione": "Portiamo i sapori autentici delle Marche direttamente sulla tua tavola. Prodotti genuini, fatti con amore.",
+    "frase1": "VUOI VEDERE I NOSTRI PRODOTTI?",
+    "frase2": "Vieni a trovarci!",
+    "introduzione": "Porta a casa i sapori dell'agriturismo",
+    "introduzione1": "Prodotti a KM0, dalla terra alla tavola!"
+  },
+  "home": {
+    "titolo": "GIUGGIOLONI",
+    "sottotitolo": "I SAPORI DELL'ACqUAVIVA",
+    "descrizione": "Un angolo di paradiso nelle Marche dove riscoprire i sapori autentici e la bellezza della vita semplice, immersi nei colori caldi della natura.",
+    "frase1": "Autenticità e Natura",
+    "frase11": "Sulla Tua Tavola",
+    "frase2": "Un rifugio di pace tra le colline dorate, dove i sapori della terra incontrano la calda tradizione dell'ospitalità marchigiana."
+  },
+  "orari": {
+    "Lunedì": {
+      "pranzo": null,
+      "cena": null,
+      "note": "Chiuso"
+    },
+    "Martedì": {
+      "pranzo": null,
+      "cena": null,
+      "note": "Chiuso"
+    },
+    "Mercoledì": {
+      "pranzo": null,
+      "cena": null,
+      "note": "Chiuso"
+    },
+    "Giovedì": {
+      "pranzo": null,
+      "cena": "19:00-23:00",
+      "note": "Cena"
+    },
+    "Venerdì": {
+      "pranzo": null,
+      "cena": "19:00-23:00",
+      "note": "Cena"
+    },
+    "Sabato": {
+      "pranzo": "12:30-14:00",
+      "cena": "19:00-23:00",
+      "note": "Aperto"
+    },
+    "Domenica": {
+      "pranzo": "12:30-16:00",
+      "cena": null,
+      "note": "Pranzo"
+    }
+  },
+  "cards": [
+    {
+      "titolo": "Agricoltura Vera",
+      "valore": "Coltiviamo la terra rispettando i suoi ritmi naturali, senza pesticidi, per offrirvi prodotti genuini e ricchi di un sapore vero e antico.",
+      "icona": "agriculture"
+    },
+    {
+      "titolo": "Cucina a Km 0",
+      "valore": "Il nostro menu cambia con i colori delle stagioni. Ciò che non produciamo noi, lo acquistiamo dai migliori produttori locali marchigiani.",
+      "icona": "restaurant_menu"
+    },
+    {
+      "titolo": "Ospitalità Familiare",
+      "valore": "Vi accogliamo come parte della nostra famiglia, in un ambiente rustico e dai toni caldi dove il tempo sembra rallentare dolcemente.",
+      "icona": "favorite"
+    }
+  ],
+  "updated": "2026-02-20T01:36:57.764Z"
+}

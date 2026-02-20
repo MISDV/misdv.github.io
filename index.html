@@ -2,7 +2,7 @@
 <html lang="it"><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>I sapori dell'acqua viva - Agriturismo Marche</title>
+<title>Agriturismo Giuggioloni - I sapori dell'AcquaViva</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&amp;family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
@@ -60,8 +60,8 @@
   <img src="logo.png" alt="logo Giuggioloni" class="w-12 h-12 object-contain">
 </div>
 <div class="flex flex-col">
-<span class="font-serif font-bold text-xl tracking-wide text-gray-900 dark:text-white leading-none">GIUGGIOLONI</span>
-<span class="font-display text-primary font-medium text-sm tracking-widest uppercase">I sapori dell'AcquaViva</span>
+<span id="titolo" class="font-serif font-bold text-xl tracking-wide text-gray-900 dark:text-white leading-none">GIUGGIOLONI</span>
+<span id="sottotitolo" class="font-display text-primary font-medium text-sm tracking-widest uppercase">I sapori dell'AcquaViva</span>
 </div>
 </div>
 <div class="hidden md:flex space-x-10 items-center">
@@ -123,111 +123,76 @@
 <div class="h-px w-12 bg-primary/50"></div>
 </div>
 </div>
-<div class="grid grid-cols-1 md:grid-cols-3 gap-12">
-<div class="bg-background-cream dark:bg-white/5 p-10 rounded-sm shadow-md hover:shadow-xl transition-all duration-300 border-t-4 border-primary group relative overflow-hidden">
-<div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
-<span class="material-icons text-8xl text-primary">agriculture</span>
-</div>
-<div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-6 group-hover:bg-primary group-hover:text-white transition-colors text-primary border border-primary/20">
-<span class="material-icons text-3xl">spa</span>
-</div>
-<h3 class="text-2xl font-serif font-bold mb-4 text-gray-900 dark:text-white">Agricoltura Biologica</h3>
-<p class="text-gray-600 dark:text-gray-400 leading-relaxed font-light">
-                        Coltiviamo la terra rispettando i suoi ritmi naturali, senza pesticidi, per offrirvi prodotti genuini e ricchi di un sapore vero e antico.
-                    </p>
-</div>
-<div class="bg-background-cream dark:bg-white/5 p-10 rounded-sm shadow-md hover:shadow-xl transition-all duration-300 border-t-4 border-primary group relative overflow-hidden">
-<div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
-<span class="material-icons text-8xl text-primary">dinner_dining</span>
-</div>
-<div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-6 group-hover:bg-primary group-hover:text-white transition-colors text-primary border border-primary/20">
-<span class="material-icons text-3xl">restaurant_menu</span>
-</div>
-<h3 class="text-2xl font-serif font-bold mb-4 text-gray-900 dark:text-white">Cucina a Km 0</h3>
-<p class="text-gray-600 dark:text-gray-400 leading-relaxed font-light">
-                        Il nostro menu cambia con i colori delle stagioni. Ciò che non produciamo noi, lo acquistiamo dai migliori produttori locali marchigiani.
-                    </p>
-</div>
-<div class="bg-background-cream dark:bg-white/5 p-10 rounded-sm shadow-md hover:shadow-xl transition-all duration-300 border-t-4 border-primary group relative overflow-hidden">
-<div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
-<span class="material-icons text-8xl text-primary">volunteer_activism</span>
-</div>
-<div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-6 group-hover:bg-primary group-hover:text-white transition-colors text-primary border border-primary/20">
-<span class="material-icons text-3xl">favorite</span>
-</div>
-<h3 class="text-2xl font-serif font-bold mb-4 text-gray-900 dark:text-white">Ospitalità Familiare</h3>
-<p class="text-gray-600 dark:text-gray-400 leading-relaxed font-light">
-                        Vi accogliamo come parte della nostra famiglia, in un ambiente rustico e dai toni caldi dove il tempo sembra rallentare dolcemente.
-                    </p>
+
+<div class="grid grid-cols-1 md:grid-cols-3 gap-12" data-repeat="cards">
+  <template>
+    <div class="bg-background-cream dark:bg-white/5 p-10 rounded-sm shadow-md hover:shadow-xl transition-all duration-300 border-t-4 border-primary group relative overflow-hidden">
+      <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+        <!-- icona decorativa grande (usa lo stesso nome icona dal JSON) -->
+        <span class="material-icons text-8xl text-primary">{{icona}}</span>
+      </div>
+
+      <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-6 group-hover:bg-primary group-hover:text-white transition-colors text-primary border border-primary/20">
+        <!-- icona principale nel cerchio -->
+        <span class="material-icons text-3xl">{{icona}}</span>
+      </div>
+
+      <h3 class="text-2xl font-serif font-bold mb-4 text-gray-900 dark:text-white">{{titolo}}</h3>
+
+      <p class="text-gray-600 dark:text-gray-400 leading-relaxed font-light">
+        {{valore}}
+      </p>
+    </div>
+  </template>
 </div>
 </div>
-</div>
+
 </section>
 <section class="py-24 bg-background-cream dark:bg-white/5 border-y border-stone-200 dark:border-stone-800" id="ristorante">
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-<div class="flex flex-col lg:flex-row items-center gap-20">
-<div class="w-full lg:w-1/2 order-2 lg:order-1">
-<span class="text-primary font-bold tracking-widest uppercase mb-3 block font-serif">Il Ristorante</span>
-<h2 class="text-5xl font-serif font-bold text-gray-900 dark:text-white mb-8">Sapori di Stagione</h2>
-<p class="text-gray-600 dark:text-gray-300 mb-8 text-lg leading-relaxed font-light">
-                        La nostra cucina è un omaggio alla tradizione contadina. Ogni piatto racconta una storia di ingredienti freschi, baciati dal sole e raccolti la mattina stessa dal nostro orto.
-                    </p>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex flex-col lg:flex-row items-center gap-20">
+      <div class="w-full lg:w-1/2 order-2 lg:order-1">
+        <span class="text-primary font-bold tracking-widest uppercase mb-3 block font-serif">I Nostri Piatti</span>
 
-<div class="mb-10 bg-white dark:bg-stone-900 p-8 shadow-sm border border-stone-100 dark:border-stone-800 rounded-sm">
-  <table class="w-full" role="table">
-    <caption class="sr-only">Menu — piatti e prezzi</caption>
-    <tbody>
-      <tr class="border-b border-dashed border-stone-300 dark:border-stone-700 last:border-b-0">
-        <td class="py-4 align-top">
-          <div>
-            <h4 class="text-xl font-serif font-bold text-gray-800 dark:text-gray-100">Tagliatelle al Ragù di Cortile</h4>
-            <p class="text-sm text-gray-500 dark:text-gray-400 mt-1 italic">Pasta fatta a mano, carne della nostra fattoria</p>
-          </div>
-        </td>
-        <td class="py-4 align-top w-28 text-right">
-          <span class="text-primary font-bold text-xl font-serif">€14</span>
-        </td>
-      </tr>
+        <!-- QUI: titolo e descrizione verranno popolati dal menu.json -->
+        <h2 id="menuTitle" class="text-5xl font-serif font-bold text-gray-900 dark:text-white mb-8">Sapori di Stagione</h2>
+        <p id="menuDescription" class="text-gray-600 dark:text-gray-300 mb-8 text-lg leading-relaxed font-light">
+          La nostra cucina è un omaggio alla tradizione contadina. Ogni piatto racconta una storia...
+        </p>
+        <div id="menuDaySelector" class="flex gap-2 flex-wrap" role="tablist" aria-label="Seleziona giorno menu"></div>
+        <div class="mb-10 bg-white dark:bg-stone-900 p-4 shadow-sm border border-stone-100 dark:border-stone-800 rounded-sm">
+          <table class="w-full" role="table">
+            <caption class="sr-only">Menu — piatti e prezzi</caption>
+            <!-- area per selector (giorni abilitati) 
+            <thead>
+              <tr>
+                <th colspan="2" class="pb-2">
+                  <h3 id="menuDayTitle" class="text-xl font-semibold text-gray-800 dark:text-gray-100"></h3>
+                </th>
+              </tr>
+            </thead>
+            -->
+            <tbody id="menuTableBody">
+              <!-- popolato dinamicamente -->
+            </tbody>
+          </table>
+        </div>
 
-      <tr class="border-b border-dashed border-stone-300 dark:border-stone-700 last:border-b-0">
-        <td class="py-4 align-top">
-          <div>
-            <h4 class="text-xl font-serif font-bold text-gray-800 dark:text-gray-100">Grigliata Mista dell'Orto</h4>
-            <p class="text-sm text-gray-500 dark:text-gray-400 mt-1 italic">Verdure di stagione, olio EVO di nostra produzione</p>
-          </div>
-        </td>
-        <td class="py-4 align-top w-28 text-right">
-          <span class="text-primary font-bold text-xl font-serif">€12</span>
-        </td>
-      </tr>
+        <a class="inline-flex items-center text-primary hover:text-primary-dark font-bold uppercase tracking-widest text-sm group border-b-2 border-primary pb-1 hover:border-primary-dark transition-all" href="#">
+          Scopri il Menu Completo 
+          <span class="material-icons ml-2 transform group-hover:translate-x-1 transition-transform">arrow_forward</span>
+        </a>
+      </div>
 
-      <tr class="border-b border-dashed border-stone-300 dark:border-stone-700 last:border-b-0">
-        <td class="py-4 align-top">
-          <div>
-            <h4 class="text-xl font-serif font-bold text-gray-800 dark:text-gray-100">Crostata di Confettura</h4>
-            <p class="text-sm text-gray-500 dark:text-gray-400 mt-1 italic">Albicocche e fichi del nostro frutteto</p>
-          </div>
-        </td>
-        <td class="py-4 align-top w-28 text-right">
-          <span class="text-primary font-bold text-xl font-serif">€6</span>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-
-<a class="inline-flex items-center text-primary hover:text-primary-dark font-bold uppercase tracking-widest text-sm group border-b-2 border-primary pb-1 hover:border-primary-dark transition-all" href="#">Scopri il Menu Completo 
-<span class="material-icons ml-2 transform group-hover:translate-x-1 transition-transform">arrow_forward</span>
-</a>
-</div>
-<div class="w-full lg:w-1/2 order-1 lg:order-2 grid grid-cols-2 gap-6 relative">
-<div class="absolute -top-4 -left-4 w-24 h-24 bg-primary/20 z-0 rounded-full blur-2xl"></div>
-<img alt="Fresh handmade pasta with herbs on a wooden table" class="relative z-10 rounded-sm shadow-xl w-full h-80 object-cover transform translate-y-12 warm-filter hover:scale-[1.02] transition-transform duration-500" data-alt="Fresh handmade pasta with herbs on a wooden table" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDR20XlSEuBR-Yfc8U9wW8Fv_k3SrozDget2ytz2zWu7pKDUBEbeQhhulaBbCqAp2z3jkq0anlR22SwcN1i2mRHLC7ZXJ_28lKW6w2Nyp2IungkLpJpF3fYoiQNpY01eryPfu7a0FjcWW_RthigJYc1jDNLFzVpOmZ5yjNa5_76Cul7K0HSeCsa4FJi7WMU7UcvA5fDr7U1nx-FV2P_zhhV8Bq1-w4sQGyuPdw0nzh6UgMnwG_tMOQlbv4PRjrEyQd_3kXnPbSHSaM"/>
-<img alt="Healthy salad bowl with fresh farm vegetables" class="relative z-10 rounded-sm shadow-xl w-full h-80 object-cover warm-filter hover:scale-[1.02] transition-transform duration-500" data-alt="Healthy salad bowl with fresh farm vegetables" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAbZlX0pXqaodhcQBsM5XIjpSBgC5NAlQl1GIyTDrL68GlTK65UiBac1HmsUa--3Hmiljc_UPFmisiCZxjWd-BYj4njzSvmuLgf3WoJnx6U2miC0pRh29hgtRPxnARvoNlOZY4G4o2MoOwQxJUxc_liZx6Vu7jWYoytPZ9BjHgShPHXaR6AMdaqZazq5B_ERrpGKzxiy9L21GjOwJK7bTn8gq8iKMjnWKEPGcxD_72-QZp-puoMigY0cbLVzv98U1RCA48Xz1WpfyU"/>
-</div>
-</div>
-</div>
+      <!-- colonna immagini: lo script popolerà #restaurantImages -->
+      <div class="w-full lg:w-1/2 order-1 lg:order-2 grid grid-cols-2 gap-6 relative" id="restaurantImagesWrap">
+        <div class="absolute -top-4 -left-4 w-24 h-24 bg-primary/20 z-0 rounded-full blur-2xl"></div>
+        <div id="restaurantImages" class="grid grid-cols-2 gap-6 w-full z-10"></div>
+      </div>
+    </div>
+  </div>
 </section>
+
 <section class="py-24 bg-background-light dark:bg-background-dark" id="fattoria">
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 <div class="text-center mb-16">
@@ -281,19 +246,20 @@
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
 <div class="flex flex-col md:flex-row items-center justify-between gap-12 text-center md:text-left">
 <div class="md:w-2/3">
-<h2 class="text-3xl md:text-4xl font-serif font-bold mb-4 text-white">Porta a casa i sapori dell'agriturismo</h2>
-<p class="text-orange-50 text-lg font-light leading-relaxed">
-                        Olio extravergine d'oliva, confetture fatte in casa, vini locali e miele dorato. I nostri prodotti sono disponibili per l'acquisto diretto in azienda.
-                    </p>
+<h2 class="text-3xl md:text-4xl font-serif font-bold mb-4 text-white"><p id="introduzione">Porta a casa i sapori dell'agriturismo</p></h2>
+<p id="introduzione1" class="text-orange-50 text-lg font-light leading-relaxed">
+Olio extravergine d'oliva, confetture fatte in casa, vini locali e miele dorato. I nostri prodotti sono disponibili per l'acquisto diretto in azienda.
+</p>
 </div>
 <div class="md:w-1/3 flex justify-center md:justify-end">
 <a href="/shop.html" target="_blank">
-<button class="bg-white text-primary hover:bg-orange-50 hover:text-primary-dark font-serif font-bold py-4 px-10 rounded-sm shadow-xl transition-colors border-b-4 border-orange-200">Vedi i Prodotti</button>
+<button class="bg-white text-primary hover:bg-orange-50 hover:text-primary-dark font-serif font-bold py-4 px-10 rounded-sm shadow-xl transition-colors border-b-4 border-orange-200">Scopri i Prodotti!</button>
 </a>
 </div>
 </div>
 </div>
 </section>
+
 <footer class="bg-background-dark text-gray-300 pt-24 pb-10 border-t-4 border-primary" id="contatti">
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-20">
@@ -303,19 +269,43 @@
 <img src="logo.png" alt="logo Giuggioloni" class="w-10 h-10 object-contain">
 </div>
 <div class="flex flex-col">
-<span class="font-serif font-bold text-lg text-white leading-none tracking-wide">GIUGGIOLONI</span>
-<span class="text-xs text-primary uppercase tracking-widest">I sapori dell'AcquaViva</span>
+<span id="titolo" class="font-serif font-bold text-lg text-white leading-none tracking-wide">GIUGGIOLONI</span>
+<span id="sottotitolo" class="text-xs text-primary uppercase tracking-widest">I sapori dell'AcquaViva</span>
 </div>
 </div>
-<p class="text-sm leading-relaxed mb-8 text-gray-400 font-light">
-                        Un angolo di paradiso nelle Marche dove riscoprire i sapori autentici e la bellezza della vita semplice, immersi nei colori caldi della natura.
-                    </p>
+<p id="descrizione" class="text-sm leading-relaxed mb-8 text-gray-400 font-light">
+Un angolo di paradiso nelle Marche dove riscoprire i sapori autentici e la bellezza della vita semplice, immersi nei colori caldi della natura.
+</p>
 <div class="flex space-x-4">
-<a class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-gray-400 hover:text-white hover:bg-primary transition-all duration-300" href="#">
-    <i class="fa-brands fa-facebook"></i>
+<a
+  class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-gray-400 hover:text-white hover:bg-primary transition-all duration-300"
+  data-social="facebook"
+  id="footerFacebook"
+  href="#"
+  target="_blank"
+  rel="noopener noreferrer"
+  aria-label="Facebook Giuggioloni">
+  <i class="fab fa-facebook text-lg" aria-hidden="true"></i>
 </a>
-<a class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-gray-400 hover:text-white hover:bg-primary transition-all duration-300" href="#">
-  <i class="fab fa-instagram text-lg"></i>
+<a
+  class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-gray-400 hover:text-white hover:bg-primary transition-all duration-300"
+  data-social="instagram"
+  id="footerInstagram"
+  href="#"
+  target="_blank"
+  rel="noopener noreferrer"
+  aria-label="Instagram Giuggioloni">
+  <i class="fab fa-instagram text-lg" aria-hidden="true"></i>
+</a>
+<a
+  class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-gray-400 hover:text-white hover:bg-primary transition-all duration-300"
+  data-social="tiktok"
+  id="footerTiktok"
+  href="#"
+  target="_blank"
+  rel="noopener noreferrer"
+  aria-label="TikTok Giuggioloni">
+  <i class="fab fa-tiktok text-lg" aria-hidden="true"></i>
 </a>
 </div>
 </div>
@@ -325,11 +315,9 @@
                         <span class="absolute -bottom-2 left-0 w-12 h-1 bg-primary rounded-full"></span>
 </h3>
 <ul class="space-y-4 text-sm font-light">
-<li><a class="hover:text-primary transition-colors flex items-center gap-2 group" href="#"><span class="material-icons text-xs text-primary opacity-0 group-hover:opacity-100 transition-opacity">chevron_right</span>La Nostra Storia</a></li>
-<li><a class="hover:text-primary transition-colors flex items-center gap-2 group" href="#"><span class="material-icons text-xs text-primary opacity-0 group-hover:opacity-100 transition-opacity">chevron_right</span>Il Menu Stagionale</a></li>
-<li><a class="hover:text-primary transition-colors flex items-center gap-2 group" href="#"><span class="material-icons text-xs text-primary opacity-0 group-hover:opacity-100 transition-opacity">chevron_right</span>Camere e Ospitalità</a></li>
-<li><a class="hover:text-primary transition-colors flex items-center gap-2 group" href="#"><span class="material-icons text-xs text-primary opacity-0 group-hover:opacity-100 transition-opacity">chevron_right</span>Eventi Privati</a></li>
-<li><a class="hover:text-primary transition-colors flex items-center gap-2 group" href="#"><span class="material-icons text-xs text-primary opacity-0 group-hover:opacity-100 transition-opacity">chevron_right</span>Bottega Online</a></li>
+<li><a class="hover:text-primary transition-colors flex items-center gap-2 group" href="storia.html"><span class="material-icons text-xs text-primary opacity-0 group-hover:opacity-100 transition-opacity">chevron_right</span>La Nostra Storia</a></li>
+<li><a class="hover:text-primary transition-colors flex items-center gap-2 group" href="piatti.html"><span class="material-icons text-xs text-primary opacity-0 group-hover:opacity-100 transition-opacity">chevron_right</span>I Nostri Piatti</a></li>
+<li><a class="hover:text-primary transition-colors flex items-center gap-2 group" href="shop.html"><span class="material-icons text-xs text-primary opacity-0 group-hover:opacity-100 transition-opacity">chevron_right</span>I Nostri Prodotti</a></li>
 </ul>
 </div>
 <div>
@@ -340,15 +328,15 @@
 <ul class="space-y-6 text-sm font-light">
 <li class="flex items-start">
 <span class="material-icons text-primary text-lg mr-4 mt-0.5">location_on</span>
-<span>Via delle Colline, 45<br/>62100 Macerata (MC) - Marche</span>
+<span><p id="indirizzo" data-bind="contatto.via"></p><p id="comune" data-bind="contatto.comune"></p></span>
 </li>
 <li class="flex items-center">
 <span class="material-icons text-primary text-lg mr-4">phone</span>
-<span>+39 0733 123456</span>
+<ul id="phoneList"></ul>
 </li>
 <li class="flex items-center">
 <span class="material-icons text-primary text-lg mr-4">email</span>
-<span>info@isaporidellacquaviva.it</span>
+<span><p id="email">info@isaporidellacquaviva.it</p></span>
 </li>
 </ul>
 </div>
@@ -357,24 +345,24 @@
                         Orari
                         <span class="absolute -bottom-2 left-0 w-12 h-1 bg-primary rounded-full"></span>
 </h3>
-<ul class="space-y-3 text-sm font-light border-l border-white/10 pl-6">
-<li class="flex justify-between">
-<span class="text-gray-400">Lun - Mer</span>
-<span class="text-orange-400 font-medium">Chiuso</span>
-</li>
-<li class="flex justify-between">
-<span class="text-gray-400">Gio - Ven</span>
-<span class="text-white">19:00 - 23:00</span>
-</li>
-<li class="flex justify-between">
-<span class="text-gray-400">Sabato</span>
-<span class="text-white text-right">12:30 - 15:00 <br/> 19:00 - 23:00</span>
-</li>
-<li class="flex justify-between pt-2">
-<span class="text-gray-400">Domenica</span>
-<span class="text-white">12:30 - 16:00</span>
-</li>
+<ul id="orariList" class="space-y-3 text-sm font-light border-l border-white/10 pl-6">
+  <li class="flex justify-between items-start">
+    <span class="text-gray-400">Lunedì</span>
+    <span class="text-orange-400 font-medium w-28 min-w-[80px] text-right">Chiuso</span>
+  </li>
+  <li class="flex justify-between items-start">
+    <span class="text-gray-400">Giovedì</span>
+    <span class="text-white w-28 min-w-[80px] text-right">19:00-23:00</span>
+  </li>
+  <li class="flex justify-between items-start">
+    <span class="text-gray-400">Sabato</span>
+    <span class="text-white w-28 min-w-[80px] text-right">
+      12:30-15:00<br>19:00-23:00
+    </span>
+  </li>
+  <!-- ripeti per gli altri giorni -->
 </ul>
+
 </div>
 </div>
 <div class="w-full h-72 bg-gray-800 rounded-sm overflow-hidden mb-12 relative group border border-white/10">
@@ -395,4 +383,415 @@
 </div>
 </div>
 </footer>
+<script>
+(async function unifiedScriptsWithImages() {
+  // CONFIG: aggiorna i percorsi se necessario
+  const MENU_JSON_PATH = '/menu.json';
+  const DATA_JSON_PATH = '/dati.json';
+
+  // ---------- HELPERS ----------
+  function escapeHtml(str = '') {
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  }
+
+  function formatPrice(p) {
+    if (p === null || p === undefined || p === '') return '';
+    if (typeof p === 'string' && (p.includes('€') || p.includes(','))) return p;
+    const num = Number(String(p).replace(',', '.'));
+    if (isNaN(num)) return String(p);
+    return Number.isInteger(num) ? `€${num}` : `€${num.toFixed(2).replace('.', ',')}`;
+  }
+
+  function getTodayItalianLower() {
+    try {
+      const now = new Date();
+      const day = new Intl.DateTimeFormat('it-IT', { weekday: 'long', timeZone: 'Europe/Rome' }).format(now);
+      return day.toLowerCase();
+    } catch {
+      const fallback = ['domenica','lunedì','martedì','mercoledì','giovedì','venerdì','sabato'];
+      return fallback[new Date().getDay()];
+    }
+  }
+
+  function capitalizeFirst(s) {
+    if (!s) return s;
+    return s[0].toUpperCase() + s.slice(1);
+  }
+
+  // leggi path 'a.b[0].c' su un oggetto
+  function getValueByPath(obj, path) {
+    if (!path) return undefined;
+    const normalized = path.replace(/\[(\d+)\]/g, '.$1');
+    return normalized.split('.').reduce((acc, key) => (acc == null ? undefined : acc[key]), obj);
+  }
+
+  // render mustache semplice: {{path.to.val}} - usa getValueByPath
+  function renderTemplateString(template, data) {
+    if (!template || typeof template !== 'string') return '';
+    return template.replace(/\{\{\s*([^}\s]+(?:\.[^}\s]+|\[\d+\])*)\s*\}\}/g, (m, p1) => {
+      const val = getValueByPath(data, p1);
+      if (val === null || val === undefined) return '';
+      return escapeHtml(String(val));
+    });
+  }
+
+  // process data-repeat containers and simple bindings (attributes + innerHTML)
+  function processRepeats(root, data) {
+    const repeats = root.querySelectorAll('[data-repeat]');
+    repeats.forEach(container => {
+      const path = container.dataset.repeat;
+      const arr = getValueByPath(data, path) || [];
+      const tplEl = container.querySelector('template');
+      const tpl = tplEl ? tplEl.innerHTML : container.innerHTML;
+      const itemsHtml = Array.isArray(arr)
+        ? arr.map(item => renderTemplateString(tpl, item)).join('')
+        : '';
+      container.innerHTML = itemsHtml;
+    });
+  }
+
+  function bindAll(root, data) {
+    const all = root.querySelectorAll('*');
+    all.forEach(el => {
+      // attributes
+      for (const { name, value } of Array.from(el.attributes)) {
+        if (value && value.includes('{{')) {
+          const out = renderTemplateString(value, data);
+          el.setAttribute(name, out);
+        }
+      }
+      // innerHTML (escaped)
+      if (el.innerHTML && el.innerHTML.includes('{{')) {
+        el.innerHTML = renderTemplateString(el.innerHTML, data);
+      }
+    });
+  }
+
+  // ---------- MENU RENDER ----------
+  function renderDishes(tbodyEl, dishes) {
+    tbodyEl.innerHTML = '';
+    if (!Array.isArray(dishes) || dishes.length === 0) {
+      tbodyEl.innerHTML = `<tr><td class="py-4" colspan="2">Nessun piatto disponibile per questo giorno.</td></tr>`;
+      return;
+    }
+    const frag = document.createDocumentFragment();
+    for (const dish of dishes) {
+      const tr = document.createElement('tr');
+      tr.className = 'border-b border-dashed border-stone-300 dark:border-stone-700 last:border-b-0';
+      const name = escapeHtml(dish.name || dish.title || '');
+      const desc = escapeHtml(dish.description || '');
+      const price = (dish.price_display && String(dish.price_display).trim() !== '') ? escapeHtml(dish.price_display) : formatPrice(dish.price);
+      tr.innerHTML = `
+        <td class="py-4 align-top">
+          <div>
+            <h4 class="text-lg font-serif font-bold text-gray-800 dark:text-gray-100">${name}</h4>
+            <p class="text-sm text-gray-500 dark:text-gray-400 mt-1 italic">${desc}</p>
+          </div>
+        </td>
+        <td class="py-4 align-top w-28 text-right">
+          <span class="text-primary font-bold text-lg font-serif">${price}</span>
+        </td>
+      `;
+      frag.appendChild(tr);
+    }
+    tbodyEl.appendChild(frag);
+  }
+
+  function buildDaySelector(container, daysArray, selectedDay, onSelect) {
+    container.innerHTML = '';
+    const frag = document.createDocumentFragment();
+    for (const item of daysArray) {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'px-3 py-1 rounded-md text-sm font-medium border transition-colors';
+      btn.dataset.day = item.key;
+      btn.setAttribute('role', 'tab');
+      btn.innerHTML = `${escapeHtml(capitalizeFirst(item.key))}${item.isToday ? ' <span class="sr-only">(oggi)</span>' : ''}`;
+      if (item.key === selectedDay) {
+        btn.classList.add('border-primary','text-primary','bg-white','dark:bg-stone-800');
+        btn.setAttribute('aria-selected', 'true');
+      } else {
+        btn.classList.add('border-stone-200','dark:border-stone-700','text-gray-700','dark:text-gray-300','bg-white','dark:bg-stone-800');
+        btn.setAttribute('aria-selected','false');
+      }
+      btn.addEventListener('click', () => onSelect(item.key));
+      frag.appendChild(btn);
+    }
+    container.appendChild(frag);
+  }
+
+  // ---------- DATI JSON DOM UPDATES ----------
+  function applyDatiToDOM(dati) {
+    if (!dati || typeof dati !== 'object') return;
+
+    // Social
+    const ig = dati.socials?.instagram?.link;
+    const fb = dati.socials?.facebook?.link;
+    const tt = dati.socials?.tiktok?.link;
+    if (ig && document.querySelector('#footerInstagram')) document.querySelector('#footerInstagram').href = ig;
+    if (fb && document.querySelector('#footerFacebook')) document.querySelector('#footerFacebook').href = fb;
+    if (tt && document.querySelector('#footerTiktok')) document.querySelector('#footerTiktok').href = tt;
+
+    // Contatto
+    if (dati.contatto) {
+      if (document.querySelector('#indirizzo')) document.querySelector('#indirizzo').innerText = (dati.contatto.via || '');
+      if (document.querySelector('#comune')) document.querySelector('#comune').innerText = (dati.contatto.comune ? dati.contatto.comune : ''); //' • '
+      if (document.querySelector('#telefono')) document.querySelector('#telefono').innerText = dati.contatto.numeri_telefono;
+      if (document.querySelector('#email')) document.querySelector('#email').innerText = dati.contatto.mail || '';
+    }
+
+    // Shop
+    if (dati.shop) {
+      if (document.querySelector('#introduzione')) document.querySelector('#introduzione').innerText = (dati.shop.introduzione ? dati.shop.introduzione : '');
+      if (document.querySelector('#introduzione1')) document.querySelector('#introduzione1').innerText = (dati.shop.introduzione1 ? dati.shop.introduzione1 : '');
+    }
+
+    // Home dati
+    if (dati.home) {
+      if (document.querySelector('#titolo')) document.querySelector('#titolo').innerText = (dati.home.titolo || '');
+      if (document.querySelector('#sottotitolo')) document.querySelector('#sottotitolo').innerText = (dati.home.sottotitolo || ''); //' • '
+      if (document.querySelector('#descrizione')) document.querySelector('#descrizione').innerText = dati.home.descrizione;
+      if (document.querySelector('#frase1')) document.querySelector('#frase1').innerText = dati.home.frase1 || '';
+      if (document.querySelector('#frase11')) document.querySelector('#frase11').innerText = dati.home.frase11 || '';
+      if (document.querySelector('#frase2')) document.querySelector('#frase2').innerText = dati.home.frase2 || '';
+    }
+
+    if (Array.isArray(dati.contatto?.numeri_telefono) && document.getElementById('phoneList')) {
+      const wrap = document.getElementById('phoneList');
+      wrap.innerHTML = '';
+      const frag = document.createDocumentFragment();
+      dati.contatto.numeri_telefono.forEach(num => {
+        const li = document.createElement('li');
+        li.textContent = num;
+        frag.appendChild(li);
+      });
+      wrap.appendChild(frag);
+    }
+
+    // Orari -> #orariList (se presente)
+    if (dati.orari && document.querySelector('#orariList')) {
+      const wrap = document.querySelector('#orariList');
+      wrap.innerHTML = '';
+      const frag = document.createDocumentFragment();
+      Object.keys(dati.orari).forEach(day => {
+        const d = dati.orari[day];
+        const li = document.createElement('li');
+        li.className = 'flex justify-between items-start';
+        //li.innerHTML = `<span>${escapeHtml(day)}</span><span>${escapeHtml((d.pranzo||'') + (d.cena ? (' • ' + d.cena) : '') + (d.note ? (' • ' + d.note) : ''))}</span>`;
+        if (d.note === 'Cena' || d.note === 'Pranzo'){
+          li.innerHTML = `<span class="text-gray-400">${escapeHtml(day)}</span><span class="text-white w-28 min-w-[80px] text-right">${escapeHtml((d.pranzo||'') + (d.cena ? d.cena : ''))}</span>`;
+        } else if (d.note === 'Aperto') {
+          li.innerHTML = `<span class="text-gray-400">${escapeHtml(day)}</span><span class="text-white w-28 min-w-[80px] text-right">${escapeHtml((d.pranzo||''))} <br>${escapeHtml((d.cena ? (d.cena) : ''))}</span>`;
+        } else{
+          li.innerHTML = `<span class="text-gray-400">${escapeHtml(day)}</span><span class="text-orange-400 font-medium w-28 min-w-[80px] text-right">${escapeHtml((d.pranzo||'') + (d.cena ? (' • ' + d.cena) : '') + (d.note ? (d.note) : ''))}</span>`;
+        }
+        frag.appendChild(li);
+      });
+      wrap.className = 'space-y-3 text-sm font-light border-l border-white/10 pl-6';
+      wrap.appendChild(frag);
+    }
+
+    // Cards -> #cardsContainer (se presente)
+    if (Array.isArray(dati.cards) && document.querySelector('#cardsContainer')) {
+      const cwrap = document.querySelector('#cardsContainer');
+      cwrap.innerHTML = '';
+      const frag = document.createDocumentFragment();
+      dati.cards.forEach(c => {
+        const el = document.createElement('article');
+        el.className = 'p-4 border rounded mb-3 bg-background-cream dark:bg-white/5';
+        el.innerHTML = `<h4 class="font-semibold">${escapeHtml(c.titolo)}</h4><p class="text-sm">${escapeHtml(c.valore)}</p>`;
+        frag.appendChild(el);
+      });
+      cwrap.appendChild(frag);
+    }
+  }
+
+  // ---------- RESTAURANT IMAGES FROM menu.json ----------
+  // Estrae le immagini dai piatti del menu (campo immagine possibile: image, image_url, img, images[0])
+  function extractImagesFromMenu(menuJson) {
+    if (!menuJson || !menuJson.days || typeof menuJson.days !== 'object') return [];
+    const seen = new Set();
+    const images = [];
+    for (const rawKey of Object.keys(menuJson.days)) {
+      const dayEntry = menuJson.days[rawKey] || {};
+      if (!dayEntry || !Array.isArray(dayEntry.dishes)) continue;
+      for (const dish of dayEntry.dishes) {
+        // possibili campi immagine (ordina per priorità)
+        const candidates = [];
+        if (dish.image) candidates.push(dish.image);
+        if (dish.image_url) candidates.push(dish.image_url);
+        if (dish.img) candidates.push(dish.img);
+        if (dish.images && Array.isArray(dish.images)) candidates.push(dish.images[0]);
+        // prendi primo non vuoto
+        const src = candidates.find(s => s && String(s).trim());
+        if (src) {
+          const normalized = String(src).trim();
+          if (!seen.has(normalized)) {
+            seen.add(normalized);
+            images.push({ src: normalized, alt: dish.name || dish.title || '' });
+          }
+        }
+      }
+    }
+    return images;
+  }
+
+  // rende le immagini nel contenitore #restaurantImages (usa classi e markup simile agli originali)
+  function renderRestaurantImages(images) {
+    const wrap = document.getElementById('restaurantImages');
+    if (!wrap) return;
+    wrap.innerHTML = '';
+    if (!images || images.length === 0) return;
+    const frag = document.createDocumentFragment();
+
+    // Creiamo una immagine per ogni elemento (limite arbitrario: max 4 per layout)
+    const maxImages = 4;
+    const toRender = images.slice(0, maxImages);
+
+    for (let i = 0; i < toRender.length; i++) {
+      const it = toRender[i];
+      const img = document.createElement('img');
+      img.src = it.src;
+      img.alt = it.alt || it.src;
+      img.className = 'relative z-10 rounded-sm shadow-xl w-full h-80 object-cover warm-filter hover:scale-[1.02] transition-transform duration-500';
+      // per variare leggermente il posizionamento puoi aggiungere translate su primo elemento
+      if (i === 0) img.style.transform = 'translateY(3rem)'; // simile translate-y-12
+      frag.appendChild(img);
+    }
+
+    wrap.appendChild(frag);
+  }
+
+  // ---------- FETCH BOTH JSON IN PARALLEL ----------
+  try {
+    const [menuRes, datiRes] = await Promise.all([
+      fetch(MENU_JSON_PATH + '?_=' + Date.now(), { cache: 'no-store' }).catch(e => ({ ok: false, error: e })),
+      fetch(DATA_JSON_PATH + '?_=' + Date.now(), { cache: 'no-store' }).catch(e => ({ ok: false, error: e }))
+    ]);
+
+    let menuJson = null;
+    let datiJson = null;
+
+    if (menuRes && menuRes.ok) {
+      try { menuJson = await menuRes.json(); window.__MENU_JSON__ = menuJson; } catch(e){ console.warn('Errore parse menu.json', e); }
+    } else {
+      console.warn('menu.json non caricato', menuRes && menuRes.error ? menuRes.error : (menuRes && menuRes.status));
+    }
+
+    if (datiRes && datiRes.ok) {
+      try { datiJson = await datiRes.json(); window.__DATA__ = datiJson; } catch(e){ console.warn('Errore parse dati.json', e); }
+    } else {
+      console.warn('dati.json non caricato', datiRes && datiRes.error ? datiRes.error : (datiRes && datiRes.status));
+    }
+
+    // 1) apply templating from dati.json (se presente)
+    if (datiJson) {
+      try {
+        processRepeats(document, datiJson);
+        bindAll(document, datiJson);
+      } catch (e) {
+        console.warn('Errore templating dati.json:', e);
+      }
+    }
+
+    // 2) apply dati.json direct DOM updates (social, contact, cards, orari)
+    if (datiJson) applyDatiToDOM(datiJson);
+
+    // 3) render Menu using menu.json (se presente)
+    (function renderMenuIfAvailable() {
+      const titleEl = document.getElementById('menuTitle');
+      const descEl = document.getElementById('menuDescription');
+      const selector = document.getElementById('menuDaySelector');
+      //const dayTitleEl = document.getElementById('menuDayTitle');
+      const tbody = document.getElementById('menuTableBody');
+
+      if (!titleEl || !descEl || !selector || !tbody) {//|| !dayTitleEl
+        // mancanti elementi: non facciamo nulla, ma non crashiamo
+        return;
+      }
+
+      if (!menuJson) {
+        tbody.innerHTML = `<tr><td class="py-4" colspan="2">Menu non disponibile.</td></tr>`;
+        return;
+      }
+
+      titleEl.textContent = menuJson.title || 'Menu';
+      descEl.textContent = menuJson.description || '';
+
+      const daysObj = (menuJson && menuJson.days && typeof menuJson.days === 'object') ? menuJson.days : {};
+      const canonicalOrder = ['lunedì','martedì','mercoledì','giovedì','venerdì','sabato','domenica'];
+      const daysArray = [];
+
+      for (const rawKey of Object.keys(daysObj)) {
+        const normalized = String(rawKey || '').trim().toLowerCase();
+        const entry = daysObj[rawKey] || {};
+        if (entry.enabled) {
+          daysArray.push({
+            key: normalized,
+            title: entry.title || '',
+            dishes: Array.isArray(entry.dishes) ? entry.dishes : [],
+            isToday: false
+          });
+        }
+      }
+
+      const today = getTodayItalianLower();
+      daysArray.forEach(d => { d.isToday = (d.key === today); });
+      daysArray.sort((a,b) => {
+        const ia = canonicalOrder.indexOf(a.key) >= 0 ? canonicalOrder.indexOf(a.key) : 99;
+        const ib = canonicalOrder.indexOf(b.key) >= 0 ? canonicalOrder.indexOf(b.key) : 99;
+        return ia - ib;
+      });
+
+      if (daysArray.length === 0) {
+        selector.innerHTML = '';
+        //dayTitleEl.textContent = '';
+        tbody.innerHTML = `<tr><td class="py-4" colspan="2">Nessun giorno del menu è abilitato al momento.</td></tr>`;
+        return;
+      }
+
+      const todayItem = daysArray.find(d => d.isToday);
+      const initial = todayItem ? todayItem.key : daysArray[0].key;
+
+      function onSelect(dayKey) {
+        const entry = daysArray.find(d => d.key === dayKey);
+        if (!entry) return;
+        //dayTitleEl.textContent = entry.title || capitalizeFirst(entry.key);
+        renderDishes(tbody, entry.dishes);
+
+        // aggiorna bottoni
+        Array.from(selector.children).forEach(btn => {
+          if (btn.dataset.day === dayKey) {
+            btn.classList.remove('border-stone-200','dark:border-stone-700','text-gray-700','dark:text-gray-300');
+            btn.classList.add('border-primary','text-primary');
+            btn.setAttribute('aria-selected','true');
+          } else {
+            btn.classList.remove('border-primary','text-primary');
+            btn.classList.add('border-stone-200','dark:border-stone-700','text-gray-700','dark:text-gray-300');
+            btn.setAttribute('aria-selected','false');
+          }
+        });
+      }
+
+      buildDaySelector(selector, daysArray, initial, onSelect);
+      onSelect(initial);
+
+      // --- POPOLA LE IMMAGINI DELLA SEZIONE "Il Ristorante" ---
+      // estrai immagini dal menu (solo da piatti presenti)
+      const images = extractImagesFromMenu(menuJson);
+      renderRestaurantImages(images);
+
+    })();
+
+  } catch (err) {
+    console.error('Errore nello unified script:', err);
+  }
+}
+)();
+</script>
 </body></html>

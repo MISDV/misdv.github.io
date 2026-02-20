@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Admin — Edit dati.json</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>body{font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;background:#f7fafc} .key-badge{background:#eef2ff;padding:.15rem .5rem;border-radius:.35rem;font-size:.85rem;color:#3730a3}</style>
+</head>
+<body class="p-6">
+  <div class="max-w-5xl mx-auto">
+    <h1 class="text-2xl font-bold mb-4">Admin — Editor <code>dati.json</code></h1>
+
+    <div class="mb-4 flex gap-2">
+      <button id="loginBtn" class="px-3 py-2 bg-blue-600 text-white rounded">Login con GitHub</button>
+      <button id="loadBtn" class="px-3 py-2 border rounded">Carica dati.json</button>
+      <button id="saveBtn" class="px-3 py-2 bg-green-600 text-white rounded">Salva dati.json</button>
+      <div id="status" class="ml-auto text-sm text-gray-600">Stato: non autenticato</div>
+    </div>
+
+    <div id="editor" class="bg-white p-4 rounded shadow max-h-[70vh] overflow:auto"></div>
+
+    <div class="mt-4 text-sm text-gray-500">Nota: il login apre un popup verso il server Vercel. Il token viene memorizzato solo in sessione (sessionStorage).</div>
+  </div>
+
+<script>
+/* Configura qui i tuoi valori (o sostituisci con variabili runtime) */
+const VERCEL_BASE = window.location.origin; // se upload su Vercel => stessa origine
+const OWNER = 'TUO_OWNER';
+const REPO = 'TUO_REPO';
+const BRANCH = 'main';
+const PATH = 'dati.json';
+
+const loginBtn = document.getElementById('loginBtn');
+const loadBtn = document.getElementById('loadBtn');
+const saveBtn = document.getElementById('saveBtn');
+const statusEl = document.getElementById('status');
+const editor = document.getElementById('editor');
+
+let appState = { dati: null, sha: null };
+
+function setStatus(s){ statusEl.textContent = 'Stato: ' + s; }
+function log(s){ console.log('[admin]', s); }
+
+/* --- OAuth login popup --- */
+loginBtn.addEventListener('click', ()=> {
+  const popup = window.open(`${VERCEL_BASE}/api/auth/login`, 'gh_oauth', 'width=600,height=700');
+  function onMsg(ev){
+    // in produzione verifica ev.origin === 'https://<tuo-progetto>.vercel.app'
+    if (!ev.data || ev.data.type !== 'github_token') return;
+    const token = ev.data.token;
+    sessionStorage.setItem('gh_token', token);
+    window.removeEventListener('message', onMsg);
+    setStatus('autenticato');
+    loadDati(); // optionally autoload
+  }
+  window.addEventListener('message', onMsg);
+});
+
+/* --- GitHub API helpers --- */
+async function getFileAPI(token) {
+  const url = `https://api.github.com/repos/${OWNER}/${REPO}/contents/${encodeURIComponent(PATH)}?ref=${encodeURIComponent(BRANCH)}`;
+  const res = await fetch(url, { headers: { Authorization: `token ${token}`, Accept: 'application/vnd.github+json' }, cache: 'no-store' });
+  if (!res.ok) throw new Error('GET failed: ' + res.status);
+  const j = await res.json();
+  const content = atob(j.content.replace(/\n/g,''));
+  return { content: JSON.parse(content), sha: j.sha };
+}
+
+async function putToGitHub(token, contentObj, sha=null) {
+  const url = `https://api.github.com/repos/${OWNER}/${REPO}/contents/${encodeURIComponent(PATH)}`;
+  const contentStr = JSON.stringify(contentObj, null, 2);
+  const body = {
+    message: `Update dati.json via admin ${new Date().toISOString()}`,
+    content: btoa(unescape(encodeURIComponent(contentStr))),
+    branch: BRANCH
+  };
+  if (sha) body.sha = sha;
+  const res = await fetch(url, {
+    method: 'PUT',
+    headers: { Authorization: `token ${token}`, Accept: 'application/vnd.github+json', 'Content-Type':'application/json' },
+    body: JSON.stringify(body),
+    cache: 'no-store'
+  });
+  const j = await res.json();
+  if (!res.ok) throw new Error('PUT failed: ' + JSON.stringify(j));
+  return j;
+}
+
+/* --- render editor (edit existing keys only) --- */
+function escapeHtml(s = '') {
+  return String(s).replace(/[&<>'"]/g, function (c) {
+    return {
+      '&': '&amp;',
+      '<': '&lt;',
+      '>': '&gt;',
+      '"': '&quot;',
+      "'": '&#39;'
+    }[c];
+  });
+}
+
+function createPrimitiveControl(value, path){
+  const wrapper = document.createElement('div'); wrapper.className = 'flex gap-2 items-center';
+  let input;
+  if (typeof value === 'boolean'){
+    input = document.createElement('input'); input.type='checkbox'; input.checked = !!value;
+    input.addEventListener('change', ()=> setValueAtPath(path, !!input.checked));
+  } else if (typeof value === 'number'){
+    input = document.createElement('input'); input.type='number'; input.step='any'; input.value = value;
+    input.className = 'p-1 border rounded flex-1';
+    input.addEventListener('input', ()=> setValueAtPath(path, input.value === '' ? null : Number(input.value)));
+  } else {
+    input = document.createElement('input'); input.type='text'; input.value = value === null || value === undefined ? '' : String(value);
+    input.className = 'p-1 border rounded flex-1';
+    input.addEventListener('input', ()=> setValueAtPath(path, input.value));
+  }
+  wrapper.appendChild(input);
+  return wrapper;
+}
+
+function renderNode(node, path=[], keyName='root'){
+  const container = document.createElement('div'); container.className = 'p-3 border rounded mb-2 bg-white';
+  const title = document.createElement('div'); title.className = 'flex items-center justify-between mb-2';
+  title.innerHTML = `<div class="key-badge">${escapeHtml(keyName)}</div><div class="text-xs text-gray-500">${Array.isArray(node)?'array':(node===null?'null':typeof node)}</div>`;
+  container.appendChild(title);
+
+  if (node === null || typeof node === 'string' || typeof node === 'number' || typeof node === 'boolean'){
+    container.appendChild(createPrimitiveControl(node, path));
+    return container;
+  }
+
+  if (Array.isArray(node)){
+    node.forEach((it, idx) => {
+      const box = document.createElement('div'); box.className='mb-2';
+      box.appendChild(renderNode(it, path.concat(idx), `[${idx}]`));
+      container.appendChild(box);
+    });
+    const hint = document.createElement('div'); hint.className='text-xs text-gray-500 mt-2'; hint.textContent = 'Modifica elementi esistenti. Non è permessa aggiunta/rimozione in questa pagina.';
+    container.appendChild(hint);
+    return container;
+  }
+
+  if (typeof node === 'object'){
+    Object.keys(node).forEach(k => {
+      container.appendChild(renderNode(node[k], path.concat(k), k));
+    });
+    const hint = document.createElement('div'); hint.className='text-xs text-gray-500 mt-2'; hint.textContent = 'Modifica proprietà esistenti. Non è permessa aggiunta/rimozione in questa pagina.';
+    container.appendChild(hint);
+    return container;
+  }
+
+  // fallback
+  container.appendChild(createPrimitiveControl(String(node), path));
+  return container;
+}
+
+function setValueAtPath(path, val){
+  let cur = appState.dati;
+  for (let i=0;i<path.length-1;i++){
+    if (cur[path[i]] === undefined) return;
+    cur = cur[path[i]];
+  }
+  cur[path[path.length-1]] = val;
+}
+
+/* render entire form */
+function renderEditor(){
+  editor.innerHTML = '';
+  if (!appState.dati) { editor.innerHTML = '<div class="text-gray-500">Nessun dati.json caricato.</div>'; return; }
+  const node = renderNode(appState.dati, [], 'dati.json');
+  editor.appendChild(node);
+}
+
+/* --- load / save actions --- */
+async function loadDati(){
+  try {
+    const token = sessionStorage.getItem('gh_token');
+    if (!token) { alert('Devi prima autenticarti'); setStatus('non autenticato'); return; }
+    setStatus('Caricamento...');
+    const meta = await getFileAPI(token);
+    appState.dati = meta.content;
+    appState.sha = meta.sha;
+    renderEditor();
+    setStatus('Dati caricati');
+  } catch (e) {
+    console.error(e); alert('Errore load: ' + e.message); setStatus('Errore caricamento');
+  }
+}
+
+async function safeSaveDati(maxAttempts=4){
+  try {
+    const token = sessionStorage.getItem('gh_token');
+    if (!token) { alert('Devi autenticarti'); return; }
+    setStatus('Salvataggio...');
+    let attempt = 0;
+    while (attempt < maxAttempts){
+      attempt++;
+      try {
+        // get latest sha (optional) — to be safe
+        let currentSha = null;
+        try {
+          const meta = await getFileAPI(token);
+          currentSha = meta.sha;
+        } catch(_) { currentSha = null; } // file may not exist
+        // optionally you can merge remote and local here (we overwrite)
+        const res = await putToGitHub(token, appState.dati, currentSha);
+        appState.sha = res.content.sha;
+        setStatus('Salvataggio completato');
+        alert('Salvataggio completato');
+        return;
+      } catch (err) {
+        const s = String(err).toLowerCase();
+        if (s.includes('409') || s.includes('conflict') || s.includes('sha')) {
+          console.warn('conflict, retry', attempt);
+          await new Promise(r=>setTimeout(r, 300*attempt));
+          continue;
+        }
+        throw err;
+      }
+    }
+    throw new Error('Impossibile salvare dopo tentativi');
+  } catch(e) {
+    console.error(e); alert('Errore save: ' + e.message); setStatus('Errore salvataggio');
+  }
+}
+
+loadBtn.addEventListener('click', ()=> loadDati());
+saveBtn.addEventListener('click', ()=> safeSaveDati());
+</script>
+</body>
+</html>

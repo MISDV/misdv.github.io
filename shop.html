@@ -1,9 +1,8 @@
 <!DOCTYPE html>
-
 <html lang="it"><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Lista Prodotti Rustica (V1) - I sapori dell'acqua viva</title>
+<title>Lista Prodotti - I sapori dell'acqua viva</title>
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
@@ -48,84 +47,57 @@
         }
     </style>
 </head>
-<body class="bg-background-light dark:bg-background-dark text-gray-800 dark:text-gray-100 font-display min-h-screen flex flex-col">
-<!-- Navbar -->
+<!--
+  Per collegare items.json dal repo GitHub: aggiungi sull'elemento <body>
+  l'attributo data-github-raw="https://raw.githubusercontent.com/USERNAME/REPO/BRANCH/items.json"
+  oppure assicurati che items.json si trovi nella stessa cartella e venga servito come ./items.json
+-->
+<body class="bg-background-light dark:bg-background-dark text-gray-800 dark:text-gray-100 font-display min-h-screen flex flex-col" data-github-raw="https://raw.githubusercontent.com/MISDV/misdv.github.io/chatV2/items.json">
+<!-- Navbar (cart e account rimossi) -->
 <nav class="sticky top-0 z-50 bg-white/90 dark:bg-[#2c2018]/90 backdrop-blur-md shadow-sm border-b border-primary/10">
 <div class="container mx-auto px-4 md:px-6 h-20 flex items-center justify-between">
 <!-- Logo -->
 <div class="flex items-center gap-2">
-<div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-white">
-<span class="material-icons">agriculture</span>
+<div class="w-10 h-10 rounded-full bg-primary/40 flex items-center justify-center text-white">
+<img src="logo.png" alt="logo Giuggioloni" class="w-8 h-8 object-contain">
 </div>
 <div class="flex flex-col">
-<span class="text-lg font-bold leading-none text-gray-900 dark:text-white">I Sapori</span>
-<span class="text-sm text-primary font-medium tracking-wide">dell'acqua viva</span>
+<span class="text-lg font-bold leading-none text-gray-900 dark:text-white">Giuggioloni</span>
+<span class="text-sm text-primary font-medium tracking-wide">I Sapori dell'acqua viva</span>
 </div>
 </div>
+
 <!-- Desktop Nav Links -->
 <div class="hidden md:flex items-center gap-8">
-<a class="text-gray-600 dark:text-gray-300 hover:text-primary transition-colors font-medium" href="#">Home</a>
+<a class="text-gray-600 dark:text-gray-300 hover:text-primary transition-colors font-medium" href="/">Home</a>
 <a class="text-primary font-bold transition-colors" href="#">La Bottega</a>
 <a class="text-gray-600 dark:text-gray-300 hover:text-primary transition-colors font-medium" href="#">L'Agriturismo</a>
 <a class="text-gray-600 dark:text-gray-300 hover:text-primary transition-colors font-medium" href="#">Contatti</a>
 </div>
-<!-- Actions -->
+
+<!-- (azioni rimosse: carrello, account) -->
 <div class="flex items-center gap-4">
-<button class="relative p-2 text-gray-600 dark:text-gray-300 hover:text-primary transition-colors">
-<span class="material-icons">shopping_basket</span>
-<span class="absolute top-1 right-0 w-4 h-4 bg-primary text-white text-[10px] flex items-center justify-center rounded-full font-bold">3</span>
-</button>
-<div class="w-10 h-10 rounded-full bg-gray-200 dark:bg-gray-700 overflow-hidden border-2 border-primary/20">
-<img alt="User profile" class="w-full h-full object-cover" data-alt="Portrait of a smiling man" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCn6gPgjHVkWoJSaEojKG05a_MWI_7rWshe7AKzDD1_RtqBPLX5mrMeQ0sVpG46uqvmDqQJltSVnl9Hx9V-iXxilVmTuKGjmwDqSEAIkOnmAaquiVr28mXixTvLKyXUQ3-DZOg8VUcpmWdiLuY1scoWcK8gEIbSONhX6ZLMIDoq9ISxkxYD3v1_Xe-adI9hxVT8C44t_cLTJcEx7k3Koa4X-vWz8fQGuufLc7uoaOFyHD3XyEl5XhK2Lvl6fNR8jfCzCfEtrPKH-n4"/>
-</div>
+<!-- spazio lasciato intenzionalmente vuoto per azioni future -->
 </div>
 </div>
 </nav>
+
 <!-- Main Content Area -->
 <main class="flex-grow container mx-auto px-4 md:px-6 py-8 flex gap-8">
 <!-- Sidebar Filters (Desktop) -->
 <aside class="hidden lg:block w-64 flex-shrink-0">
 <div class="sticky top-28 space-y-8">
-<!-- Categories -->
+<!-- Categories (popolate dinamicamente) -->
 <div class="bg-white dark:bg-[#2c2018] rounded-xl p-6 shadow-sm border border-primary/10">
 <h3 class="text-lg font-bold mb-4 flex items-center gap-2">
 <span class="material-icons text-primary text-xl">category</span> Categorie
                     </h3>
-<ul class="space-y-2">
+<ul id="categoriesList" class="space-y-2">
+<!-- elementi generati via JS -->
 <li>
-<a class="flex items-center justify-between p-2 rounded-lg bg-primary/10 text-primary font-medium" href="#">
+<a id="cat-all" class="flex items-center justify-between p-2 rounded-lg bg-primary/10 text-primary font-medium cursor-pointer" href="#">
 <span>Tutti i prodotti</span>
-<span class="text-xs bg-white dark:bg-primary/20 px-2 py-0.5 rounded-full">42</span>
-</a>
-</li>
-<li>
-<a class="flex items-center justify-between p-2 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-white/5 transition-colors" href="#">
-<span>Olio Extra Vergine</span>
-<span class="text-xs bg-gray-100 dark:bg-gray-700 px-2 py-0.5 rounded-full">8</span>
-</a>
-</li>
-<li>
-<a class="flex items-center justify-between p-2 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-white/5 transition-colors" href="#">
-<span>Confetture</span>
-<span class="text-xs bg-gray-100 dark:bg-gray-700 px-2 py-0.5 rounded-full">12</span>
-</a>
-</li>
-<li>
-<a class="flex items-center justify-between p-2 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-white/5 transition-colors" href="#">
-<span>Pasta Fresca</span>
-<span class="text-xs bg-gray-100 dark:bg-gray-700 px-2 py-0.5 rounded-full">6</span>
-</a>
-</li>
-<li>
-<a class="flex items-center justify-between p-2 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-white/5 transition-colors" href="#">
-<span>Sott'oli della Nonna</span>
-<span class="text-xs bg-gray-100 dark:bg-gray-700 px-2 py-0.5 rounded-full">10</span>
-</a>
-</li>
-<li>
-<a class="flex items-center justify-between p-2 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-white/5 transition-colors" href="#">
-<span>Vini Locali</span>
-<span class="text-xs bg-gray-100 dark:bg-gray-700 px-2 py-0.5 rounded-full">6</span>
+<span id="totalCount" class="text-xs bg-white dark:bg-primary/20 px-2 py-0.5 rounded-full">0</span>
 </a>
 </li>
 </ul>
@@ -137,39 +109,27 @@
                     </h3>
 <div class="mb-6">
 <h4 class="text-sm font-semibold text-gray-500 mb-3 uppercase tracking-wider">Prezzo</h4>
-<input class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-primary" type="range"/>
+<div class="flex items-center gap-3">
+<input id="priceMin" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-primary" type="range" min="0" max="100" value="0"/>
+</div>
 <div class="flex justify-between text-sm mt-2 text-gray-600 dark:text-gray-400">
-<span>€0</span>
-<span>€100</span>
+<span id="priceMinLabel">€0</span>
+<span id="priceMaxLabel">€100</span>
 </div>
 </div>
 <div>
-<h4 class="text-sm font-semibold text-gray-500 mb-3 uppercase tracking-wider">Dietary</h4>
-<div class="space-y-2">
-<label class="flex items-center space-x-3 cursor-pointer group">
-<input class="form-checkbox text-primary rounded border-gray-300 focus:ring-primary h-5 w-5 transition duration-150 ease-in-out" type="checkbox"/>
-<span class="text-gray-700 dark:text-gray-300 group-hover:text-primary transition-colors">Bio Organico</span>
-</label>
-<label class="flex items-center space-x-3 cursor-pointer group">
-<input class="form-checkbox text-primary rounded border-gray-300 focus:ring-primary h-5 w-5 transition duration-150 ease-in-out" type="checkbox"/>
-<span class="text-gray-700 dark:text-gray-300 group-hover:text-primary transition-colors">Senza Glutine</span>
-</label>
-<label class="flex items-center space-x-3 cursor-pointer group">
-<input class="form-checkbox text-primary rounded border-gray-300 focus:ring-primary h-5 w-5 transition duration-150 ease-in-out" type="checkbox"/>
-<span class="text-gray-700 dark:text-gray-300 group-hover:text-primary transition-colors">Vegano</span>
-</label>
+<h4 class="text-sm font-semibold text-gray-500 mb-3 uppercase tracking-wider">Tipologia</h4>
+<div id="typesList" class="space-y-2">
+<!-- tipi generati via JS -->
 </div>
 </div>
 </div>
-<!-- Banner Ad style -->
-<div class="relative overflow-hidden rounded-xl h-64 shadow-lg group">
-<img alt="Basket of fresh lemons" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="Close up of fresh yellow lemons in a rustic basket" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDccUo1lzwQogFJYojAvl3rP_4pj8ZDnTF1Rd4nNM8lQgnF1r3DHL8gC2K0pCah75sHW51frAtiUBpo0_kspveNTVdSP8MR_qHne1nZtErYdWBxHlj1Wb8GaRwlXtZc1KWth1ltjsee0gbicBJI6QSQFg6TMuCuuLhX7Lam42stTbREEwbyA0gK5DN98rzpadRWtUV85Va6-kaseZwnUjW4t5vvqeyThgJ9kqdNAYkZBStrX30hLyceaDlQ2Nae-lS3hDlvAIU9zG4"/>
+<!-- Banner semplice -->
+<div class="relative overflow-hidden rounded-xl h-44 shadow-lg group">
+<img alt="Basket of fresh lemons" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" src="https://images.unsplash.com/photo-1506806732259-39c2d0268443?auto=format&fit=crop&w=1200&q=60"/>
 <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent p-6 flex flex-col justify-end">
-<span class="text-white text-xs font-bold uppercase tracking-widest mb-1">Offerta Speciale</span>
-<h3 class="text-white text-xl font-bold mb-2">Cesto Regalo Stagionale</h3>
-<button class="bg-primary hover:bg-orange-600 text-white text-sm font-medium py-2 px-4 rounded-lg w-fit transition-colors">
-                            Scopri di più
-                        </button>
+<span class="text-white text-xs font-bold uppercase tracking-widest mb-1">Vieni a trovarci!</span>
+<h3 class="text-white text-lg font-bold mb-2">Prodotti serve freschi</h3>
 </div>
 </div>
 </div>
@@ -183,223 +143,32 @@
 <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
 <span class="material-icons text-gray-400">search</span>
 </div>
-<input class="block w-full pl-10 pr-3 py-3 border-gray-200 dark:border-gray-700 dark:bg-white/5 rounded-lg leading-5 bg-background-light dark:text-gray-100 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary sm:text-sm transition-shadow" placeholder="Cerca i nostri prodotti (es. miele, olio, pasta)..." type="text"/>
+<input id="searchInput" class="block w-full pl-10 pr-3 py-3 border-gray-200 dark:border-gray-700 dark:bg-white/5 rounded-lg leading-5 bg-background-light dark:text-gray-100 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary sm:text-sm transition-shadow" placeholder="Cerca i nostri prodotti (es. miele, olio, pasta)..." type="text"/>
 </div>
-<button class="w-full md:w-auto bg-primary hover:bg-orange-600 text-white px-8 py-3 rounded-lg font-bold shadow-lg shadow-primary/30 transition-all hover:-translate-y-0.5 active:translate-y-0 flex items-center justify-center gap-2">
+<button id="searchBtn" class="w-full md:w-auto bg-primary hover:bg-orange-600 text-white px-8 py-3 rounded-lg font-bold shadow-lg shadow-primary/30 transition-all hover:-translate-y-0.5 active:translate-y-0 flex items-center justify-center gap-2">
 <span>Cerca</span>
 </button>
 <div class="relative w-full md:w-48">
-<select class="block w-full pl-3 pr-10 py-3 text-base border-gray-200 dark:border-gray-700 dark:bg-white/5 dark:text-gray-200 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm rounded-lg cursor-pointer bg-background-light">
-<option>Più rilevanti</option>
-<option>Prezzo: Basso - Alto</option>
-<option>Prezzo: Alto - Basso</option>
-<option>Nuovi arrivi</option>
+<select id="sortSelect" class="block w-full pl-3 pr-10 py-3 text-base border-gray-200 dark:border-gray-700 dark:bg-white/5 dark:text-gray-200 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm rounded-lg cursor-pointer bg-background-light">
+<option value="relevant">Più rilevanti</option>
+<option value="price-asc">Prezzo: Basso - Alto</option>
+<option value="price-desc">Prezzo: Alto - Basso</option>
+<option value="newest">Nuovi arrivi</option>
 </select>
 </div>
 </div>
 </div>
-<!-- Products Grid -->
-<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-<!-- Product Card 1 -->
-<div class="bg-white dark:bg-[#2c2018] rounded-xl shadow-sm hover:shadow-xl hover:shadow-primary/10 border border-gray-100 dark:border-white/5 overflow-hidden group transition-all duration-300 flex flex-col h-full">
-<div class="relative h-56 overflow-hidden">
-<img alt="Olive Oil Bottle" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="Glass bottle of olive oil with olives nearby" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAyEixuBq7g3BCVEJVRNAVSOwB9oaHVATjhvzebwx3LTgkjMeZLfyqUAMLVlfc5GGoNwfey78dr8Yd3stDp7I3LFD8o7hgleVxu2eM_f8FzN78n87nDNAYkpLGvcsZy_2i85Wmb3eVpnWC-4IFWbBaQu6SNorhCZx-W4O4SCD1_IIGfvF9MUOaFfR1bOD_NrdSiP17--nrG_A-wwj-wrDilF4ONo9_qxTHY4XYWCh9pC3NzOf_NweKC3DLtXzMRbUy8iKJp7KvbioM"/>
-<div class="absolute top-3 left-3 bg-white/90 dark:bg-black/80 backdrop-blur-sm px-2 py-1 rounded-md text-xs font-bold text-primary shadow-sm flex items-center gap-1">
-<span class="material-icons text-[14px]">eco</span> BIO
-                        </div>
+<!-- Products Grid (render dinamico) -->
+<div id="productsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+<!-- cards generate via JS -->
 </div>
-<div class="p-5 flex flex-col flex-grow">
-<div class="flex items-start justify-between mb-2">
-<span class="text-xs text-gray-500 uppercase tracking-wide">Olio</span>
-<div class="flex text-yellow-400 text-xs">
-<span class="material-icons text-[16px]">star</span>
-<span class="material-icons text-[16px]">star</span>
-<span class="material-icons text-[16px]">star</span>
-<span class="material-icons text-[16px]">star</span>
-<span class="material-icons text-[16px]">star_border</span>
-</div>
-</div>
-<h3 class="text-xl font-bold text-gray-800 dark:text-gray-100 mb-2 leading-tight group-hover:text-primary transition-colors">Olio EVO Monocultivar</h3>
-<p class="text-gray-600 dark:text-gray-400 text-sm mb-4 line-clamp-2">Olio extravergine di oliva 100% italiano, estratto a freddo. Sapore intenso e fruttato.</p>
-<div class="mt-auto pt-4 border-t border-gray-100 dark:border-white/5 flex items-center justify-between">
-<div>
-<span class="block text-xs text-gray-400 line-through">€16.00</span>
-<span class="text-lg font-bold text-primary">€12.50</span>
-</div>
-<button class="bg-primary/10 hover:bg-primary text-primary hover:text-white p-2.5 rounded-lg transition-all duration-300 group/btn">
-<span class="material-icons group-hover/btn:hidden">add_shopping_cart</span>
-<span class="material-icons hidden group-hover/btn:block">check</span>
-</button>
-</div>
-</div>
-</div>
-<!-- Product Card 2 -->
-<div class="bg-white dark:bg-[#2c2018] rounded-xl shadow-sm hover:shadow-xl hover:shadow-primary/10 border border-gray-100 dark:border-white/5 overflow-hidden group transition-all duration-300 flex flex-col h-full">
-<div class="relative h-56 overflow-hidden">
-<img alt="Apricot Jam Jar" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="Jar of apricot jam on a wooden table" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDv1KdSxYP-6tJglVRlcb5a1a7mFsa7qHLWBe-kR0H7IBNeut1a_iaCvvWWRA0p8RTJChyHDKj3D71e60qacXWP7M_-ObC4qfQgkAGHU_YQtu2AJKXRTtFZG8lPnjQOeH1E7LKuTfb-cHlRDvNeSINy4fkBUXpNMXYYfXJEDYpJXj3VjQ46bRGfodT7WFp9k3IQsHG3vVj_pbxfUKnSUlTycvY_0-XrmNgYUhc92ccV5VwpAf-i_JWNTmBP4cYcYbjaEqfKPAVGzII"/>
-<div class="absolute top-3 left-3 bg-white/90 dark:bg-black/80 backdrop-blur-sm px-2 py-1 rounded-md text-xs font-bold text-primary shadow-sm flex items-center gap-1">
-<span class="material-icons text-[14px]">local_shipping</span> KM 0
-                        </div>
-</div>
-<div class="p-5 flex flex-col flex-grow">
-<div class="flex items-start justify-between mb-2">
-<span class="text-xs text-gray-500 uppercase tracking-wide">Confetture</span>
-<div class="flex text-yellow-400 text-xs">
-<span class="material-icons text-[16px]">star</span>
-<span class="material-icons text-[16px]">star</span>
-<span class="material-icons text-[16px]">star</span>
-<span class="material-icons text-[16px]">star</span>
-<span class="material-icons text-[16px]">star</span>
-</div>
-</div>
-<h3 class="text-xl font-bold text-gray-800 dark:text-gray-100 mb-2 leading-tight group-hover:text-primary transition-colors">Confettura di Albicocche</h3>
-<p class="text-gray-600 dark:text-gray-400 text-sm mb-4 line-clamp-2">Realizzata con albicocche del nostro frutteto, senza conservanti aggiunti. Solo frutta e zucchero.</p>
-<div class="mt-auto pt-4 border-t border-gray-100 dark:border-white/5 flex items-center justify-between">
-<div>
-<span class="text-lg font-bold text-primary">€6.50</span>
-</div>
-<button class="bg-primary/10 hover:bg-primary text-primary hover:text-white p-2.5 rounded-lg transition-all duration-300 group/btn">
-<span class="material-icons group-hover/btn:hidden">add_shopping_cart</span>
-<span class="material-icons hidden group-hover/btn:block">check</span>
-</button>
-</div>
-</div>
-</div>
-<!-- Product Card 3 -->
-<div class="bg-white dark:bg-[#2c2018] rounded-xl shadow-sm hover:shadow-xl hover:shadow-primary/10 border border-gray-100 dark:border-white/5 overflow-hidden group transition-all duration-300 flex flex-col h-full">
-<div class="relative h-56 overflow-hidden">
-<img alt="Fresh Pasta" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="Raw tagliatelle pasta nests on a floury surface" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA7neHXGJQaWJ6nA8IHYeLVPvYN1uZjLyIszkXToKL4lFvt97zwcQVTwQaPz1eFpKwb4_t7TP76jFSonGmd3EV2iO_wHGee2dKdF6ioXNCgjQCWWtrhHV5rvDQVQ3A05SpcIlZ8S6oVAnJ7tFPOoZeWHGSN6BkMjK5LcMskmaV2u8uwtNURDasXq7rAypTXqiQCHhLs2vSF8igFsoR_m75Fjo37PQd0hI2awYkCVSAt-Ps8eWlkXFRJmGCLws7xJhagFBKVDtLEd-k"/>
-</div>
-<div class="p-5 flex flex-col flex-grow">
-<div class="flex items-start justify-between mb-2">
-<span class="text-xs text-gray-500 uppercase tracking-wide">Pasta</span>
-<div class="flex text-yellow-400 text-xs">
-<span class="material-icons text-[16px]">star</span>
-<span class="material-icons text-[16px]">star</span>
-<span class="material-icons text-[16px]">star</span>
-<span class="material-icons text-[16px]">star</span>
-<span class="material-icons text-[16px]">star_half</span>
-</div>
-</div>
-<h3 class="text-xl font-bold text-gray-800 dark:text-gray-100 mb-2 leading-tight group-hover:text-primary transition-colors">Tagliatelle all'Uovo</h3>
-<p class="text-gray-600 dark:text-gray-400 text-sm mb-4 line-clamp-2">Pasta fresca fatta a mano come una volta, con uova fresche delle nostre galline ruspanti.</p>
-<div class="mt-auto pt-4 border-t border-gray-100 dark:border-white/5 flex items-center justify-between">
-<div>
-<span class="text-lg font-bold text-primary">€4.00</span>
-<span class="text-xs text-gray-500">/ 500g</span>
-</div>
-<button class="bg-primary/10 hover:bg-primary text-primary hover:text-white p-2.5 rounded-lg transition-all duration-300 group/btn">
-<span class="material-icons group-hover/btn:hidden">add_shopping_cart</span>
-<span class="material-icons hidden group-hover/btn:block">check</span>
-</button>
-</div>
-</div>
-</div>
-<!-- Product Card 4 -->
-<div class="bg-white dark:bg-[#2c2018] rounded-xl shadow-sm hover:shadow-xl hover:shadow-primary/10 border border-gray-100 dark:border-white/5 overflow-hidden group transition-all duration-300 flex flex-col h-full">
-<div class="relative h-56 overflow-hidden">
-<img alt="Jar of Pickles" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="Glass jar of preserved artichokes in oil" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDjUPcVXRhgZW46OBm5K1cNH3AFrMyT6UUDzEjz4RZBPvhdI3X4fk1jSvLVN4JIJsqVwHPnw-wWWQHfYw8GlcFdIMI74UX6kDBEQbiTw1ETXpfHdB0I9xFbwflF3Fn7gC5pBJIbYd98TR3_g4O6uW0Plg4UcM2MnMuamm316paNQNqxl7w_S153SfXnVToT4dT9HTQt0rdlL-J7AWNh0PadfYq-x8b1Ki7NVZfVBiaV326tAu7BsixzvqmIEkoKr_Y1VnuQv0BFazU"/>
-<div class="absolute top-3 left-3 bg-white/90 dark:bg-black/80 backdrop-blur-sm px-2 py-1 rounded-md text-xs font-bold text-primary shadow-sm flex items-center gap-1">
-<span class="material-icons text-[14px]">local_fire_department</span> Novità
-                        </div>
-</div>
-<div class="p-5 flex flex-col flex-grow">
-<div class="flex items-start justify-between mb-2">
-<span class="text-xs text-gray-500 uppercase tracking-wide">Sott'oli</span>
-<div class="flex text-yellow-400 text-xs">
-<span class="material-icons text-[16px]">star</span>
-<span class="material-icons text-[16px]">star</span>
-<span class="material-icons text-[16px]">star</span>
-<span class="material-icons text-[16px]">star</span>
-<span class="material-icons text-[16px]">star</span>
-</div>
-</div>
-<h3 class="text-xl font-bold text-gray-800 dark:text-gray-100 mb-2 leading-tight group-hover:text-primary transition-colors">Carciofini Sott'olio</h3>
-<p class="text-gray-600 dark:text-gray-400 text-sm mb-4 line-clamp-2">Carciofini teneri conservati in olio extravergine di oliva e spezie aromatiche locali.</p>
-<div class="mt-auto pt-4 border-t border-gray-100 dark:border-white/5 flex items-center justify-between">
-<div>
-<span class="text-lg font-bold text-primary">€8.50</span>
-</div>
-<button class="bg-primary/10 hover:bg-primary text-primary hover:text-white p-2.5 rounded-lg transition-all duration-300 group/btn">
-<span class="material-icons group-hover/btn:hidden">add_shopping_cart</span>
-<span class="material-icons hidden group-hover/btn:block">check</span>
-</button>
-</div>
-</div>
-</div>
-<!-- Product Card 5 -->
-<div class="bg-white dark:bg-[#2c2018] rounded-xl shadow-sm hover:shadow-xl hover:shadow-primary/10 border border-gray-100 dark:border-white/5 overflow-hidden group transition-all duration-300 flex flex-col h-full">
-<div class="relative h-56 overflow-hidden">
-<img alt="Honey Jar" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="Jar of golden honey with honeycomb piece next to it" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDwT2TXFbjtxpqfM3gFHlXTP2G47w2kbtXVy5DvBCyDh2iG_ryQjnCaEu5eLIvmFV2EPKdkjnOjnCFOyoqI1XqN-he7D_refdpgtFbw3zh93I3OcHyVw8mX57YEAwzUPoMmz5rO1Iw_rm5aza94AccHnLHrQ5LXhano12iUlBRvJbaKzH7I2eH5nW0oJ2tKJBF5GXDcbctKJwDu7YzRssyV41NCxXUDJBb4vEJCS2weCEEn3FxM8Zk_g684o2zUoNqFaCW6tmoUa5M"/>
-</div>
-<div class="p-5 flex flex-col flex-grow">
-<div class="flex items-start justify-between mb-2">
-<span class="text-xs text-gray-500 uppercase tracking-wide">Miele</span>
-<div class="flex text-yellow-400 text-xs">
-<span class="material-icons text-[16px]">star</span>
-<span class="material-icons text-[16px]">star</span>
-<span class="material-icons text-[16px]">star</span>
-<span class="material-icons text-[16px]">star</span>
-<span class="material-icons text-[16px]">star</span>
-</div>
-</div>
-<h3 class="text-xl font-bold text-gray-800 dark:text-gray-100 mb-2 leading-tight group-hover:text-primary transition-colors">Miele di Acacia</h3>
-<p class="text-gray-600 dark:text-gray-400 text-sm mb-4 line-clamp-2">Miele puro di acacia, dal colore chiaro e sapore delicato. Perfetto per dolci e formaggi.</p>
-<div class="mt-auto pt-4 border-t border-gray-100 dark:border-white/5 flex items-center justify-between">
-<div>
-<span class="text-lg font-bold text-primary">€9.00</span>
-</div>
-<button class="bg-primary/10 hover:bg-primary text-primary hover:text-white p-2.5 rounded-lg transition-all duration-300 group/btn">
-<span class="material-icons group-hover/btn:hidden">add_shopping_cart</span>
-<span class="material-icons hidden group-hover/btn:block">check</span>
-</button>
-</div>
-</div>
-</div>
-<!-- Product Card 6 -->
-<div class="bg-white dark:bg-[#2c2018] rounded-xl shadow-sm hover:shadow-xl hover:shadow-primary/10 border border-gray-100 dark:border-white/5 overflow-hidden group transition-all duration-300 flex flex-col h-full">
-<div class="relative h-56 overflow-hidden">
-<img alt="Red Wine Bottle" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="Two glasses of red wine and a bottle in a vineyard setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBWvmtSMbnAFh_jH18BTif-PoHWqxd5n-sv3X7Pbjd29Ydpa7t2g3pF1lar9vXS9SZRLu4_CMkEdBsuktwRVMzOjzTEPowcdG0OZVr8RF2hPv3rFDo2ztuzHnTAa5XF5hLUW1ev2VFlR21KiWzlTAyBi1_xl3G5OfjtAl2eqlR7yuUH55pK7pCs01tKsw__iz0nvMCpnd48-OzeLM8yk55AVN4GPQ4NFJORzskbYrXRrnuddevJsu7B_zJ3-LQxs86U9aVCaGPGWkU"/>
-<div class="absolute top-3 left-3 bg-white/90 dark:bg-black/80 backdrop-blur-sm px-2 py-1 rounded-md text-xs font-bold text-primary shadow-sm flex items-center gap-1">
-<span class="material-icons text-[14px]">wine_bar</span> DOC
-                        </div>
-</div>
-<div class="p-5 flex flex-col flex-grow">
-<div class="flex items-start justify-between mb-2">
-<span class="text-xs text-gray-500 uppercase tracking-wide">Vini</span>
-<div class="flex text-yellow-400 text-xs">
-<span class="material-icons text-[16px]">star</span>
-<span class="material-icons text-[16px]">star</span>
-<span class="material-icons text-[16px]">star</span>
-<span class="material-icons text-[16px]">star</span>
-<span class="material-icons text-[16px]">star_border</span>
-</div>
-</div>
-<h3 class="text-xl font-bold text-gray-800 dark:text-gray-100 mb-2 leading-tight group-hover:text-primary transition-colors">Rosso Piceno Superiore</h3>
-<p class="text-gray-600 dark:text-gray-400 text-sm mb-4 line-clamp-2">Vino rosso corposo, invecchiato in botti di rovere. Note di ciliegia e spezie.</p>
-<div class="mt-auto pt-4 border-t border-gray-100 dark:border-white/5 flex items-center justify-between">
-<div>
-<span class="text-lg font-bold text-primary">€14.00</span>
-</div>
-<button class="bg-primary/10 hover:bg-primary text-primary hover:text-white p-2.5 rounded-lg transition-all duration-300 group/btn">
-<span class="material-icons group-hover/btn:hidden">add_shopping_cart</span>
-<span class="material-icons hidden group-hover/btn:block">check</span>
-</button>
-</div>
-</div>
-</div>
-</div>
-<!-- Pagination -->
+<!-- Pagination placeholder (non implementata) -->
 <div class="mt-12 flex justify-center">
-<nav class="flex items-center space-x-2">
-<button class="p-2 rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-white/5 text-gray-500 dark:text-gray-400 disabled:opacity-50">
+<nav class="flex items-center space-x-2" aria-label="Paginazione">
+<button id="prevPage" class="p-2 rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-white/5 text-gray-500 dark:text-gray-400 disabled:opacity-50" disabled>
 <span class="material-icons">chevron_left</span>
 </button>
-<button class="px-4 py-2 rounded-lg bg-primary text-white font-medium">1</button>
-<button class="px-4 py-2 rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-white/5 text-gray-600 dark:text-gray-300 font-medium">2</button>
-<button class="px-4 py-2 rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-white/5 text-gray-600 dark:text-gray-300 font-medium">3</button>
-<span class="text-gray-400">...</span>
-<button class="p-2 rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-white/5 text-gray-500 dark:text-gray-400">
+<button id="nextPage" class="p-2 rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-white/5 text-gray-500 dark:text-gray-400"> 
 <span class="material-icons">chevron_right</span>
 </button>
 </nav>
@@ -411,36 +180,38 @@
 <div class="container mx-auto px-4 md:px-6">
 <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
 <div class="col-span-1 md:col-span-1">
-<div class="flex items-center gap-2 mb-4">
-<div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-white">
-<span class="material-icons text-sm">agriculture</span>
+<!-- Logo -->
+<div class="flex items-center gap-2">
+<div class="w-10 h-10 rounded-full bg-primary/40 flex items-center justify-center text-white">
+<img src="logo.png" alt="logo Giuggioloni" class="w-8 h-8 object-contain">
 </div>
-<span class="text-lg font-bold text-gray-900 dark:text-white">I Sapori dell'acqua viva</span>
+<div class="flex flex-col">
+<span class="text-lg font-bold leading-none text-gray-900 dark:text-white">Giuggioloni</span>
+<span class="text-sm text-primary font-medium tracking-wide">I Sapori dell'acqua viva</span>
 </div>
-<p class="text-gray-600 dark:text-gray-400 text-sm mb-4">
-                        Portiamo i sapori autentici delle Marche direttamente sulla tua tavola. Prodotti genuini, fatti con amore.
-                    </p>
+</div>
+<p class="text-gray-600 dark:text-gray-400 text-sm mb-4" id="descrizione" data-bind="shop.descrizione">Portiamo i sapori autentici delle Marche direttamente sulla tua tavola. Prodotti genuini, fatti con amore.</p>
 </div>
 <div>
 <h4 class="font-bold text-gray-900 dark:text-white mb-4 uppercase text-sm tracking-wider">Link Rapidi</h4>
 <ul class="space-y-2 text-sm text-gray-600 dark:text-gray-400">
-<li><a class="hover:text-primary" href="#">Chi Siamo</a></li>
-<li><a class="hover:text-primary" href="#">Il Nostro Agriturismo</a></li>
-<li><a class="hover:text-primary" href="#">Blog &amp; Ricette</a></li>
-<li><a class="hover:text-primary" href="#">Spedizioni</a></li>
+<li><a class="hover:text-primary" href="/">Home</a></li>
+<li><a class="hover:text-primary" href="storia.html">La Nostra Storia</a></li>
+<li><a class="hover:text-primary" href="piatti.html">I Nostri Piatti</a></li>
 </ul>
 </div>
 <div>
 <h4 class="font-bold text-gray-900 dark:text-white mb-4 uppercase text-sm tracking-wider">Contatti</h4>
 <ul class="space-y-2 text-sm text-gray-600 dark:text-gray-400">
-<li class="flex items-center gap-2"><span class="material-icons text-primary text-sm">location_on</span> Via delle Colline 42, Marche</li>
-<li class="flex items-center gap-2"><span class="material-icons text-primary text-sm">phone</span> +39 0733 123456</li>
-<li class="flex items-center gap-2"><span class="material-icons text-primary text-sm">email</span> info@isaporidellacquaviva.it</li>
+<li class="flex items-center gap-1"><span class="material-icons text-primary text-sm">location_on</span><p id="indirizzo" data-bind="contatto.via"></p>,<p id="comune" data-bind="contatto.comune"></p></li>
+<li class="flex items-center gap-2"><span class="material-icons text-primary text-sm">phone</span><span data-bind="contatto.numeri_telefono.0"></span></li>
+<li class="flex items-center gap-2"><span class="material-icons text-primary text-sm">phone</span><span data-bind="contatto.numeri_telefono.1"></span></li>
+<li class="flex items-center gap-2"><span class="material-icons text-primary text-sm">email</span><p id="mail" data-bind="contatto.mail"></p></li>
 </ul>
 </div>
 <div>
-<h4 class="font-bold text-gray-900 dark:text-white mb-4 uppercase text-sm tracking-wider">Newsletter</h4>
-<p class="text-gray-600 dark:text-gray-400 text-sm mb-4">Iscriviti per ricevere offerte esclusive.</p>
+<h4 class="font-bold text-gray-900 dark:text-white mb-4 uppercase text-sm tracking-wider"><p id="frase1" data-bind="shop.frase1">VUOI VEDERE I NOSTRI PRODOTTI?</p></h4>
+<p id="frase2" data-bind="shop.frase2" class="text-gray-600 dark:text-gray-400 text-sm mb-4">Vieni a trovarci!</p>
 <div class="flex gap-2">
 <input class="w-full px-3 py-2 bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-gray-700 rounded-lg text-sm focus:outline-none focus:ring-1 focus:ring-primary" placeholder="La tua email" type="email"/>
 <button class="bg-primary hover:bg-orange-600 text-white p-2 rounded-lg transition-colors">
@@ -450,7 +221,7 @@
 </div>
 </div>
 <div class="border-t border-gray-100 dark:border-white/5 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-gray-500">
-<p>© 2023 I Sapori dell'acqua viva. Tutti i diritti riservati.</p>
+<p>© 2026 I Sapori dell'acqua viva. Tutti i diritti riservati.</p>
 <div class="flex gap-4 mt-4 md:mt-0">
 <a class="hover:text-primary" href="#">Privacy</a>
 <a class="hover:text-primary" href="#">Termini</a>
@@ -458,4 +229,503 @@
 </div>
 </div>
 </footer>
+<!-- Script: fetch items.json, render prodotti, filtri, ricerca -->
+<script>
+// Config: tenta prima ./items.json, poi l'URL raw GitHub impostato su <body data-github-raw>
+const localPath = './items.json';
+const githubRaw = document.body.dataset.githubRaw && document.body.dataset.githubRaw.trim() !== '' ? document.body.dataset.githubRaw.trim() : null;
+const fallbackSample = [
+    {"titolo":"Olio EVO Monocultivar","immagine":"https://images.unsplash.com/photo-1512428559087-560fa5ceab42?auto=format&fit=crop&w=800&q=60","categoria":"Olio Extra Vergine","tipologia":"Olio","prezzo":16.00,"prezzo_scontato":12.50},
+    {"titolo":"Confettura di Albicocche","immagine":"https://images.unsplash.com/photo-1565895405198-3b7f6c1f6b5f?auto=format&fit=crop&w=800&q=60","categoria":"Confetture","tipologia":"Confettura","prezzo":6.5},
+    {"titolo":"Tagliatelle all'Uovo","immagine":"https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=800&q=60","categoria":"Pasta Fresca","tipologia":"Pasta","prezzo":4.0}
+];
+
+let allItems = [];
+let filteredItems = [];
+let categories = new Set();
+let types = new Set();
+let currentCategory = null;
+let currentTypeFilters = new Set();
+let currentSearch = '';
+let currentSort = 'relevant';
+let maxPrice = 100;
+
+const productsGrid = document.getElementById('productsGrid');
+const categoriesList = document.getElementById('categoriesList');
+
+const catAll = document.getElementById('cat-all');
+
+const typesList = document.getElementById('typesList');
+const totalCount = document.getElementById('totalCount');
+const priceMin = document.getElementById('priceMin');
+const priceMinLabel = document.getElementById('priceMinLabel');
+const priceMaxLabel = document.getElementById('priceMaxLabel');
+const searchInput = document.getElementById('searchInput');
+const searchBtn = document.getElementById('searchBtn');
+const sortSelect = document.getElementById('sortSelect');
+
+async function fetchItems() {
+    const sources = [];
+    sources.push(localPath);
+    if (githubRaw) sources.push(githubRaw);
+
+    for (const src of sources) {
+        try {
+            const res = await fetch(src);
+            if (!res.ok) throw new Error('HTTP ' + res.status);
+            const data = await res.json();
+            if (Array.isArray(data)) return data;
+            // support { items: [...] }
+            if (data && Array.isArray(data.items)) return data.items;
+        } catch (e) {
+            // continua a provare altre fonti
+            console.warn('Impossibile caricare', src, e.message);
+        }
+    }
+    // fallback
+    console.warn('Nessun items.json trovato: uso esempi di fallback');
+    return fallbackSample;
+}
+
+function normalize(item) {
+    return {
+        titolo: item.titolo || item.title || 'Senza titolo',
+        immagine: item.immagine || item.image || item.img || '',
+        categoria: item.categoria || item.category || 'Altro',
+        tipologia: item.tipologia || item.type || item.tip || 'Generico',
+        prezzo: Number(item.prezzo ?? item.price ?? 0),
+        prezzo_scontato: item.prezzo_scontato !== undefined ? Number(item.prezzo_scontato) : (item.discountedPrice !== undefined ? Number(item.discountedPrice) : null),
+        rating: item.rating !== undefined ? Number(item.rating) : null,
+        nuovo: !!item.nuovo
+    };
+}
+
+function buildUI(items) {
+    // reset
+    categories.clear();
+    types.clear();
+
+    items.forEach(i => {
+        const n = normalize(i);
+        categories.add(n.categoria);
+        types.add(n.tipologia);
+    });
+
+    // popola categoriesList
+    // rimuovi tutti tranne "Tutti i prodotti"
+    categoriesList.querySelectorAll('.cat-item')?.forEach(n => n.remove());
+    categories.forEach(cat => {
+        const li = document.createElement('li');
+        li.className = 'cat-item';
+        li.innerHTML = `<a class="flex items-center justify-between p-2 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-white/5 transition-colors cursor-pointer" data-cat="${escapeHtml(cat)}"><span>${escapeHtml(cat)}</span><span class="text-xs bg-gray-100 dark:bg-gray-700 px-2 py-0.5 rounded-full">0</span></a>`;
+        categoriesList.appendChild(li);
+    });
+
+    // popola typesList (checkboxes)
+    typesList.innerHTML = '';
+    Array.from(types).sort().forEach(t => {
+        const id = 'type-' + slugify(t);
+        const label = document.createElement('label');
+        label.className = 'flex items-center space-x-3 cursor-pointer group';
+        label.innerHTML = `<input id="${id}" data-type="${escapeHtml(t)}" class="form-checkbox text-primary rounded border-gray-300 focus:ring-primary h-5 w-5 transition duration-150 ease-in-out" type="checkbox"/><span class="text-gray-700 dark:text-gray-300 group-hover:text-primary transition-colors">${escapeHtml(t)}</span>`;
+        typesList.appendChild(label);
+    });
+
+    // set price range
+    const prices = items.map(i => normalize(i).prezzo_scontato ?? normalize(i).prezzo).filter(p => !isNaN(p) && p !== null);
+    const max = prices.length ? Math.ceil(Math.max(...prices)) : 100;
+    maxPrice = max;
+    priceMin.min = 0;
+    priceMin.max = max;
+    priceMin.value = max;
+    priceMinLabel.textContent = '€0';
+    priceMaxLabel.textContent = `€${max}`;
+
+    // update total count
+    totalCount.textContent = items.length;
+
+    // attach listeners
+    attachListeners();
+}
+
+function attachListeners() {
+  // classi riutilizzate
+  const CAT_ACTIVE = ['bg-primary/10','text-primary','font-medium'];
+  const CAT_INACTIVE = ['text-gray-600','dark:text-gray-300','hover:bg-gray-50','dark:hover:bg-white/5','transition-colors','cursor-pointer'];
+  const CATALL_ACTIVE = ['flex','items-center','justify-between','p-2','rounded-lg','bg-primary/10','text-primary','font-medium','cursor-pointer'];
+  const CATALL_INACTIVE = ['flex','items-center','justify-between','p-2','rounded-lg','text-gray-600','dark:text-gray-300','hover:bg-gray-50','dark:hover:bg-white/5','transition-colors','cursor-pointer'];
+  const TOTAL_ACTIVE = ['text-xs','bg-white','dark:bg-primary/20','px-2','py-0.5','rounded-full'];
+  const TOTAL_INACTIVE = ['text-xs','bg-gray-100','dark:bg-gray-700','px-2','py-0.5','rounded-full'];
+
+  function removeClasses(el, classes) {
+    if (!el) return;
+    classes.forEach(c => el.classList.remove(c));
+  }
+  function addClasses(el, classes) {
+    if (!el) return;
+    classes.forEach(c => el.classList.add(c));
+  }
+
+  function deselectAllCategoriesUI() {
+    const items = categoriesList.querySelectorAll('[data-cat]');
+    items.forEach(x => {
+      removeClasses(x, CAT_ACTIVE);
+      addClasses(x, CAT_INACTIVE);
+    });
+  }
+
+  function setCatAllActiveUI() {
+    if (!catAll) return;
+    removeClasses(catAll, CATALL_INACTIVE);
+    addClasses(catAll, CATALL_ACTIVE);
+    removeClasses(totalCount, TOTAL_INACTIVE);
+    addClasses(totalCount, TOTAL_ACTIVE);
+    // deseleziona le categorie singole
+    deselectAllCategoriesUI();
+  }
+
+  function setCatAllInactiveUI() {
+    if (!catAll) return;
+    removeClasses(catAll, CATALL_ACTIVE);
+    addClasses(catAll, CATALL_INACTIVE);
+    removeClasses(totalCount, TOTAL_ACTIVE);
+    addClasses(totalCount, TOTAL_INACTIVE);
+  }
+
+  function setCategoryActiveUI(catKey) {
+    // disattiva catAll
+    setCatAllInactiveUI();
+    // togli selezioni e attiva quella richiesta
+    deselectAllCategoriesUI();
+    const sel = categoriesList.querySelector(`[data-cat="${cssEscape(catKey)}"]`);
+    if (sel) {
+      removeClasses(sel, CAT_INACTIVE);
+      addClasses(sel, CAT_ACTIVE);
+    }
+  }
+
+  // Assicuriamoci che ci sia una categoria iniziale: 'cat-all' per default (mostra tutti i prodotti)
+  if (!currentCategory) currentCategory = 'cat-all';
+  // Aggiorna UI iniziale
+  if (currentCategory === 'cat-all') {
+    setCatAllActiveUI();
+  } else {
+    setCategoryActiveUI(currentCategory);
+  }
+
+  // Gestore "Tutti i prodotti" — NON è toggle: clicca -> imposta cat-all (mostra tutti)
+  if (catAll) {
+    catAll.addEventListener('click', (e) => {
+      if (currentCategory !== 'cat-all') {
+        currentCategory = 'cat-all';
+        setCatAllActiveUI();
+        applyFilters();
+      }
+      // se era già 'cat-all' non facciamo nulla (rimane attivo e mostra tutto)
+    });
+  }
+
+  // Gestore per le singole categorie
+  categoriesList.querySelectorAll('[data-cat]').forEach(a => {
+    a.addEventListener('click', (e) => {
+      e.preventDefault && e.preventDefault();
+      const cat = e.currentTarget.dataset.cat;
+      if (!cat) return;
+
+      // se l'utente clicca la stessa categoria già selezionata => la deselezioniamo e torniamo a 'cat-all'
+      if (currentCategory === cat) {
+        currentCategory = 'cat-all';
+        setCatAllActiveUI();
+        applyFilters();
+        return;
+      }
+
+      // altrimenti selezioniamo la nuova categoria e disattiviamo 'cat-all'
+      currentCategory = cat;
+      setCategoryActiveUI(cat);
+      applyFilters();
+    });
+  });
+
+  // type checkboxes
+  typesList.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+    cb.addEventListener('change', (e) => {
+      const t = e.currentTarget.dataset.type;
+      if (e.currentTarget.checked) currentTypeFilters.add(t); else currentTypeFilters.delete(t);
+      applyFilters();
+    });
+  });
+
+  // price range
+  priceMin.addEventListener('input', (e) => {
+    const v = Number(e.currentTarget.value);
+    priceMaxLabel.textContent = `€${v}`;
+    applyFilters();
+  });
+
+  // search
+  searchBtn.addEventListener('click', () => {
+    currentSearch = searchInput.value.trim().toLowerCase();
+    applyFilters();
+  });
+  searchInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+      currentSearch = searchInput.value.trim().toLowerCase();
+      applyFilters();
+    }
+  });
+
+  // sort
+  sortSelect.addEventListener('change', (e) => {
+    currentSort = e.currentTarget.value;
+    applyFilters();
+  });
+}
+
+function applyFilters() {
+  const maxP = Number(priceMin.value);
+  const hasMax = !isNaN(maxP);
+
+  // mappiamo tutti gli elementi con la loro versione normalizzata per non ricalcolare normalize() troppe volte
+  const mapped = allItems.map(it => ({ it, n: normalize(it) }));
+
+  // filtri
+  const filteredMapped = mapped.filter(({ it, n }) => {
+    // price filter (uses prezzo_scontato if present)
+    const price = (n.prezzo_scontato !== null && !isNaN(n.prezzo_scontato)) ? n.prezzo_scontato : n.prezzo;
+    if (hasMax && (isNaN(price) || price > maxP)) return false;
+
+    // category: considera 'cat-all' come "nessun filtro"
+    if (currentCategory && currentCategory !== 'cat-all' && n.categoria !== currentCategory) return false;
+
+    // types
+    if (currentTypeFilters.size > 0 && !currentTypeFilters.has(n.tipologia)) return false;
+
+    // search
+    if (currentSearch) {
+      const hay = `${n.titolo || ''} ${n.categoria || ''} ${n.tipologia || ''}`.toLowerCase();
+      if (!hay.includes(currentSearch)) return false;
+    }
+
+    return true;
+  });
+
+  // sorting (usando i valori già normalizzati)
+  if (currentSort === 'price-asc') {
+    filteredMapped.sort((a, b) => {
+      const pa = (a.n.prezzo_scontato ?? a.n.prezzo) || 0;
+      const pb = (b.n.prezzo_scontato ?? b.n.prezzo) || 0;
+      return pa - pb;
+    });
+  } else if (currentSort === 'price-desc') {
+    filteredMapped.sort((a, b) => {
+      const pa = (a.n.prezzo_scontato ?? a.n.prezzo) || 0;
+      const pb = (b.n.prezzo_scontato ?? b.n.prezzo) || 0;
+      return pb - pa;
+    });
+  } else if (currentSort === 'newest') {
+    // se hai created_at / data, ordina qui; altrimenti lascia l'ordine originale
+  }
+
+  // ricava gli items finali e renderizza
+  filteredItems = filteredMapped.map(x => x.it);
+
+  renderProducts(filteredItems);
+  updateCategoryCounts();
+}
+
+function renderProducts(items) {
+    productsGrid.innerHTML = '';
+    if (!items.length) {
+        productsGrid.innerHTML = `<div class="col-span-1 sm:col-span-2 lg:col-span-3 p-8 text-center text-gray-500">Nessun prodotto trovato.</div>`;
+        return;
+    }
+
+    items.forEach(item => {
+        const n = normalize(item);
+        const priceHtml = (n.prezzo_scontato !== null && n.prezzo_scontato < n.prezzo) ? `
+            <span class="block text-xs text-gray-400 line-through">€${n.prezzo.toFixed(2)}</span>
+            <span class="text-lg font-bold text-primary">€${n.prezzo_scontato.toFixed(2)}</span>
+        ` : `<span class="text-lg font-bold text-primary">€${n.prezzo.toFixed(2)}</span>`;
+
+        // mostra rating SOLO se presente ("solo in presenza")
+        const ratingHtml = (n.rating !== null && !isNaN(n.rating)) ? `<div class="flex text-yellow-400 text-xs" aria-hidden="true">${renderStars(n.rating)}</div>` : '';
+
+        const card = document.createElement('div');
+        card.className = 'bg-white dark:bg-[#2c2018] rounded-xl shadow-sm hover:shadow-xl hover:shadow-primary/10 border border-gray-100 dark:border-white/5 overflow-hidden group transition-all duration-300 flex flex-col h-full';
+        card.innerHTML = `
+            <div class="relative h-56 overflow-hidden">
+                <img alt="${escapeHtml(n.titolo)}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy" src="${escapeHtml(n.immagine)}"/>
+            </div>
+            <div class="p-5 flex flex-col flex-grow">
+                <div class="flex items-start justify-between mb-2">
+                    <span class="text-xs text-gray-500 uppercase tracking-wide">${escapeHtml(n.categoria)}</span>
+                    ${ratingHtml}
+                </div>
+                <h3 class="text-xl font-bold text-gray-800 dark:text-gray-100 mb-2 leading-tight group-hover:text-primary transition-colors">${escapeHtml(n.titolo)}</h3>
+                <p class="text-gray-600 dark:text-gray-400 text-sm mb-4 line-clamp-2">${escapeHtml(n.tipologia)}</p>
+                <div class="mt-auto pt-4 border-t border-gray-100 dark:border-white/5 flex items-center justify-between">
+                    <div>${priceHtml}</div>
+                    <!-- Aggiungi al carrello rimosso poiché non si effettua vendita online -->
+                </div>
+            </div>
+        `;
+
+        productsGrid.appendChild(card);
+    });
+}
+
+function updateCategoryCounts() {
+    const counts = {};
+    allItems.forEach(i => {
+        const n = normalize(i);
+        counts[n.categoria] = (counts[n.categoria] || 0) + 1;
+    });
+    categoriesList.querySelectorAll('[data-cat]').forEach(a => {
+        const cat = a.dataset.cat;
+        const badge = a.querySelector('span:last-child');
+        if (badge) badge.textContent = counts[cat] || 0;
+    });
+}
+
+function renderStars(rating) {
+    const full = Math.floor(rating);
+    const half = rating - full >= 0.5 ? 1 : 0;
+    const empty = 5 - full - half;
+    return ' '.repeat(0) + ' '.repeat(0) + '<span class="sr-only">Valutazione ' + rating + ' su 5</span>' + Array.from({length:full}).map(()=>'<span class="material-icons text-[16px]">star</span>').join('') + (half?'<span class="material-icons text-[16px]">star_half</span>':'') + Array.from({length:empty}).map(()=>'<span class="material-icons text-[16px]">star_border</span>').join('');
+}
+
+// utility
+function slugify(str){ return String(str||'').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,''); }
+function escapeHtml(unsafe) { return String(unsafe||'').replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;').replaceAll("'","&#039;"); }
+function cssEscape(s){ return s.replace(/([\\"'\[\]\/])/g,'\\$1'); }
+
+// init
+(async function(){
+    allItems = await fetchItems();
+    buildUI(allItems);
+    // initial render
+    filteredItems = allItems.slice();
+    applyFilters();
+})();
+</script>
+<script>
+(async function bindExtraDati() {
+  const DATA_JSON_PATH = '/dati.json';
+
+  // helper minimale (se non li hai già definiti)
+  // Nuova getValueByPath: supporta:
+// - 'a.b[0].c' (normale)
+// - 'via' -> cerca via a root, poi dentro i nodi di primo livello (es. contatto.via)
+// - 'instagram.link' -> se 'instagram' non esiste a root prova a trovare 'instagram' dentro un primo-level (es. socials.instagram.link)
+function getValueByPath(obj, path) {
+  if (!path) return undefined;
+  // normalizza gli indici [0] -> .0
+  const normalized = path.replace(/\[(\d+)\]/g, '.$1');
+  const parts = normalized.split('.');
+
+  // tenta la risoluzione diretta (classica)
+  let direct = parts.reduce((acc, key) => (acc == null ? undefined : acc[key]), obj);
+  if (direct !== undefined) return direct;
+
+  // se path è singolo (es. 'via'), cerca nei nodi di primo livello
+  if (parts.length === 1) {
+    const key = parts[0];
+    // cerca a root (già fatto) --> se non trovato, cerca dentro ogni primo livello
+    for (const topKey of Object.keys(obj || {})) {
+      const child = obj[topKey];
+      if (child && typeof child === 'object' && key in child) {
+        return child[key];
+      }
+    }
+    return undefined;
+  }
+
+  // se path ha più segmenti (es. 'instagram.link') e il primo segmento non esiste a root,
+  // cerchiamo un "padre" di primo livello che contenga quel primo segmento.
+  const first = parts[0];
+  if (!(first in obj)) {
+    for (const topKey of Object.keys(obj || {})) {
+      const child = obj[topKey];
+      if (child && typeof child === 'object' && (first in child)) {
+        // ricomponi nuovo percorso: topKey + remainingParts
+        const newParts = [topKey].concat(parts);
+        const newPath = newParts.join('.');
+        // risolvi di nuovo con il percorso espanso
+        return newPath.replace(/\[(\d+)\]/g, '.$1').split('.').reduce((acc, k) => (acc == null ? undefined : acc[k]), obj);
+      }
+    }
+  }
+
+  // nulla trovato
+  return undefined;
+}
+function escapeHtml(s=''){ return String(s==null ? '' : s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;'); }
+
+  try {
+    const res = await fetch(DATA_JSON_PATH + '?_=' + Date.now(), { cache: 'no-store' });
+    if (!res.ok) throw new Error('Impossibile caricare ' + DATA_JSON_PATH + ': ' + res.status);
+    const dati = await res.json();
+
+    // 1) Se hai processRepeats / bindAll definiti GLOBALMENTE, usali (mantengono la logica già esistente)
+    if (typeof processRepeats === 'function' && typeof bindAll === 'function') {
+      try {
+        processRepeats(document, dati);
+        bindAll(document, dati);
+      } catch (e) {
+        console.warn('Errore usando processRepeats/bindAll:', e);
+      }
+    }
+
+    // 2) Fallback semplice: data-bind (testo) e data-bind-href (href)
+    // Esempi HTML:
+    // <span data-bind="contatto.via"></span>
+    // <a data-bind-href="socials.instagram.link">IG</a>
+    document.querySelectorAll('[data-bind]').forEach(el => {
+      const path = el.dataset.bind;
+      const val = getValueByPath(dati, path);
+      el.textContent = val == null ? '' : String(val);
+    });
+    document.querySelectorAll('[data-bind-href]').forEach(el => {
+      const path = el.dataset.bindHref;
+      const val = getValueByPath(dati, path);
+      if (val) el.setAttribute('href', String(val));
+    });
+    // supporto per attributi img src (data-bind-src)
+    document.querySelectorAll('[data-bind-src]').forEach(el => {
+      const path = el.dataset.bindSrc;
+      const val = getValueByPath(dati, path);
+      if (val) el.setAttribute('src', String(val));
+    });
+
+    // 3) Se vuoi popolare una lista di numeri di telefono in un elemento con id="phoneList"
+    // (es. <ul id="phoneList"></ul>), decommenta / adatta il codice qui sotto:
+    /*
+    if (Array.isArray(dati.contatto?.numeri_telefono) && document.getElementById('phoneList')) {
+      const wrap = document.getElementById('phoneList');
+      wrap.innerHTML = '';
+      const frag = document.createDocumentFragment();
+      dati.contatto.numeri_telefono.forEach(num => {
+        const li = document.createElement('li');
+        li.textContent = num;
+        frag.appendChild(li);
+      });
+      wrap.appendChild(frag);
+    }
+    */
+
+    // 4) Esempio: popolare badge "aggiornato" se hai <span id="datiUpdated"></span>
+    if (dati.updated && document.getElementById('datiUpdated')) {
+      const d = new Date(dati.updated);
+      document.getElementById('datiUpdated').textContent = d.toLocaleString('it-IT', { timeZone: 'Europe/Rome' });
+    }
+
+    // DEBUG: esponi i dati su window per ispezione (rimuovi in produzione)
+    window.__DATA__ = dati;
+
+  } catch (err) {
+    console.warn('bindExtraDati error:', err);
+  }
+})();
+</script>
 </body></html>

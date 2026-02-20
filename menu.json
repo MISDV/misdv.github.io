@@ -1,0 +1,105 @@
+{
+  "title": "Menu Ristorante",
+  "description": "La nostra cucina è un omaggio alla tradizione contadina. Ogni piatto racconta una storia di ingredienti freschi, baciati dal sole e raccolti la mattina stessa dal nostro orto.",
+  "updated": "2026-02-20T00:45:45.195Z",
+  "days": {
+    "lunedì": {
+      "enabled": true,
+      "title": "Pranzo del Lunedì",
+      "updated": "2026-02-20T00:45:35.739Z",
+      "dishes": [
+        {
+          "id": "p1",
+          "name": "Pasta al Pomodoro",
+          "description": "Pasta fatta in casa con salsa al pomodoro e basilico",
+          "price": 7.5,
+          "price_display": "€7,50",
+          "tags": [
+            "vegetariano"
+          ],
+          "allergens": [
+            "gluten",
+            "pomodoro"
+          ],
+          "available": true
+        },
+        {
+          "id": "p2",
+          "name": "Insalata di Mare",
+          "description": "Insalata mista con frutti di mare freschi",
+          "price": 15,
+          "tags": [
+            "pesce"
+          ],
+          "allergens": [
+            "fish",
+            "shellfish"
+          ],
+          "available": true,
+          "price_display": ""
+        }
+      ]
+    },
+    "martedì": {
+      "enabled": false,
+      "title": "Menù Chiuso",
+      "updated": "2026-02-20T00:45:35.739Z",
+      "dishes": [
+        {
+          "id": "gen-1771467034016",
+          "name": "Nuovo Piatto",
+          "description": "4",
+          "price": 1,
+          "price_display": "",
+          "tags": [
+            "2"
+          ],
+          "allergens": [
+            "3"
+          ],
+          "available": true
+        }
+      ]
+    },
+    "mercoledì": {
+      "enabled": true,
+      "title": "Primi & Secondi",
+      "updated": "2026-02-20T00:45:35.739Z",
+      "dishes": [
+        {
+          "id": "m1",
+          "name": "Risotto ai Funghi",
+          "description": "Risotto cremoso con funghi porcini",
+          "price": 9,
+          "allergens": [
+            "milk"
+          ]
+        }
+      ]
+    },
+    "giovedì": {
+      "enabled": false,
+      "title": "",
+      "updated": "2026-02-20T00:45:35.739Z",
+      "dishes": []
+    },
+    "venerdì": {
+      "enabled": false,
+      "title": "",
+      "updated": "2026-02-20T00:45:35.739Z",
+      "dishes": []
+    },
+    "sabato": {
+      "enabled": false,
+      "title": "",
+      "updated": "2026-02-20T00:45:35.739Z",
+      "dishes": []
+    },
+    "domenica": {
+      "enabled": false,
+      "title": "",
+      "updated": "2026-02-20T00:45:35.739Z",
+      "dishes": []
+    }
+  }
+}

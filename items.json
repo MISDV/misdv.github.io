@@ -1,0 +1,25 @@
+[
+  {
+    "titolo": "Olio EVO Monocultivar",
+    "immagine": "img/olio.jpg",
+    "categoria": "Olio Extra Vergine",
+    "tipologia": "Oli",
+    "prezzo": 16.00,
+    "prezzo_scontato": 12.50,
+    "rating": 5
+  },
+  {
+    "titolo": "Salame",
+    "immagine": "img/salame.jpg",
+    "categoria": "Insaccati",
+    "tipologia": "Salami",
+    "prezzo": 6.50
+  },
+  {
+    "titolo": "Prosciutto",
+    "immagine": "img/prosciutto.jpg",
+    "categoria": "Insaccati",
+    "tipologia": "Prosciutti",
+    "prezzo": 6.50
+  }
+]

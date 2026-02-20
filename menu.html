@@ -1,0 +1,672 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Menu Editor — Mobile friendly + token persist</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+  <style>
+    /* Mobile-first tweaks */
+    body { font-family: Inter,system-ui,-apple-system,"Segoe UI",Roboto,Arial; background:#f8fafc; -webkit-tap-highlight-color: transparent; }
+    .modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:60;display:flex;align-items:center;justify-content:center}
+    .modal{background:white;padding:1rem;border-radius:.6rem;max-width:720px;width:94%}
+    /* Floating save bar for mobile */
+    .floating-save { display:none; position:fixed; left:50%; transform:translateX(-50%); bottom:14px; z-index:70; width:min(680px,96%); }
+    @media (max-width: 768px){
+      .floating-save { display:block; }
+      aside.desktop-only { display:none; }
+      main.mobile-first { order: 0; }
+    }
+    @media (min-width: 769px){
+      .floating-save { display:none; }
+    }
+    pre#log { white-space: pre-wrap; max-height:160px; overflow:auto; }
+    /* day accordion */
+    .day-accordion { border-radius:.5rem; overflow:hidden; border:1px solid #e6e9ef; background:white; }
+    .day-header { display:flex; justify-content:space-between; align-items:center; padding:.75rem; cursor:pointer; }
+    .day-body { padding:.75rem; border-top:1px solid #eef2f7; }
+    /* larger touch targets */
+    .btn-touch { padding:.75rem 1rem; border-radius:.5rem; font-weight:600; }
+  </style>
+</head>
+<body class="p-4 sm:p-6">
+
+  <header class="max-w-4xl mx-auto">
+    <h1 class="text-2xl sm:text-3xl font-bold mb-2">Menu Editor</h1>
+    <p class="text-sm text-gray-600 mb-4">Caricamento automatico dal <code>raw.githubusercontent.com</code> (repo pubblico). Per salvare serve login + PAT (viene salvato localmente).</p>
+  </header>
+
+  <main class="max-w-4xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-4 items-start">
+    <!-- MAIN CONTENT -->
+    <section class="mobile-first lg:col-span-2 bg-white p-4 rounded shadow">
+      <div class="flex items-start justify-between gap-4">
+        <div>
+          <div class="font-semibold text-lg">Anteprima menu</div>
+          <div class="text-xs text-gray-500">Modifica inline i piatti. Mobile-first layout.</div>
+        </div>
+        <div class="text-xs text-gray-500 text-right">
+          Ultimo aggiornamento<br/><span id="menu-updated">—</span>
+        </div>
+      </div>
+
+      <div class="mt-3 space-y-3">
+        <label class="block text-sm">
+          Titolo
+          <input id="menu_title" class="mt-1 w-full p-2 border rounded" placeholder="Titolo del menu" />
+        </label>
+
+        <label class="block text-sm">
+          Descrizione
+          <textarea id="menu_description" rows="2" class="mt-1 w-full p-2 border rounded" placeholder="Descrizione breve"></textarea>
+        </label>
+
+        <!-- days accordion -->
+        <div id="daysContainer" class="space-y-3 mt-2"></div>
+
+      </div>
+    </section>
+
+    <!-- SIDEBAR -->
+    <aside class="desktop-only bg-white p-4 rounded shadow">
+      <div class="flex items-center justify-between">
+        <div>
+          <div class="font-semibold">Admin</div>
+          <div class="text-xs text-gray-500">Owner: <span class="font-medium">MISDV</span></div>
+          <div class="text-xs text-gray-500">Repo: <span class="font-medium">misdv.github.io</span></div>
+          <div class="text-xs text-gray-500">Branch: <span class="font-medium">chatV2</span></div>
+        </div>
+      </div>
+
+      <form id="tokenForm" class="mt-3">
+        <label class="block text-sm">Token (PAT)
+          <input id="token" class="mt-1 w-full p-2 border rounded" placeholder="ghp_..." autocomplete="off" />
+        </label>
+        <div class="flex items-center gap-2 mt-2">
+          <button id="saveBtn" type="button" class="btn-touch bg-blue-600 text-white rounded disabled:opacity-60" disabled>Salva su GitHub</button>
+          <button id="reloadBtn" type="button" class="btn-touch border rounded">Ricarica RAW</button>
+        </div>
+        <div class="mt-2 text-xs text-gray-500" id="tokenNote">Token salvato: <span id="tokenSaved">no</span></div>
+      </form>
+
+      <div class="mt-4 text-sm text-gray-600" id="status">Stato: in attesa</div>
+      <div class="mt-3">
+        <div class="font-semibold text-sm">Log diagnostico</div>
+        <pre id="log" class="mt-2 bg-gray-50 p-2 rounded text-xs">Log...\n</pre>
+      </div>
+    </aside>
+  </main>
+
+  <!-- Floating save bar (mobile) -->
+  <div class="floating-save">
+    <div class="bg-white p-3 rounded shadow flex items-center justify-between gap-1">
+      <div class="flex items-center gap-1">
+        <div class="text-sm text-gray-700">Modifiche locali</div>
+        <input id="tokenMobile" class="p-2 border rounded text-sm" placeholder="Token (PAT)" autocomplete="off" style="min-width:160px" />
+      </div>
+      <div class="flex gap-2">
+        <button id="saveBtnMobile" class="btn-touch bg-blue-600 text-white rounded disabled:opacity-60" disabled>Salva</button>
+        <button id="reloadBtnMobile" class="btn-touch border rounded">Ricarica</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- LOGIN MODAL (form; rimane fino a login) -->
+  <div id="loginModal" class="modal-backdrop" aria-hidden="false">
+    <div class="modal">
+      <h2 class="text-lg font-semibold mb-2">Login amministratore</h2>
+      <form id="loginForm" autocomplete="off">
+        <div id="loginErr" class="text-red-600 mb-2 hidden"></div>
+
+        <label class="block text-sm">Utente
+          <input id="loginUser" class="mt-1 w-full p-2 border rounded" value="Admin" autocomplete="username" />
+        </label>
+
+        <label class="block text-sm mt-2">Password
+          <input id="loginPass" type="password" class="mt-1 w-full p-2 border rounded" autocomplete="current-password" />
+        </label>
+
+        <div class="flex items-center justify-between mt-4">
+          <div class="text-xs text-gray-500">Credenziali demo: <span class="font-medium">Admin</span> / <span class="font-medium">AgriGiu26!</span></div>
+          <div class="flex gap-2">
+            <button id="loginSubmit" type="submit" class="btn-touch bg-green-600 text-white rounded">Entra</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+<script>
+(() => {
+  /* =========================
+     Config + state
+     ========================= */
+  const OWNER = 'MISDV', REPO = 'misdv.github.io', BRANCH = 'chatV2', PATH = 'menu.json';
+  const ADMIN_USER = 'Admin', ADMIN_PASS = 'AgriGiu26!';
+  const WEEK = ['lunedì','martedì','mercoledì','giovedì','venerdì','sabato','domenica'];
+
+  // DOM refs
+  const byId = id => document.getElementById(id);
+  const logEl = byId('log'), statusEl = byId('status'), tokenEl = byId('token'), tokenMobileEl = byId('tokenMobile'), tokenSavedEl = byId('tokenSaved');
+  const saveBtnDesktop = byId('saveBtn'), reloadBtnDesktop = byId('reloadBtn');
+  const saveBtnMobile = byId('saveBtnMobile'), reloadBtnMobile = byId('reloadBtnMobile');
+  const daysContainer = byId('daysContainer');
+  const menuTitleEl = byId('menu_title'), menuDescEl = byId('menu_description'), menuUpdatedEl = byId('menu-updated');
+
+  const loginModal = byId('loginModal'), loginForm = byId('loginForm'), loginUser = byId('loginUser'), loginPass = byId('loginPass'), loginErr = byId('loginErr');
+
+  // keys
+  const LS_TOKEN_KEY = 'menu_token';
+  const LS_BACKUP_KEY = 'menu_local_backup';
+
+  let loggedIn = false;
+  let menuState = null;      // normalized in-memory menu
+  let currentSHA = null;     // sha from API (if obtained)
+
+  // logger
+  function L(msg){
+    const ts = new Date().toLocaleTimeString();
+    logEl.textContent = `[${ts}] ${msg}\n` + logEl.textContent;
+  }
+  function setStatus(text){ statusEl.textContent = 'Stato: ' + text; }
+
+  /* =========================
+     Normalization + rendering
+     ========================= */
+  function normalizeMenu(input){
+    const out = { title: input?.title || '', description: input?.description || '', updated: input?.updated || new Date().toISOString(), days: {} };
+    WEEK.forEach(day => {
+      const source = input?.days?.[day] || {};
+      out.days[day] = {
+        enabled: !!source.enabled,
+        title: source.title || '',
+        updated: source.updated || out.updated,
+        dishes: Array.isArray(source.dishes) ? source.dishes.map(d => ({ ...d })) : []
+      };
+    });
+    return out;
+  }
+
+  // render all days as accordion (mobile-friendly)
+  function renderAllDays(){
+    daysContainer.innerHTML = '';
+    Object.keys(menuState.days).forEach((dayKey) => {
+      const dayObj = menuState.days[dayKey];
+      const dayCard = document.createElement('div');
+      dayCard.className = 'day-accordion';
+
+      // header
+      const header = document.createElement('div');
+      header.className = 'day-header';
+      header.innerHTML = `
+        <div>
+          <div class="font-semibold">${capitalize(dayKey)}</div>
+          <div class="text-xs text-gray-500">${escapeHtml(dayObj.title)}</div>
+        </div>
+        <div class="flex items-center gap-2">
+          <button class="toggle-day text-xs px-2 py-1 border rounded">Apri</button>
+          <span class="text-xs text-gray-400">Agg: ${dayObj.updated ? dayObj.updated.split('T')[0] : ''}</span>
+        </div>
+      `;
+      dayCard.appendChild(header);
+
+      // body (hidden by default)
+      const body = document.createElement('div');
+      body.className = 'day-body hidden';
+      // day-level controls
+      body.innerHTML = `
+        <div class="mb-3 flex gap-2 items-center">
+          <label class="inline-flex items-center gap-2 text-sm"><input type="checkbox" class="day-enabled" ${dayObj.enabled ? 'checked' : ''}/> Abilita</label>
+          <input class="ml-auto p-2 border rounded flex-1 day-title" placeholder="Titolo giorno" value="${escapeHtml(dayObj.title)}"/>
+          <button class="add-dish btn-touch bg-green-600 text-white rounded">Aggiungi piatto</button>
+        </div>
+        <div class="space-y-2 dishes-list"></div>
+      `;
+      dayCard.appendChild(body);
+      daysContainer.appendChild(dayCard);
+
+      // references
+      const toggleBtn = header.querySelector('.toggle-day');
+      const enabledCheckbox = body.querySelector('.day-enabled');
+      const dayTitleInput = body.querySelector('.day-title');
+      const addDishBtn = body.querySelector('.add-dish');
+      const dishesList = body.querySelector('.dishes-list');
+
+      // initial dishes render
+      function renderDishes(){
+        dishesList.innerHTML = '';
+        dayObj.dishes.forEach((dish, idx) => {
+          const dishEl = createDishCard(dayKey, idx, dish);
+          dishesList.appendChild(dishEl);
+        });
+      }
+      renderDishes();
+
+      // events
+      toggleBtn.addEventListener('click', () => {
+        const isHidden = body.classList.toggle('hidden');
+        toggleBtn.textContent = isHidden ? 'Apri' : 'Chiudi';
+      });
+      enabledCheckbox.addEventListener('change', () => {
+        dayObj.enabled = enabledCheckbox.checked;
+        updateMenuTimestamp();
+      });
+      dayTitleInput.addEventListener('input', () => {
+        dayObj.title = dayTitleInput.value;
+        updateMenuTimestamp();
+      });
+      addDishBtn.addEventListener('click', () => {
+        const newDish = { id: 'gen-'+Date.now(), name: 'Nuovo Piatto', description:'', price:null, price_display:'', tags:[], allergens:[], available:true };
+        dayObj.dishes.push(newDish);
+        updateMenuTimestamp();
+        renderDishes();
+      });
+    });
+  }
+
+  // create a dish card with inline editor and actions
+  function createDishCard(dayKey, dishIndex, dishData){
+    const wrapper = document.createElement('div');
+    wrapper.className = 'p-3 border rounded bg-white';
+
+    wrapper.innerHTML = `
+      <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2">
+        <div class="flex-1">
+          <div class="flex items-center justify-between gap-2">
+            <div>
+              <div class="font-semibold dish-name-display">${escapeHtml(dishData.name || '—')}</div>
+              <div class="text-xs text-gray-500 dish-tags-display">${escapeHtml((dishData.tags||[]).join(', '))}</div>
+            </div>
+            <div class="text-right">
+              <div class="text-orange-600 font-bold dish-price-display">${formatPrice(dishData.price)}</div>
+              <div class="text-xs text-gray-400 mt-1">${dishData.available ? 'Disponibile' : 'Non disponibile'}</div>
+            </div>
+          </div>
+          <div class="text-sm text-gray-600 mt-2 dish-desc-display">${escapeHtml(dishData.description || '')}</div>
+        </div>
+
+        <div class="flex-shrink-0 flex items-center gap-2 mt-3 sm:mt-0">
+          <button class="edit-dish btn-touch border rounded text-sm">Modifica</button>
+          <button class="delete-dish btn-touch border rounded text-sm text-red-600">Elimina</button>
+        </div>
+      </div>
+
+      <!-- editor area hidden by default -->
+      <div class="dish-editor mt-3 hidden">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+          <input class="editor-name p-2 border rounded" placeholder="Nome" value="${escapeHtml(dishData.name||'')}" />
+          <input class="editor-price p-2 border rounded" placeholder="Prezzo (es. 6.5)" value="${dishData.price !== null && dishData.price !== undefined ? dishData.price : ''}" inputmode="decimal" />
+          <input class="editor-tags p-2 border rounded" placeholder="Tags (comma separati)" value="${escapeHtml((dishData.tags||[]).join(', '))}" />
+          <input class="editor-allergens p-2 border rounded" placeholder="Allergeni (comma separati)" value="${escapeHtml((dishData.allergens||[]).join(', '))}" />
+        </div>
+        <textarea class="editor-desc mt-2 p-2 border rounded w-full" rows="2" placeholder="Descrizione">${escapeHtml(dishData.description||'')}</textarea>
+
+        <div class="mt-2 flex items-center gap-2">
+          <label class="inline-flex items-center gap-2 text-sm"><input type="checkbox" class="editor-available" ${dishData.available ? 'checked' : ''}/> Disponibile</label>
+          <div class="ml-auto flex gap-2">
+            <button class="save-dish btn-touch bg-blue-600 text-white rounded">Salva</button>
+            <button class="cancel-dish btn-touch border rounded">Annulla</button>
+          </div>
+        </div>
+      </div>
+    `;
+
+    // references
+    const editBtn = wrapper.querySelector('.edit-dish');
+    const deleteBtn = wrapper.querySelector('.delete-dish');
+    const editor = wrapper.querySelector('.dish-editor');
+    const saveEditorBtn = wrapper.querySelector('.save-dish');
+    const cancelEditorBtn = wrapper.querySelector('.cancel-dish');
+
+    // editor fields
+    const fieldName = wrapper.querySelector('.editor-name');
+    const fieldPrice = wrapper.querySelector('.editor-price');
+    const fieldTags = wrapper.querySelector('.editor-tags');
+    const fieldAllergens = wrapper.querySelector('.editor-allergens');
+    const fieldDesc = wrapper.querySelector('.editor-desc');
+    const fieldAvailable = wrapper.querySelector('.editor-available');
+
+    // display elements
+    const displayName = wrapper.querySelector('.dish-name-display');
+    const displayPrice = wrapper.querySelector('.dish-price-display');
+    const displayDesc = wrapper.querySelector('.dish-desc-display');
+    const displayTags = wrapper.querySelector('.dish-tags-display');
+
+    // toggle editor
+    editBtn.addEventListener('click', () => {
+      editor.classList.toggle('hidden');
+      // focus first input for convenience
+      if (!editor.classList.contains('hidden')) { fieldName.focus(); }
+    });
+
+    // delete action
+    deleteBtn.addEventListener('click', () => {
+      if (!confirm('Eliminare il piatto?')) return;
+      const dayObj = menuState.days[dayKey];
+      dayObj.dishes.splice(dishIndex, 1);
+      updateMenuTimestamp();
+      renderAllDays();
+      enableSaveButtons();
+    });
+
+    // cancel edits: reset fields to current dishData
+    cancelEditorBtn.addEventListener('click', () => {
+      fieldName.value = dishData.name || '';
+      fieldPrice.value = dishData.price !== null && dishData.price !== undefined ? dishData.price : '';
+      fieldTags.value = (dishData.tags || []).join(', ');
+      fieldAllergens.value = (dishData.allergens || []).join(', ');
+      fieldDesc.value = dishData.description || '';
+      fieldAvailable.checked = !!dishData.available;
+      editor.classList.add('hidden');
+    });
+
+    // save edits into state
+    saveEditorBtn.addEventListener('click', () => {
+      const dayObj = menuState.days[dayKey];
+      const dishRef = dayObj.dishes[dishIndex];
+      dishRef.name = fieldName.value.trim();
+      const priceRaw = fieldPrice.value.trim();
+      dishRef.price = priceRaw === '' ? null : Number(priceRaw);
+      dishRef.tags = fieldTags.value.split(',').map(s => s.trim()).filter(Boolean);
+      dishRef.allergens = fieldAllergens.value.split(',').map(s => s.trim()).filter(Boolean);
+      dishRef.description = fieldDesc.value.trim();
+      dishRef.available = !!fieldAvailable.checked;
+
+      // update displays
+      displayName.textContent = escapeHtml(dishRef.name || '—');
+      displayPrice.textContent = formatPrice(dishRef.price);
+      displayDesc.textContent = escapeHtml(dishRef.description || '');
+      displayTags.textContent = escapeHtml((dishRef.tags||[]).join(', '));
+
+      updateMenuTimestamp();
+      editor.classList.add('hidden');
+      enableSaveButtons();
+    });
+
+    return wrapper;
+  }
+
+  /* =========================
+     Helpers: formatting + safe DOM utilities
+     ========================= */
+  function escapeHtml(s=''){ return String(s||'').replace(/[&<>'"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;', "'":'&#39;'}[c])); }
+  function formatPrice(p){ if (p === null || p === undefined) return ''; const n = Number(p); if (isNaN(n)) return p; return '€' + (n % 1 === 0 ? n : n.toFixed(2)).toString().replace('.',','); }
+  function capitalize(s=''){ return s.charAt(0).toUpperCase() + s.slice(1); }
+
+  // update top-level updated timestamps
+  function updateMenuTimestamp(){
+    const now = new Date().toISOString();
+    menuState.updated = now;
+    // also update day updated times to now (smart behavior)
+    Object.keys(menuState.days).forEach(d => { menuState.days[d].updated = now; });
+    menuUpdatedEl.textContent = now;
+  }
+
+  // enable save buttons (desktop + mobile)
+  function enableSaveButtons(){
+    const tokenStr = (tokenEl && tokenEl.value && tokenEl.value.trim()) || (typeof tokenMobileEl !== 'undefined' && tokenMobileEl && tokenMobileEl.value && tokenMobileEl.value.trim()) || localStorage.getItem(LS_TOKEN_KEY);
+    const tokenPresent = !!tokenStr;
+    const enable = loggedIn && tokenPresent;
+    saveBtnDesktop.disabled = !enable;
+    saveBtnMobile.disabled = !enable;
+  }
+
+  /* =========================
+     Network: fetch raw + API helpers
+     ========================= */
+  async function fetchRawPublic(){
+    const url = `https://raw.githubusercontent.com/${OWNER}/${REPO}/${BRANCH}/${PATH}?_=${Date.now()}`;
+    L('Tentativo RAW: ' + url);
+    const res = await fetch(url, { cache: 'no-store' });
+    if (!res.ok) throw new Error('RAW HTTP ' + res.status);
+    const txt = await res.text();
+    try { return JSON.parse(txt); } catch(e) { throw new Error('Parse RAW JSON: ' + e.message); }
+  }
+
+  async function apiGetFile(token){
+    const url = `https://api.github.com/repos/${OWNER}/${REPO}/contents/${encodeURIComponent(PATH)}?ref=${encodeURIComponent(BRANCH)}`;
+    const headers = { Accept: 'application/vnd.github+json' };
+    if (token) headers.Authorization = 'Bearer ' + token;
+    const r = await fetch(url, { headers, cache:'no-store' });
+    if (!r.ok) throw new Error('API GET HTTP ' + r.status);
+    const j = await r.json();
+    const base64 = (j.content || '').replace(/\n/g,'');
+    const decoded = new TextDecoder().decode(Uint8Array.from(atob(base64), c => c.charCodeAt(0)));
+    return { content: JSON.parse(decoded), sha: j.sha };
+  }
+
+  async function apiPutFile(payloadStr, sha, token){
+    const url = `https://api.github.com/repos/${OWNER}/${REPO}/contents/${encodeURIComponent(PATH)}`;
+    const body = { message: 'Update menu.json via web editor', content: btoa(unescape(encodeURIComponent(payloadStr))), branch: BRANCH };
+    if (sha) body.sha = sha;
+    const headers = { 'Content-Type':'application/json', Accept: 'application/vnd.github+json', Authorization: 'Bearer ' + token };
+    const r = await fetch(url, { method: 'PUT', headers, body: JSON.stringify(body) });
+    const j = await r.json();
+    if (!r.ok) throw new Error('PUT error: ' + (j.message || JSON.stringify(j)));
+    return j;
+  }
+
+  /* =========================
+     Load / Save flows
+     ========================= */
+  async function loadMenuAuto(){
+    setStatus('caricamento RAW pubblico in corso...');
+    try {
+      const raw = await fetchRawPublic();
+      menuState = normalizeMenu(raw);
+      menuTitleEl.value = menuState.title;
+      menuDescEl.value = menuState.description;
+      menuUpdatedEl.textContent = menuState.updated;
+      currentSHA = null;
+      renderAllDays();
+      L('Caricato da RAW pubblico');
+      setStatus('caricato da raw pubblico');
+    } catch(rawErr){
+      L('RAW fallito: ' + rawErr.message);
+      // try fallback with token if present
+      const cachedToken = localStorage.getItem(LS_TOKEN_KEY) || tokenEl.value.trim();
+      if (cachedToken) {
+        setStatus('RAW fallito — tentativo via API con token...');
+        try {
+          const meta = await apiGetFile(cachedToken);
+          menuState = normalizeMenu(meta.content);
+          currentSHA = meta.sha;
+          menuTitleEl.value = menuState.title;
+          menuDescEl.value = menuState.description;
+          menuUpdatedEl.textContent = menuState.updated;
+          renderAllDays();
+          L('Caricato via API (fallback)');
+          setStatus('caricato da api (fallback)');
+        } catch(apiErr){
+          L('API fallback fallito: ' + apiErr.message);
+          setStatus('errore caricamento (raw e api falliti)');
+          // create empty menu so user can still edit
+          menuState = normalizeMenu({});
+          renderAllDays();
+        }
+      } else {
+        setStatus('errore RAW (inserisci token per provare API)');
+        // empty menu
+        menuState = normalizeMenu({});
+        renderAllDays();
+      }
+    }
+  }
+
+  async function performSave(){
+    if (!loggedIn) { L('Salvataggio bloccato: login richiesto'); setStatus('login richiesto'); return; }
+    // try to obtain token from desktop input, mobile input, or localStorage
+    let token = (tokenEl && tokenEl.value && tokenEl.value.trim()) || (typeof tokenMobileEl !== 'undefined' && tokenMobileEl && tokenMobileEl.value && tokenMobileEl.value.trim()) || localStorage.getItem(LS_TOKEN_KEY) || '';
+    if (!token) {
+      // ask user for token (prompt) — mobile friendly fallback
+      const userToken = window.prompt('Inserisci il token GitHub (PAT) per salvare su GitHub. Lascia vuoto per fare solo backup locale:');
+      if (userToken && userToken.trim()) {
+        token = userToken.trim();
+        try {
+          localStorage.setItem(LS_TOKEN_KEY, token);
+          if (tokenEl) tokenEl.value = token;
+          if (tokenMobileEl) tokenMobileEl.value = token;
+          tokenSavedEl.textContent = 'sì';
+          L('Token inserito via prompt e salvato in localStorage');
+        } catch(e) {
+          L('Impossibile salvare token: ' + e.message);
+        }
+      } else {
+        // user cancelled or left empty => fallback to local backup (existing behaviour)
+        try {
+          const json = JSON.stringify({ title: menuTitleEl.value, description: menuDescEl.value, updated: new Date().toISOString(), days: menuState.days }, null, 2);
+          localStorage.setItem(LS_BACKUP_KEY, json);
+          L('Backup locale salvato (token mancante)');
+          setStatus('backup locale creato (token mancante)');
+          menuUpdatedEl.textContent = new Date().toISOString();
+          return;
+        } catch(e) {
+          L('Errore backup locale: ' + e.message);
+          setStatus('errore backup locale');
+          return;
+        }
+      }
+    }
+
+    setStatus('salvataggio in corso su GitHub...');
+    // prepare payload
+    const payload = { title: menuTitleEl.value, description: menuDescEl.value, updated: new Date().toISOString(), days: menuState.days };
+    const payloadStr = JSON.stringify(payload, null, 2);
+    try {
+      // ensure we have sha (try GET)
+      try {
+        const meta = await apiGetFile(token);
+        currentSHA = meta.sha;
+      } catch(e){
+        L('GET SHA non disponibile (file potrebbe non esistere) — verrà creato');
+      }
+      const res = await apiPutFile(payloadStr, currentSHA, token);
+      L('Salvataggio completato: ' + (res?.commit?.sha || 'ok'));
+      setStatus('salvataggio completato');
+      menuUpdatedEl.textContent = payload.updated;
+      // update state & sha
+      menuState = normalizeMenu(payload);
+      try { currentSHA = res.content?.sha || currentSHA; } catch(_) {}
+    } catch(err){
+      L('Errore durante PUT: ' + err.message);
+      setStatus('errore salvataggio');
+    }
+  }
+
+  /* =========================
+     Storage & UI glue
+     ========================= */
+  // load token from localStorage if present and update UI
+  function restoreToken(){
+    try {
+      const saved = localStorage.getItem(LS_TOKEN_KEY);
+      if (saved) {
+        tokenEl.value = saved;
+        if (tokenMobileEl) tokenMobileEl.value = saved;
+        tokenSavedEl.textContent = 'sì';
+        L('Token ripristinato dalla cache');
+      } else {
+        tokenSavedEl.textContent = 'no';
+      }
+    } catch(e){
+      tokenSavedEl.textContent = 'no';
+    }
+    enableSaveButtons();
+  }
+
+  // token input: persist to localStorage and update UI
+  tokenEl.addEventListener('input', (e) => {
+    const v = e.target.value.trim();
+    try {
+      if (v) {
+        localStorage.setItem(LS_TOKEN_KEY, v);
+        tokenSavedEl.textContent = 'sì';
+        L('Token salvato in localStorage');
+      } else {
+        localStorage.removeItem(LS_TOKEN_KEY);
+        tokenSavedEl.textContent = 'no';
+        L('Token rimosso dalla localStorage');
+      }
+    } catch(err) {
+      L('Errore storage token: ' + err.message);
+    }
+    enableSaveButtons();
+  });
+  // tokenMobile input: sync with desktop token & persist
+  if (tokenMobileEl) {
+    tokenMobileEl.addEventListener('input', (e) => {
+      const v = e.target.value.trim();
+      try {
+        tokenEl.value = v;
+        if (v) {
+          localStorage.setItem(LS_TOKEN_KEY, v);
+          tokenSavedEl.textContent = 'sì';
+          L('Token (mobile) salvato in localStorage');
+        } else {
+          localStorage.removeItem(LS_TOKEN_KEY);
+          tokenSavedEl.textContent = 'no';
+          L('Token rimosso dalla localStorage (mobile)');
+        }
+      } catch(err) { L('Errore storage token mobile: ' + err.message); }
+      enableSaveButtons();
+    });
+  }
+
+
+  // login form handling
+  loginForm.addEventListener('submit', (ev) => {
+    ev.preventDefault();
+    loginErr.classList.add('hidden');
+    const u = loginUser.value.trim(), p = loginPass.value;
+    if (u === ADMIN_USER && p === ADMIN_PASS) {
+      loggedIn = true;
+      loginModal.style.display = 'none';
+      L('Login eseguito');
+      setStatus('autenticato');
+      enableSaveButtons();
+    } else {
+      loginErr.textContent = 'Credenziali errate';
+      loginErr.classList.remove('hidden');
+      L('Tentativo login fallito');
+    }
+  });
+
+  // wire save/reload buttons (desktop + mobile)
+  saveBtnDesktop.addEventListener('click', performSave);
+  saveBtnMobile.addEventListener('click', performSave);
+  reloadBtnDesktop.addEventListener('click', async () => { await loadMenuAuto(); });
+  reloadBtnMobile.addEventListener('click', async () => { await loadMenuAuto(); });
+
+  // keep top title/desc in sync with state
+  menuTitleEl.addEventListener('input', () => {
+    if (!menuState) return;
+    menuState.title = menuTitleEl.value;
+    updateMenuTimestamp();
+  });
+  menuDescEl.addEventListener('input', () => {
+    if (!menuState) return;
+    menuState.description = menuDescEl.value;
+    updateMenuTimestamp();
+  });
+
+  /* =========================
+     Initialization
+     ========================= */
+  document.addEventListener('DOMContentLoaded', async () => {
+    // show login modal (user wanted login always)
+    loginModal.style.display = 'flex';
+    setStatus('caricamento automatico (RAW pubblico)');
+    restoreToken();
+    // start load
+    try {
+      await loadMenuAuto();
+    } catch(e) {
+      L('Errore init: ' + e.message);
+      setStatus('errore init');
+    }
+  });
+
+})();
+</script>
+
+</body>
+</html>

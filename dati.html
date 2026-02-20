@@ -1,0 +1,588 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Editor Dati — Mobile Save Fix</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body{font-family:Inter,system-ui,-apple-system,'Segoe UI',Roboto,Arial;background:#f6f7fb;padding:12px;-webkit-font-smoothing:antialiased}
+    .card{background:#fff;border-radius:10px;padding:12px;box-shadow:0 6px 18px rgba(10,15,30,0.06)}
+    .floating-save{display:none}
+    @media (max-width:768px){
+      .floating-save{display:block;position:fixed;left:50%;transform:translateX(-50%);bottom:12px;z-index:95;width:calc(100% - 24px)}
+      .desktop-only{display:none}
+    }
+    pre#log{white-space:pre-wrap; max-height:220px; overflow:auto}
+    input, textarea{font-family:inherit}
+    .btn{padding:.6rem .9rem;border-radius:.5rem}
+    .btn-primary{background:#0b69ff;color:white}
+    .btn-ghost{background:#f1f5f9;border:1px solid #e6eef8}
+    .hidden{display:none}
+    #toast { position: fixed; right: 16px; bottom: 96px; background:#111; color:white; padding:8px 12px; border-radius:8px; opacity:0; transition: all 200ms; z-index:999 }
+    #toast.show { opacity:1; transform: translateY(0) }
+  </style>
+</head>
+<body>
+
+<main class="max-w-5xl mx-auto">
+  <header class="mb-4">
+    <h1 class="text-2xl font-bold">Editor Dati — Salva semplice</h1>
+    <p class="text-sm text-gray-600">RAW pubblico → fallback API (PAT). Salvataggio: sovrascrive il file remoto.</p>
+  </header>
+
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+    <!-- main -->
+    <section class="lg:col-span-2 card space-y-4">
+      <div class="flex justify-between items-start">
+        <div>
+          <h2 class="font-semibold">Dati</h2>
+          <div class="text-xs text-gray-500">Modifica inline; salva dopo login e inserimento PAT.</div>
+        </div>
+        <div class="text-xs text-gray-500">
+          Ultimo aggiornamento<br/><span id="updatedTop">—</span>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 gap-3">
+        <label class="block">Instagram
+          <input id="social_instagram" class="w-full p-2 border rounded mt-1" placeholder="https://..." />
+        </label>
+
+        <label class="block">Facebook
+          <input id="social_facebook" class="w-full p-2 border rounded mt-1" placeholder="https://..." />
+        </label>
+
+        <label class="block">TikTok
+          <input id="social_tiktok" class="w-full p-2 border rounded mt-1" placeholder="https://..." />
+        </label>
+
+        <div>
+          <h3 class="font-semibold">Contatti</h3>
+          <label class="block mt-2">Via<input id="contatto_via" class="w-full p-2 border rounded mt-1" /></label>
+          <label class="block mt-2">Comune<input id="contatto_comune" class="w-full p-2 border rounded mt-1" /></label>
+          <label class="block mt-2">Mail<input id="contatto_mail" class="w-full p-2 border rounded mt-1" /></label>
+
+          <div class="mt-3 space-y-2">
+            <div class="flex gap-2">
+              <input id="newPhone" class="p-2 border rounded flex-1" placeholder="+39 ..." />
+              <button id="addPhone" type="button" class="btn btn-ghost">Aggiungi</button>
+            </div>
+            <div id="phoneList" class="space-y-2"></div>
+          </div>
+        </div>
+
+        <div>
+          <h3 class="font-semibold">Orari (es. 12:30-15:00)</h3>
+          <div id="hoursContainer" class="grid grid-cols-1 sm:grid-cols-2 gap-2 mt-2"></div>
+        </div>
+
+        <div>
+          <h3 class="font-semibold">Cards</h3>
+          <div id="cardsList" class="space-y-2 mt-2"></div>
+          <div class="mt-2"><button id="addCard" type="button" class="btn btn-ghost">Aggiungi card</button></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- sidebar -->
+    <aside class="card desktop-only space-y-3">
+      <div>
+        <h3 class="font-semibold">Connessione & Salvataggio</h3>
+        <div class="text-xs text-gray-500">Owner/Repo/Branch fissati nello script. Cambia path se serve.</div>
+      </div>
+
+      <div>
+        <label class="text-xs">Path (repo)</label>
+        <input id="savePath" class="w-full p-2 border rounded mt-1" value="dati.json" />
+      </div>
+
+      <!-- token desktop wrapped in a form to avoid console warning -->
+      <form id="tokenFormDesktop" autocomplete="off" class="mt-2" onsubmit="return false;">
+        <label class="text-xs">Token personale (PAT)</label>
+        <input id="token" type="password" autocomplete="new-password" class="w-full p-2 border rounded mt-1" placeholder="ghp_..." />
+        <div class="flex gap-2 mt-2">
+          <button id="revealToken" type="button" class="btn btn-ghost">Mostra</button>
+          <button id="removeToken" type="button" class="btn btn-ghost">Rimuovi token</button>
+        </div>
+        <div class="text-xs text-gray-500 mt-2">Token salvato in localStorage solo su questo dispositivo.</div>
+      </form>
+
+      <div class="flex gap-2 mt-2">
+        <button id="reloadBtn" type="button" class="btn btn-ghost flex-1">Ricarica (RAW → API)</button>
+        <button id="saveBtn" type="button" class="btn btn-primary flex-1" disabled>Salva</button>
+      </div>
+
+      <div>
+        <div id="status" class="text-sm text-gray-600 mt-2">Stato: in attesa</div>
+        <pre id="log" class="mt-2 p-2 bg-gray-50 rounded text-xs">Log...\n</pre>
+      </div>
+    </aside>
+  </div>
+</main>
+
+<!-- floating mobile save: SOLO token + SALVA (niente mostra/rimuovi) -->
+<div class="floating-save">
+  <div class="card flex items-center justify-between gap-3">
+    <div class="text-sm text-gray-700">Salvataggio rapido</div>
+    <div class="flex gap-2 items-center" style="width:70%;">
+      <!-- token mobile inside a form to avoid the console warning -->
+      <form id="tokenFormMobile" autocomplete="off" onsubmit="return false;" style="display:flex;gap:8px;align-items:center;width:100%;">
+        <input id="tokenMobile" name="tokenMobile" type="password" autocomplete="new-password" class="p-2 border rounded flex-1" placeholder="Token personale (PAT)" />
+        <!-- SALVA grande e prominente -->
+        <button id="saveBtnMobile" type="button" class="btn btn-primary" disabled>Salva</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Login modal: keep separate form for login (submit button should be type="submit") -->
+<div id="loginModal" class="fixed inset-0 flex items-center justify-center bg-[rgba(0,0,0,0.55)] z-50" aria-hidden="false">
+  <div class="bg-white p-4 rounded max-w-xl w-[94%]">
+    <h2 class="text-lg font-semibold">Login amministratore</h2>
+    <form id="loginForm" autocomplete="on">
+      <div id="loginErr" class="text-red-600 mb-2 hidden"></div>
+      <label class="block mt-2">Utente
+        <input id="loginUser" class="w-full p-2 border rounded mt-1" value="Admin" autocomplete="username" />
+      </label>
+      <label class="block mt-2">Password
+        <input id="loginPass" type="password" class="w-full p-2 border rounded mt-1" autocomplete="current-password" />
+      </label>
+      <div class="mt-4 flex items-center justify-between">
+        <div class="text-xs text-gray-500">Credenziali demo: <strong>Admin</strong> / <strong>AgriGiu26!</strong></div>
+        <button id="loginSubmit" class="btn btn-primary" type="submit">Entra</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div id="toast" role="status" aria-live="polite"></div>
+
+<script>
+/* CONFIG */
+const CONFIG = {
+  OWNER: 'MISDV',
+  REPO: 'misdv.github.io',
+  BRANCH: 'chatV2',
+  DEFAULT_PATH: 'dati.json',
+  ADMIN_USER: 'Admin',
+  ADMIN_PASS: 'AgriGiu26!',
+  LS_TOKEN_KEY: 'dati_token_v1'
+};
+
+/* DOM shortcuts */
+const $ = id => document.getElementById(id);
+const tokenInput = $('token');
+const tokenMobile = $('tokenMobile');
+const revealTokenBtn = $('revealToken');
+const removeTokenBtn = $('removeToken');
+
+const savePath = $('savePath');
+const reloadBtn = $('reloadBtn');
+const saveBtn = $('saveBtn');
+const saveBtnMobile = $('saveBtnMobile');
+
+const statusEl = $('status');
+const logEl = $('log');
+const updatedTop = $('updatedTop');
+
+const social_instagram = $('social_instagram');
+const social_facebook = $('social_facebook');
+const social_tiktok = $('social_tiktok');
+const contatto_via = $('contatto_via');
+const contatto_comune = $('contatto_comune');
+const contatto_mail = $('contatto_mail');
+const newPhone = $('newPhone');
+const addPhone = $('addPhone');
+const phoneList = $('phoneList');
+const hoursContainer = $('hoursContainer');
+const cardsList = $('cardsList');
+const addCardBtn = $('addCard');
+
+const loginModal = $('loginModal');
+const loginForm = $('loginForm');
+const loginUser = $('loginUser');
+const loginPass = $('loginPass');
+const loginErr = $('loginErr');
+
+const toastEl = $('toast');
+
+let loggedIn = false;
+let data = null;
+let currentSha = null;
+
+/* UTIL */
+function toast(msg, ms = 2000){
+  toastEl.textContent = msg;
+  toastEl.classList.add('show');
+  clearTimeout(toastEl._t);
+  toastEl._t = setTimeout(()=> toastEl.classList.remove('show'), ms);
+}
+function log(msg){
+  const t = new Date().toLocaleTimeString();
+  if (logEl) logEl.textContent = `[${t}] ${msg}\n` + logEl.textContent;
+  console.log(msg);
+}
+function setStatus(s){ if (statusEl) statusEl.textContent = 'Stato: ' + s; }
+function escapeHtml(s=''){ return String(s||'').replace(/[&<>'"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+function toBase64(s){ return btoa(unescape(encodeURIComponent(s))); }
+function fromBase64(b){ return decodeURIComponent(escape(atob(b))); }
+
+function loadTokenFromStorage(){ try { return localStorage.getItem(CONFIG.LS_TOKEN_KEY) || ''; } catch(e){ return ''; } }
+function saveTokenToStorage(v){ try { if (v) localStorage.setItem(CONFIG.LS_TOKEN_KEY, v); else localStorage.removeItem(CONFIG.LS_TOKEN_KEY); } catch(e){} }
+
+function updateSaveButtonsState(){
+  const tokenVal = (tokenInput?.value || tokenMobile?.value || loadTokenFromStorage() || '').trim();
+  const enabled = loggedIn && !!tokenVal;
+  if (saveBtn) saveBtn.disabled = !enabled;
+  if (saveBtnMobile) saveBtnMobile.disabled = !enabled;
+}
+
+function syncTokenToAll(source){
+  const val = (source && source.value) ? source.value : '';
+  if (tokenInput && tokenInput !== source) tokenInput.value = val;
+  if (tokenMobile && tokenMobile !== source) tokenMobile.value = val;
+  saveTokenToStorage(val.trim());
+  updateSaveButtonsState();
+}
+
+/* NETWORK HELPERS (unchanged, same as previous) */
+async function fetchRawPublic(owner, repo, branch, path){
+  const url = `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/${path}?_=${Date.now()}`;
+  log('Tentativo RAW: ' + url);
+  setStatus('caricamento RAW pubblico...');
+  const r = await fetch(url, { cache: 'no-store' });
+  if (!r.ok) throw new Error('RAW HTTP ' + r.status);
+  return await r.json();
+}
+
+async function apiGetFile(owner, repo, path, branch, token){
+  const url = `https://api.github.com/repos/${owner}/${repo}/contents/${encodeURIComponent(path)}?ref=${encodeURIComponent(branch)}`;
+  const headers = { Accept: 'application/vnd.github+json' };
+  if (token) headers.Authorization = 'Bearer ' + token;
+  log('GET API: ' + url);
+  const r = await fetch(url, { headers, cache: 'no-store' });
+  if (!r.ok) throw new Error('API GET HTTP ' + r.status + (r.status === 404 ? ' (Not Found)' : ''));
+  const j = await r.json();
+  const base64 = (j.content || '').replace(/\n/g,'');
+  const txt = fromBase64(base64);
+  return { content: JSON.parse(txt), sha: j.sha };
+}
+
+async function apiPutFile(owner, repo, path, branch, contentStr, sha, token){
+  const url = `https://api.github.com/repos/${owner}/${repo}/contents/${encodeURIComponent(path)}`;
+  const body = { message: `Aggiornamento da editor ${new Date().toISOString()}`, content: toBase64(contentStr), branch };
+  if (sha) body.sha = sha;
+  const headers = { 'Content-Type': 'application/json', Accept: 'application/vnd.github+json' };
+  if (token) headers.Authorization = 'Bearer ' + token;
+  log('PUT API: ' + url + (sha ? ' (update)' : ' (create)'));
+  const r = await fetch(url, { method: 'PUT', headers, body: JSON.stringify(body) });
+  const j = await r.json();
+  if (!r.ok) {
+    const msg = j && j.message ? j.message : JSON.stringify(j);
+    const err = new Error('API PUT HTTP ' + r.status + ' - ' + msg);
+    err.raw = j;
+    throw err;
+  }
+  return j;
+}
+
+async function ensureRepoExists(owner, repo, token){
+  const url = `https://api.github.com/repos/${owner}/${repo}`;
+  const headers = { Accept: 'application/vnd.github+json' };
+  if (token) headers.Authorization = 'Bearer ' + token;
+  const r = await fetch(url, { headers, cache: 'no-store' });
+  if (!r.ok) throw new Error('Repo check failed: ' + r.status + ' ' + r.statusText);
+  return true;
+}
+
+/* RENDER helpers (phones/hours/cards) */
+function updatePreview(){ updatedTop.textContent = data?.updated || '—'; }
+
+function renderPhones(){
+  phoneList.innerHTML = '';
+  data.contatto = data.contatto || { numeri_telefono: [] };
+  (data.contatto.numeri_telefono || []).forEach((p, idx) => {
+    const row = document.createElement('div');
+    row.className = 'flex gap-2';
+    row.innerHTML = `<input value="${escapeHtml(p)}" class="p-2 border rounded flex-1 phoneInput"/><button data-idx="${idx}" class="btn btn-ghost" type="button">Rimuovi</button>`;
+    phoneList.appendChild(row);
+    row.querySelector('button').addEventListener('click', () => {
+      data.contatto.numeri_telefono.splice(idx,1);
+      renderPhones(); updatePreview(); updateSaveButtonsState();
+    });
+    row.querySelector('input').addEventListener('input', e => {
+      data.contatto.numeri_telefono[idx] = e.target.value.trim();
+      updatePreview(); updateSaveButtonsState();
+    });
+  });
+}
+
+function renderHours(){
+  hoursContainer.innerHTML = '';
+  data.orari = data.orari || {};
+  const days = ['Lunedì','Martedì','Mercoledì','Giovedì','Venerdì','Sabato','Domenica'];
+  days.forEach(day => {
+    const d = data.orari[day] || { pranzo: '', cena: '', note: '' };
+    const card = document.createElement('div');
+    card.className = 'p-2 border rounded';
+    card.innerHTML = `
+      <div class="font-medium">${day}</div>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 mt-2">
+        <input data-day="${day}" data-field="pranzo" value="${escapeHtml(d.pranzo||'')}" placeholder="pranzo" class="p-2 border rounded"/>
+        <input data-day="${day}" data-field="cena" value="${escapeHtml(d.cena||'')}" placeholder="cena" class="p-2 border rounded"/>
+        <input data-day="${day}" data-field="note" value="${escapeHtml(d.note||'')}" placeholder="note" class="p-2 border rounded"/>
+      </div>
+    `;
+    hoursContainer.appendChild(card);
+    card.querySelectorAll('input').forEach(inp => {
+      inp.addEventListener('input', e => {
+        const dayk = e.target.dataset.day, fld = e.target.dataset.field;
+        data.orari[dayk] = data.orari[dayk] || {};
+        data.orari[dayk][fld] = e.target.value.trim() || null;
+        updatePreview(); updateSaveButtonsState();
+      });
+    });
+  });
+}
+
+function renderCards(){
+  cardsList.innerHTML = '';
+  data.cards = data.cards || [];
+  data.cards.forEach((c, i) => {
+    const el = document.createElement('div');
+    el.className = 'p-2 border rounded grid grid-cols-1 md:grid-cols-3 gap-2 items-start';
+    el.innerHTML = `
+      <input id="ti${i}" data-idx="${i}" value="${escapeHtml(c.titolo||'')}" class="p-2 border rounded col-span-2"/>
+      <input id="ii${i}" data-idx="${i}" value="${escapeHtml(c.icona||'')}" class="p-2 border rounded"/>
+      <textarea id="tx${i}" data-idx="${i}" class="p-2 border rounded col-span-3 h-40 resize-y">${escapeHtml(c.valore||'')}</textarea>
+      <div class="col-span-3 flex justify-end"><button data-idx="${i}" class="btn btn-ghost" type="button">Rimuovi</button></div>
+    `;
+    cardsList.appendChild(el);
+    Array.from(el.querySelectorAll('input,textarea')).forEach(inp => {
+      inp.addEventListener('input', e => {
+        const idx = Number(e.target.dataset.idx);
+        if (e.target.tagName.toLowerCase() === 'textarea') data.cards[idx].valore = e.target.value;
+        else {
+          const inputs = el.querySelectorAll('input');
+          data.cards[idx].titolo = inputs[0].value;
+          data.cards[idx].icona = inputs[1].value;
+        }
+        updatePreview(); updateSaveButtonsState();
+      });
+    });
+    el.querySelector('button').addEventListener('click', e => {
+      const idx = Number(e.target.dataset.idx);
+      data.cards.splice(idx,1);
+      renderCards(); updatePreview(); updateSaveButtonsState();
+    });
+  });
+}
+
+function renderAll(){
+  data = data || { socials: {}, contatto: { numeri_telefono: [] }, orari: {}, cards: [], updated: new Date().toISOString() };
+  social_instagram.value = data.socials?.instagram?.link || '';
+  social_facebook.value = data.socials?.facebook?.link || '';
+  social_tiktok.value = data.socials?.tiktok?.link || '';
+  contatto_via.value = data.contatto?.via || '';
+  contatto_comune.value = data.contatto?.comune || '';
+  contatto_mail.value = data.contatto?.mail || '';
+  renderPhones();
+  renderHours();
+  renderCards();
+  updatePreview();
+}
+
+/* LOAD FLOW RAW -> API fallback */
+async function loadPreferRawThenApi(usePath){
+  const path = (usePath || savePath.value || CONFIG.DEFAULT_PATH).trim();
+  log('Start load - path: ' + path);
+  setStatus('caricamento RAW pubblico...');
+  try {
+    const raw = await fetchRawPublic(CONFIG.OWNER, CONFIG.REPO, CONFIG.BRANCH, path);
+    data = raw || { socials: {}, contatto:{ numeri_telefono:[] }, orari:{}, cards:[], updated: new Date().toISOString() };
+    currentSha = null;
+    renderAll();
+    setStatus('caricato da RAW pubblico');
+    log('Caricato da RAW pubblico');
+    return;
+  } catch(rawErr){
+    log('RAW fallito: ' + rawErr.message);
+    const token = (tokenInput?.value || tokenMobile?.value || loadTokenFromStorage()).trim();
+    if (!token) {
+      setStatus('RAW fallito (inserisci token per fallback API)');
+      data = { socials: {}, contatto:{ numeri_telefono:[] }, orari:{}, cards:[], updated: new Date().toISOString() };
+      renderAll();
+      return;
+    }
+    try {
+      setStatus('RAW fallito — tentativo API con PAT...');
+      const meta = await apiGetFile(CONFIG.OWNER, CONFIG.REPO, path, CONFIG.BRANCH, token);
+      data = meta.content || { socials: {}, contatto:{ numeri_telefono:[] }, orari:{}, cards:[], updated: new Date().toISOString() };
+      currentSha = meta.sha;
+      renderAll();
+      setStatus('caricato via API');
+      log('Caricato via API fallback');
+    } catch(apiErr){
+      log('API fallback fallito: ' + apiErr.message);
+      setStatus('errore caricamento (raw e api falliti)');
+      data = { socials: {}, contatto:{ numeri_telefono:[] }, orari:{}, cards:[], updated: new Date().toISOString() };
+      renderAll();
+    }
+  }
+}
+
+/* SAVE (OVERWRITE) */
+async function performSave(){
+  if (!loggedIn) { setStatus('login richiesto'); log('Salvataggio bloccato: login richiesto'); toast('Login richiesto'); return; }
+  const token = (tokenInput?.value || tokenMobile?.value || loadTokenFromStorage()).trim();
+  if (!token) { setStatus('token richiesto'); log('Salvataggio bloccato: token mancante'); toast('Inserisci token'); return; }
+
+  const path = (savePath.value || CONFIG.DEFAULT_PATH).trim();
+
+  try {
+    await ensureRepoExists(CONFIG.OWNER, CONFIG.REPO, token);
+  } catch(e){
+    setStatus('repo non trovato / permessi token insufficienti');
+    log('Repo check failed: ' + e.message);
+    toast('Repo non accessibile con questo token');
+    return;
+  }
+
+  setStatus('preparando salvataggio...');
+  saveBtn.disabled = true; saveBtnMobile.disabled = true; reloadBtn.disabled = true;
+  await new Promise(r => setTimeout(r, 600));
+
+  try {
+    try {
+      const meta = await apiGetFile(CONFIG.OWNER, CONFIG.REPO, path, CONFIG.BRANCH, token);
+      currentSha = meta.sha;
+      log('SHA corrente ottenuto: ' + currentSha);
+    } catch(e){
+      log('GET per SHA fallito (file probabilmente mancante): ' + e.message);
+      currentSha = null;
+    }
+
+    const payloadStr = JSON.stringify(Object.assign({}, data, { updated: new Date().toISOString() }), null, 2);
+    setStatus('invio PUT su GitHub...');
+    const res = await apiPutFile(CONFIG.OWNER, CONFIG.REPO, path, CONFIG.BRANCH, payloadStr, currentSha, token);
+
+    setStatus('salvataggio completato');
+    log('Salvataggio OK: ' + (res.commit?.sha || (res.content && res.content.sha) || 'ok'));
+    currentSha = (res.content && res.content.sha) || currentSha;
+    data.updated = new Date().toISOString();
+    updatePreview();
+    toast('Salvataggio OK');
+  } catch(err){
+    const msg = err && err.message ? err.message : String(err);
+    log('Errore PUT: ' + msg);
+    if (String(msg).includes('409') || (err.raw && err.raw.message && err.raw.message.toLowerCase().includes('sha'))) {
+      setStatus('conflitto (409) — fai reload e riprova');
+      toast('Conflitto: ricarica e riprova');
+    } else {
+      setStatus('errore salvataggio: ' + msg);
+      toast('Errore salvataggio');
+    }
+  } finally {
+    saveBtn.disabled = false; saveBtnMobile.disabled = false; reloadBtn.disabled = false;
+    updateSaveButtonsState();
+  }
+}
+
+/* EVENTS wiring */
+(function wire(){
+  if (tokenInput) tokenInput.addEventListener('input', (e) => syncTokenToAll(e.target));
+  if (tokenMobile) tokenMobile.addEventListener('input', (e) => syncTokenToAll(e.target));
+
+  if (revealTokenBtn) revealTokenBtn.addEventListener('click', () => {
+    if (!tokenInput) return;
+    tokenInput.type = tokenInput.type === 'password' ? 'text' : 'password';
+    revealTokenBtn.textContent = tokenInput.type === 'password' ? 'Mostra' : 'Nascondi';
+  });
+
+  if (removeTokenBtn) removeTokenBtn.addEventListener('click', () => {
+    if (tokenInput) tokenInput.value = '';
+    if (tokenMobile) tokenMobile.value = '';
+    saveTokenToStorage('');
+    log('Token rimosso dall\'interfaccia e dalla cache');
+    updateSaveButtonsState();
+    toast('Token rimosso');
+  });
+
+  if (reloadBtn) reloadBtn.addEventListener('click', async () => {
+    const path = (savePath.value || CONFIG.DEFAULT_PATH).trim();
+    log('Manual reload richiesto, path: ' + path);
+    await loadPreferRawThenApi(path);
+  });
+
+  if (saveBtn) saveBtn.addEventListener('click', performSave);
+  if (saveBtnMobile) saveBtnMobile.addEventListener('click', performSave);
+
+  if (social_instagram) social_instagram.addEventListener('input', () => { data.socials = data.socials || {}; data.socials.instagram = { link: social_instagram.value.trim() }; updatePreview(); updateSaveButtonsState(); });
+  if (social_facebook) social_facebook.addEventListener('input', () => { data.socials = data.socials || {}; data.socials.facebook = { link: social_facebook.value.trim() }; updatePreview(); updateSaveButtonsState(); });
+  if (social_tiktok) social_tiktok.addEventListener('input', () => { data.socials = data.socials || {}; data.socials.tiktok = { link: social_tiktok.value.trim() }; updatePreview(); updateSaveButtonsState(); });
+
+  if (contatto_via) contatto_via.addEventListener('input', () => { data.contatto = data.contatto || {}; data.contatto.via = contatto_via.value.trim(); updatePreview(); updateSaveButtonsState(); });
+  if (contatto_comune) contatto_comune.addEventListener('input', () => { data.contatto = data.contatto || {}; data.contatto.comune = contatto_comune.value.trim(); updatePreview(); updateSaveButtonsState(); });
+  if (contatto_mail) contatto_mail.addEventListener('input', () => { data.contatto = data.contatto || {}; data.contatto.mail = contatto_mail.value.trim(); updatePreview(); updateSaveButtonsState(); });
+
+  if (addPhone) addPhone.addEventListener('click', () => {
+    const v = (newPhone.value || '').trim(); if (!v) return;
+    data.contatto = data.contatto || {}; data.contatto.numeri_telefono = data.contatto.numeri_telefono || [];
+    data.contatto.numeri_telefono.push(v); newPhone.value = '';
+    renderPhones(); updatePreview(); updateSaveButtonsState();
+  });
+
+  if (addCardBtn) addCardBtn.addEventListener('click', () => {
+    data.cards = data.cards || []; data.cards.push({ titolo: 'Nuova card', valore: 'Testo', icona: 'info' });
+    renderCards(); updatePreview(); updateSaveButtonsState();
+  });
+
+  if (loginForm) loginForm.addEventListener('submit', (ev) => {
+    ev.preventDefault();
+    loginErr.classList.add('hidden');
+    const u = (loginUser.value || '').trim(), p = loginPass.value || '';
+    if (u === CONFIG.ADMIN_USER && p === CONFIG.ADMIN_PASS) {
+      loggedIn = true;
+      loginModal.style.display = 'none';
+      document.body.style.overflow = ''; // re-enable scroll
+      log('Login eseguito');
+      setStatus('autenticato');
+      updateSaveButtonsState();
+      toast('Login OK');
+    } else {
+      loginErr.textContent = 'Credenziali errate';
+      loginErr.classList.remove('hidden');
+      log('Login fallito');
+      toast('Login fallito');
+    }
+  });
+})();
+
+/* INIT */
+document.addEventListener('DOMContentLoaded', async () => {
+  try {
+    const t = loadTokenFromStorage();
+    if (t) {
+      if (tokenInput) tokenInput.value = t;
+      if (tokenMobile) tokenMobile.value = t;
+      log('Token ripristinato dalla cache');
+    }
+  } catch(e){}
+
+  if (loginModal) { loginModal.style.display = 'flex'; document.body.style.overflow = 'hidden'; }
+
+  try {
+    await loadPreferRawThenApi(savePath.value.trim() || CONFIG.DEFAULT_PATH);
+    setStatus('caricamento automatico completato');
+  } catch(e){
+    log('Errore init: ' + (e && e.message ? e.message : e));
+    setStatus('errore init');
+  }
+
+  updateSaveButtonsState();
+});
+</script>
+
+</body>
+</html>
