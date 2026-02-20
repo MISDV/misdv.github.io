@@ -4,8 +4,8 @@
     "immagine": "img/olio.jpg",
     "categoria": "Olio Extra Vergine",
     "tipologia": "Oli",
-    "prezzo": 16.00,
-    "prezzo_scontato": 12.50,
+    "prezzo": 16,
+    "prezzo_scontato": 12.5,
     "rating": 5
   },
   {
@@ -13,13 +13,21 @@
     "immagine": "img/salame.jpg",
     "categoria": "Insaccati",
     "tipologia": "Salami",
-    "prezzo": 6.50
+    "prezzo": 6.5
   },
   {
     "titolo": "Prosciutto",
     "immagine": "img/prosciutto.jpg",
     "categoria": "Insaccati",
     "tipologia": "Prosciutti",
-    "prezzo": 6.50
+    "prezzo": 6.5
+  },
+  {
+    "titolo": "Prodotto di Test",
+    "immagine": "img/1771552632215-Lattepastorizzatoparzialmentescremato_900x.webp",
+    "categoria": "Latte",
+    "tipologia": "Latticini",
+    "prezzo": 8,
+    "prezzo_scontato": 10
   }
 ]
