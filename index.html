@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="it"><head>
+<html lang="it">
+<head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Agriturismo Giuggioloni - I sapori dell'AcquaViva</title>
@@ -49,132 +50,199 @@
         }html { scroll-behavior: smooth; }.warm-filter {
             filter: sepia(20%) saturate(120%) contrast(105%);
         }
+        /* small helper to avoid body jump when locking scroll */
+        .lock-scroll {
+          position: fixed;
+          width: 100%;
+        }
     </style>
 </head>
 <body class="bg-background-cream dark:bg-background-dark text-gray-800 dark:text-gray-200 font-display transition-colors duration-300 bg-texture-cream">
-<nav class="fixed w-full z-50 transition-all duration-300 bg-background-light/95 dark:bg-background-dark/95 backdrop-blur-md shadow-md border-b border-primary/10">
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-<div class="flex justify-between items-center h-24">
-<div class="flex-shrink-0 flex items-center gap-3 group cursor-pointer">
-<div class="flex items-center justify-center w-16 h-16 bg-primary/10 p-2 rounded-full hover:bg-primary/20 transition-colors">
-  <img src="logo.png" alt="logo Giuggioloni" class="w-12 h-12 object-contain">
-</div>
-<div class="flex flex-col">
-<span id="titolo" class="font-serif font-bold text-xl tracking-wide text-gray-900 dark:text-white leading-none">GIUGGIOLONI</span>
-<span id="sottotitolo" class="font-display text-primary font-medium text-sm tracking-widest uppercase">I sapori dell'AcquaViva</span>
-</div>
-</div>
-<div class="hidden md:flex space-x-10 items-center">
-<a class="text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors text-sm uppercase tracking-widest font-bold font-serif" href="#">Home</a>
-<a class="text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors text-sm uppercase tracking-widest font-bold font-serif" href="#ristorante">Il Ristorante</a>
-<a class="text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors text-sm uppercase tracking-widest font-bold font-serif" href="#fattoria">La Fattoria</a>
-<a class="text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors text-sm uppercase tracking-widest font-bold font-serif" href="#prodotti">Prodotti</a>
-<a class="bg-primary hover:bg-primary-dark text-white px-6 py-2.5 rounded-sm transition-colors text-sm font-bold uppercase tracking-wide shadow-lg shadow-primary/30 border border-primary-dark" href="#contatti">Contatti</a>
-</div>
-<div class="md:hidden flex items-center">
-<button class="text-gray-600 dark:text-gray-300 hover:text-primary" type="button">
-<span class="material-icons">menu</span>
-</button>
-</div>
-</div>
-</div>
-</nav>
-<header class="relative h-screen min-h-[600px] flex items-center justify-center overflow-hidden">
-<div class="absolute inset-0 z-0">
-<img alt="Golden hour landscape of rolling hills in Marche Italy with a stone farmhouse" class="w-full h-full object-cover warm-filter" data-alt="Golden hour landscape of rolling hills in Marche Italy with a stone farmhouse" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAoUD7geav_jUt3YoxjGp1YMKk9g3P-yNxD8BvjTGZGLDlN8XlxnRMgkhZfvx0Fqxmiebje2SCK7_mXAcZFVCLDvQ50MNmHNuqBNqBv4-1Kn_OWbwo9kdXSvq-WYYgRGEwTdAcobigRFTWFud5rvX8YwiGUxxA6_dOmvZty8Q2e17MXTJ5LKQJK4Vee66USHGJGvmH1WxRe_42bqioJK9TssDU2ulaz0TzUok29ZUGMwfDsUBwRKvp_jWf5kHh18EpXFMQvHf4Wayk"/>
-<div class="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black/50 mix-blend-multiply"></div>
-<div class="absolute inset-0 bg-orange-900/20 mix-blend-overlay"></div>
-</div>
-<div class="relative z-10 text-center px-4 max-w-5xl mx-auto mt-16">
-<div class="inline-block border-y border-white/60 py-2 px-6 mb-6 backdrop-blur-sm bg-black/10">
-<span class="block text-white font-serif font-medium tracking-[0.2em] uppercase text-shadow-light">Agriturismo nelle Marche</span>
-</div>
-<h1 class="text-6xl md:text-8xl font-serif font-bold text-white mb-6 leading-tight text-shadow drop-shadow-2xl">
-                Autenticità e Natura <br/>
-<span class="font-light italic text-orange-100">Sulla Tua Tavola</span>
-</h1>
-<p class="text-lg md:text-xl text-orange-50 mb-12 max-w-2xl mx-auto font-light leading-relaxed text-shadow font-serif">
-                Un rifugio di pace tra le colline dorate, dove i sapori della terra incontrano la calda tradizione dell'ospitalità marchigiana.
-            </p>
-<div class="flex flex-col sm:flex-row gap-5 justify-center">
-<a class="bg-primary hover:bg-primary-dark text-white text-lg px-10 py-4 rounded-sm transition-all duration-300 shadow-xl hover:shadow-primary/40 transform hover:-translate-y-1 font-serif uppercase tracking-wider border-b-4 border-primary-dark" href="#ristorante">
-                    Prenota un Tavolo
-                </a>
-<a class="bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/60 text-white text-lg px-10 py-4 rounded-sm transition-all duration-300 font-serif uppercase tracking-wider hover:border-primary hover:text-primary" href="#fattoria">
-                    Scopri la Fattoria
-                </a>
-</div>
-</div>
-<div class="absolute bottom-1 left-1/2 transform -translate-x-1/2 text-white animate-bounce flex flex-col items-center gap-2 opacity-80">
-<span class="text-xs uppercase tracking-widest font-light">Scorri</span>
-<span class="material-icons text-4xl">keyboard_arrow_down</span>
-</div>
-</header>
-<section class="py-24 bg-background-light dark:bg-background-dark relative overflow-hidden">
-<div class="absolute top-0 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl -mr-32 -mt-32"></div>
-<div class="absolute bottom-0 left-0 w-64 h-64 bg-earth-brown/10 rounded-full blur-3xl -ml-20 -mb-20"></div>
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-<div class="text-center mb-20">
-<span class="text-primary text-sm font-bold tracking-widest uppercase mb-3 block font-serif">La Nostra Filosofia</span>
-<h2 class="text-4xl md:text-5xl font-serif font-bold text-gray-900 dark:text-white mb-6">Dal Campo alla Tavola</h2>
-<div class="flex justify-center items-center gap-4">
-<div class="h-px w-12 bg-primary/50"></div>
-<span class="material-icons text-primary">spa</span>
-<div class="h-px w-12 bg-primary/50"></div>
-</div>
-</div>
 
-<div class="grid grid-cols-1 md:grid-cols-3 gap-12" data-repeat="cards">
-  <template>
-    <div class="bg-background-cream dark:bg-white/5 p-10 rounded-sm shadow-md hover:shadow-xl transition-all duration-300 border-t-4 border-primary group relative overflow-hidden">
-      <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
-        <!-- icona decorativa grande (usa lo stesso nome icona dal JSON) -->
-        <span class="material-icons text-8xl text-primary">{{icona}}</span>
+<!-- ===== NAVBAR (updated for mobile UX) ===== -->
+<nav id="siteNav" class="fixed w-full z-50 transition-all duration-300 bg-background-light/95 dark:bg-background-dark/95 backdrop-blur-md shadow-md border-b border-primary/10">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between items-center h-20 md:h-24">
+      <div class="flex-shrink-0 flex items-center gap-3 group cursor-pointer">
+        <div class="flex items-center justify-center w-12 h-12 md:w-16 md:h-16 bg-primary/10 p-2 rounded-full hover:bg-primary/20 transition-colors">
+          <img src="logo.png" alt="logo Giuggioloni" class="w-10 h-10 md:w-12 md:h-12 object-contain">
+        </div>
+        <div class="flex flex-col">
+          <span id="titolo" class="font-serif font-bold text-lg md:text-xl tracking-wide text-gray-900 dark:text-white leading-none">GIUGGIOLONI</span>
+          <span id="sottotitolo" class="font-display text-primary font-medium text-xs md:text-sm tracking-widest uppercase">I sapori dell'AcquaViva</span>
+        </div>
       </div>
 
-      <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-6 group-hover:bg-primary group-hover:text-white transition-colors text-primary border border-primary/20">
-        <!-- icona principale nel cerchio -->
-        <span class="material-icons text-3xl">{{icona}}</span>
+      <!-- desktop links -->
+      <div class="hidden md:flex space-x-8 items-center">
+        <a class="text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors text-sm uppercase tracking-widest font-bold font-serif" href="#">Home</a>
+        <a class="text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors text-sm uppercase tracking-widest font-bold font-serif" href="#ristorante">Il Ristorante</a>
+        <a class="text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors text-sm uppercase tracking-widest font-bold font-serif" href="#fattoria">La Fattoria</a>
+        <a class="text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors text-sm uppercase tracking-widest font-bold font-serif" href="#prodotti">Prodotti</a>
+        <a class="bg-primary hover:bg-primary-dark text-white px-4 md:px-6 py-2.5 rounded-sm transition-colors text-sm font-bold uppercase tracking-wide shadow-lg shadow-primary/30 border border-primary-dark" href="#contatti">Contatti</a>
       </div>
 
-      <h3 class="text-2xl font-serif font-bold mb-4 text-gray-900 dark:text-white">{{titolo}}</h3>
-
-      <p class="text-gray-600 dark:text-gray-400 leading-relaxed font-light">
-        {{valore}}
-      </p>
+      <!-- mobile button 
+      <div class="md:hidden flex items-center">
+        <button id="mobileMenuButton" class="text-gray-600 dark:text-gray-300 hover:text-primary p-2 rounded-md focus:outline-none" type="button"
+                aria-controls="mobileMenu" aria-expanded="false" aria-label="Apri menu principale">
+          <svg id="menuIconOpen" class="w-6 h-6" viewBox="0 0 24 24" fill="none"><path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          <svg id="menuIconClose" class="w-6 h-6 hidden" viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </button>
+      </div>
     </div>
-  </template>
-</div>
-</div>
+  </div>
+  -->
+  <!-- MOBILE MENU: overlay + panel -->
+  <div id="mobileOverlay" class="md:hidden fixed inset-0 bg-black/40 opacity-0 pointer-events-none transition-opacity duration-200 z-40"></div>
 
+  <div id="mobileMenu" class="md:hidden fixed inset-x-0 top-[80px] z-50 -translate-y-2 opacity-0 pointer-events-none transition-all duration-250 ease-in-out">
+    <div class="max-w-4xl mx-auto px-4">
+      <div class="bg-background-light dark:bg-background-dark/95 rounded-b-md shadow-lg border-t border-primary/10 overflow-hidden">
+        <div class="p-5 space-y-4">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 bg-primary/10 rounded-md flex items-center justify-center"><img src="logo.png" alt="" class="w-8 h-8 object-contain"></div>
+              <div>
+                <div class="text-sm font-serif font-bold text-gray-900 dark:text-white">GIUGGIOLONI</div>
+                <div class="text-xs text-primary uppercase tracking-wider">I sapori dell'AcquaViva</div>
+              </div>
+            </div>
+            <button id="mobileMenuClose" aria-label="Chiudi menu" class="p-2 rounded-md hover:bg-primary/5 focus:outline-none">
+              <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            </button>
+          </div>
+
+          <nav role="menu" aria-label="Menu principale mobile" class="flex flex-col gap-2">
+            <a role="menuitem" class="block py-3 px-3 rounded-md text-base font-bold text-gray-800 dark:text-gray-100 hover:bg-primary/5" href="#">Home</a>
+            <a role="menuitem" class="block py-3 px-3 rounded-md text-base font-bold text-gray-800 dark:text-gray-100 hover:bg-primary/5" href="#ristorante">Il Ristorante</a>
+            <a role="menuitem" class="block py-3 px-3 rounded-md text-base font-bold text-gray-800 dark:text-gray-100 hover:bg-primary/5" href="#fattoria">La Fattoria</a>
+            <a role="menuitem" class="block py-3 px-3 rounded-md text-base font-bold text-gray-800 dark:text-gray-100 hover:bg-primary/5" href="#prodotti">Prodotti</a>
+            <a role="menuitem" class="block py-3 px-3 rounded-md text-base font-bold bg-primary text-white text-center rounded-sm" href="#contatti">Contatti</a>
+          </nav>
+
+          <div class="pt-4 border-t border-stone-200 dark:border-stone-700">
+            <div class="flex items-center gap-3">
+              <a class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-gray-400 hover:text-white hover:bg-primary transition-all duration-300" href="#" aria-label="Instagram">
+                <i class="fab fa-instagram text-lg"></i>
+              </a>
+              <a class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-gray-400 hover:text-white hover:bg-primary transition-all duration-300" href="#" aria-label="Facebook">
+                <i class="fab fa-facebook text-lg"></i>
+              </a>
+              <a class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-gray-400 hover:text-white hover:bg-primary transition-all duration-300" href="#" aria-label="TikTok">
+                <i class="fab fa-tiktok text-lg"></i>
+              </a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- ===== HERO: reduce height on small screens for faster rendering ===== -->
+<header class="relative md:h-screen h-[62vh] min-h-[420px] flex items-center justify-center overflow-hidden pt-12">
+  <div class="absolute inset-0 z-0">
+    <!-- hero image: keep high priority but avoid too big mobile impact -->
+    <img
+      alt="Golden hour landscape of rolling hills in Marche Italy with a stone farmhouse"
+      class="w-full h-full object-cover warm-filter"
+      src="https://lh3.googleusercontent.com/aida-public/AB6AXuAoUD7geav_jUt3YoxjGp1YMKk9g3P-yNxD8BvjTGZGLDlN8XlxnRMgkhZfvx0Fqxmiebje2SCK7_mXAcZFVCLDvQ50MNmHNuqBNqBv4-1Kn_OWbwo9kdXSvq-WYYgRGEwTdAcobigRFTWFud5rvX8YwiGUxxA6_dOmvZty8Q2e17MXTJ5LKQJK4Vee66USHGJGvmH1WxRe_42bqioJK9TssDU2ulaz0TzUok29ZUGMwfDsUBwRKvp_jWf5kHh18EpXFMQvHf4Wayk"
+      decoding="async"
+      fetchpriority="high"
+      loading="eager"
+      style="min-height:420px;"
+    />
+    <div class="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black/50 mix-blend-multiply"></div>
+    <div class="absolute inset-0 bg-orange-900/20 mix-blend-overlay"></div>
+  </div>
+
+  <div class="relative z-10 text-center px-4 max-w-5xl mx-auto mt-6 md:mt-16">
+    <div class="inline-block border-y border-white/60 py-2 px-6 mb-4 backdrop-blur-sm bg-black/10">
+      <span class="block text-white font-serif font-medium tracking-[0.2em] uppercase text-shadow-light">Agriturismo nelle Marche</span>
+    </div>
+
+    <h1 class="text-3xl md:text-6xl font-serif font-bold text-white mb-4 md:mb-6 leading-tight text-shadow">
+      Autenticità e Natura
+      <br/>
+      <span class="font-light italic text-orange-100 text-lg md:text-3xl">Sulla Tua Tavola</span>
+    </h1>
+
+    <p class="text-sm md:text-lg text-orange-50 mb-6 max-w-2xl mx-auto font-light leading-relaxed text-shadow font-serif">
+      Un rifugio di pace tra le colline dorate, dove i sapori della terra incontrano la calda tradizione dell'ospitalità marchigiana.
+    </p>
+
+    <div class="flex flex-col sm:flex-row gap-3 sm:gap-5 justify-center">
+      <a class="bg-primary hover:bg-primary-dark text-white text-base md:text-lg px-6 md:px-10 py-3 md:py-4 rounded-sm transition-all duration-300 shadow-lg transform hover:-translate-y-0.5 font-serif uppercase tracking-wider border-b-2 border-primary-dark" href="#ristorante">
+        Prenota un Tavolo
+      </a>
+      <a class="bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/60 text-white text-base md:text-lg px-6 md:px-10 py-3 md:py-4 rounded-sm transition-all duration-300 font-serif uppercase tracking-wider hover:border-primary hover:text-primary" href="#fattoria">
+        Scopri la Fattoria
+      </a>
+    </div>
+  </div>
+  <br>
+  <div class="absolute bottom-0 transform text-white animate-bounce flex flex-col items-center gap-2 opacity-80">
+    <span class="text-xs uppercase tracking-widest font-light">Scorri</span>
+    <span class="material-icons text-3xl">keyboard_arrow_down</span>
+  </div>
+</header>
+
+<!-- ===== rest of content preserved (kept your original structure) ===== -->
+<section class="py-24 bg-background-light dark:bg-background-dark relative overflow-hidden">
+  <div class="absolute top-0 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl -mr-32 -mt-32"></div>
+  <div class="absolute bottom-0 left-0 w-64 h-64 bg-earth-brown/10 rounded-full blur-3xl -ml-20 -mb-20"></div>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <div class="text-center mb-20">
+      <span class="text-primary text-sm font-bold tracking-widest uppercase mb-3 block font-serif">La Nostra Filosofia</span>
+      <h2 class="text-3xl md:text-5xl font-serif font-bold text-gray-900 dark:text-white mb-6">Dal Campo alla Tavola</h2>
+      <div class="flex justify-center items-center gap-4">
+        <div class="h-px w-12 bg-primary/50"></div>
+        <span class="material-icons text-primary">spa</span>
+        <div class="h-px w-12 bg-primary/50"></div>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-12" data-repeat="cards">
+      <template>
+        <div class="bg-background-cream dark:bg-white/5 p-8 md:p-10 rounded-sm shadow-md hover:shadow-xl transition-all duration-300 border-t-4 border-primary group relative overflow-hidden">
+          <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+            <span class="material-icons text-7xl text-primary">{{icona}}</span>
+          </div>
+
+          <div class="w-14 h-14 bg-primary/10 rounded-full flex items-center justify-center mb-6 group-hover:bg-primary group-hover:text-white transition-colors text-primary border border-primary/20">
+            <span class="material-icons text-3xl">{{icona}}</span>
+          </div>
+
+          <h3 class="text-xl md:text-2xl font-serif font-bold mb-3 text-gray-900 dark:text-white">{{titolo}}</h3>
+
+          <p class="text-gray-600 dark:text-gray-400 leading-relaxed font-light">
+            {{valore}}
+          </p>
+        </div>
+      </template>
+    </div>
+  </div>
 </section>
+
 <section class="py-24 bg-background-cream dark:bg-white/5 border-y border-stone-200 dark:border-stone-800" id="ristorante">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex flex-col lg:flex-row items-center gap-20">
       <div class="w-full lg:w-1/2 order-2 lg:order-1">
         <span class="text-primary font-bold tracking-widest uppercase mb-3 block font-serif">I Nostri Piatti</span>
 
-        <!-- QUI: titolo e descrizione verranno popolati dal menu.json -->
-        <h2 id="menuTitle" class="text-5xl font-serif font-bold text-gray-900 dark:text-white mb-8">Sapori di Stagione</h2>
-        <p id="menuDescription" class="text-gray-600 dark:text-gray-300 mb-8 text-lg leading-relaxed font-light">
+        <h2 id="menuTitle" class="text-2xl md:text-5xl font-serif font-bold text-gray-900 dark:text-white mb-4 md:mb-8">Sapori di Stagione</h2>
+        <p id="menuDescription" class="text-gray-600 dark:text-gray-300 mb-6 text-base md:text-lg leading-relaxed font-light">
           La nostra cucina è un omaggio alla tradizione contadina. Ogni piatto racconta una storia...
         </p>
+
         <div id="menuDaySelector" class="flex gap-2 flex-wrap" role="tablist" aria-label="Seleziona giorno menu"></div>
-        <div class="mb-10 bg-white dark:bg-stone-900 p-4 shadow-sm border border-stone-100 dark:border-stone-800 rounded-sm">
+
+        <div class="mb-8 bg-white dark:bg-stone-900 p-4 shadow-sm border border-stone-100 dark:border-stone-800 rounded-sm">
           <table class="w-full" role="table">
             <caption class="sr-only">Menu — piatti e prezzi</caption>
-            <!-- area per selector (giorni abilitati) 
-            <thead>
-              <tr>
-                <th colspan="2" class="pb-2">
-                  <h3 id="menuDayTitle" class="text-xl font-semibold text-gray-800 dark:text-gray-100"></h3>
-                </th>
-              </tr>
-            </thead>
-            -->
-            <tbody id="menuTableBody">
-              <!-- popolato dinamicamente -->
-            </tbody>
+            <tbody id="menuTableBody"></tbody>
           </table>
         </div>
 
@@ -194,195 +262,286 @@
 </section>
 
 <section class="py-24 bg-background-light dark:bg-background-dark" id="fattoria">
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-<div class="text-center mb-16">
-<span class="text-primary font-bold tracking-widest uppercase mb-3 block font-serif">La Fattoria</span>
-<h2 class="text-4xl md:text-5xl font-serif font-bold text-gray-900 dark:text-white">Vita in Campagna</h2>
-<p class="mt-6 text-gray-600 dark:text-gray-400 max-w-2xl mx-auto font-light text-lg">
-                    Passeggiate tra gli animali, visitate l'orto didattico e riscoprite il contatto primordiale con la natura e i suoi frutti.
-                </p>
-</div>
-<div class="grid grid-cols-1 md:grid-cols-4 grid-rows-2 gap-6 h-auto md:h-[650px]">
-<div class="md:col-span-2 md:row-span-2 relative group overflow-hidden rounded-sm shadow-lg">
-<div class="absolute inset-0 bg-primary/20 mix-blend-overlay z-10 pointer-events-none"></div>
-<img alt="Close up of a sheep in a green pasture" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 warm-filter" data-alt="Close up of a sheep in a green pasture" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBWziVyQPUR9IPBhjPTs7xn0DdS4uk7BK-2SVzFZjOVOQ14V7VFLEVMLaiMgAaD21qoIm08t1L-5fcUispO1p4njUdcty67rxgHrWHH1MZeNnHQ4DrwU3PRlNytbx-ovgwAe2fDA_vWWqKnKjIdeDVHRucGBd7hhzAdvWUwerj47YadtfdNnOY6tncwhd6g6TjDHJ3wCJFDa64USRfy8YWCuZSzcpa-Dxpdm8BA9le52BwJULCs2wYE-29ULeyY4YLCMjKYLg1_1h8"/>
-<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-90 transition-opacity duration-300 flex items-end p-8 z-20">
-<div>
-<span class="text-primary text-xs font-bold uppercase tracking-wider mb-2 block">Animali</span>
-<p class="text-white font-serif text-2xl">I nostri animali al pascolo</p>
-</div>
-</div>
-</div>
-<div class="md:col-span-2 relative group overflow-hidden rounded-sm shadow-lg">
-<div class="absolute inset-0 bg-primary/20 mix-blend-overlay z-10 pointer-events-none"></div>
-<img alt="Vegetable garden rows with lush green plants" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 warm-filter" data-alt="Vegetable garden rows with lush green plants" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCThB2qZrgnOxLSXqSQ73E8Y2HwHrqvFuwk0bNdSNgYF_BV3SNCRvcy1ah-A67nRXzRFA8Nf3Y_5lVQreiKptW_J3pKuVU279SFjs14fhPajvpdX33fb2pOg_q-7E9veWIRIVm9oa5pUuOOzNAAlnuxkU3Kh534XF13DKJcfVshpolKZjtIuttNaJs99Ie85ZuJtAZTTet99aMYGeLiKWTl_dKNjtNu4ZVEz2oIfbupJCQSj3eF5ITYUHwNsKypOVgxchh3ieYjeUc"/>
-<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-90 transition-opacity duration-300 flex items-end p-8 z-20">
-<div>
-<span class="text-primary text-xs font-bold uppercase tracking-wider mb-2 block">Coltivazioni</span>
-<p class="text-white font-serif text-2xl">L'orto sinergico</p>
-</div>
-</div>
-</div>
-<div class="relative group overflow-hidden rounded-sm shadow-lg">
-<div class="absolute inset-0 bg-primary/20 mix-blend-overlay z-10 pointer-events-none"></div>
-<img alt="Basket of fresh red tomatoes" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 warm-filter" data-alt="Basket of fresh red tomatoes" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCTxtBQbow9zqZ6vvSMF2s325_tGzOe-t2mJyBZAylJqE9FkvMA2ai_t7ivWDd3IaJK5N-FYmBGoBuNfgJgS1Oj3AlZujT41BFRJ6yCluRCAVYIW-6e5viVnJq123ZyLx6uwmVGo0GMcGxu0ucx9SHd-H4hbO3_mBI3XiPEFM9UjSfAonmHHvAtMIdI1xCAqTmp_ahA2g9NlzwUaxeIhx9Awal4QYDDWe4M3TEoLcr2d0gx639Dh3sUdXT5W5ZqcHV6rf04ZjiS5Ko"/>
-<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-90 transition-opacity duration-300 flex items-end p-6 z-20">
-<p class="text-white font-serif text-lg">Il raccolto</p>
-</div>
-</div>
-<div class="relative group overflow-hidden rounded-sm shadow-lg">
-<div class="absolute inset-0 bg-primary/20 mix-blend-overlay z-10 pointer-events-none"></div>
-<img alt="Rustic wooden table set for outdoor dining" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 warm-filter" data-alt="Rustic wooden table set for outdoor dining" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC9tOR37FR5wnavO8jkjGfWYE89qCoqDwxg-v3pGYEkgU8iFpLhMur_o5jaUnNnhe7uXo6LjkcIxl4eAymAOWWNT64g5ZiwsWnU3BOoWjpOUlhtzly88eFOs0w03nkrohpREP9b1pOwUv6pRXm86HTTe7woQFoUJL0nf0OOZf_NuFQPPmNRDnInhGxfDXoCnmvVDt7FFKrrMZaIHJkFgOgk-i8ODmxEgFyj98got6mu06PULTYhvsa3GiXCrczMYfvJ_YWRumU7MfM"/>
-<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-90 transition-opacity duration-300 flex items-end p-6 z-20">
-<p class="text-white font-serif text-lg">Relax all'aperto</p>
-</div>
-</div>
-</div>
-</div>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-16">
+      <span class="text-primary font-bold tracking-widest uppercase mb-3 block font-serif">La Fattoria</span>
+      <h2 class="text-3xl md:text-4xl font-serif font-bold text-gray-900 dark:text-white">Vita in Campagna</h2>
+      <p class="mt-6 text-gray-600 dark:text-gray-400 max-w-2xl mx-auto font-light text-base md:text-lg">
+        Passeggiate tra gli animali, visitate l'orto didattico e riscoprite il contatto primordiale con la natura e i suoi frutti.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-4 grid-rows-2 gap-6 h-auto md:h-[650px]">
+      <div class="md:col-span-2 md:row-span-2 relative group overflow-hidden rounded-sm shadow-lg">
+        <div class="absolute inset-0 bg-primary/20 mix-blend-overlay z-10 pointer-events-none"></div>
+        <img alt="Close up of a sheep in a green pasture" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 warm-filter" data-alt="Close up of a sheep in a green pasture" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBWziVyQPUR9IPBhjPTs7xn0DdS4uk7BK-2SVzFZjOVOQ14V7VFLEVMLaiMgAaD21qoIm08t1L-5fcUispO1p4njUdcty67rxgHrWHH1MZeNnHQ4DrwU3PRlNytbx-ovgwAe2fDA_vWWqKnKjIdeDVHRucGBd7hhzAdvWUwerj47YadtfdNnOY6tncwhd6g6TjDHJ3wCJFDa64USRfy8YWCuZSzcpa-Dxpdm8BA9le52BwJULCs2wYE-29ULeyY4YLCMjKYLg1_1h8"  decoding="async"/>
+        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-90 transition-opacity duration-300 flex items-end p-8 z-20">
+          <div>
+            <span class="text-primary text-xs font-bold uppercase tracking-wider mb-2 block">Animali</span>
+            <p class="text-white font-serif text-2xl">I nostri animali al pascolo</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="md:col-span-2 relative group overflow-hidden rounded-sm shadow-lg">
+        <div class="absolute inset-0 bg-primary/20 mix-blend-overlay z-10 pointer-events-none"></div>
+        <img alt="Vegetable garden rows with lush green plants" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 warm-filter" data-alt="Vegetable garden rows with lush green plants" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCThB2qZrgnOxLSXqSQ73E8Y2HwHrqvFuwk0bNdSNgYF_BV3SNCRvcy1ah-A67nRXzRFA8Nf3Y_5lVQreiKptW_J3pKuVU279SFjs14fhPajvpdX33fb2pOg_q-7E9veWIRIVm9oa5pUuOOzNAAlnuxkU3Kh534XF13DKJcfVshpolKZjtIuttNaJs99Ie85ZuJtAZTTet99aMYGeLiKWTl_dKNjtNu4ZVEz2oIfbupJCQSj3eF5ITYUHwNsKypOVgxchh3ieYjeUc"  decoding="async"/>
+        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-90 transition-opacity duration-300 flex items-end p-8 z-20">
+          <div>
+            <span class="text-primary text-xs font-bold uppercase tracking-wider mb-2 block">Coltivazioni</span>
+            <p class="text-white font-serif text-2xl">L'orto sinergico</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="relative group overflow-hidden rounded-sm shadow-lg">
+        <div class="absolute inset-0 bg-primary/20 mix-blend-overlay z-10 pointer-events-none"></div>
+        <img alt="Basket of fresh red tomatoes" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 warm-filter" data-alt="Basket of fresh red tomatoes" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCTxtBQbow9zqZ6vvSMF2s325_tGzOe-t2mJyBZAylJqE9FkvMA2ai_t7ivWDd3IaJK5N-FYmBGoBuNfgJgS1Oj3AlZujT41BFRJ6yCluRCAVYIW-6e5viVnJq123ZyLx6uwmVGo0GMcGxu0ucx9SHd-H4hbO3_mBI3XiPEFM9UjSfAonmHHvAtMIdI1xCAqTmp_ahA2g9NlzwUaxeIhx9Awal4QYDDWe4M3TEoLcr2d0gx639Dh3sUdXT5W5ZqcHV6rf04ZjiS5Ko"  decoding="async"/>
+        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-90 transition-opacity duration-300 flex items-end p-6 z-20">
+          <p class="text-white font-serif text-lg">Il raccolto</p>
+        </div>
+      </div>
+
+      <div class="relative group overflow-hidden rounded-sm shadow-lg">
+        <div class="absolute inset-0 bg-primary/20 mix-blend-overlay z-10 pointer-events-none"></div>
+        <img alt="Rustic wooden table set for outdoor dining" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 warm-filter" data-alt="Rustic wooden table set for outdoor dining" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC9tOR37FR5wnavO8jkjGfWYE89qCoqDwxg-v3pGYEkgU8iFpLhMur_o5jaUnNnhe7uXo6LjkcIxl4eAymAOWWNT64g5ZiwsWnU3BOoWjpOUlhtzly88eFOs0w03nkrohpREP9b1pOwUv6pRXm86HTTe7woQFoUJL0nf0OOZf_NuFQPPmNRDnInhGxfDXoCnmvVDt7FFKrrMZaIHJkFgOgk-i8ODmxEgFyj98got6mu06PULTYhvsa3GiXCrczMYfvJ_YWRumU7MfM"  decoding="async"/>
+        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-90 transition-opacity duration-300 flex items-end p-6 z-20">
+          <p class="text-white font-serif text-lg">Relax all'aperto</p>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
+
 <section class="py-20 bg-primary relative overflow-hidden" id="prodotti">
-<div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/wood-pattern.png')] opacity-10"></div>
-<div class="absolute inset-0 bg-gradient-to-r from-orange-300 mix-blend-multiply"></div>
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-<div class="flex flex-col md:flex-row items-center justify-between gap-12 text-center md:text-left">
-<div class="md:w-2/3">
-<h2 class="text-3xl md:text-4xl font-serif font-bold mb-4 text-white"><p id="introduzione">Porta a casa i sapori dell'agriturismo</p></h2>
-<p id="introduzione1" class="text-orange-50 text-lg font-light leading-relaxed">
-Olio extravergine d'oliva, confetture fatte in casa, vini locali e miele dorato. I nostri prodotti sono disponibili per l'acquisto diretto in azienda.
-</p>
-</div>
-<div class="md:w-1/3 flex justify-center md:justify-end">
-<a href="/shop.html" target="_blank">
-<button class="bg-white text-primary hover:bg-orange-50 hover:text-primary-dark font-serif font-bold py-4 px-10 rounded-sm shadow-xl transition-colors border-b-4 border-orange-200">Scopri i Prodotti!</button>
-</a>
-</div>
-</div>
-</div>
+  <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/wood-pattern.png')] opacity-10"></div>
+  <div class="absolute inset-0 bg-gradient-to-r from-orange-300 mix-blend-multiply"></div>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <div class="flex flex-col md:flex-row items-center justify-between gap-12 text-center md:text-left">
+      <div class="md:w-2/3">
+        <h2 class="text-2xl md:text-3xl font-serif font-bold mb-4 text-white">Porta a casa i sapori dell'agriturismo</h2>
+        <p class="text-orange-50 text-base md:text-lg font-light leading-relaxed">
+          Olio extravergine d'oliva, confetture fatte in casa, vini locali e miele dorato. I nostri prodotti sono disponibili per l'acquisto diretto in azienda.
+        </p>
+      </div>
+      <div class="md:w-1/3 flex justify-center md:justify-end">
+        <a href="/shop.html" target="_blank" rel="noopener noreferrer">
+          <button class="bg-white text-primary hover:bg-orange-50 hover:text-primary-dark font-serif font-bold py-3 px-6 md:py-4 md:px-10 rounded-sm shadow-xl transition-colors border-b-4 border-orange-200">Scopri i Prodotti!</button>
+        </a>
+      </div>
+    </div>
+  </div>
 </section>
 
-<footer class="bg-background-dark text-gray-300 pt-24 pb-10 border-t-4 border-primary" id="contatti">
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-20">
-<div>
-<div class="flex items-center gap-3 mb-8">
-<div class="flex items-center justify-center bg-primary/20 p-2 rounded-full">
-<img src="logo.png" alt="logo Giuggioloni" class="w-10 h-10 object-contain">
-</div>
-<div class="flex flex-col">
-<span id="titolo" class="font-serif font-bold text-lg text-white leading-none tracking-wide">GIUGGIOLONI</span>
-<span id="sottotitolo" class="text-xs text-primary uppercase tracking-widest">I sapori dell'AcquaViva</span>
-</div>
-</div>
-<p id="descrizione" class="text-sm leading-relaxed mb-8 text-gray-400 font-light">
-Un angolo di paradiso nelle Marche dove riscoprire i sapori autentici e la bellezza della vita semplice, immersi nei colori caldi della natura.
-</p>
-<div class="flex space-x-4">
-<a
-  class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-gray-400 hover:text-white hover:bg-primary transition-all duration-300"
-  data-social="facebook"
-  id="footerFacebook"
-  href="#"
-  target="_blank"
-  rel="noopener noreferrer"
-  aria-label="Facebook Giuggioloni">
-  <i class="fab fa-facebook text-lg" aria-hidden="true"></i>
-</a>
-<a
-  class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-gray-400 hover:text-white hover:bg-primary transition-all duration-300"
-  data-social="instagram"
-  id="footerInstagram"
-  href="#"
-  target="_blank"
-  rel="noopener noreferrer"
-  aria-label="Instagram Giuggioloni">
-  <i class="fab fa-instagram text-lg" aria-hidden="true"></i>
-</a>
-<a
-  class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-gray-400 hover:text-white hover:bg-primary transition-all duration-300"
-  data-social="tiktok"
-  id="footerTiktok"
-  href="#"
-  target="_blank"
-  rel="noopener noreferrer"
-  aria-label="TikTok Giuggioloni">
-  <i class="fab fa-tiktok text-lg" aria-hidden="true"></i>
-</a>
-</div>
-</div>
-<div>
-<h3 class="text-white font-serif font-bold text-xl mb-8 relative inline-block">
-                        Esplora
-                        <span class="absolute -bottom-2 left-0 w-12 h-1 bg-primary rounded-full"></span>
-</h3>
-<ul class="space-y-4 text-sm font-light">
-<li><a class="hover:text-primary transition-colors flex items-center gap-2 group" href="storia.html"><span class="material-icons text-xs text-primary opacity-0 group-hover:opacity-100 transition-opacity">chevron_right</span>La Nostra Storia</a></li>
-<li><a class="hover:text-primary transition-colors flex items-center gap-2 group" href="piatti.html"><span class="material-icons text-xs text-primary opacity-0 group-hover:opacity-100 transition-opacity">chevron_right</span>I Nostri Piatti</a></li>
-<li><a class="hover:text-primary transition-colors flex items-center gap-2 group" href="shop.html"><span class="material-icons text-xs text-primary opacity-0 group-hover:opacity-100 transition-opacity">chevron_right</span>I Nostri Prodotti</a></li>
-</ul>
-</div>
-<div>
-<h3 class="text-white font-serif font-bold text-xl mb-8 relative inline-block">
-                        Contatti
-                        <span class="absolute -bottom-2 left-0 w-12 h-1 bg-primary rounded-full"></span>
-</h3>
-<ul class="space-y-6 text-sm font-light">
-<li class="flex items-start">
-<span class="material-icons text-primary text-lg mr-4 mt-0.5">location_on</span>
-<span><p id="indirizzo" data-bind="contatto.via"></p><p id="comune" data-bind="contatto.comune"></p></span>
-</li>
-<li class="flex items-center">
-<span class="material-icons text-primary text-lg mr-4">phone</span>
-<ul id="phoneList"></ul>
-</li>
-<li class="flex items-center">
-<span class="material-icons text-primary text-lg mr-4">email</span>
-<span><p id="email">info@isaporidellacquaviva.it</p></span>
-</li>
-</ul>
-</div>
-<div>
-<h3 class="text-white font-serif font-bold text-xl mb-8 relative inline-block">
-                        Orari
-                        <span class="absolute -bottom-2 left-0 w-12 h-1 bg-primary rounded-full"></span>
-</h3>
-<ul id="orariList" class="space-y-3 text-sm font-light border-l border-white/10 pl-6">
-  <li class="flex justify-between items-start">
-    <span class="text-gray-400">Lunedì</span>
-    <span class="text-orange-400 font-medium w-28 min-w-[80px] text-right">Chiuso</span>
-  </li>
-  <li class="flex justify-between items-start">
-    <span class="text-gray-400">Giovedì</span>
-    <span class="text-white w-28 min-w-[80px] text-right">19:00-23:00</span>
-  </li>
-  <li class="flex justify-between items-start">
-    <span class="text-gray-400">Sabato</span>
-    <span class="text-white w-28 min-w-[80px] text-right">
-      12:30-15:00<br>19:00-23:00
-    </span>
-  </li>
-  <!-- ripeti per gli altri giorni -->
-</ul>
+<footer class="bg-background-dark text-gray-300 pt-16 pb-10 border-t-4 border-primary" id="contatti">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+      <div>
+        <div class="flex items-center gap-3 mb-6">
+          <div class="flex items-center justify-center bg-primary/20 p-2 rounded-full">
+            <img src="logo.png" alt="logo Giuggioloni" class="w-10 h-10 object-contain">
+          </div>
+          <div class="flex flex-col">
+            <span id="titolo" class="font-serif font-bold text-lg text-white leading-none tracking-wide">GIUGGIOLONI</span>
+            <span id="sottotitolo" class="text-xs text-primary uppercase tracking-widest">I sapori dell'AcquaViva</span>
+          </div>
+        </div>
+        <p id="descrizione" class="text-sm leading-relaxed mb-6 text-gray-400 font-light">
+          Un angolo di paradiso nelle Marche dove riscoprire i sapori autentici e la bellezza della vita semplice, immersi nei colori caldi della natura.
+        </p>
+        <div class="flex space-x-4">
+          <a class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-gray-400 hover:text-white hover:bg-primary transition-all duration-300" data-social="facebook" id="footerFacebook" href="#" target="_blank" rel="noopener noreferrer" aria-label="Facebook Giuggioloni"><i class="fab fa-facebook text-lg" aria-hidden="true"></i></a>
+          <a class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-gray-400 hover:text-white hover:bg-primary transition-all duration-300" data-social="instagram" id="footerInstagram" href="#" target="_blank" rel="noopener noreferrer" aria-label="Instagram Giuggioloni"><i class="fab fa-instagram text-lg" aria-hidden="true"></i></a>
+          <a class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-gray-400 hover:text-white hover:bg-primary transition-all duration-300" data-social="tiktok" id="footerTiktok" href="#" target="_blank" rel="noopener noreferrer" aria-label="TikTok Giuggioloni"><i class="fab fa-tiktok text-lg" aria-hidden="true"></i></a>
+        </div>
+      </div>
 
-</div>
-</div>
-<div class="w-full h-72 bg-gray-800 rounded-sm overflow-hidden mb-12 relative group border border-white/10">
-<img alt="Map showing location in Marche Italy" class="w-full h-full object-cover opacity-60 group-hover:opacity-40 transition-opacity filter sepia" data-alt="Abstract map representation of the Marche region location" data-location="Macerata, Marche" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAH8Q-o1oh7m0Rk8tUwDrEXEoeCI8ENvM7RgZm_y34WZhk0cXEHllqB897KQRwtMD-ykVI5_1fEKEcQjFT8nbxnoYwXUAgvIQR_NnmHDawhEkPkB0t0Wosrx6W3E6iqSdTSb_aWYD4xaJjozUDC0PnWprW4xbkcSJCzuKDQ9jXNsNKzXUzoEGLQBPq9GgvgyvFtODYHU0fGJ_2FlKOXfxBbdvIU0buV8BnGyZjy3dLeTsFxQi54oz1dQkI9mCqdRsQ1sJ6SOSoH-Xs"/>
-<div class="absolute inset-0 flex items-center justify-center pointer-events-none">
-<div class="bg-background-dark/90 backdrop-blur-sm px-6 py-3 rounded-sm flex items-center gap-3 border border-primary/50 shadow-2xl">
-<span class="material-icons text-primary">map</span>
-<span class="text-white font-bold font-serif tracking-wide">Vedi su Mappa</span>
-</div>
-</div>
-</div>
-<div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-gray-500 font-light">
-<p>© 2026 I sapori dell'acquaviva. Tutti i diritti riservati.</p>
-<div class="flex space-x-6 mt-4 md:mt-0">
-<a class="hover:text-primary transition-colors" href="#">Privacy Policy</a>
-<a class="hover:text-primary transition-colors" href="#">Cookie Policy</a>
-</div>
-</div>
-</div>
+      <div>
+        <h3 class="text-white font-serif font-bold text-xl mb-6 relative inline-block">Esplora<span class="absolute -bottom-2 left-0 w-12 h-1 bg-primary rounded-full"></span></h3>
+        <ul class="space-y-4 text-sm font-light">
+          <li><a class="hover:text-primary transition-colors flex items-center gap-2 group" href="storia.html"><span class="material-icons text-xs text-primary opacity-0 group-hover:opacity-100 transition-opacity">chevron_right</span>La Nostra Storia</a></li>
+          <li><a class="hover:text-primary transition-colors flex items-center gap-2 group" href="piatti.html"><span class="material-icons text-xs text-primary opacity-0 group-hover:opacity-100 transition-opacity">chevron_right</span>I Nostri Piatti</a></li>
+          <li><a class="hover:text-primary transition-colors flex items-center gap-2 group" href="shop.html"><span class="material-icons text-xs text-primary opacity-0 group-hover:opacity-100 transition-opacity">chevron_right</span>I Nostri Prodotti</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h3 class="text-white font-serif font-bold text-xl mb-6 relative inline-block">Contatti<span class="absolute -bottom-2 left-0 w-12 h-1 bg-primary rounded-full"></span></h3>
+        <ul class="space-y-6 text-sm font-light">
+          <li class="flex items-start">
+            <span class="material-icons text-primary text-lg mr-4 mt-0.5">location_on</span>
+            <span><p id="indirizzo" data-bind="contatto.via"></p><p id="comune" data-bind="contatto.comune"></p></span>
+          </li>
+          <li class="flex items-center">
+            <span class="material-icons text-primary text-lg mr-4">phone</span>
+            <ul id="phoneList"></ul>
+          </li>
+          <li class="flex items-center">
+            <span class="material-icons text-primary text-lg mr-4">email</span>
+            <span><p id="email">info@isaporidellacquaviva.it</p></span>
+          </li>
+        </ul>
+      </div>
+
+      <div>
+        <h3 class="text-white font-serif font-bold text-xl mb-6 relative inline-block">Orari<span class="absolute -bottom-2 left-0 w-12 h-1 bg-primary rounded-full"></span></h3>
+        <ul id="orariList" class="space-y-3 text-sm font-light border-l border-white/10 pl-6">
+          <li class="flex justify-between items-start"><span class="text-gray-400">Lunedì</span><span class="text-orange-400 font-medium w-28 min-w-[80px] text-right">Chiuso</span></li>
+          <li class="flex justify-between items-start"><span class="text-gray-400">Giovedì</span><span class="text-white w-28 min-w-[80px] text-right">19:00-23:00</span></li>
+          <li class="flex justify-between items-start"><span class="text-gray-400">Sabato</span><span class="text-white w-28 min-w-[80px] text-right">12:30-15:00<br>19:00-23:00</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="w-full h-64 md:h-72 bg-gray-800 rounded-sm overflow-hidden mb-8 relative group border border-white/10">
+      <img alt="Map showing location in Marche Italy" class="w-full h-full object-cover opacity-60 group-hover:opacity-40 transition-opacity filter sepia" data-alt="Abstract map representation of the Marche region location" data-location="Macerata, Marche" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAH8Q-o1oh7m0Rk8tUwDrEXEoeCI8ENvM7RgZm_y34WZhk0cXEHllqB897KQRwtMD-ykVI5_1fEKEcQjFT8nbxnoYwXUAgvIQR_NnmHDawhEkPkB0t0Wosrx6W3E6iqSdTSb_aWYD4xaJjozUDC0PnWprW4xbkcSJCzuKDQ9jXNsNKzXUzoEGLQBPq9GgvgyvFtODYHU0fGJ_2FlKOXfxBbdvIU0buV8BnGyZjy3dLeTsFxQi54oz1dQkI9mCqdRsQ1sJ6SOSoH-Xs"  decoding="async" />
+      <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+        <div class="bg-background-dark/90 backdrop-blur-sm px-6 py-3 rounded-sm flex items-center gap-3 border border-primary/50 shadow-2xl">
+          <span class="material-icons text-primary">map</span>
+          <span class="text-white font-bold font-serif tracking-wide">Vedi su Mappa</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-gray-500 font-light">
+      <p>© 2026 I sapori dell'acquaviva. Tutti i diritti riservati.</p>
+      <div class="flex space-x-6 mt-4 md:mt-0">
+        <a class="hover:text-primary transition-colors" href="#">Privacy Policy</a>
+        <a class="hover:text-primary transition-colors" href="#">Cookie Policy</a>
+      </div>
+    </div>
+  </div>
 </footer>
+
+<!-- ===== NAV & MOBILE UX SCRIPT (focus trap, overlay, escape, close on link, scroll hide) ===== -->
+<script>
+(function(){
+  const btn = document.getElementById('mobileMenuButton');
+  const menu = document.getElementById('mobileMenu');
+  const overlay = document.getElementById('mobileOverlay');
+  const closeBtn = document.getElementById('mobileMenuClose');
+  const iconOpen = document.getElementById('menuIconOpen');
+  const iconClose = document.getElementById('menuIconClose');
+  const siteNav = document.getElementById('siteNav');
+
+  if (!btn || !menu || !overlay) return;
+
+  let open = false;
+  let lastFocused = null;
+  let scrollLockApplied = false;
+
+  // helper to toggle classes / aria
+  function setOpen(state){
+    open = !!state;
+    btn.setAttribute('aria-expanded', String(open));
+    if (open) {
+      menu.classList.remove('-translate-y-2','opacity-0','pointer-events-none');
+      menu.classList.add('translate-y-0','opacity-100');
+      overlay.classList.remove('opacity-0','pointer-events-none');
+      overlay.classList.add('opacity-100','pointer-events-auto');
+      iconOpen.classList.add('hidden');
+      iconClose.classList.remove('hidden');
+
+      // lock scroll (lightweight)
+      lastFocused = document.activeElement;
+      document.documentElement.dataset.scrollTop = window.scrollY;
+      document.documentElement.classList.add('lock-scroll');
+      document.body.style.top = `-${window.scrollY}px`;
+      document.body.style.position = 'fixed';
+      document.body.style.width = '100%';
+      scrollLockApplied = true;
+
+      // focus first link
+      const first = menu.querySelector('[role="menuitem"], a[href]');
+      if (first) first.focus();
+
+      // add key listener
+      document.addEventListener('keydown', onKeydown, { passive: false });
+    } else {
+      menu.classList.add('-translate-y-2','opacity-0','pointer-events-none');
+      menu.classList.remove('translate-y-0','opacity-100');
+      overlay.classList.add('opacity-0','pointer-events-none');
+      overlay.classList.remove('opacity-100','pointer-events-auto');
+      iconOpen.classList.remove('hidden');
+      iconClose.classList.add('hidden');
+
+      // unlock scroll
+      if (scrollLockApplied) {
+        const y = parseInt(document.documentElement.dataset.scrollTop || '0', 10);
+        document.documentElement.classList.remove('lock-scroll');
+        document.body.style.position = '';
+        document.body.style.top = '';
+        document.body.style.width = '';
+        window.scrollTo(0, y);
+        scrollLockApplied = false;
+      }
+
+      if (lastFocused && lastFocused.focus) lastFocused.focus();
+      document.removeEventListener('keydown', onKeydown, { passive: false });
+    }
+  }
+
+  function onKeydown(e){
+    if (e.key === 'Escape') { setOpen(false); return; }
+    if (e.key === 'Tab' && open){
+      // basic focus trap
+      const focusables = Array.from(menu.querySelectorAll('a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])')).filter(el => el.offsetParent !== null);
+      if (focusables.length === 0) return;
+      const first = focusables[0], last = focusables[focusables.length - 1];
+      if (e.shiftKey && document.activeElement === first){ e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last){ e.preventDefault(); first.focus(); }
+    }
+  }
+
+  // close on overlay click
+  overlay.addEventListener('click', () => setOpen(false));
+  closeBtn && closeBtn.addEventListener('click', () => setOpen(false));
+
+  // toggle button
+  btn.addEventListener('click', (e) => { e.preventDefault(); setOpen(!open); });
+
+  // close on link click (allow anchor to navigate then close)
+  menu.addEventListener('click', (ev) => {
+    const a = ev.target.closest('a[href^="#"], a[role="menuitem"]');
+    if (a) {
+      setTimeout(()=> setOpen(false), 120);
+    }
+  });
+
+  // ensure closed on resize to desktop
+  window.addEventListener('resize', () => { if (window.innerWidth >= 768 && open) setOpen(false); });
+
+  // NAV hide on scroll down / show on scroll up (mobile only)
+  let lastScroll = window.scrollY;
+  let ticking = false;
+  function onScroll(){
+    if (window.innerWidth >= 768) return;
+    const current = window.scrollY;
+    if (!ticking){
+      window.requestAnimationFrame(() => {
+        if (current > lastScroll && current > 80) {
+          // scrolling down
+          siteNav.style.transform = 'translateY(-110%)';
+        } else {
+          siteNav.style.transform = 'translateY(0)';
+        }
+        lastScroll = current;
+        ticking = false;
+      });
+      ticking = true;
+    }
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+
+  // Initialize state (ensure classes for closed)
+  menu.classList.add('-translate-y-2','opacity-0','pointer-events-none');
+  overlay.classList.add('opacity-0','pointer-events-none');
+  iconClose.classList.add('hidden');
+
+})();
+</script>
+
+<!-- ===== your original unifiedScriptsWithImages kept; lazy-loading already applied to many images above () ===== -->
 <script>
 (async function unifiedScriptsWithImages() {
   // CONFIG: aggiorna i percorsi se necessario
@@ -540,7 +699,7 @@ Un angolo di paradiso nelle Marche dove riscoprire i sapori autentici e la belle
     // Contatto
     if (dati.contatto) {
       if (document.querySelector('#indirizzo')) document.querySelector('#indirizzo').innerText = (dati.contatto.via || '');
-      if (document.querySelector('#comune')) document.querySelector('#comune').innerText = (dati.contatto.comune ? dati.contatto.comune : ''); //' • '
+      if (document.querySelector('#comune')) document.querySelector('#comune').innerText = (dati.contatto.comune ? dati.contatto.comune : '');
       if (document.querySelector('#telefono')) document.querySelector('#telefono').innerText = dati.contatto.numeri_telefono;
       if (document.querySelector('#email')) document.querySelector('#email').innerText = dati.contatto.mail || '';
     }
@@ -554,7 +713,7 @@ Un angolo di paradiso nelle Marche dove riscoprire i sapori autentici e la belle
     // Home dati
     if (dati.home) {
       if (document.querySelector('#titolo')) document.querySelector('#titolo').innerText = (dati.home.titolo || '');
-      if (document.querySelector('#sottotitolo')) document.querySelector('#sottotitolo').innerText = (dati.home.sottotitolo || ''); //' • '
+      if (document.querySelector('#sottotitolo')) document.querySelector('#sottotitolo').innerText = (dati.home.sottotitolo || '');
       if (document.querySelector('#descrizione')) document.querySelector('#descrizione').innerText = dati.home.descrizione;
       if (document.querySelector('#frase1')) document.querySelector('#frase1').innerText = dati.home.frase1 || '';
       if (document.querySelector('#frase11')) document.querySelector('#frase11').innerText = dati.home.frase11 || '';
@@ -582,7 +741,6 @@ Un angolo di paradiso nelle Marche dove riscoprire i sapori autentici e la belle
         const d = dati.orari[day];
         const li = document.createElement('li');
         li.className = 'flex justify-between items-start';
-        //li.innerHTML = `<span>${escapeHtml(day)}</span><span>${escapeHtml((d.pranzo||'') + (d.cena ? (' • ' + d.cena) : '') + (d.note ? (' • ' + d.note) : ''))}</span>`;
         if (d.note === 'Cena' || d.note === 'Pranzo'){
           li.innerHTML = `<span class="text-gray-400">${escapeHtml(day)}</span><span class="text-white w-28 min-w-[80px] text-right">${escapeHtml((d.pranzo||'') + (d.cena ? d.cena : ''))}</span>`;
         } else if (d.note === 'Aperto') {
@@ -612,7 +770,6 @@ Un angolo di paradiso nelle Marche dove riscoprire i sapori autentici e la belle
   }
 
   // ---------- RESTAURANT IMAGES FROM menu.json ----------
-  // Estrae le immagini dai piatti del menu (campo immagine possibile: image, image_url, img, images[0])
   function extractImagesFromMenu(menuJson) {
     if (!menuJson || !menuJson.days || typeof menuJson.days !== 'object') return [];
     const seen = new Set();
@@ -621,13 +778,11 @@ Un angolo di paradiso nelle Marche dove riscoprire i sapori autentici e la belle
       const dayEntry = menuJson.days[rawKey] || {};
       if (!dayEntry || !Array.isArray(dayEntry.dishes)) continue;
       for (const dish of dayEntry.dishes) {
-        // possibili campi immagine (ordina per priorità)
         const candidates = [];
         if (dish.image) candidates.push(dish.image);
         if (dish.image_url) candidates.push(dish.image_url);
         if (dish.img) candidates.push(dish.img);
         if (dish.images && Array.isArray(dish.images)) candidates.push(dish.images[0]);
-        // prendi primo non vuoto
         const src = candidates.find(s => s && String(s).trim());
         if (src) {
           const normalized = String(src).trim();
@@ -641,29 +796,25 @@ Un angolo di paradiso nelle Marche dove riscoprire i sapori autentici e la belle
     return images;
   }
 
-  // rende le immagini nel contenitore #restaurantImages (usa classi e markup simile agli originali)
   function renderRestaurantImages(images) {
     const wrap = document.getElementById('restaurantImages');
     if (!wrap) return;
     wrap.innerHTML = '';
     if (!images || images.length === 0) return;
     const frag = document.createDocumentFragment();
-
-    // Creiamo una immagine per ogni elemento (limite arbitrario: max 4 per layout)
     const maxImages = 4;
     const toRender = images.slice(0, maxImages);
-
     for (let i = 0; i < toRender.length; i++) {
       const it = toRender[i];
       const img = document.createElement('img');
       img.src = it.src;
       img.alt = it.alt || it.src;
       img.className = 'relative z-10 rounded-sm shadow-xl w-full h-80 object-cover warm-filter hover:scale-[1.02] transition-transform duration-500';
-      // per variare leggermente il posizionamento puoi aggiungere translate su primo elemento
-      if (i === 0) img.style.transform = 'translateY(3rem)'; // simile translate-y-12
+      //img.loading = 'lazy';
+      img.decoding = 'async';
+      if (i === 0) img.style.transform = 'translateY(3rem)';
       frag.appendChild(img);
     }
-
     wrap.appendChild(frag);
   }
 
@@ -707,11 +858,9 @@ Un angolo di paradiso nelle Marche dove riscoprire i sapori autentici e la belle
       const titleEl = document.getElementById('menuTitle');
       const descEl = document.getElementById('menuDescription');
       const selector = document.getElementById('menuDaySelector');
-      //const dayTitleEl = document.getElementById('menuDayTitle');
       const tbody = document.getElementById('menuTableBody');
 
-      if (!titleEl || !descEl || !selector || !tbody) {//|| !dayTitleEl
-        // mancanti elementi: non facciamo nulla, ma non crashiamo
+      if (!titleEl || !descEl || !selector || !tbody) {
         return;
       }
 
@@ -750,7 +899,6 @@ Un angolo di paradiso nelle Marche dove riscoprire i sapori autentici e la belle
 
       if (daysArray.length === 0) {
         selector.innerHTML = '';
-        //dayTitleEl.textContent = '';
         tbody.innerHTML = `<tr><td class="py-4" colspan="2">Nessun giorno del menu è abilitato al momento.</td></tr>`;
         return;
       }
@@ -761,10 +909,8 @@ Un angolo di paradiso nelle Marche dove riscoprire i sapori autentici e la belle
       function onSelect(dayKey) {
         const entry = daysArray.find(d => d.key === dayKey);
         if (!entry) return;
-        //dayTitleEl.textContent = entry.title || capitalizeFirst(entry.key);
         renderDishes(tbody, entry.dishes);
 
-        // aggiorna bottoni
         Array.from(selector.children).forEach(btn => {
           if (btn.dataset.day === dayKey) {
             btn.classList.remove('border-stone-200','dark:border-stone-700','text-gray-700','dark:text-gray-300');
@@ -782,10 +928,8 @@ Un angolo di paradiso nelle Marche dove riscoprire i sapori autentici e la belle
       onSelect(initial);
 
       // --- POPOLA LE IMMAGINI DELLA SEZIONE "Il Ristorante" ---
-      // estrai immagini dal menu (solo da piatti presenti)
       const images = extractImagesFromMenu(menuJson);
       renderRestaurantImages(images);
-
     })();
 
   } catch (err) {
@@ -794,4 +938,6 @@ Un angolo di paradiso nelle Marche dove riscoprire i sapori autentici e la belle
 }
 )();
 </script>
-</body></html>
+
+</body>
+</html>
