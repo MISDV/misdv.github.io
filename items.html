@@ -1,0 +1,297 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Admin Editor — misdv.github.io</title>
+  <style>
+    :root{--bg:#f7f7f8;--card:#fff;--accent:#2563eb;--danger:#ef4444}
+    html,body{height:100%;margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue',Arial}
+    body{background:var(--bg);padding:16px;box-sizing:border-box}
+    .container{max-width:960px;margin:0 auto}
+    .card{background:var(--card);border-radius:12px;padding:14px;box-shadow:0 6px 18px rgba(20,20,30,0.06)}
+    header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+    h1{font-size:18px;margin:0}
+    p.small{margin:4px 0 0;color:#6b7280;font-size:13px}
+
+    /* responsive list */
+    .items{display:flex;flex-direction:column;gap:12px}
+    .item{display:flex;gap:10px;padding:10px;border-radius:10px;background:#fbfbfd;border:1px solid #eee}
+    .thumb{width:84px;height:84px;border-radius:8px;overflow:hidden;flex-shrink:0;background:#fff;border:1px solid #eee}
+    .thumb img{width:100%;height:100%;object-fit:cover;display:block}
+    .fields{flex:1;display:flex;flex-direction:column;gap:8px}
+    .row{display:flex;gap:8px}
+    input[type=text],input[type=number],textarea{padding:8px;border-radius:8px;border:1px solid #ddd;font-size:14px;width:100%}
+    .controls{display:flex;gap:8px;align-items:center}
+    button{background:var(--accent);color:white;border:none;padding:8px 12px;border-radius:8px;font-weight:600}
+    button.secondary{background:#e5e7eb;color:#111}
+    button.danger{background:var(--danger)}
+    .muted{color:#6b7280;font-size:13px}
+
+    /* modal */
+    .modal-backdrop{position:fixed;inset:0;background:rgba(2,6,23,0.5);display:flex;align-items:center;justify-content:center;z-index:999}
+    .modal{background:var(--card);padding:20px;border-radius:12px;width:92%;max-width:420px;box-shadow:0 8px 30px rgba(2,6,23,0.3)}
+    .modal h2{margin:0 0 8px;font-size:16px}
+    .modal .note{font-size:13px;color:#6b7280;margin-bottom:8px}
+    .modal input{width:100%;margin-bottom:8px}
+
+    footer{margin-top:12px;font-size:13px;color:#6b7280}
+
+    @media(min-width:720px){.items{gap:14px}.item{gap:14px}}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="card">
+      <header>
+        <div>
+          <h1>Admin Editor — misdv.github.io</h1>
+          <p class="small">Repo: MISDV / misdv.github.io · branch: main</p>
+        </div>
+        <div class="muted" id="status">Caricamento iniziale…</div>
+      </header>
+
+      <section style="margin-bottom:12px">
+        <label class="muted">GitHub PAT (salvato in LocalStorage)</label>
+        <div style="display:flex;gap:8px;margin-top:8px">
+          <input id="pat" type="text" placeholder="Inserisci PAT (opzionale, richiesto per salvare o caricare immagini)" />
+          <button id="savePat">Salva</button>
+          <button id="clearPat" class="secondary">Rimuovi</button>
+        </div>
+        <div class="muted" style="margin-top:6px">Nota: salvare PAT in localStorage è comodo ma poco sicuro su dispositivi condivisi.</div>
+      </section>
+
+      <section class="card" style="padding:12px;margin-bottom:12px">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+          <strong>Articoli</strong>
+          <div style="display:flex;gap:8px">
+            <button id="addItem">Aggiungi</button>
+            <button id="reloadRaw" class="secondary">Ricarica (raw)</button>
+          </div>
+        </div>
+
+        <div id="itemsList" class="items"></div>
+
+        <div style="display:flex;gap:8px;margin-top:12px">
+          <button id="saveRepo">Salva su GitHub</button>
+          <button id="copyJson" class="secondary">Copia JSON</button>
+        </div>
+      </section>
+
+      <footer>
+        <div id="note">Prima cosa: la pagina effettuerà una richiesta raw a <code>raw.githubusercontent.com</code> per caricare il file <code>items.json</code>.</div>
+      </footer>
+    </div>
+  </div>
+
+  <!-- Modal login (blocking) -->
+  <div id="loginModal" class="modal-backdrop" role="dialog" aria-modal="true">
+    <div class="modal" role="document">
+      <h2>Login amministratore</h2>
+      <div class="note">Inserisci le credenziali per accedere all'editor. Senza login non è possibile modificare.</div>
+      <input id="loginUser" type="text" placeholder="Utente" value="" />
+      <input id="loginPass" type="password" placeholder="Password" />
+      <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:6px">
+        <button id="loginBtn">Accedi</button>
+      </div>
+      <div class="muted" style="margin-top:8px">Credenziali: <strong>Admin</strong> / <strong>AgriGiu26!</strong></div>
+    </div>
+  </div>
+
+  <script>
+    // Configuration
+    const OWNER = 'MISDV';
+    const REPO = 'misdv.github.io';
+    const BRANCH = 'main';
+    const ITEMS_PATH = 'items.json';
+    const ADMIN_USER = 'Admin';
+    const ADMIN_PASS = 'AgriGiu26!';
+
+    // State
+    let items = [];
+    let itemsSha = null;
+    let token = localStorage.getItem('misdv_pat') || '';
+    let loggedIn = false;
+
+    // Elements
+    const statusEl = document.getElementById('status');
+    const itemsList = document.getElementById('itemsList');
+    const loginModal = document.getElementById('loginModal');
+    const loginBtn = document.getElementById('loginBtn');
+    const loginUser = document.getElementById('loginUser');
+    const loginPass = document.getElementById('loginPass');
+    const patInput = document.getElementById('pat');
+    const savePatBtn = document.getElementById('savePat');
+    const clearPatBtn = document.getElementById('clearPat');
+    const addItemBtn = document.getElementById('addItem');
+    const reloadRawBtn = document.getElementById('reloadRaw');
+    const saveRepoBtn = document.getElementById('saveRepo');
+    const copyJsonBtn = document.getElementById('copyJson');
+
+    patInput.value = token;
+
+    function setStatus(t){ statusEl.textContent = t; }
+
+    // Immediately fetch raw items.json from raw.githubusercontent.com
+    async function loadRawItems(){
+      setStatus('Caricamento raw items.json…');
+      try{
+        const rawUrl = `https://raw.githubusercontent.com/${OWNER}/${REPO}/${BRANCH}/${ITEMS_PATH}`;
+        const res = await fetch(rawUrl);
+        if(!res.ok) throw new Error(res.status + ' ' + res.statusText);
+        const json = await res.json();
+        items = json;
+        renderItems();
+        setStatus('items.json (raw) caricato');
+      }catch(e){
+        console.error(e);
+        setStatus('Errore caricamento raw: ' + e.message);
+      }
+    }
+
+    function renderItems(){
+      itemsList.innerHTML = '';
+      items.forEach((it, idx) => {
+        const el = document.createElement('div'); el.className='item';
+        const thumb = document.createElement('div'); thumb.className='thumb';
+        const img = document.createElement('img');
+        img.alt = it.titolo || 'immagine';
+        img.src = imUrl(it.immagine);
+        thumb.appendChild(img);
+        const fields = document.createElement('div'); fields.className='fields';
+
+        // title
+        const title = document.createElement('input'); title.type='text'; title.value = it.titolo || '';
+        title.oninput = (e)=>{ items[idx].titolo = e.target.value; };
+
+        // category & type
+        const row1 = document.createElement('div'); row1.className='row';
+        const cat = document.createElement('input'); cat.type='text'; cat.placeholder='categoria'; cat.value=it.categoria||''; cat.oninput=(e)=>items[idx].categoria=e.target.value;
+        const tipo = document.createElement('input'); tipo.type='text'; tipo.placeholder='tipologia'; tipo.value=it.tipologia||''; tipo.oninput=(e)=>items[idx].tipologia=e.target.value;
+        row1.appendChild(cat); row1.appendChild(tipo);
+
+        // prezzo & prezzo_scontato
+        const row2 = document.createElement('div'); row2.className='row';
+        const prezzo = document.createElement('input'); prezzo.type='number'; prezzo.step='0.01'; prezzo.value=it.prezzo||0; prezzo.oninput=(e)=>items[idx].prezzo=parseFloat(e.target.value||0);
+        const sconto = document.createElement('input'); sconto.type='number'; sconto.step='0.01'; sconto.value=it.prezzo_scontato||''; sconto.oninput=(e)=>items[idx].prezzo_scontato = e.target.value===''? undefined: parseFloat(e.target.value);
+        row2.appendChild(prezzo); row2.appendChild(sconto);
+
+        // image upload & delete
+        const ctrl = document.createElement('div'); ctrl.className='controls';
+        const fileInput = document.createElement('input'); fileInput.type='file'; fileInput.accept='image/*'; fileInput.onchange = async (ev)=>{
+          const f = ev.target.files[0];
+          if(!f) return;
+          await uploadImageForItem(f, idx);
+        };
+        const delBtn = document.createElement('button'); delBtn.className='danger'; delBtn.textContent='Elimina'; delBtn.onclick = ()=>{ if(confirm('Eliminare questo item?')){ items.splice(idx,1); renderItems(); }};
+        ctrl.appendChild(fileInput); ctrl.appendChild(delBtn);
+
+        fields.appendChild(title); fields.appendChild(row1); fields.appendChild(row2); fields.appendChild(ctrl);
+
+        el.appendChild(thumb); el.appendChild(fields);
+        itemsList.appendChild(el);
+      });
+    }
+
+    function imUrl(path){
+      if(!path) return 'data:image/svg+xml;utf8,'+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300"><rect fill="#f3f4f6" width="100%" height="100%"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="#9ca3af" font-family="Arial" font-size="20">No image</text></svg>');
+      if(path.startsWith('http') || path.startsWith('//')) return path;
+      return `https://raw.githubusercontent.com/${OWNER}/${REPO}/${BRANCH}/${path}`;
+    }
+
+    // GitHub API helpers
+    async function apiGet(path){
+      const url = `https://api.github.com/repos/${OWNER}/${REPO}/contents/${path}?ref=${BRANCH}`;
+      const headers = { Accept: 'application/vnd.github.v3+json' };
+      if(token) headers.Authorization = 'token ' + token;
+      const res = await fetch(url, { headers });
+      if(!res.ok) throw new Error(res.status + ' ' + res.statusText);
+      return res.json();
+    }
+
+    async function apiPut(path, base64content, message, sha){
+      const url = `https://api.github.com/repos/${OWNER}/${REPO}/contents/${path}`;
+      const body = { message: message || `Update ${path} via Admin Editor`, content: base64content, branch: BRANCH };
+      if(sha) body.sha = sha;
+      const headers = { Accept: 'application/vnd.github.v3+json', 'Content-Type':'application/json' };
+      if(!token) throw new Error('PAT mancante. Inserire e salvare il PAT per modificare repo.');
+      headers.Authorization = 'token ' + token;
+      const res = await fetch(url, { method:'PUT', headers, body: JSON.stringify(body) });
+      if(!res.ok){ const txt = await res.text(); throw new Error(res.status + ' ' + res.statusText + ' : ' + txt); }
+      return res.json();
+    }
+
+    // Save items.json to repo (will GET to obtain sha if exists)
+    async function saveItems(){
+      try{
+        setStatus('Salvataggio items.json — ottenimento sha...');
+        // try get current file to obtain sha
+        const meta = await apiGet(ITEMS_PATH);
+        const sha = meta.sha;
+        const content = JSON.stringify(items, null, 2);
+        const b64 = btoa(unescape(encodeURIComponent(content)));
+        setStatus('Caricamento su GitHub...');
+        const res = await apiPut(ITEMS_PATH, b64, 'Aggiorna items.json via Admin Editor', sha);
+        itemsSha = res.content.sha;
+        setStatus('Salvato items.json — sha: ' + itemsSha);
+      }catch(e){
+        console.error(e);
+        setStatus('Errore salvataggio: ' + e.message);
+      }
+    }
+
+    async function uploadImageForItem(file, idx){
+      try{
+        if(!token){ alert('Per caricare immagini è necessario un PAT salvato. Inseriscilo e premi Salva.'); return; }
+        setStatus('Preparazione upload immagine...');
+        const safeName = Date.now() + '-' + file.name.replace(/[^a-zA-Z0-9._-]/g,'_');
+        const path = 'img/' + safeName;
+        const dataUrl = await fileToDataURL(file);
+        const base64 = dataUrl.split(',')[1];
+        setStatus('Upload immagine a ' + path + ' ...');
+        await apiPut(path, base64, `Add image ${path}`);
+        items[idx].immagine = path;
+        renderItems();
+        setStatus('Immagine caricata e item aggiornato');
+      }catch(e){ console.error(e); setStatus('Errore upload image: ' + e.message); }
+    }
+
+    function fileToDataURL(file){
+      return new Promise((resolve,reject)=>{
+        const r = new FileReader(); r.onload = ()=>resolve(r.result); r.onerror = reject; r.readAsDataURL(file);
+      });
+    }
+
+    // Actions
+    savePatBtn.onclick = ()=>{ token = patInput.value.trim(); localStorage.setItem('misdv_pat', token); setStatus('PAT salvato in localStorage'); };
+    clearPatBtn.onclick = ()=>{ token=''; patInput.value=''; localStorage.removeItem('misdv_pat'); setStatus('PAT rimosso'); };
+    addItemBtn.onclick = ()=>{ items.push({ titolo:'Nuovo prodotto', immagine:'', categoria:'', tipologia:'', prezzo:0.0 }); renderItems(); };
+    reloadRawBtn.onclick = ()=>loadRawItems();
+    copyJsonBtn.onclick = ()=>{ navigator.clipboard.writeText(JSON.stringify(items,null,2)); setStatus('JSON copiato negli appunti'); };
+    saveRepoBtn.onclick = ()=>{ if(!confirm('Confermi il salvataggio su GitHub?')) return; saveItems(); };
+
+    // Modal login behavior
+    function showLogin(){ loginModal.style.display = 'flex'; }
+    function hideLogin(){ loginModal.style.display = 'none'; }
+    loginBtn.onclick = ()=>{
+      const u = loginUser.value.trim(); const p = loginPass.value;
+      if(u === ADMIN_USER && p === ADMIN_PASS){ loggedIn = true; hideLogin(); setStatus('Autenticato come Admin'); }
+      else{ alert('Credenziali errate'); }
+    };
+
+    // Block interactions while modal visible: trap focus & prevent clicks by modal backdrop covering full screen
+    // Page load: do raw fetch immediately, then open modal (which already opens by default in DOM)
+    (async function init(){
+      await loadRawItems();
+      // leave modal open until correct login
+      showLogin();
+      // focus user input
+      loginUser.focus();
+    })();
+
+    // small accessibility: allow Enter key in password to submit
+    loginPass.addEventListener('keypress', function(e){ if(e.key === 'Enter') loginBtn.click(); });
+
+  </script>
+</body>
+</html>
