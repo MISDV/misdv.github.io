@@ -57,7 +57,6 @@
         }
     </style>
 <!-- Nuovo Style per navbar e header mobile -->
-<!-- Inserisci questo CSS subito dopo il tuo <style> attuale -->
 <style>
   /* variabile di default (fallback) */
   :root { --site-nav-height: 80px; }
@@ -113,6 +112,28 @@
   @media (max-width: 420px) {
     header h1 { font-size: 1.6rem !important; line-height: 1.05 !important; }
     header .inline-block.border-y { padding-left: 0.75rem; padding-right: 0.75rem; }
+  }
+</style>
+<style>
+  /* safe-area bottom var (iPhone home indicator) */
+  :root { --safe-bottom-offset: env(safe-area-inset-bottom, 0px); }
+
+  .scroll-indicator {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: clamp(12px, 4vw, 28px);
+    z-index: 40;               /* default: sotto le CTA che spesso hanno z-index più alto */
+    pointer-events: none;
+    overflow: visible;
+    transition: bottom 220ms ease, opacity 180ms ease;
+    max-width: 90%;
+    text-align: center;
+  }
+
+  /* se vuoi una versione che non copra mai i bottoni, aumenta il bottom su schermi piccoli */
+  @media (max-width: 420px) {
+    .scroll-indicator { bottom: calc(14px + var(--safe-bottom-offset)); }
   }
 </style>
 </head>
@@ -1033,5 +1054,85 @@
   new MutationObserver(() => applyNavHeight()).observe(document.documentElement, {childList:true, subtree:true, attributes:true});
 })();
 </script>
+            <script>
+(function(){
+  const header = document.querySelector('header') || document.querySelector('.header') || document.querySelector('.hero');
+  const scroll = header ? header.querySelector('.scroll-indicator, .animate-bounce') : null;
+  if (!scroll) return;
+
+  // Cerca un possibile pulsante "Scopri la fattoria" (o CTA visibile)
+  function findCTA(){
+    const selectors = [
+      '[data-cta]', '.cta', '.btn', '.button', '.discover', 'a[href*="scopri"]', 'button'
+    ];
+
+    const candidates = new Set();
+
+    selectors.forEach(sel => {
+      document.querySelectorAll(sel).forEach(el => candidates.add(el));
+    });
+
+    // ricerca testuale: "scopri la fattoria" o "scopri"
+    document.querySelectorAll('a, button, div, span').forEach(el => {
+      if (!el || !el.innerText) return;
+      const t = el.innerText.trim().toLowerCase();
+      if (t.includes('scopri la fattoria') || (t.includes('scopri') && t.length < 40)) candidates.add(el);
+    });
+
+    // filtra elementi visibili
+    const visible = Array.from(candidates).filter(el => {
+      const r = el.getBoundingClientRect();
+      return r.width > 8 && r.height > 8 && r.bottom > 0 && r.top < window.innerHeight;
+    });
+
+    if (visible.length === 0) return null;
+
+    // scegli il primo pulsante più vicino al bottom (quello che probabilmente è la CTA nel footer/hero)
+    visible.sort((a,b) => b.getBoundingClientRect().top - a.getBoundingClientRect().top);
+    return visible[0];
+  }
+
+  function avoidOverlap(){
+    const cta = findCTA();
+    // ripristina se non trova CTA
+    if (!cta) {
+      scroll.style.removeProperty('bottom');
+      return;
+    }
+
+    const scrollRect = scroll.getBoundingClientRect();
+    const btnRect = cta.getBoundingClientRect();
+
+    // se NON si sovrappongono -> ok, lascia il bottom di default
+    if (scrollRect.bottom <= btnRect.top || scrollRect.top >= btnRect.bottom) {
+      scroll.style.removeProperty('bottom');
+      return;
+    }
+
+    // se si sovrappongono -> calcola bottom in modo che l'indicatore stia subito sopra il pulsante
+    const margin = 12; // px di gap tra indicatore e pulsante
+    const safeBottom = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--safe-bottom-offset')) || 0;
+    const desiredBottom = Math.max(8, Math.round(window.innerHeight - btnRect.top + margin - scrollRect.height + safeBottom));
+    scroll.style.bottom = desiredBottom + 'px';
+
+    // se, per qualche motivo, la posizione è ancora sbagliata (es. troppo alta), nascondi l'indicatore invece di coprire il bottone
+    const newRect = scroll.getBoundingClientRect();
+    if (!(newRect.bottom <= btnRect.top)) {
+      scroll.style.opacity = '0'; // nascondi delicatamente
+      // dopo breve timeout prova a ripristinare (utile se il bottone viene spostato poco dopo)
+      setTimeout(() => { if (document.body.contains(scroll)) scroll.style.opacity = '1'; }, 600);
+    } else {
+      scroll.style.opacity = '1';
+    }
+  }
+
+  // esegui subito e al resize / cambi DOM
+  avoidOverlap();
+  window.addEventListener('resize', avoidOverlap, {passive:true});
+  window.addEventListener('orientationchange', avoidOverlap);
+  new MutationObserver(avoidOverlap).observe(document.body, { childList:true, subtree:true, attributes:true });
+})();
+</script>
 </body>
 </html>
+
