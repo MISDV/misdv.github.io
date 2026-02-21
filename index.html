@@ -56,6 +56,65 @@
           width: 100%;
         }
     </style>
+<!-- Nuovo Style per navbar e header mobile -->
+<!-- Inserisci questo CSS subito dopo il tuo <style> attuale -->
+<style>
+  /* variabile di default (fallback) */
+  :root { --site-nav-height: 80px; }
+
+  /* forza header a rispettare l'altezza della navbar e ad usare safe-area (notch) */
+  header {
+    padding-top: calc(var(--site-nav-height) + env(safe-area-inset-top, 0px));
+    box-sizing: border-box;
+    /* important per annullare l'overflow-hidden attuale che taglia l'indicatore "Scorri" */
+    overflow: visible !important;
+  }
+
+  /* regola minima dell'hero su desktop considerando nav */
+  @media (min-width: 768px) {
+    :root { --site-nav-height: 96px; } /* fallback per desktop */
+    header {
+      min-height: calc(100vh - var(--site-nav-height));
+    }
+  }
+
+  /* Indicatore "Scorri" — posizione più sicura e visibile sopra il contenuto */
+  .scroll-indicator {
+    position: absolute;
+    bottom: clamp(12px, 4vw, 28px);
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 60; /* sopra il contenuto ma sotto la navbar (navbar ha z-50; 60 è ok se vuoi sovrapporre) */
+    pointer-events: none;
+    overflow: visible;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    opacity: .95;
+  }
+
+  /* Se vuoi che l'indicatore stia sotto la navbar (non sopra), abbassa lo z-index a 30 */
+  /* .scroll-indicator { z-index: 30; } */
+
+  /* Title in hero: maggiore breathing on mobile */
+  header .inline-block.border-y {
+    padding-top: 0.4rem;
+    padding-bottom: 0.4rem;
+  }
+
+  header .hero-title,
+  header h1 {
+    /* rendi il titolo più spazioso su mobile */
+    margin-top: 0.15rem;
+    margin-bottom: 0.4rem;
+  }
+
+  @media (max-width: 420px) {
+    header h1 { font-size: 1.6rem !important; line-height: 1.05 !important; }
+    header .inline-block.border-y { padding-left: 0.75rem; padding-right: 0.75rem; }
+  }
+</style>
 </head>
 <body class="bg-background-cream dark:bg-background-dark text-gray-800 dark:text-gray-200 font-display transition-colors duration-300 bg-texture-cream">
 
@@ -183,7 +242,7 @@
     </div>
   </div>
   <br>
-  <div class="absolute bottom-0 transform text-white animate-bounce flex flex-col items-center gap-2 opacity-80">
+  <div class="scroll-indicator absolute bottom-0 transform text-white animate-bounce flex flex-col items-center gap-2 opacity-80 pointer-events-none">
     <span class="text-xs uppercase tracking-widest font-light">Scorri</span>
     <span class="material-icons text-3xl">keyboard_arrow_down</span>
   </div>
@@ -938,6 +997,41 @@
 }
 )();
 </script>
+<script>
+(function(){
+  const nav = document.getElementById('siteNav');
+  const header = document.querySelector('header');
 
+  if (!nav || !header) return;
+
+  function applyNavHeight(){
+    // misura l'altezza reale della navbar (inclusi padding)
+    const navRect = nav.getBoundingClientRect();
+    const navH = Math.max(48, Math.round(navRect.height || 80)); // fallback minimo
+    // imposta variabile CSS
+    document.documentElement.style.setProperty('--site-nav-height', navH + 'px');
+    // applica anche padding-top inline (utile se ci sono altre regole che sovrascrivono)
+    header.style.paddingTop = `calc(${navH}px + env(safe-area-inset-top, 0px))`;
+
+    // assicurati che l'indicatore "Scorri" sia figlio diretto dell'header (evita che venga tagliato)
+    const scroll = header.querySelector('.scroll-indicator, .animate-bounce');
+    if (scroll && scroll.parentElement !== header) {
+      try { header.appendChild(scroll); } catch(e){ /* no-op */ }
+    }
+
+    // rendi l'indicatore più visibile
+    if (scroll) {
+      scroll.style.zIndex = 60;
+      scroll.style.pointerEvents = 'none';
+    }
+  }
+
+  // Esegui subito e in resize / DOM changes
+  applyNavHeight();
+  window.addEventListener('resize', applyNavHeight, {passive:true});
+  // anche dopo mutate (es. logo caricato, fonts, ecc.)
+  new MutationObserver(() => applyNavHeight()).observe(document.documentElement, {childList:true, subtree:true, attributes:true});
+})();
+</script>
 </body>
 </html>
