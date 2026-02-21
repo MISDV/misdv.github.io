@@ -23,21 +23,25 @@
     .row{display:flex;gap:8px}
     input[type=text],input[type=number],textarea{padding:8px;border-radius:8px;border:1px solid #ddd;font-size:14px;width:100%}
     .controls{display:flex;gap:8px;align-items:center}
-    button{background:var(--accent);color:white;border:none;padding:8px 12px;border-radius:8px;font-weight:600}
+    button{background:var(--accent);color:white;border:none;padding:8px 12px;border-radius:8px;font-weight:600;cursor:pointer}
     button.secondary{background:#e5e7eb;color:#111}
     button.danger{background:var(--danger)}
     .muted{color:#6b7280;font-size:13px}
 
     /* modal */
-    .modal-backdrop{position:fixed;inset:0;background:rgba(2,6,23,0.5);display:flex;align-items:center;justify-content:center;z-index:999}
+    .modal-backdrop{position:fixed;inset:0;background:rgba(2,6,23,0.5);display:none;align-items:center;justify-content:center;z-index:999}
+    .modal-backdrop.show{display:flex}
     .modal{background:var(--card);padding:20px;border-radius:12px;width:92%;max-width:420px;box-shadow:0 8px 30px rgba(2,6,23,0.3)}
     .modal h2{margin:0 0 8px;font-size:16px}
     .modal .note{font-size:13px;color:#6b7280;margin-bottom:8px}
     .modal input{width:100%;margin-bottom:8px}
+    .sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 
     footer{margin-top:12px;font-size:13px;color:#6b7280}
 
     @media(min-width:720px){.items{gap:14px}.item{gap:14px}}
+    /* small helpers */
+    .no-scroll{overflow:hidden;height:100vh}
   </style>
 </head>
 <body>
@@ -70,7 +74,7 @@
           </div>
         </div>
 
-        <div id="itemsList" class="items"></div>
+        <div id="itemsList" class="items" aria-live="polite"></div>
 
         <div style="display:flex;gap:8px;margin-top:12px">
           <button id="saveRepo">Salva su GitHub</button>
@@ -84,37 +88,34 @@
     </div>
   </div>
 
-<!-- Modal login (blocking) - version corretta con <form> -->
-<div id="loginModal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="loginTitle" style="display:none;">
-  <div class="modal" role="document" aria-describedby="loginNote" style="max-width:420px;">
-    <h2 id="loginTitle">Login amministratore</h2>
-    <div id="loginNote" class="note">Inserisci le credenziali per accedere all'editor. Senza login non è possibile modificare.</div>
+  <!-- Modal login (accessibile) -->
+  <div id="loginModal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="loginTitle" aria-hidden="true">
+    <div class="modal" role="document" aria-describedby="loginNote" aria-live="polite">
+      <h2 id="loginTitle">Login amministratore</h2>
+      <div id="loginNote" class="note">Inserisci le credenziali per accedere all'editor. Senza login non è possibile modificare.</div>
 
-    <!-- FORM: importantissimo per browser / password managers -->
-    <form id="loginForm" class="mt-3" autocomplete="on" novalidate>
-      <div class="mb-2">
-        <label for="loginUser" class="sr-only">Utente</label>
-        <input id="loginUser" name="username" type="text" placeholder="Utente" autocomplete="username" required
-               class="w-full px-3 py-2 border rounded" />
-      </div>
+      <!-- FORM: importantissimo per browser / password managers -->
+      <form id="loginForm" class="mt-3" autocomplete="on" novalidate>
+        <div class="mb-2">
+          <label for="loginUser" class="sr-only">Utente</label>
+          <input id="loginUser" name="username" type="text" placeholder="Utente" autocomplete="username" required
+                 class="w-full px-3 py-2 border rounded" />
+        </div>
 
-      <div class="mb-3">
-        <label for="loginPass" class="sr-only">Password</label>
-        <input id="loginPass" name="password" type="password" placeholder="Password" autocomplete="current-password" required
-               class="w-full px-3 py-2 border rounded" />
-      </div>
+        <div class="mb-3">
+          <label for="loginPass" class="sr-only">Password</label>
+          <input id="loginPass" name="password" type="password" placeholder="Password" autocomplete="current-password" required
+                 class="w-full px-3 py-2 border rounded" />
+        </div>
 
-      <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:6px">
-        <!-- type="submit" -> submit del form (gestiamo in JS per evitare reload) -->
-        <button id="loginBtn" type="submit" class="px-4 py-2 bg-primary text-white rounded">Accedi</button>
-      </div>
+        <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:6px">
+          <button id="loginSubmit" type="submit" class="px-4 py-2 bg-primary text-white rounded">Accedi</button>
+        </div>
 
-      <div class="muted" style="margin-top:8px">
-        Credenziali: <strong>Admin</strong> / <strong>AgriGiu26!</strong>
-      </div>
-    </form>
+        <div class="muted" style="margin-top:8px">Credenziali esempio: <strong>Admin</strong> / <strong>AgriGiu26!</strong></div>
+      </form>
+    </div>
   </div>
-</div>
 
   <script>
     // Configuration
@@ -135,7 +136,7 @@
     const statusEl = document.getElementById('status');
     const itemsList = document.getElementById('itemsList');
     const loginModal = document.getElementById('loginModal');
-    const loginBtn = document.getElementById('loginBtn');
+    const loginForm = document.getElementById('loginForm');
     const loginUser = document.getElementById('loginUser');
     const loginPass = document.getElementById('loginPass');
     const patInput = document.getElementById('pat');
@@ -281,35 +282,112 @@
     }
 
     // Actions
-    savePatBtn.onclick = ()=>{ token = patInput.value.trim(); localStorage.setItem('misdv_pat', token); setStatus('PAT salvato in localStorage'); };
+    savePatBtn.onclick = ()=>{ token = patInput.value.trim(); localStorage.setItem('misdv_pat', token); setStatus('PAT salvato in LocalStorage'); };
     clearPatBtn.onclick = ()=>{ token=''; patInput.value=''; localStorage.removeItem('misdv_pat'); setStatus('PAT rimosso'); };
     addItemBtn.onclick = ()=>{ items.push({ titolo:'Nuovo prodotto', immagine:'', categoria:'', tipologia:'', prezzo:0.0 }); renderItems(); };
     reloadRawBtn.onclick = ()=>loadRawItems();
     copyJsonBtn.onclick = ()=>{ navigator.clipboard.writeText(JSON.stringify(items,null,2)); setStatus('JSON copiato negli appunti'); };
     saveRepoBtn.onclick = ()=>{ if(!confirm('Confermi il salvataggio su GitHub?')) return; saveItems(); };
 
-    // Modal login behavior
-    function showLogin(){ loginModal.style.display = 'flex'; }
-    function hideLogin(){ loginModal.style.display = 'none'; }
-    loginBtn.onclick = ()=>{
-      const u = loginUser.value.trim(); const p = loginPass.value;
-      if(u === ADMIN_USER && p === ADMIN_PASS){ loggedIn = true; hideLogin(); setStatus('Autenticato come Admin'); }
-      else{ alert('Credenziali errate'); }
-    };
+    //
+    // Modal login behavior (form submit + focus-trap)
+    //
+    let previouslyFocusedEl = null;
 
-    // Block interactions while modal visible: trap focus & prevent clicks by modal backdrop covering full screen
-    // Page load: do raw fetch immediately, then open modal (which already opens by default in DOM)
+    function openLoginModal() {
+      previouslyFocusedEl = document.activeElement;
+      loginModal.classList.add('show');
+      loginModal.setAttribute('aria-hidden', 'false');
+      document.documentElement.classList.add('no-scroll');
+
+      // small timeout to ensure focus works
+      setTimeout(() => {
+        loginUser.focus();
+      }, 50);
+
+      // install focus trap handler
+      document.addEventListener('focus', enforceFocus, true);
+      document.addEventListener('keydown', onModalKeyDown);
+    }
+
+    function closeLoginModal() {
+      loginModal.classList.remove('show');
+      loginModal.setAttribute('aria-hidden', 'true');
+      document.documentElement.classList.remove('no-scroll');
+
+      document.removeEventListener('focus', enforceFocus, true);
+      document.removeEventListener('keydown', onModalKeyDown);
+
+      // restore focus
+      if (previouslyFocusedEl && previouslyFocusedEl.focus) previouslyFocusedEl.focus();
+    }
+
+    function enforceFocus(e) {
+      if (!loginModal.contains(e.target)) {
+        e.stopPropagation();
+        loginUser.focus();
+      }
+    }
+
+    function onModalKeyDown(e) {
+      // ESC to close (only if logged out / modal visible)
+      if (e.key === 'Escape' && loginModal.classList.contains('show')) {
+        // keep modal blocking — only close on successful login for security, so ignore ESC by default
+        // If you want ESC to close: uncomment next line
+        // closeLoginModal();
+        e.preventDefault();
+      }
+      // trap Tab
+      if (e.key === 'Tab' && loginModal.classList.contains('show')) {
+        const focusable = Array.from(loginModal.querySelectorAll('a[href], button:not([disabled]), textarea, input, select')).filter(el => el.offsetParent !== null);
+        if (focusable.length === 0) return;
+        const idx = focusable.indexOf(document.activeElement);
+        if (e.shiftKey) {
+          if (idx === 0) { focusable[focusable.length - 1].focus(); e.preventDefault(); }
+        } else {
+          if (idx === focusable.length - 1) { focusable[0].focus(); e.preventDefault(); }
+        }
+      }
+    }
+
+    async function handleLogin(username, password) {
+      // simple example check (do not log password)
+      if (username === ADMIN_USER && password === ADMIN_PASS) {
+        loggedIn = true;
+        closeLoginModal();
+        setStatus('Autenticato come Admin');
+        return true;
+      } else {
+        // show inline message instead of alert (kept simple here)
+        setStatus('Credenziali errate');
+        loginPass.value = '';
+        loginPass.focus();
+        return false;
+      }
+    }
+
+    // handle form submit (Enter works too)
+    loginForm.addEventListener('submit', function(ev) {
+      ev.preventDefault();
+      const u = loginUser.value.trim();
+      const p = loginPass.value || '';
+      if (!u || !p) {
+        setStatus('Compila tutti i campi');
+        return;
+      }
+      handleLogin(u, p);
+    });
+
+    // make sure the modal is opened on init
     (async function init(){
       await loadRawItems();
-      // leave modal open until correct login
-      showLogin();
-      // focus user input
-      loginUser.focus();
+      // open modal until correct login
+      openLoginModal();
     })();
 
-    // small accessibility: allow Enter key in password to submit
-    loginPass.addEventListener('keypress', function(e){ if(e.key === 'Enter') loginBtn.click(); });
-
+    // small additional safety: if the user tries to programmatically change loginModal display remove show attribute
+    // (not necessary but keeps state consistent)
+    // End modal behavior
   </script>
 </body>
 </html>
