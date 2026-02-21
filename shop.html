@@ -3,49 +3,69 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Lista Prodotti - I sapori dell'acqua viva</title>
-<link href="https://fonts.googleapis.com" rel="preconnect"/>
-<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&amp;family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <script id="tailwind-config">
         tailwind.config = {
             darkMode: "class",
             theme: {
                 extend: {
                     colors: {
-                        "primary": "#ec6d13",
-                        "background-light": "#f8f7f6",
-                        "background-dark": "#221810",
+                        "primary": "#E67E22",
+                        "primary-dark": "#D35400",
+                        "background-light": "#FDFBF7",
+                        "background-cream": "#F5F0E6",
+                        "background-dark": "#2C1810",
+                        "earth-brown": "#8D6E63", 
+                        "earth-light": "#EFEBE9",
                     },
                     fontFamily: {
-                        "display": ["Be Vietnam Pro", "sans-serif"]
+                        "display": ["Be Vietnam Pro", "sans-serif"],
+                        "serif": ["Playfair Display", "serif"],
                     },
-                    borderRadius: {"DEFAULT": "0.5rem", "lg": "1rem", "xl": "1.5rem", "full": "9999px"},
+                    borderRadius: {
+                        "DEFAULT": "0.5rem",
+                        "lg": "1rem",
+                        "xl": "1.5rem",
+                        "2xl": "2rem",
+                        "full": "9999px"
+                    },
+                    backgroundImage: {
+                        'texture-cream': "url('data:image/svg+xml,%3Csvg width=\\'100\\' height=\\'100\\' viewBox=\\'0 0 100 100\\' xmlns=\\'http://www.w3.org/2000/svg\\'%3E%3Cpath d=\\'M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z\\' fill=\\'%23e67e22\\' fill-opacity=\\'0.03\\' fill-rule=\\'evenodd\\'/%3E%3C/svg%3E')",
+                    }
                 },
             },
         }
     </script>
 <style>
-        body {
-            font-family: 'Be Vietnam Pro', sans-serif;
+        .text-shadow {
+            text-shadow: 0 2px 4px rgba(0,0,0,0.4);
         }
-        /* Custom scrollbar for sidebar if needed */
-        ::-webkit-scrollbar {
-            width: 8px;
+        .text-shadow-light {
+            text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+        }html { scroll-behavior: smooth; }.warm-filter {
+            filter: sepia(20%) saturate(120%) contrast(105%);
         }
-        ::-webkit-scrollbar-track {
-            background: transparent; 
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #e5e7eb; 
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #d1d5db; 
+        /* small helper to avoid body jump when locking scroll */
+        .lock-scroll {
+          position: fixed;
+          width: 100%;
         }
     </style>
+    <style>
+    @keyframes fade-in { from { opacity: 0; transform: translateY(-4px) scale(.995) } to { opacity: 1; transform: none; } }
+    .animate-fade-in { animation: fade-in .14s cubic-bezier(.2,.9,.2,1) both; }
+    :root { --primary: #6366f1; } /* you can replace with your primary color */
+    .text-primary { color: var(--primary); }
+    /* animazione semplice per il pannello */
+    #mobileFiltersOverlay.show { display: block; }
+    #mobileFiltersPanel.open { transform: translateX(0); }
+    /* lock-scroll helper */
+    .no-scroll { overflow: hidden; height: 100vh; }
+</style>
 </head>
 <!--
   Per collegare items.json dal repo GitHub: aggiungi sull'elemento <body>
@@ -62,17 +82,16 @@
 <img src="logo.png" alt="logo Giuggioloni" class="w-8 h-8 object-contain">
 </div>
 <div class="flex flex-col">
-<span class="text-lg font-bold leading-none text-gray-900 dark:text-white">Giuggioloni</span>
-<span class="text-sm text-primary font-medium tracking-wide">I Sapori dell'acqua viva</span>
+          <span id="titolo" class="font-serif font-bold text-lg md:text-xl tracking-wide text-gray-900 dark:text-white leading-none">GIUGGIOLONI</span>
+          <span id="sottotitolo" class="font-display text-primary font-medium text-xs md:text-sm tracking-widest uppercase">I sapori dell'AcquaViva</span>
 </div>
 </div>
 
 <!-- Desktop Nav Links -->
 <div class="hidden md:flex items-center gap-8">
 <a class="text-gray-600 dark:text-gray-300 hover:text-primary transition-colors font-medium" href="/">Home</a>
-<a class="text-primary font-bold transition-colors" href="#">La Bottega</a>
-<a class="text-gray-600 dark:text-gray-300 hover:text-primary transition-colors font-medium" href="#">L'Agriturismo</a>
-<a class="text-gray-600 dark:text-gray-300 hover:text-primary transition-colors font-medium" href="#">Contatti</a>
+<a class="text-primary font-bold transition-colors" href="#">Prodotti</a>
+<a class="text-gray-600 dark:text-gray-300 hover:text-primary transition-colors font-medium" href="#footer">Contatti</a>
 </div>
 
 <!-- (azioni rimosse: carrello, account) -->
@@ -83,7 +102,7 @@
 </nav>
 
 <!-- Main Content Area -->
-<main class="flex-grow container mx-auto px-4 md:px-6 py-8 flex gap-8">
+<main class="flex-grow container mx-auto px-4 md:px-6 py-5 flex gap-8"> <!-- py-5 -->
 <!-- Sidebar Filters (Desktop) -->
 <aside class="hidden lg:block w-64 flex-shrink-0">
 <div class="sticky top-28 space-y-8">
@@ -105,8 +124,9 @@
 <!-- Filters -->
 <div class="bg-white dark:bg-[#2c2018] rounded-xl p-6 shadow-sm border border-primary/10">
 <h3 class="text-lg font-bold mb-4 flex items-center gap-2">
-<span class="material-icons text-primary text-xl">tune</span> Filtri
-                    </h3>
+<span class="material-icons text-primary text-xl">tune</span>
+Filtri
+</h3>
 <div class="mb-6">
 <h4 class="text-sm font-semibold text-gray-500 mb-3 uppercase tracking-wider">Prezzo</h4>
 <div class="flex items-center gap-3">
@@ -134,35 +154,101 @@
 </div>
 </div>
 </aside>
+
 <!-- Product Grid Area -->
 <div class="flex-grow">
+  <!-- MOBILE: button per mostrare i filtri (visibile solo su < lg) -->
+<button id="filtersToggle" class="lg:hidden flex items-center gap-2 px-4 py-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-full shadow-sm text-sm font-medium">
+  <span class="material-icons text-primary">filter_list</span>
+  Filtri
+</button>
 <!-- Search & Sort Header -->
 <div class="mb-8 bg-white dark:bg-[#2c2018] p-4 rounded-xl shadow-sm border border-primary/10">
 <div class="flex flex-col md:flex-row gap-4 items-center">
-<div class="relative flex-grow w-full">
+<div class="relative flex-grow"> <!-- w-full -->
 <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
 <span class="material-icons text-gray-400">search</span>
 </div>
-<input id="searchInput" class="block w-full pl-10 pr-3 py-3 border-gray-200 dark:border-gray-700 dark:bg-white/5 rounded-lg leading-5 bg-background-light dark:text-gray-100 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary sm:text-sm transition-shadow" placeholder="Cerca i nostri prodotti (es. miele, olio, pasta)..." type="text"/>
+<input id="searchInput" class="block w-full pl-10 pr-3 py-3 border-gray-200 dark:border-gray-700 dark:bg-white/5 rounded-lg leading-5 bg-background-light dark:text-gray-100 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary sm:text-sm transition-shadow" placeholder="Ricerca tra i nostri prodotti..." type="text"/>
 </div>
 <button id="searchBtn" class="w-full md:w-auto bg-primary hover:bg-orange-600 text-white px-8 py-3 rounded-lg font-bold shadow-lg shadow-primary/30 transition-all hover:-translate-y-0.5 active:translate-y-0 flex items-center justify-center gap-2">
 <span>Cerca</span>
 </button>
-<div class="relative w-full md:w-48">
-<select id="sortSelect" class="block w-full pl-3 pr-10 py-3 text-base border-gray-200 dark:border-gray-700 dark:bg-white/5 dark:text-gray-200 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm rounded-lg cursor-pointer bg-background-light">
-<option value="relevant">Più rilevanti</option>
-<option value="price-asc">Prezzo: Basso - Alto</option>
-<option value="price-desc">Prezzo: Alto - Basso</option>
-<option value="newest">Nuovi arrivi</option>
-</select>
+
+<!-- Beautiful custom dropdown (replaces the visible native select) -->
+<div class="relative w-full md:w-48" data-dropdown>
+  <!-- keep the real select for form/legacy, but hide it -->
+  <label for="sortSelect" class="sr-only">Ordina per</label>
+  <select id="sortSelect" name="sort" class="hidden">
+    <option value="relevant">Più rilevanti</option>
+    <option value="price-asc">Prezzo: Basso - Alto</option>
+    <option value="price-desc">Prezzo: Alto - Basso</option>
+  </select>
+
+  <!-- visible button -->
+  <button
+    id="sortButton"
+    type="button"
+    aria-haspopup="listbox"
+    aria-expanded="false"
+    aria-labelledby="sortButtonLabel"
+    class="w-full flex items-center justify-between px-8 py-2 text-sm font-medium bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-400/40 transition-transform hover:scale-[1.01]">
+    <div class="flex items-center gap-3">
+      <svg class="w-5 h-5 text-gray-500" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M3 6h18M6 12h12M10 18h4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+      </svg>
+      <span id="sortButtonLabel">Più rilevanti</span>
+    </div>
+
+    <svg id="chev" class="w-5 h-5 text-gray-400 transition-transform" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+      <path d="M6 8l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
+
+  <!-- custom list -->
+  <ul id="sortList" role="listbox" tabindex="-1"
+      class="hidden absolute z-50 mt-2 w-full bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800
+             rounded-xl shadow-lg py-1 max-h-70 overflow-auto focus:outline-none ring-1 ring-black/5
+             animate-fade-in">
+    <li role="option" data-value="relevant" class="option flex items-center justify-between gap-3 px-4 py-3 text-sm cursor-pointer select-none">
+      <div class="flex items-center gap-3">
+        <span class="font-medium">Più rilevanti</span>
+        <span class="text-xs text-gray-400">Suggerito</span>
+      </div>
+      <svg class="w-5 h-5 text-indigo-500 hidden check" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </li>
+
+    <li role="option" data-value="price-asc" class="option flex items-center justify-between gap-3 px-4 py-3 text-sm cursor-pointer select-none">
+      <div class="flex items-center gap-3">
+        <span class="font-medium">Prezzo: Basso - Alto</span>
+        <span class="text-xs text-gray-400">Economico → Costoso</span>
+      </div>
+      <svg class="w-5 h-5 text-indigo-500 hidden check" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </li>
+
+    <li role="option" data-value="price-desc" class="option flex items-center justify-between gap-3 px-4 py-3 text-sm cursor-pointer select-none">
+      <div class="flex items-center gap-3">
+        <span class="font-medium">Prezzo: Alto - Basso</span>
+        <span class="text-xs text-gray-400">Costoso → Economico</span>
+      </div>
+      <svg class="w-5 h-5 text-indigo-500 hidden check" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </li>
+  </ul>
 </div>
+
 </div>
 </div>
 <!-- Products Grid (render dinamico) -->
 <div id="productsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
 <!-- cards generate via JS -->
 </div>
-<!-- Pagination placeholder (non implementata) -->
+<!-- Pagination placeholder (non implementata) 
 <div class="mt-12 flex justify-center">
 <nav class="flex items-center space-x-2" aria-label="Paginazione">
 <button id="prevPage" class="p-2 rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-white/5 text-gray-500 dark:text-gray-400 disabled:opacity-50" disabled>
@@ -173,10 +259,34 @@
 </button>
 </nav>
 </div>
+-->
 </div>
 </main>
+
+<!-- Mobile filters overlay (hidden by default) -->
+<div id="mobileFiltersOverlay" class="fixed inset-0 z-60 hidden" aria-hidden="true">
+  <!-- backdrop -->
+  <div id="mobileFiltersBackdrop" class="absolute inset-0 bg-black/50 backdrop-blur-sm"></div>
+
+  <!-- panel (slide from left) -->
+  <aside id="mobileFiltersPanel" class="absolute left-0 top-0 h-full w-[90vw] max-w-xs bg-background-light dark:bg-background-dark shadow-2xl overflow-auto transform transition-transform duration-300 -translate-x-full">
+    <div class="p-4 flex items-center justify-between border-b border-primary/10">
+      <div class="flex items-center gap-3">
+        <span class="material-icons text-primary">tune</span>
+        <h3 class="font-bold">Filtri</h3>
+      </div>
+      <button id="mobileFiltersClose" class="p-2 rounded-md hover:bg-gray-100 dark:hover:bg-white/5">
+        <span class="material-icons">close</span>
+      </button>
+    </div>
+
+    <!-- qui verrà spostato dinamicamente l'aside originale -->
+    <div id="mobileFiltersContent" class="p-4 space-y-6"></div>
+  </aside>
+</div>
+
 <!-- Footer -->
-<footer class="bg-white dark:bg-[#2c2018] border-t border-primary/10 mt-12 py-12">
+<footer id="footer" class="bg-white dark:bg-[#2c2018] border-t border-primary/10 mt-12 py-12">
 <div class="container mx-auto px-4 md:px-6">
 <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
 <div class="col-span-1 md:col-span-1">
@@ -212,12 +322,14 @@
 <div>
 <h4 class="font-bold text-gray-900 dark:text-white mb-4 uppercase text-sm tracking-wider"><p id="frase1" data-bind="shop.frase1">VUOI VEDERE I NOSTRI PRODOTTI?</p></h4>
 <p id="frase2" data-bind="shop.frase2" class="text-gray-600 dark:text-gray-400 text-sm mb-4">Vieni a trovarci!</p>
+<!-- Form Mail
 <div class="flex gap-2">
 <input class="w-full px-3 py-2 bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-gray-700 rounded-lg text-sm focus:outline-none focus:ring-1 focus:ring-primary" placeholder="La tua email" type="email"/>
 <button class="bg-primary hover:bg-orange-600 text-white p-2 rounded-lg transition-colors">
 <span class="material-icons text-sm">arrow_forward</span>
 </button>
 </div>
+-->
 </div>
 </div>
 <div class="border-t border-gray-100 dark:border-white/5 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-gray-500">
@@ -726,6 +838,271 @@ function escapeHtml(s=''){ return String(s==null ? '' : s).replace(/&/g,'&amp;')
   } catch (err) {
     console.warn('bindExtraDati error:', err);
   }
+})();
+</script>
+<!-- small script: accessible behavior + sync with hidden select -->
+<script>
+(function(){
+  const container = document.querySelector('[data-dropdown]');
+  if (!container) return;
+
+  const native = document.getElementById('sortSelect'); // usa la select esistente
+  const btn = container.querySelector('#sortButton');
+  const list = container.querySelector('#sortList');
+  const options = Array.from(list.querySelectorAll('.option'));
+  const label = btn.querySelector('#sortButtonLabel');
+  const chevron = btn.querySelector('#chev');
+
+  let open = false;
+  let focused = -1;
+  let selected = 0;
+
+  // trova l'indice iniziale basato sul valore della select nativa
+  function findIndexByValue(val){
+    return options.findIndex(o => o.dataset.value === val);
+  }
+
+  function openList(focusIndex = selected){
+    open = true;
+    list.classList.remove('hidden');
+    btn.setAttribute('aria-expanded','true');
+    chevron.style.transform = 'rotate(180deg)';
+    focusOption(focusIndex);
+  }
+
+  function closeList(){
+    open = false;
+    list.classList.add('hidden');
+    btn.setAttribute('aria-expanded','false');
+    chevron.style.transform = '';
+    focused = -1;
+    options.forEach(el => el.classList.remove('bg-gray-50','dark:bg-gray-800'));
+  }
+
+  function focusOption(index){
+    if(index < 0) index = 0;
+    if(index >= options.length) index = options.length - 1;
+    focused = index;
+    options.forEach((el,i) => {
+      el.classList.toggle('bg-gray-50', i === index);
+      el.classList.toggle('dark:bg-gray-800', i === index);
+      if(i === index) {
+        el.scrollIntoView({ block: 'nearest' });
+        el.focus();
+      }
+    });
+  }
+
+  // aggiorna l'UI (label + check icons). dispatch = se vogliamo anche aggiornare la select nativa e sparare change
+  function updateUI(index, dispatch = false){
+    selected = index;
+    const opt = options[index];
+    const val = opt.dataset.value;
+    // aggiorna etichetta
+    label.textContent = opt.querySelector('.font-medium').textContent;
+    // mostra check
+    options.forEach((el,i) => el.querySelector('.check').classList.toggle('hidden', i !== index));
+    // aggiorna select nativa se richiesto
+    if(dispatch && native){
+      native.value = val;
+      // invia evento change per compatibilità con codice legacy
+      native.dispatchEvent(new Event('change', { bubbles: true }));
+      // se vuoi submit automatico, decommenta la linea seguente:
+      // native.form?.submit();
+    }
+  }
+
+  // seleziona e chiudi
+  function selectOption(index){
+    updateUI(index, true);
+    closeList();
+    btn.focus();
+  }
+
+  // inizializza: usa il valore attuale della select nativa (se presente)
+  (function init(){
+    let idx = 0;
+    if (native) {
+      const i = findIndexByValue(native.value);
+      if (i >= 0) idx = i;
+    }
+    updateUI(idx, false); // inizializza interfaccia senza dispatch change
+  })();
+
+  // eventi
+  btn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    open ? closeList() : openList(selected);
+  });
+
+  options.forEach((opt, idx) => {
+    opt.setAttribute('tabindex', '-1');
+    opt.addEventListener('click', (e) => {
+      e.stopPropagation();
+      selectOption(idx);
+    });
+    opt.addEventListener('mouseenter', () => {
+      focusOption(idx);
+    });
+  });
+
+  // keyboard sul button
+  btn.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowDown') { e.preventDefault(); openList(Math.max(0, selected)); }
+    else if (e.key === 'ArrowUp') { e.preventDefault(); openList(Math.max(0, selected)); focusOption(options.length - 1); }
+    else if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open ? closeList() : openList(selected); }
+  });
+
+  // keyboard sulla lista
+  list.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowDown') { e.preventDefault(); focusOption(focused + 1); }
+    else if (e.key === 'ArrowUp') { e.preventDefault(); focusOption(focused - 1); }
+    else if (e.key === 'Home') { e.preventDefault(); focusOption(0); }
+    else if (e.key === 'End') { e.preventDefault(); focusOption(options.length - 1); }
+    else if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); selectOption(focused >= 0 ? focused : selected); }
+    else if (e.key === 'Escape') { e.preventDefault(); closeList(); btn.focus(); }
+    else if (e.key.length === 1) {
+      const ch = e.key.toLowerCase();
+      const idx = options.findIndex(o => o.textContent.trim().toLowerCase().startsWith(ch));
+      if (idx >= 0) focusOption(idx);
+    }
+  });
+
+  // chiudi cliccando fuori
+  document.addEventListener('click', (e) => {
+    if (!container.contains(e.target)) closeList();
+  });
+
+  // se la select nativa cambia da codice esterno, sincronizziamo l'interfaccia
+  if (native) {
+    native.addEventListener('change', () => {
+      const i = findIndexByValue(native.value);
+      if (i >= 0) updateUI(i, false);
+    });
+  }
+})();
+</script>
+<script>
+(function(){
+  const toggleBtn = document.getElementById('filtersToggle');
+  const overlay = document.getElementById('mobileFiltersOverlay');
+  const backdrop = document.getElementById('mobileFiltersBackdrop');
+  const panel = document.getElementById('mobileFiltersPanel');
+  const content = document.getElementById('mobileFiltersContent');
+  const closeBtn = document.getElementById('mobileFiltersClose');
+
+  // seleziona l'aside originale: usa un selettore robusto (adatta se nel tuo markup cambia)
+  const sidebar = document.querySelector('aside.w-64') || document.querySelector('aside.hidden.lg\\:block');
+  if (!toggleBtn || !overlay || !panel || !content || !sidebar) return;
+
+  // salva info per ripristino
+  const originalParent = sidebar.parentNode;
+  const originalNextSibling = sidebar.nextSibling;
+  const originalHadSticky = sidebar.classList.contains('sticky') || sidebar.classList.contains('top-28'); // boolean-ish
+  const originalHadHidden = sidebar.classList.contains('hidden');
+
+  let closingTimeout = null;
+
+  function openFilters() {
+    // sposta l'aside dentro il pannello e mostrala
+    content.appendChild(sidebar);
+    sidebar.classList.remove('hidden');
+
+    // rimuovi sticky per evitare conflict di posizione all'interno del panel
+    if (originalHadSticky) {
+      sidebar.classList.remove('sticky','top-28');
+    }
+
+    // mostra overlay / pannello con transizione
+    overlay.classList.add('show');
+    requestAnimationFrame(() => panel.classList.add('open'));
+
+    // blocca scroll
+    document.documentElement.classList.add('no-scroll');
+
+    // accessibilità
+    toggleBtn.setAttribute('aria-expanded','true');
+    overlay.setAttribute('aria-hidden','false');
+
+    // focus sulla close button
+    closeBtn.focus();
+
+    // pulizia eventuale fallback di chiusura precedente
+    if (closingTimeout) { clearTimeout(closingTimeout); closingTimeout = null; }
+  }
+
+  function finishCloseAndRestore() {
+    // rimuovi overlay dalla UI
+    overlay.classList.remove('show');
+
+    // riposiziona l'aside nella sua posizione originale
+    if (originalNextSibling) originalParent.insertBefore(sidebar, originalNextSibling);
+    else originalParent.appendChild(sidebar);
+
+    // ripristina sticky se l'aveva
+    if (originalHadSticky) sidebar.classList.add('sticky','top-28');
+    else { sidebar.classList.remove('sticky','top-28'); }
+
+    // ripristina la visibilità mobile come era all'inizio
+    if (originalHadHidden) sidebar.classList.add('hidden');
+    else sidebar.classList.remove('hidden');
+
+    // sblocca lo scroll
+    document.documentElement.classList.remove('no-scroll');
+
+    // accessibilità
+    toggleBtn.setAttribute('aria-expanded','false');
+    overlay.setAttribute('aria-hidden','true');
+
+    // ritorna il focus al toggle
+    toggleBtn.focus();
+  }
+
+  function closeFilters() {
+    // chiudi pannello con transizione
+    panel.classList.remove('open');
+
+    // aspetta transitionend per completare l'animazione prima di spostare l'aside
+    const onFinish = () => {
+      panel.removeEventListener('transitionend', onFinish);
+      finishCloseAndRestore();
+    };
+
+    panel.addEventListener('transitionend', onFinish);
+
+    // fallback: se transitionend non scatta (es. browser), forziamo il restore dopo 350ms
+    closingTimeout = setTimeout(() => {
+      panel.removeEventListener('transitionend', onFinish);
+      finishCloseAndRestore();
+      closingTimeout = null;
+    }, 400);
+  }
+
+  // open/close handlers
+  toggleBtn.addEventListener('click', (e) => { e.preventDefault(); openFilters(); });
+  closeBtn.addEventListener('click', (e) => { e.preventDefault(); closeFilters(); });
+  backdrop.addEventListener('click', closeFilters);
+
+  // esc key closes
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && overlay.classList.contains('show')) closeFilters();
+  });
+
+  // se ridimensioni a desktop mentre il pannello è aperto -> chiudi e ripristina
+  window.addEventListener('resize', () => {
+    if (window.innerWidth >= 1024 && overlay.classList.contains('show')) closeFilters();
+  });
+
+  // sincronizzazione: se la pagina modifica il select/filtri programmaticamente, manteniamo l'UI coerente
+  // (opzionale) esempio: se ci sono checkbox/range dentro i filtri potresti voler chiudere automaticamente:
+  // Uncomment the block below to auto-close the panel when a filter input changes (handy on mobile)
+  /*
+  content.addEventListener('change', (e) => {
+    // se vuoi chiudere immediatamente dopo la modifica:
+    closeFilters();
+  });
+  */
+
 })();
 </script>
 </body></html>
