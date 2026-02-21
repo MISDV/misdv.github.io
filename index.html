@@ -65,7 +65,7 @@
   header {
     padding-top: calc(var(--site-nav-height) + env(safe-area-inset-top, 0px));
     box-sizing: border-box;
-    /* important per annullare l'overflow-hidden attuale che taglia l'indicatore "Scorri" */
+    /* important per annullare l'overflow-visible attuale che taglia l'indicatore "Scorri" */
     overflow: visible !important;
   }
 
@@ -136,6 +136,35 @@
     .scroll-indicator { bottom: calc(14px + var(--safe-bottom-offset)); }
   }
 </style>
+
+<!-- FIX: mobile hero safety padding and flexible height -->
+<style>
+  :root { --safe-bottom-offset: env(safe-area-inset-bottom, 0px); }
+
+  /* allow header to grow if content is taller than 62vh on small devices */
+  @media (max-width: 767px) {
+    header.min-h-[62vh], header {
+      height: auto !important;
+      min-height: 62vh !important;
+      padding-bottom: calc(48px + var(--safe-bottom-offset));
+    }
+    header .relative.z-10 {
+      padding-bottom: calc(48px + var(--safe-bottom-offset));
+    }
+    /* ensure the scroll indicator stays above safe area */
+    .scroll-indicator { bottom: calc(12px + var(--safe-bottom-offset)) !important; }
+  }
+
+  /* ensure CTA buttons wrap nicely */
+  header .relative.z-10 .flex { flex-wrap: wrap; gap: 0.5rem; }
+
+  /* smaller font on very narrow devices (extra safety) */
+  @media (max-width: 420px) {
+    header h1 { font-size: 1.5rem !important; line-height: 1.05 !important; }
+    .scroll-indicator { bottom: calc(18px + var(--safe-bottom-offset)) !important; }
+  }
+</style>
+
 </head>
 <body class="bg-background-cream dark:bg-background-dark text-gray-800 dark:text-gray-200 font-display transition-colors duration-300 bg-texture-cream">
 
@@ -178,7 +207,7 @@
 
   <div id="mobileMenu" class="md:hidden fixed inset-x-0 top-[80px] z-50 -translate-y-2 opacity-0 pointer-events-none transition-all duration-250 ease-in-out">
     <div class="max-w-4xl mx-auto px-4">
-      <div class="bg-background-light dark:bg-background-dark/95 rounded-b-md shadow-lg border-t border-primary/10 overflow-hidden">
+      <div class="bg-background-light dark:bg-background-dark/95 rounded-b-md shadow-lg border-t border-primary/10 overflow-visible">
         <div class="p-5 space-y-4">
           <div class="flex items-center justify-between">
             <div class="flex items-center gap-3">
@@ -222,7 +251,7 @@
 </nav>
 
 <!-- ===== HERO: reduce height on small screens for faster rendering ===== -->
-<header class="relative md:h-screen h-[62vh] min-h-[420px] flex items-center justify-center overflow-hidden pt-12">
+<header class="relative md:h-screen min-h-[62vh] min-h-[420px] flex items-center justify-center overflow-visible pt-12">
   <div class="absolute inset-0 z-0">
     <!-- hero image: keep high priority but avoid too big mobile impact -->
     <img
@@ -232,7 +261,7 @@
       decoding="async"
       fetchpriority="high"
       loading="eager"
-      style="min-height:420px;"
+      style="height:100%;"
     />
     <div class="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black/50 mix-blend-multiply"></div>
     <div class="absolute inset-0 bg-orange-900/20 mix-blend-overlay"></div>
@@ -262,7 +291,6 @@
       </a>
     </div>
   </div>
-  <br>
   <div class="scroll-indicator absolute bottom-0 transform text-white animate-bounce flex flex-col items-center gap-2 opacity-80 pointer-events-none">
     <span class="text-xs uppercase tracking-widest font-light">Scorri</span>
     <span class="material-icons text-3xl">keyboard_arrow_down</span>
@@ -270,7 +298,7 @@
 </header>
 
 <!-- ===== rest of content preserved (kept your original structure) ===== -->
-<section class="py-24 bg-background-light dark:bg-background-dark relative overflow-hidden">
+<section class="py-24 bg-background-light dark:bg-background-dark relative overflow-visible">
   <div class="absolute top-0 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl -mr-32 -mt-32"></div>
   <div class="absolute bottom-0 left-0 w-64 h-64 bg-earth-brown/10 rounded-full blur-3xl -ml-20 -mb-20"></div>
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -286,7 +314,7 @@
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-12" data-repeat="cards">
       <template>
-        <div class="bg-background-cream dark:bg-white/5 p-8 md:p-10 rounded-sm shadow-md hover:shadow-xl transition-all duration-300 border-t-4 border-primary group relative overflow-hidden">
+        <div class="bg-background-cream dark:bg-white/5 p-8 md:p-10 rounded-sm shadow-md hover:shadow-xl transition-all duration-300 border-t-4 border-primary group relative overflow-visible">
           <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
             <span class="material-icons text-7xl text-primary">{{icona}}</span>
           </div>
@@ -352,7 +380,7 @@
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-4 grid-rows-2 gap-6 h-auto md:h-[650px]">
-      <div class="md:col-span-2 md:row-span-2 relative group overflow-hidden rounded-sm shadow-lg">
+      <div class="md:col-span-2 md:row-span-2 relative group overflow-visible rounded-sm shadow-lg">
         <div class="absolute inset-0 bg-primary/20 mix-blend-overlay z-10 pointer-events-none"></div>
         <img alt="Close up of a sheep in a green pasture" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 warm-filter" data-alt="Close up of a sheep in a green pasture" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBWziVyQPUR9IPBhjPTs7xn0DdS4uk7BK-2SVzFZjOVOQ14V7VFLEVMLaiMgAaD21qoIm08t1L-5fcUispO1p4njUdcty67rxgHrWHH1MZeNnHQ4DrwU3PRlNytbx-ovgwAe2fDA_vWWqKnKjIdeDVHRucGBd7hhzAdvWUwerj47YadtfdNnOY6tncwhd6g6TjDHJ3wCJFDa64USRfy8YWCuZSzcpa-Dxpdm8BA9le52BwJULCs2wYE-29ULeyY4YLCMjKYLg1_1h8"  decoding="async"/>
         <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-90 transition-opacity duration-300 flex items-end p-8 z-20">
@@ -363,7 +391,7 @@
         </div>
       </div>
 
-      <div class="md:col-span-2 relative group overflow-hidden rounded-sm shadow-lg">
+      <div class="md:col-span-2 relative group overflow-visible rounded-sm shadow-lg">
         <div class="absolute inset-0 bg-primary/20 mix-blend-overlay z-10 pointer-events-none"></div>
         <img alt="Vegetable garden rows with lush green plants" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 warm-filter" data-alt="Vegetable garden rows with lush green plants" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCThB2qZrgnOxLSXqSQ73E8Y2HwHrqvFuwk0bNdSNgYF_BV3SNCRvcy1ah-A67nRXzRFA8Nf3Y_5lVQreiKptW_J3pKuVU279SFjs14fhPajvpdX33fb2pOg_q-7E9veWIRIVm9oa5pUuOOzNAAlnuxkU3Kh534XF13DKJcfVshpolKZjtIuttNaJs99Ie85ZuJtAZTTet99aMYGeLiKWTl_dKNjtNu4ZVEz2oIfbupJCQSj3eF5ITYUHwNsKypOVgxchh3ieYjeUc"  decoding="async"/>
         <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-90 transition-opacity duration-300 flex items-end p-8 z-20">
@@ -374,7 +402,7 @@
         </div>
       </div>
 
-      <div class="relative group overflow-hidden rounded-sm shadow-lg">
+      <div class="relative group overflow-visible rounded-sm shadow-lg">
         <div class="absolute inset-0 bg-primary/20 mix-blend-overlay z-10 pointer-events-none"></div>
         <img alt="Basket of fresh red tomatoes" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 warm-filter" data-alt="Basket of fresh red tomatoes" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCTxtBQbow9zqZ6vvSMF2s325_tGzOe-t2mJyBZAylJqE9FkvMA2ai_t7ivWDd3IaJK5N-FYmBGoBuNfgJgS1Oj3AlZujT41BFRJ6yCluRCAVYIW-6e5viVnJq123ZyLx6uwmVGo0GMcGxu0ucx9SHd-H4hbO3_mBI3XiPEFM9UjSfAonmHHvAtMIdI1xCAqTmp_ahA2g9NlzwUaxeIhx9Awal4QYDDWe4M3TEoLcr2d0gx639Dh3sUdXT5W5ZqcHV6rf04ZjiS5Ko"  decoding="async"/>
         <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-90 transition-opacity duration-300 flex items-end p-6 z-20">
@@ -382,7 +410,7 @@
         </div>
       </div>
 
-      <div class="relative group overflow-hidden rounded-sm shadow-lg">
+      <div class="relative group overflow-visible rounded-sm shadow-lg">
         <div class="absolute inset-0 bg-primary/20 mix-blend-overlay z-10 pointer-events-none"></div>
         <img alt="Rustic wooden table set for outdoor dining" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 warm-filter" data-alt="Rustic wooden table set for outdoor dining" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC9tOR37FR5wnavO8jkjGfWYE89qCoqDwxg-v3pGYEkgU8iFpLhMur_o5jaUnNnhe7uXo6LjkcIxl4eAymAOWWNT64g5ZiwsWnU3BOoWjpOUlhtzly88eFOs0w03nkrohpREP9b1pOwUv6pRXm86HTTe7woQFoUJL0nf0OOZf_NuFQPPmNRDnInhGxfDXoCnmvVDt7FFKrrMZaIHJkFgOgk-i8ODmxEgFyj98got6mu06PULTYhvsa3GiXCrczMYfvJ_YWRumU7MfM"  decoding="async"/>
         <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-90 transition-opacity duration-300 flex items-end p-6 z-20">
@@ -393,7 +421,7 @@
   </div>
 </section>
 
-<section class="py-20 bg-primary relative overflow-hidden" id="prodotti">
+<section class="py-20 bg-primary relative overflow-visible" id="prodotti">
   <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/wood-pattern.png')] opacity-10"></div>
   <div class="absolute inset-0 bg-gradient-to-r from-orange-300 mix-blend-multiply"></div>
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -473,7 +501,7 @@
       </div>
     </div>
 
-    <div class="w-full h-64 md:h-72 bg-gray-800 rounded-sm overflow-hidden mb-8 relative group border border-white/10">
+    <div class="w-full h-64 md:h-72 bg-gray-800 rounded-sm overflow-visible mb-8 relative group border border-white/10">
       <img alt="Map showing location in Marche Italy" class="w-full h-full object-cover opacity-60 group-hover:opacity-40 transition-opacity filter sepia" data-alt="Abstract map representation of the Marche region location" data-location="Macerata, Marche" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAH8Q-o1oh7m0Rk8tUwDrEXEoeCI8ENvM7RgZm_y34WZhk0cXEHllqB897KQRwtMD-ykVI5_1fEKEcQjFT8nbxnoYwXUAgvIQR_NnmHDawhEkPkB0t0Wosrx6W3E6iqSdTSb_aWYD4xaJjozUDC0PnWprW4xbkcSJCzuKDQ9jXNsNKzXUzoEGLQBPq9GgvgyvFtODYHU0fGJ_2FlKOXfxBbdvIU0buV8BnGyZjy3dLeTsFxQi54oz1dQkI9mCqdRsQ1sJ6SOSoH-Xs"  decoding="async" />
       <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
         <div class="bg-background-dark/90 backdrop-blur-sm px-6 py-3 rounded-sm flex items-center gap-3 border border-primary/50 shadow-2xl">
@@ -1133,6 +1161,4 @@
   new MutationObserver(avoidOverlap).observe(document.body, { childList:true, subtree:true, attributes:true });
 })();
 </script>
-</body>
-</html>
-
+</body></html>
