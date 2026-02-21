@@ -84,19 +84,37 @@
     </div>
   </div>
 
-  <!-- Modal login (blocking) -->
-  <div id="loginModal" class="modal-backdrop" role="dialog" aria-modal="true">
-    <div class="modal" role="document">
-      <h2>Login amministratore</h2>
-      <div class="note">Inserisci le credenziali per accedere all'editor. Senza login non è possibile modificare.</div>
-      <input id="loginUser" type="text" placeholder="Utente" value="" />
-      <input id="loginPass" type="password" placeholder="Password" />
-      <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:6px">
-        <button id="loginBtn">Accedi</button>
+<!-- Modal login (blocking) - version corretta con <form> -->
+<div id="loginModal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="loginTitle" style="display:none;">
+  <div class="modal" role="document" aria-describedby="loginNote" style="max-width:420px;">
+    <h2 id="loginTitle">Login amministratore</h2>
+    <div id="loginNote" class="note">Inserisci le credenziali per accedere all'editor. Senza login non è possibile modificare.</div>
+
+    <!-- FORM: importantissimo per browser / password managers -->
+    <form id="loginForm" class="mt-3" autocomplete="on" novalidate>
+      <div class="mb-2">
+        <label for="loginUser" class="sr-only">Utente</label>
+        <input id="loginUser" name="username" type="text" placeholder="Utente" autocomplete="username" required
+               class="w-full px-3 py-2 border rounded" />
       </div>
-      <div class="muted" style="margin-top:8px">Credenziali: <strong>Admin</strong> / <strong>AgriGiu26!</strong></div>
-    </div>
+
+      <div class="mb-3">
+        <label for="loginPass" class="sr-only">Password</label>
+        <input id="loginPass" name="password" type="password" placeholder="Password" autocomplete="current-password" required
+               class="w-full px-3 py-2 border rounded" />
+      </div>
+
+      <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:6px">
+        <!-- type="submit" -> submit del form (gestiamo in JS per evitare reload) -->
+        <button id="loginBtn" type="submit" class="px-4 py-2 bg-primary text-white rounded">Accedi</button>
+      </div>
+
+      <div class="muted" style="margin-top:8px">
+        Credenziali: <strong>Admin</strong> / <strong>AgriGiu26!</strong>
+      </div>
+    </form>
   </div>
+</div>
 
   <script>
     // Configuration
