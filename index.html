@@ -136,14 +136,13 @@
     .scroll-indicator { bottom: calc(14px + var(--safe-bottom-offset)); }
   }
 </style>
-
 <!-- FIX: mobile hero safety padding and flexible height -->
 <style>
   :root { --safe-bottom-offset: env(safe-area-inset-bottom, 0px); }
 
   /* allow header to grow if content is taller than 62vh on small devices */
   @media (max-width: 767px) {
-    header.min-h-[62vh], header {
+    header.min-h-\[62vh\], header {
       height: auto !important;
       min-height: 62vh !important;
       padding-bottom: calc(48px + var(--safe-bottom-offset));
@@ -164,6 +163,7 @@
     .scroll-indicator { bottom: calc(18px + var(--safe-bottom-offset)) !important; }
   }
 </style>
+
 
 <!-- HORIZONTAL OVERFLOW FIX: prevent right-side white column and make images/buttons responsive -->
 <style>
@@ -187,7 +187,7 @@
 
   /* Small devices: ensure hero can wrap and buttons don't force overflow */
   @media (max-width: 767px) {
-    header, .hero, .min-h-[62vh] { overflow: visible !important; width: 100% !important; }
+    header, .hero, .min-h-\[62vh\] { overflow: visible !important; width: 100% !important; }
     header .relative.z-10 .flex { flex-wrap: wrap; gap: 0.5rem; }
   }
 </style>
