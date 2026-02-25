@@ -165,6 +165,33 @@
   }
 </style>
 
+<!-- HORIZONTAL OVERFLOW FIX: prevent right-side white column and make images/buttons responsive -->
+<style>
+  /* Global box-sizing and prevent horizontal scroll */
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { max-width: 100%; overflow-x: hidden; }
+
+  /* Ensure media scale down instead of overflowing */
+  img, picture, svg, video, iframe { max-width: 100%; height: auto; display: block; }
+
+  /* Override utilities that use 100vw which can cause horizontal overflow when scrollbars present */
+  [class*="w-screen"], [style*="100vw"], .w-screen, .full-bleed, .full-width {
+    width: 100% !important;
+    max-width: 100% !important;
+    left: 0 !important;
+    right: 0 !important;
+  }
+
+  /* Make sure fixed elements don't create extra width */
+  .fixed, .absolute { max-width: 100%; box-sizing: border-box; }
+
+  /* Small devices: ensure hero can wrap and buttons don't force overflow */
+  @media (max-width: 767px) {
+    header, .hero, .min-h-[62vh] { overflow: visible !important; width: 100% !important; }
+    header .relative.z-10 .flex { flex-wrap: wrap; gap: 0.5rem; }
+  }
+</style>
+
 </head>
 <body class="bg-background-cream dark:bg-background-dark text-gray-800 dark:text-gray-200 font-display transition-colors duration-300 bg-texture-cream">
 
@@ -1161,4 +1188,40 @@
   new MutationObserver(avoidOverlap).observe(document.body, { childList:true, subtree:true, attributes:true });
 })();
 </script>
+
+<!-- DEBUG & SOFT-FIX: highlights elements that overflow horizontally and applies safe max-width -->
+<script>
+(function(){
+  function findAndFixOverflow(){
+    const offenders = [];
+    document.querySelectorAll('body *').forEach(el=>{
+      if(!(el instanceof HTMLElement)) return;
+      const r = el.getBoundingClientRect();
+      if(r.width===0 || r.height===0) return;
+      if(r.right > (window.innerWidth || document.documentElement.clientWidth) + 1){
+        offenders.push(el);
+        el.style.outline = '3px solid rgba(255,0,0,0.6)';
+        el.style.transition = 'outline 300ms ease';
+        el.style.maxWidth = '100%';
+        el.style.overflowX = 'hidden';
+        if(el.style.width && el.style.width.indexOf('100vw') !== -1){
+          el.style.width = '100%';
+        }
+      }
+    });
+    if(offenders.length){
+      console.log('Horizontal overflow: found', offenders.length, 'offending elements. They have been highlighted and soft-fixed (max-width:100%).');
+      setTimeout(()=> offenders.forEach(el=> el.style.outline=''), 6000);
+    } else {
+      console.log('No horizontal overflow detected by the script.');
+    }
+  }
+
+  window.addEventListener('load', findAndFixOverflow);
+  window.addEventListener('resize', findAndFixOverflow);
+  new MutationObserver(findAndFixOverflow).observe(document.documentElement, {childList:true, subtree:true, attributes:true});
+})();
+</script>
+
 </body></html>
+
