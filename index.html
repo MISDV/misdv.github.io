@@ -1209,10 +1209,10 @@
       }
     });
     if(offenders.length){
-      console.log('Horizontal overflow: found', offenders.length, 'offending elements. They have been highlighted and soft-fixed (max-width:100%).');
+      // console.log('Horizontal overflow: found', offenders.length, 'offending elements. They have been highlighted and soft-fixed (max-width:100%).');
       setTimeout(()=> offenders.forEach(el=> el.style.outline=''), 6000);
     } else {
-      console.log('No horizontal overflow detected by the script.');
+      // console.log('No horizontal overflow detected by the script.');
     }
   }
 
@@ -1221,6 +1221,5 @@
   new MutationObserver(findAndFixOverflow).observe(document.documentElement, {childList:true, subtree:true, attributes:true});
 })();
 </script>
-
 </body></html>
 
