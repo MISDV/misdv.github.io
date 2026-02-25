@@ -1,0 +1,691 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Admin Dashboard — misdv.github.io</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+  <style>
+    body { font-family: Inter, system-ui, -apple-system, sans-serif; background: #f8fafc; -webkit-tap-highlight-color: transparent; }
+    
+    /* Modals & Overlays */
+    .modal-backdrop { position: fixed; inset: 0; background: rgba(0,0,0,.6); z-index: 100; display: flex; align-items: center; justify-content: center; }
+    .modal { background: white; padding: 1.5rem; border-radius: .75rem; max-width: 400px; width: 94%; box-shadow: 0 10px 25px rgba(0,0,0,0.2); }
+    #toast { position: fixed; right: 16px; bottom: 16px; background: #1f2937; color: white; padding: 10px 16px; border-radius: 8px; opacity: 0; pointer-events: none; transition: all 200ms; z-index: 999; transform: translateY(10px); }
+    #toast.show { opacity: 1; transform: translateY(0); }
+    
+    /* Layout & Tabs */
+    .tab-content { display: none; }
+    .tab-content.active { display: block; animation: fadeIn 0.3s ease; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+    .nav-tab { border-bottom: 2px solid transparent; transition: all 0.2s; }
+    .nav-tab.active { border-bottom-color: #2563eb; color: #2563eb; font-weight: 600; }
+    
+    /* Shared Elements */
+    .card { background: white; border-radius: 0.5rem; padding: 1rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1); margin-bottom: 1rem; }
+    .btn { padding: 0.5rem 1rem; border-radius: 0.5rem; font-weight: 500; cursor: pointer; transition: opacity 0.2s; }
+    .btn:active { transform: scale(0.98); }
+    .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+    .btn-primary { background: #2563eb; color: white; }
+    .btn-secondary { background: #e2e8f0; color: #1e293b; }
+    .btn-danger { background: #ef4444; color: white; }
+    .btn-outline { border: 1px solid #cbd5e1; background: transparent; color: #475569; }
+    
+    /* Menu Accordions */
+    .day-accordion { border: 1px solid #e2e8f0; border-radius: 0.5rem; overflow: hidden; margin-bottom: 0.75rem; }
+    .day-header { padding: 0.75rem 1rem; background: #f8fafc; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
+    .day-body { padding: 1rem; border-top: 1px solid #e2e8f0; background: white; }
+    
+    /* Items Images */
+    .thumb { width: 80px; height: 80px; border-radius: 0.5rem; object-fit: cover; background: #f1f5f9; border: 1px solid #e2e8f0; flex-shrink: 0; }
+    
+    /* Sticky Header per Mobile */
+    .app-header { position: sticky; top: 0; z-index: 50; background: rgba(255,255,255,0.95); backdrop-filter: blur(8px); border-bottom: 1px solid #e2e8f0; }
+  </style>
+</head>
+<body>
+
+  <header class="app-header p-4">
+    <div class="max-w-5xl mx-auto flex flex-col md:flex-row gap-4 justify-between items-start md:items-center">
+      <div>
+        <h1 class="text-xl font-bold text-gray-900">Dashboard Admin</h1>
+        <div class="text-xs text-gray-500 mt-1" id="globalStatus">Stato: Inizializzazione...</div>
+      </div>
+      
+      <div class="flex flex-col sm:flex-row gap-2 w-full md:w-auto">
+        <input id="globalToken" type="password" placeholder="GitHub PAT (Token)" class="px-3 py-2 border rounded text-sm flex-1 sm:w-64 focus:ring focus:ring-blue-200" autocomplete="new-password">
+        <div class="flex gap-2">
+          <button id="btnReloadActive" class="btn btn-outline text-sm whitespace-nowrap">Ricarica Tab</button>
+          <button id="btnSaveActive" class="btn btn-primary text-sm whitespace-nowrap shadow-sm" disabled>Salva Modifiche</button>
+        </div>
+      </div>
+    </div>
+    
+    <nav class="max-w-5xl mx-auto flex gap-6 mt-4 overflow-x-auto">
+      <button class="nav-tab active pb-2 text-sm text-gray-600" data-target="tab-dati" data-module="dati">Dati Generali</button>
+      <button class="nav-tab pb-2 text-sm text-gray-600" data-target="tab-items" data-module="items">Prodotti/Articoli</button>
+      <button class="nav-tab pb-2 text-sm text-gray-600" data-target="tab-menu" data-module="menu">Menu Ristorante</button>
+    </nav>
+  </header>
+
+  <main class="max-w-5xl mx-auto p-4 pb-20">
+    
+    <section id="tab-dati" class="tab-content active space-y-4">
+      <div class="card grid gap-4">
+        <div>
+          <h2 class="font-semibold text-lg border-b pb-2">Social Links</h2>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mt-3">
+            <label class="text-sm">Instagram <input id="d_ig" class="w-full p-2 border rounded mt-1"></label>
+            <label class="text-sm">Facebook <input id="d_fb" class="w-full p-2 border rounded mt-1"></label>
+            <label class="text-sm">TikTok <input id="d_tk" class="w-full p-2 border rounded mt-1"></label>
+          </div>
+        </div>
+
+        <div>
+          <h2 class="font-semibold text-lg border-b pb-2">Contatti</h2>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mt-3">
+            <label class="text-sm">Via <input id="d_via" class="w-full p-2 border rounded mt-1"></label>
+            <label class="text-sm">Comune <input id="d_comune" class="w-full p-2 border rounded mt-1"></label>
+            <label class="text-sm">Mail <input id="d_mail" class="w-full p-2 border rounded mt-1"></label>
+          </div>
+          <div class="mt-3">
+            <label class="text-sm text-gray-600">Numeri di Telefono</label>
+            <div class="flex gap-2 mt-1 max-w-md">
+              <input id="d_newPhone" class="p-2 border rounded flex-1" placeholder="+39 ...">
+              <button id="d_btnAddPhone" class="btn btn-secondary">Aggiungi</button>
+            </div>
+            <div id="d_phoneList" class="space-y-2 mt-3 max-w-md"></div>
+          </div>
+        </div>
+
+        <div>
+          <h2 class="font-semibold text-lg border-b pb-2">Orari (es. 12:30-15:00)</h2>
+          <div id="d_hoursContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 mt-3"></div>
+        </div>
+
+        <div>
+          <h2 class="font-semibold text-lg border-b pb-2 flex justify-between items-center">
+            Cards Info
+            <button id="d_btnAddCard" class="btn btn-secondary text-sm px-2 py-1">+ Nuova Card</button>
+          </h2>
+          <div id="d_cardsList" class="space-y-3 mt-3"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="tab-items" class="tab-content space-y-4">
+      <div class="flex justify-between items-center mb-2">
+        <p class="text-sm text-gray-600">Gestione dei prodotti ed upload immagini su <code>img/</code></p>
+        <button id="i_btnAddItem" class="btn btn-secondary text-sm">+ Aggiungi Prodotto</button>
+      </div>
+      <div id="i_itemsList" class="grid gap-4"></div>
+    </section>
+
+    <section id="tab-menu" class="tab-content space-y-4">
+      <div class="card space-y-3">
+        <label class="block text-sm font-medium">Titolo Menu <input id="m_title" class="w-full p-2 border rounded mt-1"></label>
+        <label class="block text-sm font-medium">Descrizione Menu <textarea id="m_desc" rows="2" class="w-full p-2 border rounded mt-1"></textarea></label>
+      </div>
+      <div id="m_daysContainer" class="space-y-2"></div>
+    </section>
+    
+  </main>
+
+  <div id="loginModal" class="modal-backdrop">
+    <div class="modal">
+      <h2 class="text-xl font-bold mb-1">Login Admin</h2>
+      <p class="text-sm text-gray-500 mb-4">Accedi per sbloccare l'editor.</p>
+      
+      <form id="loginForm" autocomplete="on">
+        <div id="loginErr" class="text-red-500 text-sm mb-3 hidden">Credenziali errate</div>
+        <div class="space-y-3">
+          <input id="l_user" type="text" placeholder="Username" class="w-full p-2 border rounded" autocomplete="username" required>
+          <input id="l_pass" type="password" placeholder="Password" class="w-full p-2 border rounded" autocomplete="current-password" required>
+        </div>
+        <button type="submit" class="w-full btn btn-primary mt-5">Accedi</button>
+      </form>
+    </div>
+  </div>
+
+  <div id="toast"></div>
+
+<script>
+/**
+ * CORE CONFIGURATION & STATE
+ */
+const CFG = {
+  owner: 'MISDV', repo: 'misdv.github.io', branch: 'main',
+  user: 'Admin', pass: 'AgriGiu26!',
+  lsKey: 'misdv_spa_token'
+};
+
+const State = {
+  isLogged: false,
+  token: localStorage.getItem(CFG.lsKey) || '',
+  activeModule: 'dati', 
+  dati: { data: {}, sha: null, path: 'dati.json' },
+  items: { data: [], sha: null, path: 'items.json' },
+  menu: { data: {}, sha: null, path: 'menu.json', week: ['lunedì','martedì','mercoledì','giovedì','venerdì','sabato','domenica'] }
+};
+
+/**
+ * UI & UTILS
+ */
+const DOM = {
+  toast: document.getElementById('toast'),
+  status: document.getElementById('globalStatus'),
+  tokenInput: document.getElementById('globalToken'),
+  btnSave: document.getElementById('btnSaveActive'),
+  btnReload: document.getElementById('btnReloadActive'),
+  loginModal: document.getElementById('loginModal')
+};
+
+function toast(msg, ms = 3000) {
+  DOM.toast.textContent = msg;
+  DOM.toast.classList.add('show');
+  clearTimeout(DOM.toast._t);
+  DOM.toast._t = setTimeout(() => DOM.toast.classList.remove('show'), ms);
+}
+
+function setStatus(msg) { DOM.status.textContent = 'Stato: ' + msg; console.log('[App]', msg); }
+function escapeHtml(s) { return String(s || '').replace(/[&<>'"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+function toB64(s) { return btoa(unescape(encodeURIComponent(s))); }
+function fromB64(b) { return decodeURIComponent(escape(atob(b))); }
+
+/**
+ * GITHUB API WRAPPERS
+ */
+const API = {
+  async getRaw(path) {
+    const url = `https://raw.githubusercontent.com/${CFG.owner}/${CFG.repo}/${CFG.branch}/${path}?_=${Date.now()}`;
+    const r = await fetch(url, { cache: 'no-store' });
+    if (!r.ok) throw new Error('RAW HTTP ' + r.status);
+    return r.json();
+  },
+  async getApi(path) {
+    if (!State.token) throw new Error('Token PAT mancante per API Get');
+    const url = `https://api.github.com/repos/${CFG.owner}/${CFG.repo}/contents/${path}?ref=${CFG.branch}`;
+    const r = await fetch(url, { headers: { Accept: 'application/vnd.github.v3+json', Authorization: `token ${State.token}` }, cache: 'no-store' });
+    if (!r.ok) throw new Error('API GET HTTP ' + r.status);
+    const j = await r.json();
+    return { content: JSON.parse(fromB64(j.content.replace(/\n/g, ''))), sha: j.sha };
+  },
+  async putApi(path, base64content, message, sha) {
+    if (!State.token) throw new Error('Token PAT mancante per salvare');
+    const url = `https://api.github.com/repos/${CFG.owner}/${CFG.repo}/contents/${path}`;
+    const body = { message, content: base64content, branch: CFG.branch };
+    if (sha) body.sha = sha;
+    const r = await fetch(url, {
+      method: 'PUT',
+      headers: { Accept: 'application/vnd.github.v3+json', 'Content-Type': 'application/json', Authorization: `token ${State.token}` },
+      body: JSON.stringify(body)
+    });
+    if (!r.ok) { const txt = await r.text(); throw new Error(`PUT Error ${r.status}: ${txt}`); }
+    return r.json();
+  }
+};
+
+/**
+ * MODULE: DATI (dati.json)
+ */
+const ModDati = {
+  init() {
+    document.getElementById('d_ig').addEventListener('input', e => ModDati.update('socials.instagram.link', e.target.value));
+    document.getElementById('d_fb').addEventListener('input', e => ModDati.update('socials.facebook.link', e.target.value));
+    document.getElementById('d_tk').addEventListener('input', e => ModDati.update('socials.tiktok.link', e.target.value));
+    document.getElementById('d_via').addEventListener('input', e => ModDati.update('contatto.via', e.target.value));
+    document.getElementById('d_comune').addEventListener('input', e => ModDati.update('contatto.comune', e.target.value));
+    document.getElementById('d_mail').addEventListener('input', e => ModDati.update('contatto.mail', e.target.value));
+    
+    document.getElementById('d_btnAddPhone').addEventListener('click', () => {
+      const inp = document.getElementById('d_newPhone');
+      if (!inp.value.trim()) return;
+      State.dati.data.contatto.numeri_telefono.push(inp.value.trim());
+      inp.value = '';
+      this.render();
+    });
+    
+    document.getElementById('d_btnAddCard').addEventListener('click', () => {
+      State.dati.data.cards = State.dati.data.cards || [];
+      State.dati.data.cards.push({ titolo: 'Nuova card', valore: 'Testo', icona: 'info' });
+      this.render();
+    });
+  },
+  update(path, val) {
+    const keys = path.split('.');
+    let obj = State.dati.data;
+    for (let i = 0; i < keys.length - 1; i++) { obj[keys[i]] = obj[keys[i]] || {}; obj = obj[keys[i]]; }
+    obj[keys[keys.length - 1]] = val;
+  },
+  render() {
+    const d = State.dati.data;
+    // Safe init
+    if(!d.contatto) d.contatto = { numeri_telefono: [] };
+    else if(!d.contatto.numeri_telefono) d.contatto.numeri_telefono = [];
+    if(!d.socials) d.socials = {};
+    if(!d.orari) d.orari = {};
+    if(!d.cards) d.cards = [];
+
+    document.getElementById('d_ig').value = d.socials.instagram?.link || '';
+    document.getElementById('d_fb').value = d.socials.facebook?.link || '';
+    document.getElementById('d_tk').value = d.socials.tiktok?.link || '';
+    document.getElementById('d_via').value = d.contatto.via || '';
+    document.getElementById('d_comune').value = d.contatto.comune || '';
+    document.getElementById('d_mail').value = d.contatto.mail || '';
+
+    // Phones
+    const pl = document.getElementById('d_phoneList');
+    pl.innerHTML = '';
+    d.contatto.numeri_telefono.forEach((p, i) => {
+      const row = document.createElement('div'); row.className = 'flex gap-2';
+      row.innerHTML = `<input value="${escapeHtml(p)}" class="p-2 border rounded flex-1 text-sm"><button class="btn btn-outline text-red-500 text-sm py-1 px-2">X</button>`;
+      row.querySelector('input').addEventListener('input', e => d.contatto.numeri_telefono[i] = e.target.value);
+      row.querySelector('button').addEventListener('click', () => { d.contatto.numeri_telefono.splice(i,1); this.render(); });
+      pl.appendChild(row);
+    });
+
+    // Hours
+    const hc = document.getElementById('d_hoursContainer');
+    hc.innerHTML = '';
+    ['Lunedì','Martedì','Mercoledì','Giovedì','Venerdì','Sabato','Domenica'].forEach(day => {
+      d.orari[day] = d.orari[day] || { pranzo: '', cena: '', note: '' };
+      const card = document.createElement('div'); card.className = 'p-3 border rounded bg-gray-50';
+      // FIX: Added type="text"
+      card.innerHTML = `<div class="font-medium text-sm mb-2">${day}</div>
+        <div class="space-y-2">
+          <input type="text" placeholder="Pranzo" value="${escapeHtml(d.orari[day].pranzo||'')}" class="w-full p-2 border rounded text-sm text-gray-900">
+          <input type="text" placeholder="Cena" value="${escapeHtml(d.orari[day].cena||'')}" class="w-full p-2 border rounded text-sm text-gray-900">
+          <input type="text" placeholder="Note" value="${escapeHtml(d.orari[day].note||'')}" class="w-full p-2 border rounded text-sm text-gray-900">
+        </div>`;
+      const inps = card.querySelectorAll('input');
+      inps[0].addEventListener('input', e => d.orari[day].pranzo = e.target.value);
+      inps[1].addEventListener('input', e => d.orari[day].cena = e.target.value);
+      inps[2].addEventListener('input', e => d.orari[day].note = e.target.value);
+      hc.appendChild(card);
+    });
+
+    // Cards
+    const cl = document.getElementById('d_cardsList');
+    cl.innerHTML = '';
+    d.cards.forEach((c, i) => {
+      const el = document.createElement('div'); el.className = 'p-3 border rounded bg-white relative flex flex-col gap-2';
+      // FIX: Added type="text"
+      el.innerHTML = `
+        <div class="flex gap-2">
+            <input type="text" value="${escapeHtml(c.titolo||'')}" placeholder="Titolo" class="p-2 border rounded w-1/2 text-sm text-gray-900">
+            <input type="text" value="${escapeHtml(c.icona||'')}" placeholder="Icona (es. info)" class="p-2 border rounded w-1/2 text-sm text-gray-900">
+        </div>
+        <textarea rows="2" placeholder="Testo card..." class="w-full p-2 border rounded text-sm text-gray-900">${escapeHtml(c.valore||'')}</textarea>
+        <div class="text-right"><button class="text-xs text-red-500 hover:underline">Rimuovi card</button></div>
+      `;
+      const inps = el.querySelectorAll('input, textarea');
+      inps[0].addEventListener('input', e => c.titolo = e.target.value);
+      inps[1].addEventListener('input', e => c.icona = e.target.value);
+      inps[2].addEventListener('input', e => c.valore = e.target.value);
+      el.querySelector('button').addEventListener('click', () => { d.cards.splice(i,1); this.render(); });
+      cl.appendChild(el);
+    });
+  },
+  async save() {
+    State.dati.data.updated = new Date().toISOString();
+    const str = JSON.stringify(State.dati.data, null, 2);
+    const res = await API.putApi(State.dati.path, toB64(str), 'Update dati.json via SPA', State.dati.sha);
+    State.dati.sha = res.content.sha;
+  }
+};
+
+/**
+ * MODULE: ITEMS (items.json)
+ */
+const ModItems = {
+  init() {
+    document.getElementById('i_btnAddItem').addEventListener('click', () => {
+      State.items.data.unshift({ titolo: 'Nuovo prodotto', immagine: '', categoria: '', tipologia: '', prezzo: 0 });
+      this.render();
+    });
+  },
+  imgUrl(path) {
+    if(!path) return 'data:image/svg+xml;utf8,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80"><rect width="100%" height="100%" fill="#e2e8f0"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-size="10" fill="#64748b">No img</text></svg>');
+    if(path.startsWith('http')) return path;
+    return `https://raw.githubusercontent.com/${CFG.owner}/${CFG.repo}/${CFG.branch}/${path}`;
+  },
+  async uploadImg(file, itemIndex) {
+    if(!State.token) return toast('Serve il PAT per caricare immagini!');
+    setStatus('Upload immagine in corso...');
+    try {
+      const reader = new FileReader();
+      reader.onload = async (e) => {
+        const b64 = e.target.result.split(',')[1];
+        const safeName = Date.now() + '-' + file.name.replace(/[^a-zA-Z0-9.-]/g, '_');
+        const path = 'img/' + safeName;
+        await API.putApi(path, b64, `Upload image ${safeName}`);
+        State.items.data[itemIndex].immagine = path;
+        this.render();
+        toast('Immagine caricata');
+        setStatus('Immagine caricata con successo.');
+      };
+      reader.readAsDataURL(file);
+    } catch (e) { toast('Errore upload'); console.error(e); }
+  },
+  render() {
+    const c = document.getElementById('i_itemsList');
+    c.innerHTML = '';
+    // Fix: Ensure data is array
+    if (!Array.isArray(State.items.data)) State.items.data = [];
+
+    State.items.data.forEach((it, i) => {
+      const el = document.createElement('div');
+      el.className = 'card flex flex-col md:flex-row gap-4 items-start';
+      // FIX: Added type="text" to inputs. CRITICAL for querySelectorAll
+      el.innerHTML = `
+        <div class="relative group cursor-pointer flex-shrink-0">
+          <img src="${this.imgUrl(it.immagine)}" class="thumb">
+          <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition rounded-lg">
+            <span class="text-white text-xs text-center px-1">Cambia Img</span>
+          </div>
+          <input type="file" accept="image/*" class="absolute inset-0 opacity-0 cursor-pointer">
+        </div>
+        <div class="flex-1 grid grid-cols-1 md:grid-cols-2 gap-3 w-full">
+          <input type="text" placeholder="Titolo" value="${escapeHtml(it.titolo||'')}" class="p-2 border rounded text-sm md:col-span-2 font-semibold text-gray-900">
+          <input type="text" placeholder="Categoria" value="${escapeHtml(it.categoria||'')}" class="p-2 border rounded text-sm text-gray-900">
+          <input type="text" placeholder="Tipologia" value="${escapeHtml(it.tipologia||'')}" class="p-2 border rounded text-sm text-gray-900">
+          <div class="flex gap-2 md:col-span-2 items-center">
+            <span class="text-sm text-gray-500">Prezzo €</span>
+            <input type="number" step="0.01" value="${it.prezzo||0}" class="p-2 border rounded text-sm w-24 text-gray-900">
+            <span class="text-sm text-gray-500 ml-2">Sconto €</span>
+            <input type="number" step="0.01" value="${it.prezzo_scontato||''}" placeholder="Opz." class="p-2 border rounded text-sm w-24 text-gray-900">
+            <button class="btn btn-outline text-red-500 text-sm ml-auto border-red-200 hover:bg-red-50 py-1 px-3">Elimina</button>
+          </div>
+        </div>
+      `;
+      
+      const inps = el.querySelectorAll('input[type=text], input[type=number]');
+      // Now indices match: 0=Titolo, 1=Cat, 2=Tipo, 3=Prz, 4=Sconto
+      inps[0].addEventListener('input', e => it.titolo = e.target.value);
+      inps[1].addEventListener('input', e => it.categoria = e.target.value);
+      inps[2].addEventListener('input', e => it.tipologia = e.target.value);
+      inps[3].addEventListener('input', e => it.prezzo = parseFloat(e.target.value||0));
+      inps[4].addEventListener('input', e => it.prezzo_scontato = e.target.value === '' ? undefined : parseFloat(e.target.value));
+      
+      el.querySelector('input[type=file]').addEventListener('change', e => { if(e.target.files[0]) this.uploadImg(e.target.files[0], i); });
+      el.querySelector('button').addEventListener('click', () => { if(confirm('Eliminare prodotto?')){ State.items.data.splice(i,1); this.render(); } });
+      
+      c.appendChild(el);
+    });
+  },
+  async save() {
+    const str = JSON.stringify(State.items.data, null, 2);
+    const res = await API.putApi(State.items.path, toB64(str), 'Update items.json via SPA', State.items.sha);
+    State.items.sha = res.content.sha;
+  }
+};
+
+/**
+ * MODULE: MENU (menu.json)
+ */
+const ModMenu = {
+  init() {
+    document.getElementById('m_title').addEventListener('input', e => State.menu.data.title = e.target.value);
+    document.getElementById('m_desc').addEventListener('input', e => State.menu.data.description = e.target.value);
+  },
+  normalize(raw) {
+    const out = { title: raw?.title||'', description: raw?.description||'', updated: raw?.updated||new Date().toISOString(), days: {} };
+    State.menu.week.forEach(d => {
+      const s = raw?.days?.[d] || {};
+      out.days[d] = { enabled: !!s.enabled, title: s.title||'', updated: s.updated||out.updated, dishes: Array.isArray(s.dishes) ? s.dishes.map(x=>({...x})) : [] };
+    });
+    return out;
+  },
+  render() {
+    document.getElementById('m_title').value = State.menu.data.title || '';
+    document.getElementById('m_desc').value = State.menu.data.description || '';
+    
+    const dc = document.getElementById('m_daysContainer');
+    dc.innerHTML = '';
+    
+    State.menu.week.forEach(dayStr => {
+      const dayData = State.menu.data.days[dayStr];
+      const acc = document.createElement('div'); acc.className = 'day-accordion';
+      
+      // FIX: Added type="text"
+      acc.innerHTML = `
+        <div class="day-header select-none">
+          <div><span class="font-semibold capitalize">${dayStr}</span> <span class="text-xs text-gray-500 ml-2">(${dayData.dishes.length} piatti)</span></div>
+          <div class="flex items-center gap-3">
+            <span class="text-xs ${dayData.enabled ? 'text-green-600 font-bold' : 'text-gray-400'}">${dayData.enabled ? 'Attivo' : 'Spento'}</span>
+            <span class="text-blue-500 text-sm arrow">▼</span>
+          </div>
+        </div>
+        <div class="day-body hidden flex-col gap-3">
+          <div class="flex gap-3 items-center">
+            <label class="flex items-center gap-1 text-sm cursor-pointer"><input type="checkbox" ${dayData.enabled ? 'checked' : ''}> Abilita Giorno</label>
+            <input type="text" value="${escapeHtml(dayData.title||'')}" placeholder="Titolo giornata (es. Specialità Mare)" class="p-2 border rounded flex-1 text-sm text-gray-900">
+            <button class="btn btn-secondary text-sm px-3 py-1">+ Piatto</button>
+          </div>
+          <div class="dishes-list space-y-2 mt-2"></div>
+        </div>
+      `;
+      
+      const body = acc.querySelector('.day-body');
+      const arrow = acc.querySelector('.arrow');
+      acc.querySelector('.day-header').addEventListener('click', () => { 
+        body.classList.toggle('hidden'); 
+        arrow.textContent = body.classList.contains('hidden') ? '▼' : '▲';
+      });
+      
+      acc.querySelector('input[type=checkbox]').addEventListener('change', e => { dayData.enabled = e.target.checked; this.render(); });
+      // Selector now works securely
+      acc.querySelector('input[type=text]').addEventListener('input', e => dayData.title = e.target.value);
+      acc.querySelector('button').addEventListener('click', () => {
+        dayData.dishes.push({ id: 'd-'+Date.now(), name: 'Nuovo Piatto', description: '', price: null, tags: [], allergens: [], available: true });
+        this.render(); 
+        body.classList.remove('hidden'); arrow.textContent = '▲';
+      });
+      
+      const dl = acc.querySelector('.dishes-list');
+      dayData.dishes.forEach((dish, idx) => {
+        const dCard = document.createElement('div');
+        dCard.className = 'p-3 border rounded bg-gray-50 text-sm relative';
+        // FIX: Added type="text"
+        dCard.innerHTML = `
+          <div class="grid grid-cols-1 md:grid-cols-12 gap-2 items-start">
+            <div class="md:col-span-4 flex flex-col gap-1">
+              <input type="text" value="${escapeHtml(dish.name||'')}" placeholder="Nome piatto" class="p-1 border rounded font-medium text-gray-900">
+              <label class="flex items-center gap-1 text-xs text-gray-600 mt-1"><input type="checkbox" ${dish.available ? 'checked' : ''}> Disponibile</label>
+            </div>
+            <div class="md:col-span-6 flex flex-col gap-1">
+              <textarea placeholder="Descrizione..." rows="2" class="p-1 border rounded w-full text-xs text-gray-900">${escapeHtml(dish.description||'')}</textarea>
+              <div class="flex gap-1">
+                <input type="text" value="${escapeHtml((dish.tags||[]).join(', '))}" placeholder="Tags (virgola)" class="p-1 border rounded w-1/2 text-xs text-gray-900">
+                <input type="text" value="${escapeHtml((dish.allergens||[]).join(', '))}" placeholder="Allergeni (virgola)" class="p-1 border rounded w-1/2 text-xs text-gray-900">
+              </div>
+            </div>
+            <div class="md:col-span-2 flex flex-col gap-2">
+              <input type="number" step="0.5" value="${dish.price !== null ? dish.price : ''}" placeholder="Prezzo €" class="p-1 border rounded w-full text-center text-gray-900">
+              <button class="text-xs text-red-500 text-right hover:underline">Elimina</button>
+            </div>
+          </div>
+        `;
+        
+        const inps = dCard.querySelectorAll('input, textarea');
+        // Indici: 0:Name(txt), 1:Avail(chk, not in inps if querySelectorAll was limited? No, querySelectorAll picks all)
+        // Let's rely on specific selectors to be safer or querySelectorAll with filter.
+        // The implementation used querySelectorAll('input, textarea') -> mix.
+        // 0: input name (text)
+        // 1: input available (checkbox)
+        // 2: textarea desc
+        // 3: input tags (text)
+        // 4: input allergens (text)
+        // 5: input price (number)
+        
+        inps[0].addEventListener('input', e => dish.name = e.target.value);
+        inps[1].addEventListener('change', e => dish.available = e.target.checked);
+        inps[2].addEventListener('input', e => dish.description = e.target.value);
+        inps[3].addEventListener('input', e => dish.tags = e.target.value.split(',').map(s=>s.trim()).filter(Boolean));
+        inps[4].addEventListener('input', e => dish.allergens = e.target.value.split(',').map(s=>s.trim()).filter(Boolean));
+        inps[5].addEventListener('input', e => dish.price = e.target.value === '' ? null : Number(e.target.value));
+        
+        dCard.querySelector('button').addEventListener('click', () => {
+          if(confirm('Rimuovere piatto?')) { dayData.dishes.splice(idx,1); this.render(); }
+        });
+        dl.appendChild(dCard);
+      });
+      
+      dc.appendChild(acc);
+    });
+  },
+  async save() {
+    State.menu.data.updated = new Date().toISOString();
+    Object.keys(State.menu.data.days).forEach(d => State.menu.data.days[d].updated = State.menu.data.updated);
+    const str = JSON.stringify(State.menu.data, null, 2);
+    const res = await API.putApi(State.menu.path, toB64(str), 'Update menu.json via SPA', State.menu.sha);
+    State.menu.sha = res.content.sha;
+  }
+};
+
+/**
+ * APP CONTROLLER
+ */
+const App = {
+  async init() {
+    DOM.tokenInput.value = State.token;
+    DOM.tokenInput.addEventListener('input', e => {
+      State.token = e.target.value.trim();
+      if(State.token) localStorage.setItem(CFG.lsKey, State.token);
+      else localStorage.removeItem(CFG.lsKey);
+      this.updateBtnState();
+    });
+
+    // Nav Routing
+    document.querySelectorAll('.nav-tab').forEach(tab => {
+      tab.addEventListener('click', async (e) => {
+        document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+        e.target.classList.add('active');
+        const targetId = e.target.dataset.target;
+        const moduleName = e.target.dataset.module;
+        
+        document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+        document.getElementById(targetId).classList.add('active');
+        
+        State.activeModule = moduleName;
+        
+        // Reload on tab switch
+        await this.loadModule(moduleName);
+      });
+    });
+
+    DOM.btnReload.addEventListener('click', () => this.loadModule(State.activeModule));
+    DOM.btnSave.addEventListener('click', () => this.saveActive());
+
+    ModDati.init();
+    ModItems.init();
+    ModMenu.init();
+
+    document.getElementById('loginForm').addEventListener('submit', e => {
+      e.preventDefault();
+      const u = document.getElementById('l_user').value.trim();
+      const p = document.getElementById('l_pass').value;
+      if (u === CFG.user && p === CFG.pass) {
+        State.isLogged = true;
+        DOM.loginModal.style.display = 'none';
+        this.updateBtnState();
+        toast('Login completato');
+      } else {
+        document.getElementById('loginErr').classList.remove('hidden');
+      }
+    });
+
+    // Auto-load all at startup
+    await Promise.all([
+      this.loadModule('dati'),
+      this.loadModule('items'),
+      this.loadModule('menu')
+    ]);
+  },
+
+  updateBtnState() {
+    DOM.btnSave.disabled = !(State.isLogged && State.token);
+    if (!State.token && State.isLogged) DOM.tokenInput.classList.add('border-red-500', 'ring-1', 'ring-red-500');
+    else DOM.tokenInput.classList.remove('border-red-500', 'ring-1', 'ring-red-500');
+  },
+
+  async loadModule(modName) {
+    const modState = State[modName];
+    setStatus(`Caricamento ${modName} in corso...`);
+    
+    let freshData = null;
+    let freshSha = null;
+
+    try {
+      // LOGIC REQUESTED: Token ? API : RAW
+      if (State.token) {
+        try {
+          const res = await API.getApi(modState.path);
+          freshData = res.content;
+          freshSha = res.sha;
+          console.log(`[${modName}] Caricato via API (con SHA)`);
+        } catch (e) {
+          console.warn(`[${modName}] API fallita (${e.message}), fallback su RAW...`);
+          toast('Token non valido o errore API: caricamento sola lettura.');
+        }
+      }
+
+      // Fallback: If no token OR if API failed above
+      if (!freshData) {
+        freshData = await API.getRaw(modState.path);
+        console.log(`[${modName}] Caricato via RAW pubblico`);
+      }
+
+      // Normalization
+      if (modName === 'menu') freshData = ModMenu.normalize(freshData);
+      else if (modName === 'items' && !Array.isArray(freshData)) freshData = [];
+      else if (modName === 'dati' && typeof freshData !== 'object') freshData = {};
+
+      State[modName].data = freshData;
+      State[modName].sha = freshSha;
+
+      if (modName === 'dati') ModDati.render();
+      if (modName === 'items') ModItems.render();
+      if (modName === 'menu') ModMenu.render();
+
+      setStatus(`${modName.toUpperCase()} pronto.`);
+    } catch(err) {
+      console.error(err);
+      setStatus(`Errore caricamento ${modName}: ` + err.message);
+      toast(`Errore caricamento ${modName}`);
+    }
+  },
+
+  async saveActive() {
+    if (!State.isLogged || !State.token) return toast('Devi inserire il token PAT per salvare!');
+    
+    DOM.btnSave.disabled = true;
+    DOM.btnSave.textContent = 'Salvataggio...';
+    setStatus(`Salvataggio di ${State.activeModule}.json...`);
+    
+    try {
+      // Refresh SHA before saving to avoid conflicts
+      try { const m = await API.getApi(State[State.activeModule].path); State[State.activeModule].sha = m.sha; } catch(e){}
+
+      if(State.activeModule === 'dati') await ModDati.save(); 
+      else if(State.activeModule === 'items') await ModItems.save(); 
+      else if(State.activeModule === 'menu') await ModMenu.save(); 
+      
+      toast('Salvataggio completato con successo!');
+      setStatus('Dati salvati online.');
+    } catch (err) {
+      console.error(err);
+      toast('Errore di salvataggio');
+      setStatus('Errore: ' + err.message);
+    } finally {
+      DOM.btnSave.textContent = 'Salva Modifiche';
+      this.updateBtnState();
+    }
+  }
+};
+
+document.addEventListener('DOMContentLoaded', () => App.init());
+</script>
+
+</body>
+</html>

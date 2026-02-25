@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Editor Dati — Mobile Save Fix</title>
+  <title>Editor Dati</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     body{font-family:Inter,system-ui,-apple-system,'Segoe UI',Roboto,Arial;background:#f6f7fb;padding:12px;-webkit-font-smoothing:antialiased}
@@ -27,8 +27,8 @@
 
 <main class="max-w-5xl mx-auto">
   <header class="mb-4">
-    <h1 class="text-2xl font-bold">Editor Dati — Salva semplice</h1>
-    <p class="text-sm text-gray-600">RAW pubblico → fallback API (PAT). Salvataggio: sovrascrive il file remoto.</p>
+    <h1 class="text-2xl font-bold">Editor Dati</h1>
+    <!-- <p class="text-sm text-gray-600">RAW pubblico → fallback API (PAT). Salvataggio: sovrascrive il file remoto.</p> -->
   </header>
 
   <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
@@ -37,7 +37,7 @@
       <div class="flex justify-between items-start">
         <div>
           <h2 class="font-semibold">Dati</h2>
-          <div class="text-xs text-gray-500">Modifica inline; salva dopo login e inserimento PAT.</div>
+          <div class="text-xs text-gray-500">Modifica dei dati dell'agriturismo</div>
         </div>
         <div class="text-xs text-gray-500">
           Ultimo aggiornamento<br/><span id="updatedTop">—</span>
@@ -89,33 +89,34 @@
     <aside class="card desktop-only space-y-3">
       <div>
         <h3 class="font-semibold">Connessione & Salvataggio</h3>
-        <div class="text-xs text-gray-500">Owner/Repo/Branch fissati nello script. Cambia path se serve.</div>
+        <!-- <div class="text-xs text-gray-500">Owner/Repo/Branch fissati nello script. Cambia path se serve.</div> -->
       </div>
 
-      <div>
-        <label class="text-xs">Path (repo)</label>
-        <input id="savePath" class="w-full p-2 border rounded mt-1" value="dati.json" />
-      </div>
+      
 
       <!-- token desktop wrapped in a form to avoid console warning -->
       <form id="tokenFormDesktop" autocomplete="off" class="mt-2" onsubmit="return false;">
+        <div>
+        <input type="hidden" id="savePath" class="w-full p-2 border rounded mt-1" value="dati.json" autocomplete="username"/>
+      </div>
         <label class="text-xs">Token personale (PAT)</label>
         <input id="token" type="password" autocomplete="new-password" class="w-full p-2 border rounded mt-1" placeholder="ghp_..." />
-        <div class="flex gap-2 mt-2">
+       <!-- <div class="flex gap-2 mt-2">
           <button id="revealToken" type="button" class="btn btn-ghost">Mostra</button>
           <button id="removeToken" type="button" class="btn btn-ghost">Rimuovi token</button>
-        </div>
+        </div> 
         <div class="text-xs text-gray-500 mt-2">Token salvato in localStorage solo su questo dispositivo.</div>
+      -->
       </form>
 
       <div class="flex gap-2 mt-2">
-        <button id="reloadBtn" type="button" class="btn btn-ghost flex-1">Ricarica (RAW → API)</button>
+        <!-- <button id="reloadBtn" type="button" class="btn btn-ghost flex-1">Ricarica (RAW → API)</button> -->
         <button id="saveBtn" type="button" class="btn btn-primary flex-1" disabled>Salva</button>
       </div>
 
       <div>
         <div id="status" class="text-sm text-gray-600 mt-2">Stato: in attesa</div>
-        <pre id="log" class="mt-2 p-2 bg-gray-50 rounded text-xs">Log...\n</pre>
+        <!-- <pre id="log" class="mt-2 p-2 bg-gray-50 rounded text-xs">Log...\n</pre> -->
       </div>
     </aside>
   </div>
@@ -136,7 +137,7 @@
   </div>
 </div>
 
-<!-- Login modal: keep separate form for login (submit button should be type="submit") -->
+<!-- Login modal: keep separate form for login (submit button should be type="submit") 
 <div id="loginModal" class="fixed inset-0 flex items-center justify-center bg-[rgba(0,0,0,0.55)] z-50" aria-hidden="false">
   <div class="bg-white p-4 rounded max-w-xl w-[94%]">
     <h2 class="text-lg font-semibold">Login amministratore</h2>
@@ -155,6 +156,7 @@
     </form>
   </div>
 </div>
+-->
 
 <div id="toast" role="status" aria-live="polite"></div>
 
@@ -200,7 +202,7 @@ const cardsList = $('cardsList');
 const addCardBtn = $('addCard');
 
 const loginModal = $('loginModal');
-const loginForm = $('loginForm');
+// const loginForm = $('loginForm'); NO LOGIN
 const loginUser = $('loginUser');
 const loginPass = $('loginPass');
 const loginErr = $('loginErr');
@@ -297,7 +299,19 @@ async function ensureRepoExists(owner, repo, token){
 }
 
 /* RENDER helpers (phones/hours/cards) */
-function updatePreview(){ updatedTop.textContent = data?.updated || '—'; }
+function updatePreview(){
+  const raw = data?.updated;
+  if(!raw){ updatedTop.textContent = '—'; return; }
+  const d = (raw instanceof Date) ? raw : new Date(raw);
+  if (isNaN(d)) { updatedTop.textContent = String(raw); return; }
+  // formato breve: 20/02/2026 02:36:57
+  updatedTop.textContent = d.toLocaleString('it-IT', {
+    timeZone: 'Europe/Rome',
+    day: '2-digit', month: '2-digit', year: 'numeric',
+    hour: '2-digit', minute: '2-digit', second: '2-digit',
+    hour12: false
+  });
+}
 
 function renderPhones(){
   phoneList.innerHTML = '';
@@ -537,7 +551,7 @@ async function performSave(){
     data.cards = data.cards || []; data.cards.push({ titolo: 'Nuova card', valore: 'Testo', icona: 'info' });
     renderCards(); updatePreview(); updateSaveButtonsState();
   });
-
+  /** NO LOGIN
   if (loginForm) loginForm.addEventListener('submit', (ev) => {
     ev.preventDefault();
     loginErr.classList.add('hidden');
@@ -557,6 +571,7 @@ async function performSave(){
       toast('Login fallito');
     }
   });
+  **/
 })();
 
 /* INIT */
