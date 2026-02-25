@@ -296,16 +296,16 @@
 
   <div class="relative z-10 text-center px-4 max-w-5xl mx-auto mt-6 md:mt-16">
     <div class="inline-block border-y border-white/60 py-2 px-6 mb-4 backdrop-blur-sm bg-black/10">
-      <span id ="sottotitolo" class="block text-white font-serif font-medium tracking-[0.2em] uppercase text-shadow-light"><p id="titolo"></p></span>
+      <span class="block text-white font-serif font-medium tracking-[0.2em] uppercase text-shadow-light">Agriturismo nelle Marche</span>
     </div>
 
-    <h1 class="text-3xl md:text-6xl font-serif font-bold text-white mb-4 md:mb-6 leading-tight text-shadow">
+    <h1 id="frase1" class="text-3xl md:text-6xl font-serif font-bold text-white mb-4 md:mb-6 leading-tight text-shadow">
       Autenticità e Natura
       <br/>
-      <span class="font-light italic text-orange-100 text-lg md:text-3xl">Sulla Tua Tavola</span>
+      <span id="frase11" class="font-light italic text-orange-100 text-lg md:text-3xl">Sulla Tua Tavola</span>
     </h1>
 
-    <p class="text-sm md:text-lg text-orange-50 mb-6 max-w-2xl mx-auto font-light leading-relaxed text-shadow font-serif">
+    <p id="frase2" class="text-sm md:text-lg text-orange-50 mb-6 max-w-2xl mx-auto font-light leading-relaxed text-shadow font-serif">
       Un rifugio di pace tra le colline dorate, dove i sapori della terra incontrano la calda tradizione dell'ospitalità marchigiana.
     </p>
 
@@ -454,14 +454,12 @@
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
     <div class="flex flex-col md:flex-row items-center justify-between gap-12 text-center md:text-left">
       <div class="md:w-2/3">
-        <h2 class="text-2xl md:text-3xl font-serif font-bold mb-4 text-white">Porta a casa i sapori dell'agriturismo</h2>
-        <p class="text-orange-50 text-base md:text-lg font-light leading-relaxed">
-          Olio extravergine d'oliva, confetture fatte in casa, vini locali e miele dorato. I nostri prodotti sono disponibili per l'acquisto diretto in azienda.
-        </p>
+        <h2 id="introduzione" class="text-2xl md:text-3xl font-serif font-bold mb-4 text-white">Porta a casa i sapori dell'agriturismo</h2>
+        <p id="introduzione1" class="text-orange-50 text-base md:text-lg font-light leading-relaxed">Olio extravergine d'oliva, confetture fatte in casa, vini locali e miele dorato. I nostri prodotti sono disponibili per l'acquisto diretto in azienda.</p>
       </div>
       <div class="md:w-1/3 flex justify-center md:justify-end">
         <a href="/shop.html" target="_blank" rel="noopener noreferrer">
-          <button class="bg-white text-primary hover:bg-orange-50 hover:text-primary-dark font-serif font-bold py-3 px-6 md:py-4 md:px-10 rounded-sm shadow-xl transition-colors border-b-4 border-orange-200">Scopri i Prodotti!</button>
+          <button id="bottone" class="bg-white text-primary hover:bg-orange-50 hover:text-primary-dark font-serif font-bold py-3 px-6 md:py-4 md:px-10 rounded-sm shadow-xl transition-colors border-b-4 border-orange-200">Scopri i Prodotti!</button>
         </a>
       </div>
     </div>
@@ -843,6 +841,7 @@
     if (dati.shop) {
       if (document.querySelector('#introduzione')) document.querySelector('#introduzione').innerText = (dati.shop.introduzione ? dati.shop.introduzione : '');
       if (document.querySelector('#introduzione1')) document.querySelector('#introduzione1').innerText = (dati.shop.introduzione1 ? dati.shop.introduzione1 : '');
+      if (document.querySelector('#bottone')) document.querySelector('#bottone').innerText = (dati.shop.bottone ? dati.shop.bottone : '');
     }
 
     // Home dati
@@ -850,7 +849,7 @@
       if (document.querySelector('#titolo')) document.querySelector('#titolo').innerText = (dati.home.titolo || '');
       if (document.querySelector('#sottotitolo')) document.querySelector('#sottotitolo').innerText = (dati.home.sottotitolo || '');
       if (document.querySelector('#descrizione')) document.querySelector('#descrizione').innerText = dati.home.descrizione;
-      if (document.querySelector('#frase1')) document.querySelector('#frase1').innerText = dati.home.frase1 || '';
+      if (document.querySelector('#frase1')) document.querySelector('#frase1').innerHTML = dati.home.frase1 + '<br/><span id="frase11" class="font-light italic text-orange-100 text-lg md:text-3xl">Sulla Tua Tavola</span>' || '';
       if (document.querySelector('#frase11')) document.querySelector('#frase11').innerText = dati.home.frase11 || '';
       if (document.querySelector('#frase2')) document.querySelector('#frase2').innerText = dati.home.frase2 || '';
     }
