@@ -5,6 +5,8 @@
   "days": {
     "lunedì": {
       "enabled": true,
+      "fisso": false,
+      "fixed_price": "€35,90",
       "title": "Pranzo del Lunedì",
       "updated": "2026-02-25T21:45:39.925Z",
       "dishes": [
@@ -42,6 +44,8 @@
     },
     "martedì": {
       "enabled": false,
+      "fisso": false,
+      "fixed_price": "€35,90",
       "title": "Menù Chiuso",
       "updated": "2026-02-25T21:45:39.925Z",
       "dishes": [
@@ -63,6 +67,8 @@
     },
     "mercoledì": {
       "enabled": true,
+      "fisso": false,
+      "fixed_price": "€35,90",
       "title": "Primi & Secondi",
       "updated": "2026-02-25T21:45:39.925Z",
       "dishes": [
@@ -79,24 +85,77 @@
     },
     "giovedì": {
       "enabled": false,
+      "fisso": false,
+      "fixed_price": "€35,90",
       "title": "",
       "updated": "2026-02-25T21:45:39.925Z",
       "dishes": []
     },
     "venerdì": {
       "enabled": false,
+      "fisso": true,
+      "fixed_price": "€35,90",
       "title": "",
       "updated": "2026-02-25T21:45:39.925Z",
       "dishes": []
     },
     "sabato": {
-      "enabled": false,
+      "enabled": true,
+      "fisso": true,
+      "fixed_price": "€35,90",
       "title": "",
       "updated": "2026-02-25T21:45:39.925Z",
-      "dishes": []
+      "dishes": [
+        {
+          "id": "p1",
+          "name": "Pasta del Contadino",
+          "description": "Pasta fatta a mano con verdure e prodotti freschi direttamente dall'orto",
+          "price": 7.5,
+          "price_display": "€7,50",
+          "tags": [
+            "vegetariano"
+          ],
+          "allergens": [
+            "gluten",
+            "pomodoro"
+          ],
+          "available": true
+        },
+        {
+          "id": "p2",
+          "name": "Legumi e carne",
+          "description": "Misto di legumi con carne",
+          "price": 15,
+          "tags": [
+            "pesce"
+          ],
+          "allergens": [
+            "carne",
+            "legumi"
+          ],
+          "available": true,
+          "price_display": "€15,00"
+        },
+        {
+          "id": "p3",
+          "name": "Frutta",
+          "description": "frutta mista di stagione",
+          "price": 15,
+          "tags": [
+            "frutta"
+          ],
+          "allergens": [
+            "frutta"
+          ],
+          "available": true,
+          "price_display": "€15,00"
+        }
+      ]
     },
     "domenica": {
       "enabled": false,
+      "fisso": true,
+      "fixed_price": "€35,90",
       "title": "",
       "updated": "2026-02-25T21:45:39.925Z",
       "dishes": []

@@ -307,7 +307,7 @@ header h1 {
 
     <div class="flex flex-col sm:flex-row gap-3 sm:gap-5 justify-center">
       <a class="bg-primary hover:bg-primary-dark text-white text-base md:text-lg px-6 md:px-10 py-3 md:py-4 rounded-sm transition-all duration-300 shadow-lg transform hover:-translate-y-0.5 font-serif uppercase tracking-wider border-b-2 border-primary-dark" href="#ristorante">
-        Prenota un Tavolo
+        Menù
       </a>
       <a class="bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/60 text-white text-base md:text-lg px-6 md:px-10 py-3 md:py-4 rounded-sm transition-all duration-300 font-serif uppercase tracking-wider hover:border-primary hover:text-primary" href="#fattoria">
         Scopri la Fattoria
@@ -695,6 +695,21 @@ header h1 {
     return Number.isInteger(num) ? `€${num}` : `€${num.toFixed(2).replace('.', ',')}`;
   }
 
+  // Helper: formatta in euro da centesimi (fallback robusto)
+function formatCurrencyEUR(amountCents) {
+  if (typeof amountCents !== 'number' || isNaN(amountCents)) return '';
+  const sign = amountCents < 0 ? '-' : '';
+  const cents = Math.abs(Math.round(amountCents));
+  const euro = Math.floor(cents / 100);
+  const centi = (cents % 100).toString().padStart(2, '0');
+  return `${sign}€${euro},${centi}`;
+}
+
+function normalizeDayKey(dayKey) {
+  if (!dayKey) return '';
+  return String(dayKey).toLowerCase().trim();
+}
+
   function getTodayItalianLower() {
     try {
       const now = new Date();
@@ -789,6 +804,121 @@ header h1 {
     }
     tbodyEl.appendChild(frag);
   }
+
+  function renderDayMenu(tbodyEl, dayKey, menuData) {
+  tbodyEl.innerHTML = '';
+  if (!menuData || !menuData.days) {
+    tbodyEl.innerHTML = `<tr><td class="py-4" colspan="2">Configurazione menu non trovata.</td></tr>`;
+    return;
+  }
+  const key = normalizeDayKey(dayKey);
+  const day = menuData.days[key];
+  if (!day) {
+    tbodyEl.innerHTML = `<tr><td class="py-4" colspan="2">Giorno "${escapeHtml(dayKey)}" non configurato.</td></tr>`;
+    return;
+  }
+  if (!day.enabled) {
+    tbodyEl.innerHTML = `<tr><td class="py-4" colspan="2">Questo giorno non è abilitato.</td></tr>`;
+    return;
+  }
+
+  // Se il menù è fisso
+  if (day.fisso) {
+    const frag = document.createDocumentFragment();
+    const menuTitle = escapeHtml(day.title || 'Menù fisso');
+
+    let fixedPriceDisplay = '';
+    if (day.fixed_price && String(day.fixed_price).trim() !== '') {
+      fixedPriceDisplay = escapeHtml(day.fixed_price);
+    } else if (Array.isArray(day.dishes) && day.dishes.length) {
+      let totalCents = 0;
+      for (const d of day.dishes) {
+        if (typeof d.price === 'number' && !isNaN(d.price)) {
+          totalCents += Math.round(d.price * 100);
+        } else if (typeof d.price_cents === 'number' && !isNaN(d.price_cents)) {
+          totalCents += Math.round(d.price_cents);
+        }
+      }
+      fixedPriceDisplay = totalCents ? formatCurrencyEUR(totalCents) : '';
+    }
+
+    // Header: titolo menù + prezzo totale a destra
+    const headerRow = document.createElement('tr');
+    headerRow.className = 'border-b border-dashed border-stone-300 dark:border-stone-700 last:border-b-0';
+    headerRow.innerHTML = `
+      <td class="py-4 align-top">
+        <div>
+          <h4 class="text-lg font-serif font-bold text-gray-800 dark:text-gray-100">${menuTitle}</h4>
+          <p class="text-sm text-gray-500 dark:text-gray-400 mt-1 italic">Menù fisso — prezzo per persona</p>
+        </div>
+      </td>
+      <td class="py-4 align-top w-28 text-right">
+        <span class="text-primary font-bold text-lg font-serif">${fixedPriceDisplay || ''}</span>
+      </td>
+    `;
+    frag.appendChild(headerRow);
+
+    // Elenco piatti senza prezzi singoli
+    if (Array.isArray(day.dishes) && day.dishes.length) {
+      for (const dish of day.dishes) {
+        const tr = document.createElement('tr');
+        tr.className = 'border-b border-dashed border-stone-100 dark:border-stone-800 last:border-b-0';
+        tr.innerHTML = `
+          <td class="py-2 align-top pl-6">
+            <div>
+              <h5 class="text-md font-serif font-semibold text-gray-700 dark:text-gray-200">${escapeHtml(dish.name || dish.title || '')}</h5>
+              <p class="text-sm text-gray-500 dark:text-gray-400 mt-1 italic">${escapeHtml(dish.description || '')}</p>
+            </div>
+          </td>
+          <td class="py-2 align-top w-28 text-right"></td>
+        `;
+        frag.appendChild(tr);
+      }
+    } else {
+      const tr = document.createElement('tr');
+      tr.innerHTML = `<td class="py-4" colspan="2">Nessun piatto elencato per il menù fisso.</td>`;
+      frag.appendChild(tr);
+    }
+
+    tbodyEl.appendChild(frag);
+    return;
+  }
+
+  // Altrimenti: fallback alla tua funzione esistente che mostra prezzi singoli
+  if (typeof renderDishes === 'function') {
+    renderDishes(tbodyEl, day.dishes || []);
+  } else {
+    // piccolo fallback se renderDishes non esiste
+    tbodyEl.innerHTML = '';
+    const frag = document.createDocumentFragment();
+    const dishes = Array.isArray(day.dishes) ? day.dishes : [];
+    if (dishes.length === 0) {
+      const tr = document.createElement('tr');
+      tr.innerHTML = `<td class="py-4" colspan="2">Nessun piatto disponibile per questo giorno.</td>`;
+      frag.appendChild(tr);
+    } else {
+      for (const dish of dishes) {
+        const tr = document.createElement('tr');
+        tr.className = 'border-b border-dashed border-stone-300 dark:border-stone-700 last:border-b-0';
+        const price = (dish.price_display && String(dish.price_display).trim() !== '') ? escapeHtml(dish.price_display) :
+                      (typeof dish.price === 'number' ? formatCurrencyEUR(Math.round(dish.price*100)) : '');
+        tr.innerHTML = `
+          <td class="py-4 align-top">
+            <div>
+              <h4 class="text-lg font-serif font-bold text-gray-800 dark:text-gray-100">${escapeHtml(dish.name || dish.title || '')}</h4>
+              <p class="text-sm text-gray-500 dark:text-gray-400 mt-1 italic">${escapeHtml(dish.description || '')}</p>
+            </div>
+          </td>
+          <td class="py-4 align-top w-28 text-right">
+            <span class="text-primary font-bold text-lg font-serif">${price}</span>
+          </td>
+        `;
+        frag.appendChild(tr);
+      }
+    }
+    tbodyEl.appendChild(frag);
+  }
+}
 
   function buildDaySelector(container, daysArray, selectedDay, onSelect) {
     container.innerHTML = '';
@@ -1037,22 +1167,40 @@ header h1 {
       const initial = todayItem ? todayItem.key : daysArray[0].key;
 
       function onSelect(dayKey) {
-        const entry = daysArray.find(d => d.key === dayKey);
-        if (!entry) return;
-        renderDishes(tbody, entry.dishes);
+  const selector = document.getElementById('menuDaySelector');
+  const tbody = document.getElementById('menuTableBody');
+  const titleEl = document.getElementById('menuTitle');
+  const descEl = document.getElementById('menuDescription');
 
-        Array.from(selector.children).forEach(btn => {
-          if (btn.dataset.day === dayKey) {
-            btn.classList.remove('border-stone-200','dark:border-stone-700','text-gray-700','dark:text-gray-300');
-            btn.classList.add('border-primary','text-primary');
-            btn.setAttribute('aria-selected','true');
-          } else {
-            btn.classList.remove('border-primary','text-primary');
-            btn.classList.add('border-stone-200','dark:border-stone-700','text-gray-700','dark:text-gray-300');
-            btn.setAttribute('aria-selected','false');
-          }
-        });
-      }
+  if (!Array.isArray(daysArray) || !selector || !tbody) return;
+
+  const entry = daysArray.find(d => (d.key || '').toString().toLowerCase() === String(dayKey).toLowerCase());
+  if (!entry) return;
+
+  // Aggiorna titolo/descrizione della sezione
+  if (titleEl) titleEl.textContent = entry.title || (menuJson && menuJson.title) || 'Menù';
+  if (descEl) descEl.textContent = entry.description || (menuJson && menuJson.description) || '';
+
+  // usa renderDayMenu (che mostra prezzo fisso se necessario)
+  renderDayMenu(tbody, entry.key, menuJson);
+
+  // Aggiorna stato dei bottoni UI (classi + aria-selected + tabindex)
+  Array.from(selector.children).forEach(btn => {
+    const btnDay = String(btn.dataset.day || '').toLowerCase();
+    if (btnDay === String(dayKey).toLowerCase()) {
+      btn.classList.remove('border-stone-200','dark:border-stone-700','text-gray-700','dark:text-gray-300');
+      btn.classList.add('border-primary','text-primary','bg-white','dark:bg-stone-800');
+      btn.setAttribute('aria-selected','true');
+      btn.setAttribute('tabindex','0');
+      try { btn.focus({preventScroll: true}); } catch(e){}
+    } else {
+      btn.classList.remove('border-primary','text-primary','bg-white','dark:bg-stone-800');
+      btn.classList.add('border-stone-200','dark:border-stone-700','text-gray-700','dark:text-gray-300');
+      btn.setAttribute('aria-selected','false');
+      btn.setAttribute('tabindex','-1');
+    }
+  });
+}
 
       buildDaySelector(selector, daysArray, initial, onSelect);
       onSelect(initial);
