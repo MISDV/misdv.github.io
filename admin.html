@@ -432,7 +432,17 @@ const ModMenu = {
     const out = { title: raw?.title||'', description: raw?.description||'', updated: raw?.updated||new Date().toISOString(), days: {} };
     State.menu.week.forEach(d => {
       const s = raw?.days?.[d] || {};
-      out.days[d] = { enabled: !!s.enabled, title: s.title||'', updated: s.updated||out.updated, dishes: Array.isArray(s.dishes) ? s.dishes.map(x=>({...x})) : [] };
+      out.days[d] = { 
+        enabled: !!s.enabled, 
+        title: s.title||'', 
+        // NUOVI CAMPI RICHIESTI
+        fisso: !!s.fisso,
+        fixed_price: s.fixed_price || '',
+        description: s.description || '',
+        
+        updated: s.updated||out.updated, 
+        dishes: Array.isArray(s.dishes) ? s.dishes.map(x=>({...x})) : [] 
+      };
     });
     return out;
   },
@@ -447,41 +457,72 @@ const ModMenu = {
       const dayData = State.menu.data.days[dayStr];
       const acc = document.createElement('div'); acc.className = 'day-accordion';
       
-      // FIX: Added type="text"
+      // LOGICA BADGE FISSO/CLASSICO
+      const typeLabel = dayData.fisso ? 'Fisso' : 'Classico';
+      const typeBadgeClass = dayData.fisso 
+        ? 'bg-purple-100 text-purple-700 border border-purple-200' 
+        : 'bg-gray-100 text-gray-600 border border-gray-200';
+      
       acc.innerHTML = `
         <div class="day-header select-none">
-          <div><span class="font-semibold capitalize">${dayStr}</span> <span class="text-xs text-gray-500 ml-2">(${dayData.dishes.length} piatti)</span></div>
+          <div class="flex items-center gap-2">
+            <span class="font-semibold capitalize">${dayStr}</span> 
+            <span class="text-xs text-gray-500">(${dayData.dishes.length} piatti)</span>
+          </div>
           <div class="flex items-center gap-3">
+            <span class="text-xs px-2 py-0.5 rounded ${typeBadgeClass} font-medium">${typeLabel}</span>
             <span class="text-xs ${dayData.enabled ? 'text-green-600 font-bold' : 'text-gray-400'}">${dayData.enabled ? 'Attivo' : 'Spento'}</span>
+																																				
             <span class="text-blue-500 text-sm arrow">▼</span>
           </div>
         </div>
         <div class="day-body hidden flex-col gap-3">
-          <div class="flex gap-3 items-center">
-            <label class="flex items-center gap-1 text-sm cursor-pointer"><input type="checkbox" ${dayData.enabled ? 'checked' : ''}> Abilita Giorno</label>
-            <input type="text" value="${escapeHtml(dayData.title||'')}" placeholder="Titolo giornata (es. Specialità Mare)" class="p-2 border rounded flex-1 text-sm text-gray-900">
-            <button class="btn btn-secondary text-sm px-3 py-1">+ Piatto</button>
+          
+          <div class="flex flex-wrap gap-3 items-center border-b pb-3">
+            <label class="flex items-center gap-1 text-sm cursor-pointer select-none">
+              <input type="checkbox" class="chk-enable" ${dayData.enabled ? 'checked' : ''}> Abilita Giorno
+            </label>
+            <input type="text" class="inp-title p-2 border rounded flex-1 text-sm text-gray-900" value="${escapeHtml(dayData.title||'')}" placeholder="Titolo giornata (es. Specialità Mare)">
+            <button class="btn-add-dish btn btn-secondary text-sm px-3 py-1">+ Piatto</button>
           </div>
+
+          <div class="flex flex-wrap gap-3 items-center bg-purple-50 p-2 rounded border border-purple-100">
+            <label class="flex items-center gap-1 text-sm cursor-pointer font-medium text-purple-900 select-none">
+              <input type="checkbox" class="chk-fisso" ${dayData.fisso ? 'checked' : ''}> Menù Fisso
+            </label>
+            <input type="text" class="inp-price p-1 border rounded w-24 text-sm text-gray-900" value="${escapeHtml(dayData.fixed_price||'')}" placeholder="Prezzo">
+            <input type="text" class="inp-desc p-1 border rounded flex-1 text-sm text-gray-900" value="${escapeHtml(dayData.description||'')}" placeholder="Descrizione menù fisso...">
+          </div>
+
           <div class="dishes-list space-y-2 mt-2"></div>
         </div>
       `;
       
       const body = acc.querySelector('.day-body');
       const arrow = acc.querySelector('.arrow');
+      
+      // Toggle accordion
       acc.querySelector('.day-header').addEventListener('click', () => { 
         body.classList.toggle('hidden'); 
         arrow.textContent = body.classList.contains('hidden') ? '▼' : '▲';
       });
       
-      acc.querySelector('input[type=checkbox]').addEventListener('change', e => { dayData.enabled = e.target.checked; this.render(); });
-      // Selector now works securely
-      acc.querySelector('input[type=text]').addEventListener('input', e => dayData.title = e.target.value);
-      acc.querySelector('button').addEventListener('click', () => {
+      // Bind Row 1 Events
+      acc.querySelector('.chk-enable').addEventListener('change', e => { dayData.enabled = e.target.checked; this.render(); });
+									
+      acc.querySelector('.inp-title').addEventListener('input', e => dayData.title = e.target.value);
+      acc.querySelector('.btn-add-dish').addEventListener('click', () => {
         dayData.dishes.push({ id: 'd-'+Date.now(), name: 'Nuovo Piatto', description: '', price: null, tags: [], allergens: [], available: true });
         this.render(); 
         body.classList.remove('hidden'); arrow.textContent = '▲';
       });
-      
+
+      // Bind Row 2 Events (Nuovi campi)
+      acc.querySelector('.chk-fisso').addEventListener('change', e => { dayData.fisso = e.target.checked; this.render(); });
+      acc.querySelector('.inp-price').addEventListener('input', e => dayData.fixed_price = e.target.value);
+      acc.querySelector('.inp-desc').addEventListener('input', e => dayData.description = e.target.value);
+
+      // Render Dishes
       const dl = acc.querySelector('.dishes-list');
       dayData.dishes.forEach((dish, idx) => {
         const dCard = document.createElement('div');
