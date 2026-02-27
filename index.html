@@ -40,156 +40,152 @@
                 },
             },
         }
-    </script>
+</script>
 <style>
-        .text-shadow {
-            text-shadow: 0 2px 4px rgba(0,0,0,0.4);
-        }
-        .text-shadow-light {
-            text-shadow: 0 1px 2px rgba(0,0,0,0.2);
-        }html { scroll-behavior: smooth; }.warm-filter {
-            filter: sepia(20%) saturate(120%) contrast(105%);
-        }
-        /* small helper to avoid body jump when locking scroll */
-        .lock-scroll {
-          position: fixed;
-          width: 100%;
-        }
-    </style>
-<!-- Nuovo Style per navbar e header mobile -->
-<style>
-  /* variabile di default (fallback) */
-  :root { --site-nav-height: 80px; }
+/* -------------------------
+   Variabili globali
+   ------------------------- */
+:root{
+  --site-nav-height: 80px;                    /* fallback navbar height */
+  --safe-bottom-offset: env(safe-area-inset-bottom, 0px);
+  --safe-top-offset: env(safe-area-inset-top, 0px);
+}
 
-  /* forza header a rispettare l'altezza della navbar e ad usare safe-area (notch) */
+/* -------------------------
+   Reset utili / box-sizing
+   ------------------------- */
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+html, body { max-width: 100%; overflow-x: hidden; }
+
+/* -------------------------
+   Helper generali
+   ------------------------- */
+.text-shadow { text-shadow: 0 2px 4px rgba(0,0,0,0.4); }
+.text-shadow-light { text-shadow: 0 1px 2px rgba(0,0,0,0.2); }
+.warm-filter { filter: sepia(20%) saturate(120%) contrast(105%); }
+
+/* small helper to avoid body jump when locking scroll */
+.lock-scroll {
+  position: fixed;
+  width: 100%;
+}
+
+/* -------------------------
+   Media responsiveness (media, imgs, video)
+   ------------------------- */
+img, picture, svg, video, iframe { max-width: 100%; height: auto; display: block; }
+
+/* Evitiamo overflow causato da 100vw / utilità full-bleed */
+[class*="w-screen"], [style*="100vw"], .w-screen, .full-bleed, .full-width {
+  width: 100% !important;
+  max-width: 100% !important;
+  left: 0 !important;
+  right: 0 !important;
+}
+
+/* Assicura che elementi posizionati non spingano oltre il viewport */
+.fixed, .absolute, .relative { max-width: 100%; box-sizing: border-box; }
+
+/* -------------------------
+   Header / Navbar / Hero
+   ------------------------- */
+/* forza header a rispettare l'altezza della navbar e ad usare safe-area (notch) */
+header {
+  padding-top: calc(var(--site-nav-height) + var(--safe-top-offset));
+  box-sizing: border-box;
+  overflow: visible !important; /* important per non tagliare lo "Scorri" */
+}
+
+/* regola minima dell'hero su desktop considerando nav */
+@media (min-width: 768px) {
+  :root { --site-nav-height: 96px; } /* fallback desktop */
   header {
-    padding-top: calc(var(--site-nav-height) + env(safe-area-inset-top, 0px));
-    box-sizing: border-box;
-    /* important per annullare l'overflow-visible attuale che taglia l'indicatore "Scorri" */
+    min-height: calc(100vh - var(--site-nav-height));
+  }
+}
+
+/* Consentiamo all'header di espandersi su dispositivi piccoli */
+@media (max-width: 767px) {
+  /* selettore con classe Tailwind escape-ata se presente */
+  header.min-h-\[62vh\], header {
+    height: auto !important;
+    min-height: 62vh !important;
+    padding-bottom: calc(48px + var(--safe-bottom-offset));
+    width: 100% !important;
     overflow: visible !important;
   }
 
-  /* regola minima dell'hero su desktop considerando nav */
-  @media (min-width: 768px) {
-    :root { --site-nav-height: 96px; } /* fallback per desktop */
-    header {
-      min-height: calc(100vh - var(--site-nav-height));
-    }
+  header .relative.z-10 {
+    padding-bottom: calc(48px + var(--safe-bottom-offset));
   }
 
-  /* Indicatore "Scorri" — posizione più sicura e visibile sopra il contenuto */
-  .scroll-indicator {
-    position: absolute;
-    bottom: clamp(12px, 4vw, 28px);
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 60; /* sopra il contenuto ma sotto la navbar (navbar ha z-50; 60 è ok se vuoi sovrapporre) */
-    pointer-events: none;
-    overflow: visible;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 6px;
-    opacity: .95;
-  }
-
-  /* Se vuoi che l'indicatore stia sotto la navbar (non sopra), abbassa lo z-index a 30 */
-  /* .scroll-indicator { z-index: 30; } */
-
-  /* Title in hero: maggiore breathing on mobile */
-  header .inline-block.border-y {
-    padding-top: 0.4rem;
-    padding-bottom: 0.4rem;
-  }
-
-  header .hero-title,
-  header h1 {
-    /* rendi il titolo più spazioso su mobile */
-    margin-top: 0.15rem;
-    margin-bottom: 0.4rem;
-  }
-
-  @media (max-width: 420px) {
-    header h1 { font-size: 1.6rem !important; line-height: 1.05 !important; }
-    header .inline-block.border-y { padding-left: 0.75rem; padding-right: 0.75rem; }
-  }
-</style>
-<style>
-  /* safe-area bottom var (iPhone home indicator) */
-  :root { --safe-bottom-offset: env(safe-area-inset-bottom, 0px); }
-
-  .scroll-indicator {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    bottom: clamp(12px, 4vw, 28px);
-    z-index: 40;               /* default: sotto le CTA che spesso hanno z-index più alto */
-    pointer-events: none;
-    overflow: visible;
-    transition: bottom 220ms ease, opacity 180ms ease;
-    max-width: 90%;
-    text-align: center;
-  }
-
-  /* se vuoi una versione che non copra mai i bottoni, aumenta il bottom su schermi piccoli */
-  @media (max-width: 420px) {
-    .scroll-indicator { bottom: calc(14px + var(--safe-bottom-offset)); }
-  }
-</style>
-<!-- FIX: mobile hero safety padding and flexible height -->
-<style>
-  :root { --safe-bottom-offset: env(safe-area-inset-bottom, 0px); }
-
-  /* allow header to grow if content is taller than 62vh on small devices */
-  @media (max-width: 767px) {
-    header.min-h-\[62vh\], header {
-      height: auto !important;
-      min-height: 62vh !important;
-      padding-bottom: calc(48px + var(--safe-bottom-offset));
-    }
-    header .relative.z-10 {
-      padding-bottom: calc(48px + var(--safe-bottom-offset));
-    }
-    /* ensure the scroll indicator stays above safe area */
-    .scroll-indicator { bottom: calc(12px + var(--safe-bottom-offset)) !important; }
-  }
-
-  /* ensure CTA buttons wrap nicely */
+  /* assicurati che i pulsanti nel hero non forzino overflow */
   header .relative.z-10 .flex { flex-wrap: wrap; gap: 0.5rem; }
+}
 
-  /* smaller font on very narrow devices (extra safety) */
-  @media (max-width: 420px) {
-    header h1 { font-size: 1.5rem !important; line-height: 1.05 !important; }
-    .scroll-indicator { bottom: calc(18px + var(--safe-bottom-offset)) !important; }
-  }
-</style>
+/* extra small screens: font & spacing safety */
+@media (max-width: 420px) {
+  header h1 { font-size: 1.5rem !important; line-height: 1.05 !important; }
+  header .inline-block.border-y { padding-left: 0.75rem; padding-right: 0.75rem; }
+}
 
+/* Title in hero: maggiore breathing on mobile */
+header .inline-block.border-y {
+  padding-top: 0.4rem;
+  padding-bottom: 0.4rem;
+}
+header .hero-title,
+header h1 {
+  margin-top: 0.15rem;
+  margin-bottom: 0.4rem;
+}
 
-<!-- HORIZONTAL OVERFLOW FIX: prevent right-side white column and make images/buttons responsive -->
-<style>
-  /* Global box-sizing and prevent horizontal scroll */
-  *, *::before, *::after { box-sizing: border-box; }
-  html, body { max-width: 100%; overflow-x: hidden; }
+/* -------------------------
+   Indicatore "Scorri"
+   ------------------------- */
+.scroll-indicator {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: clamp(12px, 4vw, 28px);
+  z-index: 60;                /* lascia 60: sopra la maggior parte del contenuto */
+  pointer-events: none;
+  overflow: visible;
+  transition: bottom 220ms ease, opacity 180ms ease;
+  max-width: 90%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  opacity: .95;
+}
 
-  /* Ensure media scale down instead of overflowing */
-  img, picture, svg, video, iframe { max-width: 100%; height: auto; display: block; }
+/* se vogliamo evitare che copra le CTA sui telefoni stretti */
+@media (max-width: 420px) {
+  .scroll-indicator { bottom: calc(18px + var(--safe-bottom-offset)) !important; }
+}
 
-  /* Override utilities that use 100vw which can cause horizontal overflow when scrollbars present */
-  [class*="w-screen"], [style*="100vw"], .w-screen, .full-bleed, .full-width {
-    width: 100% !important;
-    max-width: 100% !important;
-    left: 0 !important;
-    right: 0 !important;
-  }
+/* -------------------------
+   Fix per overflow orizzontale cumulativo
+   ------------------------- */
+/* fallback per elementi che in passato usavano 100vw */
+[style*="width:100vw"], [style*="100vw"], [class*="w-screen"] {
+  width: 100% !important;
+  max-width: 100% !important;
+}
 
-  /* Make sure fixed elements don't create extra width */
-  .fixed, .absolute { max-width: 100%; box-sizing: border-box; }
-
-  /* Small devices: ensure hero can wrap and buttons don't force overflow */
-  @media (max-width: 767px) {
-    header, .hero, .min-h-\[62vh\] { overflow: visible !important; width: 100% !important; }
-    header .relative.z-10 .flex { flex-wrap: wrap; gap: 0.5rem; }
-  }
+/* -------------------------
+   Note finali / debugging visuale (commentabile)
+   ------------------------- */
+/*
+  - Questo blocco unificato rimpiazza i vari style duplicati.
+  - Posizionalo una volta sola nel <head> e rimuovi gli altri <style> per evitare duplicazioni.
+  - Se qualche classe Tailwind con parentesi quadre viene generata dinamicamente dal tuo toolchain,
+    assicurati che nel CSS tu usi la versione escape-ata (es. min-h-\[62vh\]) — altrimenti
+    sostituisci con regole più generiche (es. header { min-height: 62vh; }).
+*/
 </style>
 
 </head>
@@ -318,7 +314,7 @@
       </a>
     </div>
   </div>
-  <div class="scroll-indicator absolute bottom-0 transform text-white animate-bounce flex flex-col items-center gap-2 opacity-80 pointer-events-none">
+  <div class="scroll-indicator absolute bottom-0 transform text-white animate-bounce flex flex-col items-center gap-2 opacity-80 pointer-events-none hidden md:flex">
     <span class="text-xs uppercase tracking-widest font-light">Scorri</span>
     <span class="material-icons text-3xl">keyboard_arrow_down</span>
   </div>
