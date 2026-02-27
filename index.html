@@ -826,6 +826,7 @@ function normalizeDayKey(dayKey) {
   if (day.fisso) {
     const frag = document.createDocumentFragment();
     const menuTitle = escapeHtml(day.title || 'Menù fisso');
+    const menuDescr = escapeHtml(day.description || 'Menù fisso');
 
     let fixedPriceDisplay = '';
     if (day.fixed_price && String(day.fixed_price).trim() !== '') {
@@ -849,7 +850,7 @@ function normalizeDayKey(dayKey) {
       <td class="py-4 align-top">
         <div>
           <h4 class="text-lg font-serif font-bold text-gray-800 dark:text-gray-100">${menuTitle}</h4>
-          <p class="text-sm text-gray-500 dark:text-gray-400 mt-1 italic">Menù fisso — prezzo per persona</p>
+          <p class="text-sm text-gray-500 dark:text-gray-400 mt-1 italic">${menuDescr}</p>
         </div>
       </td>
       <td class="py-4 align-top w-28 text-right">
@@ -866,8 +867,8 @@ function normalizeDayKey(dayKey) {
         tr.innerHTML = `
           <td class="py-2 align-top pl-6">
             <div>
-              <h5 class="text-md font-serif font-semibold text-gray-700 dark:text-gray-200">${escapeHtml(dish.name || dish.title || '')}</h5>
-              <p class="text-sm text-gray-500 dark:text-gray-400 mt-1 italic">${escapeHtml(dish.description || '')}</p>
+              <h5 class="text-lg font-serif font-semibold text-gray-700 dark:text-gray-200">${escapeHtml(dish.name || dish.title || '')}</h5>
+              <p class="text-md text-gray-500 dark:text-gray-400 mt-1 italic">${escapeHtml(dish.description || '')}</p>
             </div>
           </td>
           <td class="py-2 align-top w-28 text-right"></td>
