@@ -1,9 +1,9 @@
 [
   {
-    "titolo": "Olio EVO Monocultivar",
+    "titolo": "Olio EVO",
     "immagine": "img/olio.jpg",
-    "categoria": "Olio Extra Vergine",
-    "tipologia": "Oli",
+    "categoria": "Oli",
+    "tipologia": "Olio Extra Vergine",
     "prezzo": 16,
     "prezzo_scontato": 12.5,
     "rating": 5
@@ -13,21 +13,23 @@
     "immagine": "img/salame.jpg",
     "categoria": "Insaccati",
     "tipologia": "Salami",
-    "prezzo": 6.5
+    "prezzo": 12,
+    "prezzo_scontato": 10.49
   },
   {
     "titolo": "Prosciutto",
     "immagine": "img/prosciutto.jpg",
     "categoria": "Insaccati",
     "tipologia": "Prosciutti",
-    "prezzo": 6.5
+    "prezzo": 35,
+    "prezzo_scontato": 30.99
   },
   {
-    "titolo": "Latte di mucca",
+    "titolo": "Latte Intero",
     "immagine": "img/1771552632215-Lattepastorizzatoparzialmentescremato_900x.webp",
-    "categoria": "Latte",
-    "tipologia": "Latticini",
-    "prezzo": 8,
-    "prezzo_scontato": 10
+    "categoria": "Latticini",
+    "tipologia": "Latte di mucca",
+    "prezzo": 10,
+    "prezzo_scontato": 8
   }
 ]
