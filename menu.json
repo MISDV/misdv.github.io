@@ -1,7 +1,7 @@
 {
   "title": "Menu Ristorante",
   "description": "La nostra cucina è un omaggio alla tradizione contadina. Ogni piatto racconta una storia di ingredienti freschi, baciati dal sole e raccolti la mattina stessa dal nostro orto.",
-  "updated": "2026-02-28T00:06:38.322Z",
+  "updated": "2026-02-28T00:07:46.919Z",
   "days": {
     "lunedì": {
       "enabled": true,
@@ -9,7 +9,7 @@
       "fisso": false,
       "fixed_price": "€35,90",
       "description": "",
-      "updated": "2026-02-28T00:06:38.322Z",
+      "updated": "2026-02-28T00:07:46.919Z",
       "dishes": [
         {
           "id": "p1",
@@ -49,7 +49,7 @@
       "fisso": false,
       "fixed_price": "€35,90",
       "description": "",
-      "updated": "2026-02-28T00:06:38.322Z",
+      "updated": "2026-02-28T00:07:46.919Z",
       "dishes": [
         {
           "id": "gen-1771467034016",
@@ -73,7 +73,7 @@
       "fisso": false,
       "fixed_price": "€35,90",
       "description": "",
-      "updated": "2026-02-28T00:06:38.322Z",
+      "updated": "2026-02-28T00:07:46.919Z",
       "dishes": [
         {
           "id": "m1",
@@ -92,7 +92,7 @@
       "fisso": false,
       "fixed_price": "€35,90",
       "description": "",
-      "updated": "2026-02-28T00:06:38.322Z",
+      "updated": "2026-02-28T00:07:46.919Z",
       "dishes": []
     },
     "venerdì": {
@@ -101,7 +101,7 @@
       "fisso": true,
       "fixed_price": "€35,90",
       "description": "",
-      "updated": "2026-02-28T00:06:38.322Z",
+      "updated": "2026-02-28T00:07:46.919Z",
       "dishes": []
     },
     "sabato": {
@@ -110,7 +110,7 @@
       "fisso": true,
       "fixed_price": "€35,90",
       "description": "Il Preferito - prezzo per persona",
-      "updated": "2026-02-28T00:06:38.322Z",
+      "updated": "2026-02-28T00:07:46.919Z",
       "dishes": [
         {
           "id": "p1",
@@ -164,7 +164,7 @@
       "fisso": true,
       "fixed_price": "€35,90",
       "description": "",
-      "updated": "2026-02-28T00:06:38.322Z",
+      "updated": "2026-02-28T00:07:46.919Z",
       "dishes": []
     }
   }
