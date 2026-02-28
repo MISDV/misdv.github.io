@@ -1,14 +1,15 @@
 {
   "title": "Menu Ristorante",
   "description": "La nostra cucina è un omaggio alla tradizione contadina. Ogni piatto racconta una storia di ingredienti freschi, baciati dal sole e raccolti la mattina stessa dal nostro orto.",
-  "updated": "2026-02-25T21:45:39.925Z",
+  "updated": "2026-02-28T00:06:38.322Z",
   "days": {
     "lunedì": {
       "enabled": true,
+      "title": "Pranzo del Lunedì",
       "fisso": false,
       "fixed_price": "€35,90",
-      "title": "Pranzo del Lunedì",
-      "updated": "2026-02-25T21:45:39.925Z",
+      "description": "",
+      "updated": "2026-02-28T00:06:38.322Z",
       "dishes": [
         {
           "id": "p1",
@@ -44,10 +45,11 @@
     },
     "martedì": {
       "enabled": false,
+      "title": "Menù Chiuso",
       "fisso": false,
       "fixed_price": "€35,90",
-      "title": "Menù Chiuso",
-      "updated": "2026-02-25T21:45:39.925Z",
+      "description": "",
+      "updated": "2026-02-28T00:06:38.322Z",
       "dishes": [
         {
           "id": "gen-1771467034016",
@@ -67,10 +69,11 @@
     },
     "mercoledì": {
       "enabled": true,
+      "title": "Primi & Secondi",
       "fisso": false,
       "fixed_price": "€35,90",
-      "title": "Primi & Secondi",
-      "updated": "2026-02-25T21:45:39.925Z",
+      "description": "",
+      "updated": "2026-02-28T00:06:38.322Z",
       "dishes": [
         {
           "id": "m1",
@@ -85,27 +88,29 @@
     },
     "giovedì": {
       "enabled": false,
+      "title": "",
       "fisso": false,
       "fixed_price": "€35,90",
-      "title": "",
-      "updated": "2026-02-25T21:45:39.925Z",
+      "description": "",
+      "updated": "2026-02-28T00:06:38.322Z",
       "dishes": []
     },
     "venerdì": {
       "enabled": false,
+      "title": "",
       "fisso": true,
       "fixed_price": "€35,90",
-      "title": "",
-      "updated": "2026-02-25T21:45:39.925Z",
+      "description": "",
+      "updated": "2026-02-28T00:06:38.322Z",
       "dishes": []
     },
     "sabato": {
       "enabled": true,
+      "title": "Menù del contadino",
       "fisso": true,
       "fixed_price": "€35,90",
-      "title": "Menù del contadino",
-      "description": "Il preferito - prezzo per persona",
-      "updated": "2026-02-25T21:45:39.925Z",
+      "description": "Il Preferito - prezzo per persona",
+      "updated": "2026-02-28T00:06:38.322Z",
       "dishes": [
         {
           "id": "p1",
@@ -155,10 +160,11 @@
     },
     "domenica": {
       "enabled": false,
+      "title": "",
       "fisso": true,
       "fixed_price": "€35,90",
-      "title": "",
-      "updated": "2026-02-25T21:45:39.925Z",
+      "description": "",
+      "updated": "2026-02-28T00:06:38.322Z",
       "dishes": []
     }
   }
