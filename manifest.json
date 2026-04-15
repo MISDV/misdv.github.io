@@ -1,7 +1,7 @@
 {
-  "name": "Agriturismo Giuggioloni",
-  "short_name": "Giuggioloni",
-  "description": "Agriturismo e ristorante nelle Marche ad Osimo.",
+  "name": "Agriturismo Giuggioloni - I Sapori Dell'Acquaviva",
+  "short_name": "Agriturismo Giuggioloni",
+  "description": "Agriturismo e ristorante ad Osimo nelle Marche.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
