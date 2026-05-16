@@ -14,8 +14,8 @@
     "via": "Via Acquaviva 34",
     "comune": "60027 Osimo (AN) - Marche",
     "numeri_telefono": [
-      "+39 333 987654",
-      "+39 0733 123456"
+      "+39 392 252 9406",
+      "+39 071 723 0408"
     ],
     "mail": "info@agriturismogiuggioloni.it"
   },
@@ -55,23 +55,23 @@
     },
     "Giovedì": {
       "pranzo": null,
-      "cena": "19:00-23:00",
-      "note": "Cena"
+      "cena": "",
+      "note": "Chiuso"
     },
     "Venerdì": {
       "pranzo": null,
-      "cena": "19:00-23:00",
+      "cena": "",
       "note": "Cena"
     },
     "Sabato": {
-      "pranzo": "12:30-14:00",
+      "pranzo": "11:30-15:00",
       "cena": "19:00-23:00",
       "note": "Aperto"
     },
     "Domenica": {
-      "pranzo": "12:30-16:00",
-      "cena": null,
-      "note": "Pranzo"
+      "pranzo": "11:30-15:00",
+      "cena": "19:00-23:00",
+      "note": "Aperto"
     }
   },
   "cards": [
@@ -91,5 +91,5 @@
       "icona": "favorite"
     }
   ],
-  "updated": "2026-02-28T00:05:01.672Z"
+  "updated": "2026-05-16T10:50:55.501Z"
 }
