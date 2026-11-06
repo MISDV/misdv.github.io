@@ -1,5 +1,3 @@
-import { renderMenu } from './menu-render.mjs';
-
 const content = document.querySelector('#menu-content');
 const controls = document.querySelector('#menu-controls');
 const day = document.querySelector('#menu-day');
@@ -25,14 +23,11 @@ function filter() {
 }
 
 function setup() {
-  const selected = day.value;
-  day.replaceChildren(new Option('Tutti i giorni', ''));
   const today = new Intl.DateTimeFormat('it-IT', { weekday: 'long', timeZone: 'Europe/Rome' }).format(new Date());
   for (const section of content.querySelectorAll('[data-day]')) {
     const label = section.dataset.label;
     day.add(new Option(label.toLowerCase() === today ? `${label} · oggi` : label, section.dataset.day));
   }
-  if (Array.from(day.options).some(option => option.value === selected)) day.value = selected;
   controls.hidden = day.options.length <= 1;
   filter();
 }
@@ -41,16 +36,3 @@ day.addEventListener('change', filter);
 search.addEventListener('input', filter);
 document.querySelector('#menu-print').addEventListener('click', () => window.print());
 setup();
-
-try {
-  const response = await fetch('/menu.json', { cache: 'no-cache' });
-  if (response.ok) {
-    const menu = await response.json();
-    if (menu.days && typeof menu.days === 'object' && !Array.isArray(menu.days)) {
-      content.innerHTML = renderMenu(menu);
-      setup();
-    }
-  }
-} catch {
-  // La carta inclusa nella pagina resta consultabile.
-}

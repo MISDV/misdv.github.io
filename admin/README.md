@@ -27,6 +27,10 @@ per associarlo al catalogo. Il menù aggiornato e il suo HTML vengono pubblicati
 nello stesso commit. Se la versione online è cambiata, ricarica la scheda e
 riapplica le modifiche.
 
+Se modifichi `menu.json` a mano, esegui `node admin/sync-menu.mjs` e pubblica
+insieme `menu.json` e `menu/index.html`. Il browser usa la carta già inclusa
+nella pagina.
+
 Il servizio ascolta solo su `127.0.0.1`. Fermalo con Ctrl+C, poi chiudi la
 finestra di PowerShell. Per usare il pannello con il sito aggiornato, pubblica
 prima questo checkout sul ramo servito. Le variabili facoltative
