@@ -150,6 +150,7 @@ createServer(async (request, response) => {
       response.setHeader('WWW-Authenticate', 'Basic realm="Agriturismo Giuggioloni", charset="UTF-8"');
       throw error(401, 'Password richiesta.');
     }
+    if (request.method !== 'GET') throw error(405, 'Il pannello è archiviato e disponibile solo in lettura.');
     const file = files[url.pathname];
     if (file && request.method === 'GET') {
       const [name, type] = file;
@@ -162,7 +163,7 @@ createServer(async (request, response) => {
     if (request.method === 'GET' && dataFiles.has(path)) {
       const file = token ? await contents(path) : null;
       const content = file ? decode(file) : await readFile(new URL(`../${path}`, import.meta.url), 'utf8');
-      json(200, { data: JSON.parse(content), sha: file?.sha ?? null, writable: Boolean(token) });
+      json(200, { data: JSON.parse(content), sha: file?.sha ?? null, writable: false });
       return;
     }
     if (request.method !== 'PUT') throw error(405, 'Metodo non consentito.');

@@ -73,6 +73,7 @@ function renderCatalog(menu, preview) {
   const allergens = menu.allergen_note ? `<aside class="menu-allergens" aria-labelledby="allergen-heading"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M12 3 2.5 20h19L12 3Z" stroke-linejoin="round"/><path d="M12 9v5m0 2v1" stroke-linecap="round"/></svg><div><h2 id="allergen-heading">Allergie e intolleranze</h2><p>${escapeHtml(menu.allergen_note)}</p></div></aside>` : '';
   return [intro, sections.join('\n') || '<p>Il menù è in aggiornamento. Contattaci per conoscere i piatti disponibili.</p>',
     preview ? '' : cover, preview ? '' : allergens,
+    preview ? '' : '<section id="menu-lume" class="menu-lume-end" aria-labelledby="menu-lume-title"><h2 id="menu-lume-title">Il menù digitale Lume</h2><p>Consulta la carta interattiva, le descrizioni dei piatti e la guida agli allergeni, anche in inglese.</p><a class="menu-text-link font-bold" href="/lume/">Apri il menù digitale Lume →</a></section>',
     preview ? '' : renderUpdated(menu.updated)].filter(Boolean).join('\n');
 }
 

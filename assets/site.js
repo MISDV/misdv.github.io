@@ -1,6 +1,10 @@
+const englishSite = document.documentElement.lang.startsWith('en');
+
 function setText(selector, value) {
   if (typeof value !== 'string' || !value.trim()) return;
-  document.querySelectorAll(selector).forEach(element => { element.textContent = value; });
+  document.querySelectorAll(selector).forEach(element => {
+    if (element.textContent.trim() !== value.trim()) element.textContent = value;
+  });
 }
 
 function listItem(text, href) {
@@ -22,14 +26,31 @@ function setupNavigation() {
   const overlay = document.querySelector('#mobileOverlay');
   if (!button || !panel || !overlay) return;
   const close = panel.querySelector('#mobileMenuClose');
+  panel.setAttribute('role', 'dialog');
+  panel.setAttribute('aria-modal', 'true');
+  panel.setAttribute('aria-label', englishSite ? 'Main navigation' : 'Menu principale');
+  let scrollLock;
+  const background = [...document.querySelectorAll('main, body > footer')];
   const setOpen = open => {
     button.setAttribute('aria-expanded', String(open));
-    button.setAttribute('aria-label', open ? 'Chiudi menu principale' : 'Apri menu principale');
+    button.setAttribute('aria-label', englishSite ? (open ? 'Close navigation menu' : 'Open navigation menu') : (open ? 'Chiudi menu principale' : 'Apri menu principale'));
     panel.hidden = !open;
     overlay.hidden = !open;
     button.querySelector('#menuIconOpen').classList.toggle('hidden', open);
     button.querySelector('#menuIconClose').classList.toggle('hidden', !open);
-    if (open) close.focus();
+    if (open) {
+      if (!scrollLock) {
+        scrollLock = [document.documentElement.style.overflow, document.body.style.overflow];
+        document.documentElement.style.overflow = 'hidden';
+        document.body.style.overflow = 'hidden';
+        background.forEach(element => { element.inert = true; });
+      }
+      close.focus();
+    } else if (scrollLock) {
+      [document.documentElement.style.overflow, document.body.style.overflow] = scrollLock;
+      scrollLock = null;
+      background.forEach(element => { element.inert = false; });
+    }
   };
   button.addEventListener('click', () => setOpen(panel.hidden));
   close.addEventListener('click', () => { setOpen(false); button.focus(); });
@@ -38,12 +59,22 @@ function setupNavigation() {
     if (event.target.closest('a')) setOpen(false);
   });
   document.addEventListener('keydown', event => {
+    if (panel.hidden) return;
+    if (event.key === 'Tab') {
+      const links = [...panel.querySelectorAll('a[href],button:not([disabled]),[tabindex="0"]')].filter(element => element.getClientRects().length);
+      const first = links[0], last = links.at(-1);
+      if (event.shiftKey && (document.activeElement === first || !panel.contains(document.activeElement))) {
+        event.preventDefault(); last?.focus();
+      } else if (!event.shiftKey && (document.activeElement === last || !panel.contains(document.activeElement))) {
+        event.preventDefault(); first?.focus();
+      }
+    }
     if (event.key === 'Escape' && !panel.hidden) {
       setOpen(false);
       button.focus();
     }
   });
-  matchMedia('(min-width: 1024px)').addEventListener('change', event => {
+  matchMedia('(min-width: 1200px)').addEventListener('change', event => {
     if (event.matches) setOpen(false);
   });
 }
@@ -72,7 +103,7 @@ function setupMaps() {
         slot.hidden = false;
       }
       button.setAttribute('aria-expanded', String(!slot.hidden));
-      button.textContent = slot.hidden ? 'Mostra la mappa Google' : 'Chiudi la mappa';
+      button.textContent = englishSite ? (slot.hidden ? 'Show Google map' : 'Close map') : (slot.hidden ? 'Mostra la mappa Google' : 'Chiudi la mappa');
     });
   }
 }
@@ -82,12 +113,19 @@ function renderHours(hours) {
   if (!list || !hours || !Object.keys(hours).length) return;
   list.replaceChildren(...Object.entries(hours).map(([day, service]) => {
     const times = [service?.pranzo, service?.cena].filter(Boolean).map(time => String(time).replace('-', '–'));
-    const label = times.join(' · ') || (service?.note === 'Cena' ? 'Cena, orario da confermare' : service?.note || 'Orario da confermare');
+    const label = times.join(' · ') || (englishSite ? (service?.note === 'Cena' ? 'Dinner, time to be confirmed' : service?.note === 'Chiuso' ? 'Closed' : 'Time to be confirmed') : (service?.note === 'Cena' ? 'Cena, orario da confermare' : service?.note || 'Orario da confermare'));
     const item = document.createElement('li');
     const name = document.createElement('span');
     const schedule = document.createElement('span');
-    name.textContent = day;
-    schedule.textContent = label;
+    name.textContent = englishSite ? ({ 'Lunedì': 'Monday', 'Martedì': 'Tuesday', 'Mercoledì': 'Wednesday', 'Giovedì': 'Thursday', 'Venerdì': 'Friday', 'Sabato': 'Saturday', 'Domenica': 'Sunday' }[day] || day) : day;
+    if (times.length) {
+      for (const time of times) {
+        const range = document.createElement('span');
+        range.className = 'service-time';
+        range.textContent = time;
+        schedule.append(range);
+      }
+    } else schedule.textContent = label;
     if (service?.note === 'Chiuso') schedule.className = 'closed';
     item.append(name, schedule);
     return item;
@@ -120,7 +158,7 @@ async function updateSite() {
 
   for (const element of document.querySelectorAll('[data-text]')) {
     const value = element.dataset.text.split('.').reduce((object, key) => object?.[key], data);
-    if (typeof value === 'string' && value.trim()) element.textContent = value;
+    if (typeof value === 'string' && value.trim() && element.textContent.trim() !== value.trim()) element.textContent = value;
   }
   for (const link of document.querySelectorAll('[data-social]')) {
     const url = data.socials?.[link.dataset.social]?.link;

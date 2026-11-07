@@ -22,7 +22,7 @@
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta name="theme-color" content="#f5eee3">
 <link rel="stylesheet" href="/assets/shop-tailwind.min.css">
-<link rel="stylesheet" href="/assets/site-extras.css?v=1">
+<link rel="stylesheet" href="/assets/site-extras.css?v=5">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://agriturismogiuggioloni.it/"},{"@type":"ListItem","position":2,"name":"Prodotti","item":"https://agriturismogiuggioloni.it/shop.html"}]}</script>
 </head>
 <body class="bg-background-light dark:bg-background-dark text-gray-800 dark:text-gray-100 font-display min-h-screen flex flex-col">
@@ -30,15 +30,15 @@
 <nav class="sticky top-0 z-50 bg-white/90 dark:bg-[#2c2018]/90 backdrop-blur-md shadow-sm border-b border-primary/10">
 <div class="container mx-auto px-4 md:px-6 h-20 flex items-center justify-between">
 <!-- Logo -->
-<div class="flex items-center gap-2">
-<div class="w-10 h-10 rounded-full bg-primary/40 flex items-center justify-center text-white">
-<img src="logo.png" alt="logo Giuggioloni" class="w-8 h-8 object-contain">
+<a href="/" aria-label="Agriturismo Giuggioloni — home" class="shop-site-brand">
+<div class="shop-brand-mark">
+<img src="/logo.png" alt="Logo Agriturismo Giuggioloni" width="92" height="92">
 </div>
 <div class="flex flex-col">
           <span id="titolo" class="font-serif font-bold text-lg md:text-xl tracking-wide text-gray-900 dark:text-white leading-none">GIUGGIOLONI</span>
-          <span id="sottotitolo" class="font-display text-primary font-medium text-xs md:text-sm tracking-widest uppercase">I sapori dell'AcquaViva</span>
+          <span id="sottotitolo" class="font-display text-primary font-medium text-xs md:text-sm tracking-widest uppercase">I sapori dell'Acquaviva</span>
 </div>
-</div>
+</a>
 
 <!-- Desktop Nav Links -->
 <div class="hidden md:flex items-center gap-8">
@@ -224,13 +224,13 @@ Filtri
   <div id="mobileFiltersBackdrop" class="absolute inset-0 bg-black/50 backdrop-blur-sm"></div>
 
   <!-- panel (slide from left) -->
-  <aside id="mobileFiltersPanel" class="absolute left-0 top-0 h-full w-[90vw] max-w-xs bg-background-light dark:bg-background-dark shadow-2xl overflow-auto transform transition-transform duration-300 -translate-x-full">
+  <aside id="mobileFiltersPanel" role="dialog" aria-modal="true" aria-label="Filtri dei prodotti" class="absolute left-0 top-0 h-full w-[90vw] max-w-xs bg-background-light dark:bg-background-dark shadow-2xl overflow-auto transform transition-transform duration-300 -translate-x-full">
     <div class="p-4 flex items-center justify-between border-b border-primary/10">
       <div class="flex items-center gap-3">
         <span class="material-icons text-primary">tune</span>
         <h3 class="font-bold">Filtri</h3>
       </div>
-      <button id="mobileFiltersClose" class="p-2 rounded-md hover:bg-gray-100 dark:hover:bg-white/5">
+      <button id="mobileFiltersClose" aria-label="Chiudi filtri" class="p-2 rounded-md hover:bg-gray-100 dark:hover:bg-white/5">
         <span class="material-icons">close</span>
       </button>
     </div>
@@ -246,15 +246,15 @@ Filtri
 <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
 <div class="col-span-1 md:col-span-1">
 <!-- Logo -->
-<div class="flex items-center gap-2">
-<div class="w-10 h-10 rounded-full bg-primary/40 flex items-center justify-center text-white">
-<img src="logo.png" alt="logo Giuggioloni" class="w-8 h-8 object-contain">
+<a href="/" aria-label="Agriturismo Giuggioloni — home" class="shop-site-brand">
+<div class="shop-brand-mark">
+<img src="/logo.png" alt="Logo Agriturismo Giuggioloni" width="92" height="92">
 </div>
 <div class="flex flex-col">
-<span class="text-lg font-bold leading-none text-gray-900 dark:text-white">Giuggioloni</span>
-<span class="text-sm text-primary font-medium tracking-wide">I Sapori dell'acqua viva</span>
+<span class="font-serif text-lg font-bold leading-none text-gray-900 dark:text-white">Agriturismo Giuggioloni</span>
+<span class="text-sm text-primary font-medium tracking-wide">I sapori dell'Acquaviva</span>
 </div>
-</div>
+</a>
 <p class="text-gray-600 dark:text-gray-400 text-sm mb-4" id="descrizione" data-bind="shop.descrizione">Portiamo i sapori autentici della cucina Marchigiana direttamente sulla tua tavola dalle colline di Osimo (Ancona). Prodotti genuini, fatti con amore.</p>
 </div>
 <div>
@@ -268,10 +268,9 @@ Filtri
 <div>
 <h4 class="font-bold text-gray-900 dark:text-white mb-4 uppercase text-sm tracking-wider">Contatti</h4>
 <ul class="space-y-2 text-base text-gray-600 dark:text-gray-400">
-<li class="flex items-center gap-2"><span class="material-icons text-primary text-xl">location_on</span><span><p id="indirizzo" data-bind="contatto.via">Via Acquaviva 34</p><p id="comune" data-bind="contatto.comune">60027 Osimo (AN) - Marche</p></span></li>
-<li class="flex items-center gap-2"><span class="material-icons text-primary text-base">phone</span><span data-bind="contatto.numeri_telefono.0">+39 392 252 9406</span></li>
-<li class="flex items-center gap-2"><span class="material-icons text-primary text-base">phone</span><span data-bind="contatto.numeri_telefono.1">+39 071 723 0408</span></li>
-<li class="flex items-center gap-2"><span class="material-icons text-primary text-base">email</span><p id="mail" data-bind="contatto.mail">info@agriturismogiuggioloni.it</p></li>
+<li class="flex items-center gap-2"><span class="material-icons text-primary text-xl">location_on</span><div><p id="indirizzo" data-bind="contatto.via">Via Acquaviva 34</p><p id="comune" data-bind="contatto.comune">60027 Osimo (AN) - Marche</p></div></li>
+<li class="flex items-center gap-2"><span class="material-icons text-primary text-base">phone</span><a data-bind="contatto.numeri_telefono.0" href="tel:+393922529406">+39 392 252 9406</a></li>
+<li class="flex items-center gap-2"><span class="material-icons text-primary text-base">email</span><a id="mail" data-bind="contatto.mail" href="mailto:info@agriturismogiuggioloni.it">info@agriturismogiuggioloni.it</a></li>
 </ul>
 </div>
 <div>
@@ -288,7 +287,7 @@ Filtri
 </div>
 </div>
 <div class="border-t border-gray-100 dark:border-white/5 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-gray-500">
-<p>© 2026 I Sapori dell'acqua viva. Tutti i diritti riservati.</p>
+<p>© 2026 Agriturismo Giuggioloni - I sapori dell'Acquaviva. Tutti i diritti riservati.</p>
 <div class="flex gap-4 mt-4 md:mt-0">
 <a class="hover:text-primary" href="/privacy/#preferenze-cookie">Cookie e privacy</a>
 </div>
@@ -938,8 +937,10 @@ function escapeHtml(s=''){ return String(s==null ? '' : s).replace(/&/g,'&amp;')
   const originalHadHidden = sidebar.classList.contains('hidden');
 
   let closingTimeout = null;
+  let closingHandler = null;
 
   function openFilters() {
+    if (closingHandler) { panel.removeEventListener('transitionend', closingHandler); closingHandler = null; }
     // sposta l'aside dentro il pannello e mostrala
     content.appendChild(sidebar);
     sidebar.classList.remove('hidden');
@@ -968,6 +969,8 @@ function escapeHtml(s=''){ return String(s==null ? '' : s).replace(/&/g,'&amp;')
   }
 
   function finishCloseAndRestore() {
+    if (closingTimeout) { clearTimeout(closingTimeout); closingTimeout = null; }
+    if (closingHandler) { panel.removeEventListener('transitionend', closingHandler); closingHandler = null; }
     // rimuovi overlay dalla UI
     overlay.classList.remove('show');
 
@@ -995,15 +998,15 @@ function escapeHtml(s=''){ return String(s==null ? '' : s).replace(/&/g,'&amp;')
   }
 
   function closeFilters() {
+    if (!overlay.classList.contains('show') || closingTimeout) return;
     // chiudi pannello con transizione
     panel.classList.remove('open');
 
     // aspetta transitionend per completare l'animazione prima di spostare l'aside
-    const onFinish = () => {
-      panel.removeEventListener('transitionend', onFinish);
-      finishCloseAndRestore();
+    const onFinish = (event) => {
+      if (event.target === panel && event.propertyName === 'transform') finishCloseAndRestore();
     };
-
+    closingHandler = onFinish;
     panel.addEventListener('transitionend', onFinish);
 
     // fallback: se transitionend non scatta (es. browser), forziamo il restore dopo 350ms
@@ -1021,6 +1024,12 @@ function escapeHtml(s=''){ return String(s==null ? '' : s).replace(/&/g,'&amp;')
 
   // esc key closes
   document.addEventListener('keydown', (e) => {
+    if (e.key === 'Tab' && overlay.classList.contains('show')) {
+      const controls = [...panel.querySelectorAll('button:not([disabled]),a[href],input:not([disabled]),select:not([disabled]),[tabindex="0"]')].filter(el => el.getClientRects().length);
+      const first = controls[0], last = controls.at(-1);
+      if (e.shiftKey && (document.activeElement === first || !panel.contains(document.activeElement))) { e.preventDefault(); last?.focus(); }
+      else if (!e.shiftKey && (document.activeElement === last || !panel.contains(document.activeElement))) { e.preventDefault(); first?.focus(); }
+    }
     if (e.key === 'Escape' && overlay.classList.contains('show')) closeFilters();
   });
 

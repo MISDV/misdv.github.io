@@ -14,14 +14,13 @@
     "via": "Via Acquaviva 34",
     "comune": "60027 Osimo (AN) - Marche",
     "numeri_telefono": [
-      "+39 392 252 9406",
-      "+39 071 723 0408"
+      "+39 392 252 9406"
     ],
     "mail": "info@agriturismogiuggioloni.it"
   },
   "shop": {
-    "titolo": "Giuggioloni",
-    "sottotitolo": "I Sapori dell'acqua viva",
+    "titolo": "GIUGGIOLONI",
+    "sottotitolo": "I sapori dell'Acquaviva",
     "descrizione": "Portiamo i sapori autentici delle Marche direttamente sulla tua tavola. Prodotti genuini, fatti con amore.",
     "frase1": "VUOI VEDERE I NOSTRI PRODOTTI?",
     "frase2": "Vieni a trovarci!",
@@ -87,9 +86,9 @@
     },
     {
       "titolo": "Ospitalità Familiare",
-      "valore": "Vi accogliamo come parte della nostra famiglia, in un ambiente rustico e dai toni caldi dove il tempo sembra rallentare dolcemente.",
+      "valore": "Una storia di famiglia, dal padre ai figli: Maurizio cura la cucina e le preparazioni, Massimo la sala e l’accoglienza.",
       "icona": "favorite"
     }
   ],
-  "updated": "2026-05-16T10:50:55.501Z"
+  "updated": "2026-11-07"
 }

@@ -138,10 +138,10 @@ export async function buildLume(catalog, contactData) {
     const canonical = site.baseUrl + path;
     const title = escape(site.seo.title[lang]);
     const description = escape(site.seo.description[lang]);
-    const head = `<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="icon" href="/favicon.ico"><link rel="stylesheet" href="${css}"><link rel="stylesheet" href="/assets/site-extras.css?v=1">`;
+    const head = `<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="icon" href="/favicon.ico"><link rel="stylesheet" href="${css}"><link rel="stylesheet" href="/assets/site-extras.css?v=5"><link rel="stylesheet" href="/assets/booking.css?v=1">`;
     const alternate = site.languages.map(language => `<link rel="alternate" hreflang="${language}" href="${site.baseUrl + options.languagePaths[language]}">`).join('');
     const metadata = `<title>${title}</title><meta name="description" content="${description}"><meta name="robots" content="noindex,follow"><link rel="canonical" href="${canonical}">${alternate}<meta property="og:title" content="${title}"><meta property="og:description" content="${description}"><meta property="og:url" content="${canonical}"><meta property="og:image" content="${site.baseUrl}/og-image-1200x630.png"><meta name="theme-color" content="${site.branding.light.paper}">`;
-    const app = `<script type="application/json" data-lume-payload>${encode({ site, menu, strings, lang, options: pageOptions })}</script><script src="${js}" defer></script>`;
+    const app = `<script type="application/json" data-lume-payload>${encode({ site, menu, strings, lang, options: pageOptions })}</script><script src="${js}" defer></script><script src="/assets/booking.js?v=1" defer></script>`;
     files.set(path.slice(1) + 'index.html', `<!doctype html>\n<html lang="${lang}"><head>${head}${metadata}${breadcrumbSchema(trail)}</head><body class="lume-document">${root}${app}</body></html>\n`);
 
     const print = root.replace('class="lm-root"', 'class="lm-root lm-print"').replace(/<details /g, '<details open ');

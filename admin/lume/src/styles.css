@@ -42,3 +42,5 @@
 #lume-menu .lm-fixed-card .lm-inclusion-tags svg{flex:none}
 #lume-menu .breadcrumbs{padding-inline:0}
 @container (min-width: 48rem){#lume-menu .lm-fixed-grid:has(.lm-fixed-card){grid-template-columns:repeat(2,minmax(0,1fr))}}
+/* Keep the restaurant name intact above the touch controls on narrow screens. */
+@media(max-width:620px){#lume-menu .lm-brand{max-width:100%;flex-basis:100%;overflow-wrap:normal}#lume-menu .lm-topbar-actions{width:100%;margin-left:0;justify-content:space-between}}

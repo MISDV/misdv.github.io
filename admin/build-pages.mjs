@@ -1,14 +1,16 @@
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { escapeHtml as escape } from '../assets/menu-render.mjs';
 import { breadcrumbs, breadcrumbSchema, jsonLd, origin } from './site-seo.mjs';
+import { siteLayout } from './site-layout.mjs';
 
 const farm = [
   {
     path: '/fattoria/animali/', label: 'Animali', heading: 'Gli animali della fattoria',
     title: 'Gli animali della fattoria a Osimo',
-    description: 'Incontra gli animali dell’azienda agricola Giuggioloni tra le colline di Osimo e scopri il loro legame con la cucina dell’agriturismo.',
+    description: 'Scopri gli animali dell’azienda agricola Giuggioloni a Osimo e il loro legame con la cucina. La fattoria non è didattica e non è aperta alle visite.',
     intro: 'La fattoria è parte dell’agriturismo. Qui alleviamo gli animali dell’azienda e ritroviamo, anche in cucina, il legame con il lavoro di ogni giorno.',
-    content: 'I bovini e gli animali da cortile fanno parte della vita della fattoria. Se vuoi vedere gli animali durante una visita, chiedi al personale quali spazi sono accessibili.',
+    content: 'In azienda alleviamo oche, galline, polli, papere, conigli, agnelli, capre, pecore, vitelli e maiali. Gli animali fanno parte del lavoro quotidiano della nostra famiglia e del legame tra la terra e la tavola.',
+    extra: '<aside class="farm-note"><h2>Una fattoria agricola</h2><p>La nostra è un’azienda agricola: non svolge attività di fattoria didattica e non è aperta alle visite. Puoi conoscere la nostra realtà attraverso queste pagine e la cucina dell’agriturismo.</p></aside>',
     hero: ['animali', 'Un bovino della fattoria Giuggioloni'],
   },
   {
@@ -16,26 +18,26 @@ const farm = [
     title: 'L’orto dell’agriturismo a Osimo',
     description: 'Dalle piantine al raccolto, scopri l’orto dell’Agriturismo Giuggioloni e gli ortaggi che accompagnano la cucina di stagione a Osimo.',
     intro: 'L’orto cambia con i mesi e con il raccolto. Seguiamo questo ritmo anche a tavola, dove le verdure di stagione accompagnano i piatti dell’agriturismo.',
-    content: 'Dalle prime piantine ai filari, le foto raccontano momenti diversi del lavoro nell’orto. Per sapere cosa abbiamo raccolto o cosa trovi oggi in cucina, chiedi al personale.',
+    content: 'Coltiviamo tutto ciò che la stagione ci permette di portare in tavola. Il raccolto entra nel menù dell’agriturismo e accompagna il lavoro di Maurizio in cucina. Le foto raccontano momenti diversi, dalle piantine ai filari. La fattoria non è didattica e non è aperta alle visite.',
     hero: ['campo', 'I filari dell’orto sulle colline di Osimo'],
     gallery: [['piantine', 'Le piantine prima del trapianto'], ['raccolto', 'Le colture nell’orto dell’agriturismo']],
   },
   {
     path: '/fattoria/locale/', label: 'Il locale', heading: 'Il locale e il giardino',
     title: 'Il ristorante e il giardino a Osimo',
-    description: 'Scopri il locale e il giardino di I Sapori dell’Acquaviva, l’agriturismo Giuggioloni in Via Acquaviva 34, a Osimo.',
+    description: 'Agriturismo a Osimo con due sale, giardino, grande parcheggio e accesso in sedia a rotelle. Bambini e animali ammessi. Scopri il locale e prenota.',
     intro: 'I Sapori dell’Acquaviva accoglie gli ospiti tra le colline di Osimo. Il giardino circonda il locale e accompagna le giornate in campagna.',
-    content: 'In tavola trovi le proposte della stagione e i menù fissi. Per sapere se è possibile mangiare all’aperto e prenotare un tavolo, contattaci prima della visita.',
+    content: 'Massimo si occupa della sala e dell’accoglienza, mentre Maurizio prepara i piatti della cucina di famiglia. Il locale si affaccia sul giardino e offre due sale per stare insieme in ogni stagione.',
+    extra: `<section class="farm-content practical-info"><h2>Due sale, tutto l’anno</h2><p>La sala interna ha una grande fila di finestre affacciate sul giardino. La seconda sala è esterna e coperta: d’estate rimane aperta sui lati, mentre d’inverno può essere richiusa e utilizzata anche nei mesi freddi.</p>
+<h2>Giardino e aperitivi all’aperto</h2><p>Il grande spazio verde offre ai bambini la possibilità di giocare in mezzo alla natura, nel giardino del locale. I genitori possono rilassarsi e fare un aperitivo all’aperto.</p>
+<h2>Parcheggio e accessibilità</h2><p>Davanti al locale è disponibile un grande parcheggio. L’agriturismo è accessibile alle persone in sedia a rotelle.</p>
+<h2>Gli animali sono benvenuti</h2><p>Puoi venire all’agriturismo con il tuo animale.</p>
+<aside class="farm-note"><h2>La fattoria non è visitabile</h2><p>L’azienda agricola non è una fattoria didattica e non è aperta alle visite. Il giardino del ristorante resta lo spazio dedicato al relax e al gioco.</p></aside>
+<div class="place-actions"><a href="tel:+393922529406" data-booking>Prenota un tavolo</a></div></section>`,
     hero: ['giardino', 'Il giardino dell’Agriturismo Giuggioloni'],
     gallery: [['esterni', 'Fiori e verde negli spazi esterni'], ['prato', 'Il prato e gli alberi del giardino']],
   },
 ];
-
-const story = new URL('../storia.html', import.meta.url);
-const template = await readFile(story, 'utf8');
-const header = template.slice(template.indexOf('<a class="sr-only'), template.indexOf('<main id="contenuto"'));
-const footer = template.slice(template.indexOf('<footer '), template.indexOf('</footer>') + '</footer>'.length);
-if (!header.includes('id="siteNav"') || !footer.includes('id="contatti"')) throw new Error('Header o footer del sito non trovato.');
 
 function photo([name, alt], eager = false) {
   const prefix = '/assets/fattoria/' + name;
@@ -44,6 +46,7 @@ function photo([name, alt], eager = false) {
 }
 
 function page({ path, title, description, trail, content, hero, privacy = false }) {
+  const { header, footer } = siteLayout(path);
   const canonical = origin + path;
   const fullTitle = escape(title + ' | Agriturismo Giuggioloni');
   const summary = escape(description);
@@ -71,10 +74,12 @@ function page({ path, title, description, trail, content, hero, privacy = false 
 <link rel="icon" href="/favicon.ico">
 <meta name="theme-color" content="#f5eee3">
 <link rel="stylesheet" href="/assets/site-legacy.min.css">
-<link rel="stylesheet" href="/assets/site-extras.css?v=1">
+<link rel="stylesheet" href="/assets/site-extras.css?v=5">
+<link rel="stylesheet" href="/assets/booking.css?v=1">
 ${breadcrumbSchema(trail)}
 ${schema}
-<script src="/assets/site.js?v=4" defer></script>
+<script src="/assets/site.js?v=6" defer></script>
+<script src="/assets/booking.js?v=1" defer></script>
 ${privacy ? '<script src="/assets/consent.js?v=1" defer></script>' : ''}
 </head>
 <body class="bg-background-cream dark:bg-background-dark text-gray-800 dark:text-gray-200 font-display bg-texture-cream">
@@ -92,6 +97,7 @@ for (const entry of farm) {
   const content = `<section class="farm-hero"><div><p class="eyebrow">La fattoria · Osimo</p><h1>${escape(entry.heading)}</h1><p>${escape(entry.intro)}</p><div class="place-actions"><a href="/lume/">Scopri il menù completo</a><a href="#contatti">Contatti e indicazioni</a></div></div>${photo(entry.hero, true)}</section>
 <section class="farm-content"><h2>${entry.label === 'Il locale' ? 'Vieni a trovarci' : 'La vita in fattoria'}</h2><p>${escape(entry.content)}</p>
 ${entry.gallery ? `<div class="farm-gallery">${entry.gallery.map(image => `<figure>${photo(image)}<figcaption>${escape(image[1])}</figcaption></figure>`).join('')}</div>` : ''}</section>
+${entry.extra || ''}
 <nav class="farm-more" aria-label="Altre pagine della fattoria"><h2>Scopri la fattoria</h2><ul>${related.map(link => `<li><a href="${link.path}">${escape(link.label)}</a></li>`).join('')}</ul></nav>`;
   await save(entry.path, page({ ...entry, trail: [['Home', '/'], ['Fattoria', '/#fattoria'], [entry.label, entry.path]], content }));
 }
@@ -105,7 +111,7 @@ await save(privacyPath, page({
 <section id="cookie"><h2>Cookie e memoria del dispositivo</h2>
 <p>Il sito salva in questo browser la tua scelta sulle statistiche. Il menù Lume salva localmente i preferiti e il tema che scegli. Puoi cancellarli dalla voce «Privacy e preferenze» di Lume o dalle impostazioni del browser.</p>
 <p>Solo se lo accetti, la home carica Google Analytics 4 per misurare le visite. Analytics può salvare i cookie <code>_ga</code> e <code>_ga_*</code>, per un massimo di 180 giorni dalla creazione. Le funzioni pubblicitarie sono disattivate. Consulta le <a href="https://policies.google.com/technologies/partner-sites?hl=it">informazioni di Google sul trattamento dei dati</a>.</p>
-<p>La mappa Google si collega al fornitore quando scegli di mostrarla. I collegamenti a Google Maps e ai social aprono siti esterni soggetti alle rispettive informative.</p></section>
+<p>La mappa Google si collega al fornitore quando apri il popup di prenotazione oppure scegli di mostrarla nella pagina. I collegamenti a Google Maps e ai social aprono siti esterni soggetti alle rispettive informative.</p></section>
 <section id="preferenze-cookie"><h2>Modifica le tue preferenze</h2><p id="cookie-status" class="cookie-status" role="status">Le statistiche richiedono JavaScript e una scelta esplicita.</p><div class="place-actions"><button type="button" data-cookie-settings hidden>Modifica preferenze cookie</button></div></section></article>`,
 }));
 
@@ -114,3 +120,5 @@ async function save(path, content) {
   await mkdir(directory, { recursive: true });
   await writeFile(new URL('index.html', directory), content, 'utf8');
 }
+
+await import('./build-english.mjs');

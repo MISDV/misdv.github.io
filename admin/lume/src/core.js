@@ -27,7 +27,7 @@
     amount(site?.restaurant?.coverCharge,'restaurant.coverCharge');
     need(typeof site?.restaurant?.currency==='string'&&/^[A-Z]{3}$/.test(site.restaurant.currency),'Valuta non valida');
     try{new Intl.NumberFormat('it',{style:'currency',currency:site.restaurant.currency});}catch(_){errors.push('Valuta non supportata');}
-    for(const field of ['landingUrl','reservationUrl','mapsUrl']){const v=site?.restaurant?.[field];if(v!=null)try{const u=new URL(v,site.baseUrl);need(u.protocol==='https:','restaurant.'+field+': URL HTTPS richiesto');}catch(_){errors.push('restaurant.'+field+': URL non valido');}}
+    for(const field of ['landingUrl','reservationUrl','mapsUrl']){const v=site?.restaurant?.[field];if(v!=null)try{const u=new URL(v,site.baseUrl);need(u.protocol==='https:'||(field==='reservationUrl'&&/^tel:\+\d{7,15}$/.test(v)),'restaurant.'+field+': URL HTTPS o telefono di prenotazione valido richiesto');}catch(_){errors.push('restaurant.'+field+': URL non valido');}}
     if(site?.restaurant?.phone!=null)need(/^\+?[0-9 ()-]{5,25}$/.test(site.restaurant.phone),'Telefono non valido');
     if(site?.restaurant?.email!=null)need(/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(site.restaurant.email),'Email non valida');
     asset(site?.restaurant?.logo,'restaurant.logo');

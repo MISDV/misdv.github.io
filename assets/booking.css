@@ -1,0 +1,13 @@
+.site-booking{box-sizing:border-box;width:min(36rem,calc(100% - 1.5rem));max-height:calc(100dvh - 2rem);padding:0;border:1px solid #dec8af;border-radius:1rem;background:#fffaf3;color:#34271d;box-shadow:0 20px 80px #1c140b55;overflow:hidden;font:400 1rem/1.55 system-ui,sans-serif}
+.site-booking[open]{display:flex;flex-direction:column}
+.site-booking *{box-sizing:border-box}.site-booking::backdrop{background:#1a160eb3;backdrop-filter:blur(4px)}
+.site-booking header{display:flex;gap:1rem;align-items:flex-start;justify-content:space-between;flex:none;padding:1rem 1.25rem;border-bottom:1px solid #dec8af}
+.site-booking header p{margin:0 0 .2rem;color:#87501f;font-size:.75rem;letter-spacing:.06em;text-transform:uppercase}
+.site-booking h2{margin:0;font:700 clamp(1.35rem,5vw,1.8rem)/1.2 Georgia,serif}.site-booking h3{font-size:1rem;margin:0 0 .35rem}
+.site-booking p{margin:0 0 .65rem}.site-booking button{display:grid;place-items:center;min-width:44px;min-height:44px;flex:none;border:1px solid #dec8af;border-radius:50%;background:transparent;color:inherit;font:28px/1 system-ui;cursor:pointer}
+.site-booking a{color:#883c18;text-underline-offset:.2em}.site-booking :focus-visible{outline:3px solid #b54d1e;outline-offset:3px}
+.booking-content{overflow:auto;overscroll-behavior:contain;padding:1.1rem 1.25rem 1.25rem;min-height:0}.site-booking .booking-phone{display:block;margin:.25rem 0 1.1rem;font-size:clamp(1.4rem,6.7vw,2.3rem);font-weight:750;line-height:1.3;white-space:nowrap;text-decoration:none}
+.booking-map{background:#efe5d7;min-height:11rem;border-radius:.5rem;overflow:hidden;margin:.65rem 0}.booking-map iframe{display:block;width:100%;height:clamp(11rem,33vh,15rem);border:0}
+.booking-directions{display:inline-flex;align-items:center;min-height:44px}.booking-email{margin-top:1rem;border-top:1px solid #dec8af;padding-top:.85rem}.booking-email a{display:inline-block;max-width:100%;overflow-wrap:anywhere;padding-block:.3rem}
+.site-booking .booking-note{font-size:.75rem;margin:1rem 0 0;color:#66594b}
+@media print{.site-booking{display:none!important}}
