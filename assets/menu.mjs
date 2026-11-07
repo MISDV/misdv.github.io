@@ -16,14 +16,17 @@ function filter() {
   const query = normalize(search.value);
   let visible = 0;
   for (const { section, key, label, dishes } of sections) {
-    const selected = !category.value || category.value === key;
+    if (category.value && category.value !== key) {
+      section.hidden = true;
+      continue;
+    }
     const matchesSection = label.includes(query);
     let matchingDishes = 0;
     for (const [dish, name] of dishes) {
       dish.hidden = !matchesSection && !name.includes(query);
       if (!dish.hidden) matchingDishes++;
     }
-    section.hidden = !selected || (!matchesSection && matchingDishes === 0);
+    section.hidden = !matchesSection && matchingDishes === 0;
     if (!section.hidden) visible++;
   }
   empty.hidden = visible > 0 || (!category.value && !query);
@@ -51,5 +54,4 @@ function setup() {
 
 category.addEventListener('change', filter);
 search.addEventListener('input', filter);
-document.querySelector('#menu-print').addEventListener('click', () => window.print());
 setup();

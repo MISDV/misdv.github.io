@@ -26,8 +26,9 @@ function renderDish(dish, { fixed = false, preview = false } = {}) {
   const labels = Array.isArray(dish.tags) ? dish.tags.filter(Boolean).join(' · ') : '';
   const allergens = Array.isArray(dish.allergens) ? dish.allergens.filter(Boolean).join(', ') : '';
   const details = preview ? '' : renderList('Il percorso', dish.courses) + renderList('Inclusi nel prezzo', dish.includes);
+  const heading = preview ? 'h4' : 'h3';
   return `<li class="menu-dish" data-dish>
-    <div class="dish-title"><h3>${escapeHtml(dish.name || dish.title)}</h3>${price ? `<span class="menu-price">${escapeHtml(price)}</span>` : ''}</div>
+    <div class="dish-title"><${heading}>${escapeHtml(dish.name || dish.title)}</${heading}>${price ? `<span class="menu-price">${escapeHtml(price)}</span>` : ''}</div>
     ${dish.description ? `<p>${escapeHtml(dish.description)}</p>` : ''}
     ${labels ? `<p><small>${escapeHtml(labels)}</small></p>` : ''}
     ${allergens ? `<details><summary>Allergeni indicati</summary><p>${escapeHtml(allergens)}</p></details>` : ''}
@@ -45,13 +46,14 @@ function renderCatalog(menu, preview) {
     const dishes = category.dishes.filter(dish => dish.available !== false);
     return dishes.length ? [{ ...category, dishes }] : [];
   });
-  const sections = (preview ? categories.slice(0, 2) : categories).map(category => {
+  const sections = (preview ? categories.filter(category => category.id === 'menu-fissi') : categories).map(category => {
     const title = escapeHtml(category.title);
-    const dishes = preview ? category.dishes.slice(0, 3) : category.dishes;
+    const heading = preview ? 'h3' : 'h2';
+    const dishes = category.dishes;
     return `<section class="menu-day" data-category="${escapeHtml(category.id)}" data-label="${title}"${category.group ? ` data-group="${escapeHtml(category.group)}"` : ''}>
   <header class="menu-day-header">
     ${category.group ? `<p class="eyebrow">${escapeHtml(category.group)}</p>` : ''}
-    <h2>${title}</h2>
+    <${heading}>${title}</${heading}>
     ${category.description ? `<p>${escapeHtml(category.description)}</p>` : ''}
     ${category.subtitle ? `<p>${escapeHtml(category.subtitle)}</p>` : ''}
   </header>
@@ -66,10 +68,11 @@ function renderCatalog(menu, preview) {
   const notes = [
     Number.isFinite(menu.cover_charge) ? `<p><strong>Coperto: ${money(menu.cover_charge)}</strong></p>` : '',
     menu.a_la_carte_note ? `<p>${escapeHtml(menu.a_la_carte_note)}</p>` : '',
-    menu.allergen_note ? `<p>${escapeHtml(menu.allergen_note)}</p>` : '',
   ].filter(Boolean);
-  return [intro, !preview && notes.length ? `<aside class="menu-notice" aria-label="Coperto e allergeni">${notes.join('\n')}</aside>` : '',
-    sections.join('\n') || '<p>Il menù è in aggiornamento. Contattaci per conoscere i piatti disponibili.</p>',
+  const cover = notes.length ? `<aside class="menu-cover" aria-label="Coperto">${notes.join('\n')}</aside>` : '';
+  const allergens = menu.allergen_note ? `<aside class="menu-allergens" aria-labelledby="allergen-heading"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M12 3 2.5 20h19L12 3Z" stroke-linejoin="round"/><path d="M12 9v5m0 2v1" stroke-linecap="round"/></svg><div><h2 id="allergen-heading">Allergie e intolleranze</h2><p>${escapeHtml(menu.allergen_note)}</p></div></aside>` : '';
+  return [intro, sections.join('\n') || '<p>Il menù è in aggiornamento. Contattaci per conoscere i piatti disponibili.</p>',
+    preview ? '' : cover, preview ? '' : allergens,
     preview ? '' : renderUpdated(menu.updated)].filter(Boolean).join('\n');
 }
 

@@ -1,6 +1,7 @@
 import { createHash } from 'node:crypto';
 import { readFile } from 'node:fs/promises';
 import { createRequire } from 'node:module';
+import { breadcrumbs, breadcrumbSchema } from '../site-seo.mjs';
 
 const require = createRequire(import.meta.url);
 const core = require('./src/core.js');
@@ -123,7 +124,7 @@ export async function buildLume(catalog, contactData) {
   const js = asset('js', scripts.join('\n;\n'));
   const options = {
     assetPrefix: '/lume/', languagePaths: { it: '/lume/', en: '/lume/en/' },
-    featurePhoto: { src: '/assets/agriturismo-orto.webp', alt: bilingual('Il raccolto dell’orto dell’agriturismo', 'Produce from the farm’s vegetable garden') },
+    featurePhoto: { src: '/assets/agriturismo-orto.webp', avif: '/assets/agriturismo-orto.avif', alt: bilingual('Il raccolto dell’orto dell’agriturismo', 'Produce from the farm’s vegetable garden') },
     qrPath: '/lume/assets/menu-qr.svg',
   };
   for (const lang of site.languages) {
@@ -131,16 +132,17 @@ export async function buildLume(catalog, contactData) {
     const t = strings[lang];
     const path = options.languagePaths[lang];
     const pageOptions = { ...options, printPath: path + 'print/' };
-    const root = view.root(prepared, t, pageOptions);
+    const trail = [['Home', '/'], [lang === 'it' ? 'Menù' : 'Menu', '/menu/'], [lang === 'it' ? 'Carta Lume' : 'Lume menu', path]];
+    const root = view.root(prepared, t, pageOptions).replace('<main id="lm-content" tabindex="-1">', '<main id="lm-content" tabindex="-1">' + breadcrumbs(trail, lang));
     const escape = core.escape;
     const canonical = site.baseUrl + path;
     const title = escape(site.seo.title[lang]);
     const description = escape(site.seo.description[lang]);
-    const head = `<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="icon" href="/favicon.ico"><link rel="stylesheet" href="${css}">`;
+    const head = `<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="icon" href="/favicon.ico"><link rel="stylesheet" href="${css}"><link rel="stylesheet" href="/assets/site-extras.css?v=1">`;
     const alternate = site.languages.map(language => `<link rel="alternate" hreflang="${language}" href="${site.baseUrl + options.languagePaths[language]}">`).join('');
     const metadata = `<title>${title}</title><meta name="description" content="${description}"><meta name="robots" content="noindex,follow"><link rel="canonical" href="${canonical}">${alternate}<meta property="og:title" content="${title}"><meta property="og:description" content="${description}"><meta property="og:url" content="${canonical}"><meta property="og:image" content="${site.baseUrl}/og-image-1200x630.png"><meta name="theme-color" content="${site.branding.light.paper}">`;
     const app = `<script type="application/json" data-lume-payload>${encode({ site, menu, strings, lang, options: pageOptions })}</script><script src="${js}" defer></script>`;
-    files.set(path.slice(1) + 'index.html', `<!doctype html>\n<html lang="${lang}"><head>${head}${metadata}</head><body class="lume-document">${root}${app}</body></html>\n`);
+    files.set(path.slice(1) + 'index.html', `<!doctype html>\n<html lang="${lang}"><head>${head}${metadata}${breadcrumbSchema(trail)}</head><body class="lume-document">${root}${app}</body></html>\n`);
 
     const print = root.replace('class="lm-root"', 'class="lm-root lm-print"').replace(/<details /g, '<details open ');
     const printBar = `<div class="lm-print-bar"><button type="button" onclick="window.print()">${escape(t.print)}</button><a href="${path}">${escape(t.edition)}</a></div>`;

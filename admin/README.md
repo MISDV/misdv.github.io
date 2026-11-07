@@ -34,9 +34,14 @@ incluso su una riga separata nell'editor.
 
 Se modifichi `menu.json` a mano, esegui `node admin/sync-menu.mjs` e pubblica
 insieme `menu.json`, `menu/index.html`, `index.html` e i file generati in `lume/`.
-Il browser usa la carta già inclusa nella pagina. La home mostra fino a tre
-voci delle prime due categorie disponibili. Il pannello pubblica anche
+Il browser usa la carta già inclusa nella pagina. La home mostra le formule
+del menù fisso. Il pannello pubblica anche
 le pagine Lume nello stesso commit del catalogo.
+
+Per aggiornare le pagine della Fattoria e l’informativa, modifica
+`admin/build-pages.mjs` ed esegui `node admin/build-pages.mjs`. Le foto delle
+schede sono in `assets/fattoria/` con due misure in AVIF e WebP. La pagina
+della storia resta `storia.html`, da cui il generatore riprende header e footer.
 
 Le descrizioni bilingui di Lume si modificano in
 `admin/lume/config/descriptions.json`, usando gli ID di `menu.json`.

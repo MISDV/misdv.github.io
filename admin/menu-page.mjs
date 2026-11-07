@@ -25,7 +25,9 @@ export function updateMenuPage(html, menu, options) {
   const end = '<!-- MENU-CONTENT:END -->';
   const from = html.indexOf(start);
   const to = html.indexOf(end);
-  if (from < 0 || to < from) throw new Error('Modello della pagina menù non disponibile.');
+  if (from < 0 || to < from || html.indexOf(start, from + start.length) !== -1 || html.indexOf(end, to + end.length) !== -1) {
+    throw new Error('Modello della pagina menù non valido: serve una sola coppia di marcatori MENU-CONTENT.');
+  }
   const newline = html.includes('\r\n') ? '\r\n' : '\n';
   const content = renderMenu(menu, options).replace(/\n[ \t]*(?=\n)/g, '').replaceAll('\n', newline);
   return html.slice(0, from + start.length) + newline + content + newline + html.slice(to);

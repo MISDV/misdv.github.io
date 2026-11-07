@@ -48,29 +48,33 @@ function setupNavigation() {
   });
 }
 
-function setupHomeMenu() {
-  const selector = document.querySelector('[data-home-menu]');
-  if (!selector) return;
-  const sections = Array.from(document.querySelectorAll('.home-menu [data-category], .home-menu [data-day]'));
-  if (sections.length < 2) return;
-  const today = sections[0].hasAttribute('data-day')
-    ? new Intl.DateTimeFormat('it-IT', { weekday: 'long', timeZone: 'Europe/Rome' }).format(new Date()) : '';
-  const buttons = sections.map(section => {
-    const button = document.createElement('button');
-    button.type = 'button';
-    button.textContent = section.dataset.label;
-    button.addEventListener('click', () => select(section));
-    return button;
-  });
-  function select(selected) {
-    sections.forEach((section, index) => {
-      section.hidden = section !== selected;
-      buttons[index].setAttribute('aria-pressed', String(section === selected));
+function setupMaps() {
+  for (const map of document.querySelectorAll('[data-map]')) {
+    const button = map.querySelector('[data-map-toggle]');
+    const slot = map.querySelector('[data-map-slot]');
+    const directions = map.querySelector('[data-maps]');
+    button.hidden = false;
+    button.addEventListener('click', () => {
+      if (!slot.hidden) {
+        slot.replaceChildren();
+        slot.hidden = true;
+      } else {
+        const query = new URL(directions.href).searchParams.get('query');
+        const url = new URL('https://maps.google.com/maps');
+        url.searchParams.set('q', query);
+        url.searchParams.set('z', '15');
+        url.searchParams.set('output', 'embed');
+        const iframe = document.createElement('iframe');
+        iframe.title = 'Google Maps — Agriturismo Giuggioloni, Osimo';
+        iframe.referrerPolicy = 'no-referrer';
+        iframe.src = url.href;
+        slot.append(iframe);
+        slot.hidden = false;
+      }
+      button.setAttribute('aria-expanded', String(!slot.hidden));
+      button.textContent = slot.hidden ? 'Mostra la mappa Google' : 'Chiudi la mappa';
     });
   }
-  selector.append(...buttons);
-  selector.hidden = false;
-  select(sections.find(section => section.dataset.label.toLowerCase() === today) || sections[0]);
 }
 
 function renderHours(hours) {
@@ -127,10 +131,9 @@ async function updateSite() {
   if (contact) {
     setText('[data-via]', contact.via);
     setText('[data-comune]', contact.comune);
-    const maps = document.querySelector('[data-maps]');
-    if (maps && contact.via && contact.comune) {
+    if (contact.via && contact.comune) {
       const query = encodeURIComponent(`${contact.via}, ${contact.comune}`);
-      maps.href = `https://www.google.com/maps/search/?api=1&query=${query}`;
+      document.querySelectorAll('[data-maps]').forEach(map => { map.href = `https://www.google.com/maps/search/?api=1&query=${query}`; });
     }
     const email = document.querySelector('[data-email]');
     if (email && typeof contact.mail === 'string' && /^[^\s@]+@[^\s@]+$/.test(contact.mail)) {
@@ -149,7 +152,7 @@ async function updateSite() {
 }
 
 setupNavigation();
-setupHomeMenu();
+setupMaps();
 updateSite().catch(() => {
   // I contenuti principali sono disponibili nell'HTML.
 });

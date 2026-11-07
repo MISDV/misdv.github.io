@@ -3,14 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Menù del ristorante a Osimo | Agriturismo Giuggioloni</title>
+<title>Menù, piatti e prezzi a Osimo | Agriturismo Giuggioloni</title>
 <meta name="description" content="Scopri il menù dell’Agriturismo Giuggioloni a Osimo: formule fisse, piatti alla carta e vini. Consulta i prezzi e i contatti per prenotare.">
 <meta name="robots" content="index,follow,max-image-preview:large">
 <link rel="canonical" href="https://agriturismogiuggioloni.it/menu/">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="it_IT">
 <meta property="og:site_name" content="Agriturismo Giuggioloni">
-<meta property="og:title" content="Menù del ristorante a Osimo | Agriturismo Giuggioloni">
+<meta property="og:title" content="Menù, piatti e prezzi a Osimo | Agriturismo Giuggioloni">
 <meta property="og:description" content="Scopri il menù dell’Agriturismo Giuggioloni a Osimo: formule fisse, piatti alla carta e vini. Consulta i prezzi e i contatti per prenotare.">
 <meta property="og:url" content="https://agriturismogiuggioloni.it/menu/">
 <meta property="og:image" content="https://agriturismogiuggioloni.it/og-image-1200x630.png">
@@ -33,8 +33,10 @@
     "@id": "https://agriturismogiuggioloni.it/#ristorante"
   }
 }</script>
-<script src="/assets/site.js?v=2" defer></script>
-<script type="module" src="/assets/menu.mjs?v=2"></script>
+<script src="/assets/site.js?v=4" defer></script>
+<script type="module" src="/assets/menu.mjs?v=3"></script>
+<link rel="stylesheet" href="/assets/site-extras.css?v=1">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://agriturismogiuggioloni.it/"},{"@type":"ListItem","position":2,"name":"Menù","item":"https://agriturismogiuggioloni.it/menu/"}]}</script>
 </head>
 <body class="bg-background-cream dark:bg-background-dark text-gray-800 dark:text-gray-200 font-display transition-colors duration-300 bg-texture-cream">
 <a class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[100] focus:p-3 focus:bg-white" href="#contenuto">Vai al contenuto</a>
@@ -54,8 +56,8 @@
       <!-- desktop links -->
       <div class="hidden lg:flex space-x-8 items-center">
         <a class="text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors text-sm uppercase tracking-widest font-bold font-serif" href="/">Home</a>
-        <a class="text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors text-sm uppercase tracking-widest font-bold font-serif" href="/menu/">Vedi il menu</a>
-        <a class="text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors text-sm uppercase tracking-widest font-bold font-serif" href="/storia.html">La Fattoria</a>
+        <a class="text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors text-sm uppercase tracking-widest font-bold font-serif" href="/lume/">Menù completo</a>
+        <a class="text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors text-sm uppercase tracking-widest font-bold font-serif" href="/#fattoria">La Fattoria</a>
         <a class="text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors text-sm uppercase tracking-widest font-bold font-serif" href="/shop.html">I Nostri Prodotti</a>
         <a class="bg-primary hover:bg-primary-dark text-white px-4 md:px-6 py-2.5 rounded-sm transition-colors text-sm font-bold uppercase tracking-wide shadow-lg shadow-primary/30 border border-primary-dark" href="#contatti">Prenota Ora!</a>
       </div>
@@ -93,7 +95,7 @@
           <nav aria-label="Menu principale mobile" class="flex flex-col gap-2">
             <a class="block py-3 px-3 rounded-md text-base font-bold text-gray-800 dark:text-gray-100 hover:bg-primary/5" href="/">Home</a>
             <a class="block py-3 px-3 rounded-md text-base font-bold text-gray-800 dark:text-gray-100 hover:bg-primary/5" href="/menu/">Il Ristorante</a>
-            <a class="block py-3 px-3 rounded-md text-base font-bold text-gray-800 dark:text-gray-100 hover:bg-primary/5" href="/storia.html">La Fattoria</a>
+            <a class="block py-3 px-3 rounded-md text-base font-bold text-gray-800 dark:text-gray-100 hover:bg-primary/5" href="/#fattoria">La Fattoria</a>
             <a class="block py-3 px-3 rounded-md text-base font-bold text-gray-800 dark:text-gray-100 hover:bg-primary/5" href="/shop.html">Prodotti</a>
             <a class="block py-3 px-3 rounded-md text-base font-bold bg-primary text-white text-center rounded-sm" href="#contatti">Contatti</a>
           </nav>
@@ -118,26 +120,25 @@
   </div>
 </nav>
 <main id="contenuto" class="subpage">
-  <section class="menu-hero bg-background-cream border-b border-primary/20 py-12 md:py-20">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid md:grid-cols-2 gap-10 items-center">
+  <section class="menu-hero bg-background-cream border-b border-primary/20">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6">
+      <nav class="breadcrumbs" aria-label="Percorso di navigazione"><ol><li><a href="/">Home</a></li><li aria-current="page">Menù</li></ol></nav>
       <div>
         <p class="text-primary text-sm font-bold tracking-widest uppercase mb-3 font-serif">I sapori dell’Acquaviva · Osimo</p>
-        <h1 class="text-4xl md:text-6xl font-serif font-bold text-gray-900 mb-6">Il menù</h1>
+        <h1 class="text-4xl md:text-6xl font-serif font-bold text-gray-900 mb-6">Il menù dell’agriturismo</h1>
         <p class="text-gray-600 font-light text-lg leading-relaxed mb-6">La cucina dell’Agriturismo Giuggioloni, con proposte che seguono la stagione e il raccolto.</p>
         <a class="inline-block bg-primary hover:bg-primary-dark text-white px-6 py-3 rounded-sm font-serif font-bold uppercase tracking-wide shadow-lg" href="#contatti">Prenota un tavolo</a>
-        <p class="mt-4"><a class="text-primary-dark font-semibold underline" href="/lume/">Apri il menù digitale Lume</a></p>
+        <p class="mt-4"><a class="menu-text-link font-semibold" href="/lume/">Apri il menù digitale Lume</a></p>
       </div>
-      <picture class="block">
-        <source type="image/avif" srcset="/assets/agriturismo-orto.avif" width="555" height="416">
-        <img src="/assets/agriturismo-orto.webp" alt="Il raccolto dell’orto dell’agriturismo" width="555" height="740" decoding="async" class="w-full aspect-[8/5] object-cover rounded-sm shadow-lg warm-filter">
-      </picture>
     </div>
   </section>
   <div class="menu-main max-w-4xl mx-auto px-4 sm:px-6">
     <div id="menu-controls" class="menu-controls" hidden>
-      <label>Categoria <select id="menu-category"><option value="">Tutte le categorie</option></select></label>
+      <div class="menu-field">
+        <label for="menu-category">Categoria</label>
+        <div class="menu-select"><select id="menu-category"><option value="">Tutte le categorie</option></select><svg aria-hidden="true" width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="m5 8 5 5 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      </div>
       <label>Cerca nel menù <input type="search" id="menu-search" placeholder="Es. pappardelle o verdicchio"></label>
-      <button type="button" id="menu-print" class="button secondary">Stampa</button>
     </div>
     <p id="menu-empty" role="status" hidden>Nessuna voce corrisponde alla ricerca.</p>
     <div id="menu-content">
@@ -147,9 +148,6 @@
   <h2>Il Vero Gusto della Nostra Terra: Dal Seme alla Tavola</h2>
   <p class="lede">Dalla nostra azienda agricola alla tavola: valorizziamo la filiera corta, le carni del nostro allevamento e la pasta fresca fatta a mano, secondo la tradizione contadina.</p>
 </header>
-<aside class="menu-notice" aria-label="Coperto e allergeni"><p><strong>Coperto: 1,50 €</strong></p>
-<p>Acqua e coperto esclusi nel menù alla carta.</p>
-<p>Per informazioni su allergeni, intolleranze e ingredienti, è disponibile il libro degli allergeni: chiedere al personale di sala.</p></aside>
 <section class="menu-day" data-category="menu-fissi" data-label="Menù fissi">
   <header class="menu-day-header">
     <h2>Menù fissi</h2>
@@ -463,6 +461,9 @@
     <div class="dish-title"><h3>Candolini</h3><span class="menu-price">2,50 €</span></div>
   </li></ul>
 </section>
+<aside class="menu-cover" aria-label="Coperto"><p><strong>Coperto: 1,50 €</strong></p>
+<p>Acqua e coperto esclusi nel menù alla carta.</p></aside>
+<aside class="menu-allergens" aria-labelledby="allergen-heading"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M12 3 2.5 20h19L12 3Z" stroke-linejoin="round"/><path d="M12 9v5m0 2v1" stroke-linecap="round"/></svg><div><h2 id="allergen-heading">Allergie e intolleranze</h2><p>Per informazioni su allergeni, intolleranze e ingredienti, è disponibile il libro degli allergeni: chiedere al personale di sala.</p></div></aside>
 <p class="menu-updated">Ultimo aggiornamento <time datetime="2026-11-07">7 novembre 2026</time></p>
 <!-- MENU-CONTENT:END -->
     </div>
@@ -495,7 +496,7 @@
         <h3 class="text-white font-serif font-bold text-xl mb-6 relative inline-block">Esplora<span class="absolute -bottom-2 left-0 w-12 h-1 bg-primary rounded-full"></span></h3>
         <ul class="space-y-4 text-sm font-light">
           <li><a class="hover:text-primary transition-colors flex items-center gap-2 group" href="/storia.html"><span class="material-icons text-xs text-primary opacity-0 group-hover:opacity-100 transition-opacity">chevron_right</span>La Nostra Storia</a></li>
-          <li><a class="hover:text-primary transition-colors flex items-center gap-2 group" href="/menu/"><span class="material-icons text-xs text-primary opacity-0 group-hover:opacity-100 transition-opacity">chevron_right</span>I Nostri Piatti</a></li>
+          <li><a class="hover:text-primary transition-colors flex items-center gap-2 group" href="/lume/"><span class="material-icons text-xs text-primary opacity-0 group-hover:opacity-100 transition-opacity">chevron_right</span>Menù completo</a></li>
           <li><a class="hover:text-primary transition-colors flex items-center gap-2 group" href="/shop.html"><span class="material-icons text-xs text-primary opacity-0 group-hover:opacity-100 transition-opacity">chevron_right</span>I Nostri Prodotti</a></li>
         </ul>
       </div>
@@ -535,20 +536,22 @@
       </div>
     </div>
 
-    <a data-maps href="https://www.google.com/maps/search/?api=1&amp;query=Via+Acquaviva+34%2C+60027+Osimo+%28AN%29+-+Marche" class="block w-full h-64 md:h-72 bg-gray-800 rounded-sm overflow-visible mb-8 relative group border border-white/10">
-      <img alt="" class="w-full h-full object-cover opacity-60 group-hover:opacity-40 transition-opacity filter sepia" src="/assets/mappa-osimo.webp" width="512" height="512" loading="lazy" decoding="async">
-      <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
-        <div class="bg-background-dark/90 backdrop-blur-sm px-6 py-3 rounded-sm flex items-center gap-3 border border-primary/50 shadow-2xl">
-          <span class="material-icons text-primary">map</span>
-          <span class="text-white font-bold font-serif tracking-wide">Vedi su Mappa</span>
-        </div>
+    <section class="place-map" data-map aria-labelledby="place-map-title">
+      <h2 id="place-map-title">Come arrivare all’agriturismo</h2>
+      <p><span data-via>Via Acquaviva 34</span>, <span data-comune>60027 Osimo (AN) - Marche</span></p>
+      <p>La mappa interattiva si collega a Google quando scegli di mostrarla.</p>
+      <div class="place-actions">
+        <a data-maps href="https://www.google.com/maps/search/?api=1&amp;query=Via+Acquaviva+34%2C+60027+Osimo+%28AN%29+-+Marche" target="_blank" rel="noopener noreferrer">Indicazioni su Google Maps</a>
+        <button type="button" data-map-toggle aria-expanded="false" aria-controls="place-map-slot" hidden>Mostra la mappa Google</button>
       </div>
-    </a>
+      <div id="place-map-slot" data-map-slot hidden></div>
+    </section>
 
     <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-gray-500 font-light">
       <p>© 2026 Agriturismo Giuggioloni - I sapori dell'Acquaviva. Tutti i diritti riservati.</p>
     </div>
   </div>
+  <p class="site-meta-links"><a class="site-cookie-link" href="/privacy/#preferenze-cookie">Cookie e privacy</a></p>
 </footer>
 </body>
 </html>
