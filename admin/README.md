@@ -33,9 +33,25 @@ Usa prezzi numerici in euro; per un prezzo al chilogrammo, imposta anche
 incluso su una riga separata nell'editor.
 
 Se modifichi `menu.json` a mano, esegui `node admin/sync-menu.mjs` e pubblica
-insieme `menu.json`, `menu/index.html` e `index.html`. Il browser usa la carta
-già inclusa nella pagina; la home mostra fino a tre voci delle prime due
-categorie disponibili.
+insieme `menu.json`, `menu/index.html`, `index.html` e i file generati in `lume/`.
+Il browser usa la carta già inclusa nella pagina. La home mostra fino a tre
+voci delle prime due categorie disponibili. Il pannello pubblica anche
+le pagine Lume nello stesso commit del catalogo.
+
+Le descrizioni bilingui di Lume si modificano in
+`admin/lume/config/descriptions.json`, usando gli ID di `menu.json`.
+Il blocco `source` associa le annotazioni al nome, alla descrizione e alle
+eventuali portate del catalogo. Se cambiano, la scheda chiede al cliente di
+consultare il personale finché le annotazioni non vengono riviste.
+`allergenChecks` contiene esclusivamente riferimenti orientativi alla legenda:
+non è un elenco di allergeni confermati. Per questi fa fede il libro degli
+allergeni del ristorante. La guida pubblica non offre filtri di esclusione.
+
+Fonti per le schede Lume:
+
+- [Allegato II del regolamento UE 1169/2011](https://eur-lex.europa.eu/eli/reg/2011/1169/oj?locale=it) per la legenda.
+- [Commissione europea, Vincisgrassi alla maceratese](https://italy.representation.ec.europa.eu/notizie-ed-eventi/notizie/agricoltura-la-commissione-approva-nuove-specialita-tradizionali-garantite-italiane-2022-03-31_it) e [Regione Marche, prodotti tradizionali](https://static.regione.marche.it/Portals/0/Agricoltura/qualita/Prodotti%20Tradizionali/ElencoCompleto2022.pdf) per le preparazioni tipiche.
+- [Garofoli, Piancarda](https://garofolivini.it/wp-content/uploads/2026/03/garofoli_piancarda.pdf), [Heineken Italia, Birra Messina](https://heinekenitalia.it/le-nostre-birre/birra-messina/) e [Marzadro, Diciotto Lune](https://www.marzadro.it/grappe/le-diciotto-lune-4.php) per i prodotti di marca.
 
 Il servizio ascolta solo su `127.0.0.1`. Fermalo con Ctrl+C, poi chiudi la
 finestra di PowerShell. Per usare il pannello con il sito aggiornato, pubblica

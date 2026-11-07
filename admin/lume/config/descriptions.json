@@ -1,0 +1,1045 @@
+{
+  "menu-tradizione-rurale": {
+    "source": {
+      "name": "Menù Tradizione Rurale",
+      "description": "Il percorso essenziale per assaporare i sapori cardine della nostra tradizione contadina.",
+      "courses": [
+        "Antipasto alla Giuggiola",
+        "2 primi a scelta tra tutti i primi del Giorno",
+        "Degustazione Sapori della Tradizione",
+        "Contorno: patate arrosto, erbe di campo e insalata mista"
+      ],
+      "includes": [
+        "Acqua",
+        "¼ di vino della casa",
+        "Caffè",
+        "Coperto"
+      ]
+    },
+    "description": {
+      "it": "Un percorso conviviale con antipasto, due primi a scelta, degustazione e contorni.",
+      "en": "A shared menu with a starter, two first courses of your choice, a tasting selection and sides."
+    },
+    "nameEn": "Rural Tradition Set Menu",
+    "allergenChecks": [
+      1,
+      3,
+      7,
+      9,
+      12
+    ]
+  },
+  "menu-gran-degustazione-i-sapori-dell-acquaviva": {
+    "source": {
+      "name": "Menù Gran Degustazione \"I Sapori dell'Acquaviva\"",
+      "description": "L'esperienza definitiva dell'agriturismo. Senza compromessi, per esaltare l'eccellenza della filiera.",
+      "courses": [
+        "Antipasto alla Giuggiola",
+        "2 primi a scelta tra tutti i primi del Giorno",
+        "Degustazione Sapori della Filiera",
+        "Contorno a scelta",
+        "Assaggio di fritti tradizionali: olive ascolane, cremini, panelle",
+        "Dolci caserecci della casa"
+      ],
+      "includes": [
+        "Acqua",
+        "Bottiglia di vino di nostra produzione",
+        "Dessert",
+        "Caffè",
+        "Coperto"
+      ]
+    },
+    "description": {
+      "it": "Antipasto, due primi a scelta, degustazione della filiera, fritti della tradizione e dolci caserecci.",
+      "en": "A starter, two first courses of your choice, a farm tasting selection, traditional fried bites and homemade desserts."
+    },
+    "nameEn": "I Sapori dell’Acquaviva Grand Tasting Menu",
+    "allergenChecks": [
+      1,
+      3,
+      7,
+      8,
+      9,
+      12
+    ]
+  },
+  "pappardelle-al-cinghiale-in-bianco": {
+    "source": {
+      "name": "Pappardelle al Cinghiale in Bianco"
+    },
+    "description": {
+      "it": "Nastri larghi di pasta fresca con un ragù di cinghiale in bianco, senza il pomodoro del ragù rosso.",
+      "en": "Wide ribbons of fresh pasta with a white wild boar ragù."
+    },
+    "nameEn": "Pappardelle with White Wild Boar Ragù",
+    "allergenChecks": [
+      1,
+      3,
+      9,
+      12
+    ]
+  },
+  "gnocchi-al-ragu-di-papera": {
+    "source": {
+      "name": "Gnocchi al Ragù di Papera"
+    },
+    "description": {
+      "it": "Gnocchi morbidi con ragù di papera, un abbinamento della cucina contadina.",
+      "en": "Soft gnocchi with duck ragù, a farmhouse combination."
+    },
+    "nameEn": "Gnocchi with Duck Ragù",
+    "allergenChecks": [
+      1,
+      3,
+      9,
+      12
+    ]
+  },
+  "tagliatella-al-ragu-di-papera": {
+    "source": {
+      "name": "Tagliatella al Ragù di Papera"
+    },
+    "description": {
+      "it": "Sfoglia tagliata a nastri e condita con ragù di papera.",
+      "en": "Ribbons of fresh pasta dressed with duck ragù."
+    },
+    "nameEn": "Tagliatelle with Duck Ragù",
+    "allergenChecks": [
+      1,
+      3,
+      9,
+      12
+    ]
+  },
+  "ravioli-con-crema-di-zucchine-e-pinoli": {
+    "source": {
+      "name": "Ravioli con Crema di Zucchine e Pinoli"
+    },
+    "description": {
+      "it": "Pasta ripiena con crema di zucchine e pinoli. Chiedi al personale quale ripieno è in carta.",
+      "en": "Filled pasta with courgette cream and pine nuts. Ask the staff about the filling."
+    },
+    "nameEn": "Ravioli with Courgette Cream and Pine Nuts",
+    "allergenChecks": [
+      1,
+      3,
+      7
+    ]
+  },
+  "tagliatella-primavera": {
+    "source": {
+      "name": "Tagliatella Primavera"
+    },
+    "description": {
+      "it": "Tagliatelle della casa in versione primavera. Chiedi in sala come sono condite oggi.",
+      "en": "House tagliatelle prepared spring-style. Ask the staff about today’s sauce."
+    },
+    "nameEn": "Spring Tagliatelle",
+    "allergenChecks": [
+      1,
+      3
+    ]
+  },
+  "boccolotti-del-batte-oca": {
+    "source": {
+      "name": "Boccolotti del Batte Oca"
+    },
+    "description": {
+      "it": "Un primo della carta con il nome di casa. Chiedi al personale il condimento e la preparazione del giorno.",
+      "en": "A house first course with a local name. Ask the staff about the sauce and preparation."
+    },
+    "allergenChecks": [
+      1
+    ]
+  },
+  "vincisgrassi-marchigiani": {
+    "source": {
+      "name": "Vincisgrassi Marchigiani"
+    },
+    "description": {
+      "it": "Pasta a strati gratinata al forno, un classico marchigiano. La versione maceratese tradizionale alterna sfoglia, sugo e besciamella.",
+      "en": "A classic Marche baked pasta. The traditional Macerata version layers pasta sheets, ragù and béchamel."
+    },
+    "nameEn": "Marche-Style Vincisgrassi",
+    "allergenChecks": [
+      1,
+      3,
+      7,
+      9,
+      12
+    ]
+  },
+  "lasagna-bianca": {
+    "source": {
+      "name": "Lasagna Bianca"
+    },
+    "description": {
+      "it": "Sfoglie di pasta al forno con condimento in bianco.",
+      "en": "Baked layers of pasta with a white sauce."
+    },
+    "nameEn": "White Lasagne",
+    "allergenChecks": [
+      1,
+      3,
+      7
+    ]
+  },
+  "lasagna-rossa": {
+    "source": {
+      "name": "Lasagna Rossa"
+    },
+    "description": {
+      "it": "Pasta al forno a strati con condimento rosso.",
+      "en": "Layers of oven-baked pasta with a red sauce."
+    },
+    "nameEn": "Red Lasagne",
+    "allergenChecks": [
+      1,
+      3,
+      7
+    ]
+  },
+  "tagliatella-con-carciofi-e-salsiccia": {
+    "source": {
+      "name": "Tagliatella con Carciofi e Salsiccia"
+    },
+    "description": {
+      "it": "Nastri di pasta con carciofi e salsiccia, dal carattere rustico.",
+      "en": "Pasta ribbons with artichokes and sausage."
+    },
+    "nameEn": "Tagliatelle with Artichokes and Sausage",
+    "allergenChecks": [
+      1,
+      3
+    ]
+  },
+  "tagliatella-al-ragu-rosso": {
+    "source": {
+      "name": "Tagliatella al Ragù Rosso"
+    },
+    "description": {
+      "it": "Tagliatelle condite con ragù rosso.",
+      "en": "Tagliatelle served with a red ragù."
+    },
+    "nameEn": "Tagliatelle with Red Ragù",
+    "allergenChecks": [
+      1,
+      3,
+      9,
+      12
+    ]
+  },
+  "tortellini-in-brodo": {
+    "source": {
+      "name": "Tortellini in Brodo"
+    },
+    "description": {
+      "it": "Piccoli anelli di pasta ripiena serviti in brodo. Chiedi in sala del ripieno e del brodo.",
+      "en": "Small rings of filled pasta served in broth. Ask the staff about the filling and broth."
+    },
+    "nameEn": "Tortellini in Broth",
+    "allergenChecks": [
+      1,
+      3,
+      7,
+      9
+    ]
+  },
+  "fagioli-con-cotiche-e-salsiccia": {
+    "source": {
+      "name": "Fagioli con Cotiche e Salsiccia"
+    },
+    "description": {
+      "it": "Fagioli con cotiche e salsiccia, un piatto sostanzioso della tradizione contadina.",
+      "en": "A hearty farmhouse dish of beans, pork rind and sausage."
+    },
+    "nameEn": "Beans with Pork Rind and Sausage",
+    "allergenChecks": [
+      9
+    ]
+  },
+  "polenta-bianca-con-cipolla-e-salsiccia": {
+    "source": {
+      "name": "Polenta Bianca con Cipolla e Salsiccia"
+    },
+    "description": {
+      "it": "Polenta bianca accompagnata da cipolla e salsiccia.",
+      "en": "White polenta served with onion and sausage."
+    },
+    "nameEn": "White Polenta with Onion and Sausage"
+  },
+  "polenta-al-cinghiale": {
+    "source": {
+      "name": "Polenta al Cinghiale"
+    },
+    "description": {
+      "it": "Polenta con un condimento di cinghiale.",
+      "en": "Polenta topped with wild boar sauce."
+    },
+    "nameEn": "Polenta with Wild Boar",
+    "allergenChecks": [
+      9,
+      12
+    ]
+  },
+  "tortellini-con-funghi-panna-piselli-e-salsiccia": {
+    "source": {
+      "name": "Tortellini con Funghi, Panna, Piselli e Salsiccia"
+    },
+    "description": {
+      "it": "Tortellini con un condimento cremoso di funghi, panna, piselli e salsiccia.",
+      "en": "Filled pasta with a creamy mushroom, pea and sausage sauce."
+    },
+    "nameEn": "Tortellini with Mushrooms, Cream, Peas and Sausage",
+    "allergenChecks": [
+      1,
+      3,
+      7
+    ]
+  },
+  "penne-al-pomodoro-e-basilico": {
+    "source": {
+      "name": "Penne al Pomodoro e Basilico"
+    },
+    "description": {
+      "it": "Penne condite con pomodoro e basilico.",
+      "en": "Penne with tomato and basil."
+    },
+    "nameEn": "Penne with Tomato and Basil",
+    "allergenChecks": [
+      1
+    ]
+  },
+  "pollo-in-salmi": {
+    "source": {
+      "name": "Pollo in Salmì"
+    },
+    "description": {
+      "it": "Pollo in salmì, una preparazione tradizionale con un fondo di cottura aromatico.",
+      "en": "Chicken prepared salmì-style with an aromatic cooking sauce."
+    },
+    "nameEn": "Chicken in Salmì",
+    "allergenChecks": [
+      9,
+      12
+    ]
+  },
+  "pollo-al-potacchio": {
+    "source": {
+      "name": "Pollo al Potacchio"
+    },
+    "description": {
+      "it": "Pollo al potacchio, una preparazione della cucina marchigiana dal fondo aromatico.",
+      "en": "Chicken cooked potacchio-style, an aromatic Marche preparation."
+    },
+    "nameEn": "Potacchio-Style Chicken",
+    "allergenChecks": [
+      12
+    ]
+  },
+  "pollo-arrosto": {
+    "source": {
+      "name": "Pollo Arrosto"
+    },
+    "description": {
+      "it": "Pollo preparato arrosto.",
+      "en": "Chicken cooked as a roast."
+    },
+    "nameEn": "Roast Chicken"
+  },
+  "pollo-alla-cacciatora": {
+    "source": {
+      "name": "Pollo alla Cacciatora"
+    },
+    "description": {
+      "it": "Pollo alla cacciatora, una preparazione in umido dal carattere rustico.",
+      "en": "Hunter-style chicken, a rustic braised dish."
+    },
+    "nameEn": "Hunter-Style Chicken",
+    "allergenChecks": [
+      9,
+      12
+    ]
+  },
+  "stinco-di-maiale": {
+    "source": {
+      "name": "Stinco di Maiale"
+    },
+    "description": {
+      "it": "Stinco di maiale, un taglio dal sapore pieno.",
+      "en": "A full-flavoured cut of pork shank."
+    },
+    "nameEn": "Pork Shank"
+  },
+  "arrosto-di-maiale": {
+    "source": {
+      "name": "Arrosto di Maiale"
+    },
+    "description": {
+      "it": "Maiale preparato arrosto.",
+      "en": "Pork cooked as a roast."
+    },
+    "nameEn": "Roast Pork"
+  },
+  "coniglio-in-porchetta": {
+    "source": {
+      "name": "Coniglio in Porchetta"
+    },
+    "description": {
+      "it": "Coniglio in porchetta, una specialità delle Marche tradizionalmente profumata con aromi come il finocchietto.",
+      "en": "Porchetta-style rabbit, a Marche speciality traditionally scented with herbs such as wild fennel."
+    },
+    "nameEn": "Porchetta-Style Rabbit"
+  },
+  "maialino-alla-birra": {
+    "source": {
+      "name": "Maialino alla Birra"
+    },
+    "description": {
+      "it": "Maialino preparato con birra, che caratterizza il fondo di cottura.",
+      "en": "Young pork prepared with beer, which flavours the cooking juices."
+    },
+    "nameEn": "Beer-Cooked Young Pork",
+    "allergenChecks": [
+      1
+    ]
+  },
+  "grigliata-mista-di-maiale": {
+    "source": {
+      "name": "Grigliata Mista di Maiale"
+    },
+    "description": {
+      "it": "Selezione di tagli di maiale cotti alla griglia.",
+      "en": "A selection of grilled pork cuts."
+    },
+    "nameEn": "Mixed Pork Grill"
+  },
+  "faraona-alla-cacciatora": {
+    "source": {
+      "name": "Faraona alla Cacciatora"
+    },
+    "description": {
+      "it": "Faraona alla cacciatora, in umido con un fondo di cottura rustico.",
+      "en": "Hunter-style guinea fowl, braised with a rustic cooking sauce."
+    },
+    "nameEn": "Hunter-Style Guinea Fowl",
+    "allergenChecks": [
+      9,
+      12
+    ]
+  },
+  "faraona-al-marsala": {
+    "source": {
+      "name": "Faraona al Marsala"
+    },
+    "description": {
+      "it": "Faraona al Marsala, con il profumo del vino liquoroso nel fondo di cottura.",
+      "en": "Guinea fowl with Marsala, a fortified wine that flavours the cooking sauce."
+    },
+    "nameEn": "Guinea Fowl with Marsala",
+    "allergenChecks": [
+      12
+    ]
+  },
+  "oca-arrosto": {
+    "source": {
+      "name": "Oca Arrosto"
+    },
+    "description": {
+      "it": "Oca preparata arrosto, dal sapore deciso.",
+      "en": "Full-flavoured roast goose."
+    },
+    "nameEn": "Roast Goose"
+  },
+  "oca-in-porchetta": {
+    "source": {
+      "name": "Oca in Porchetta"
+    },
+    "description": {
+      "it": "Oca preparata nello stile aromatico della porchetta.",
+      "en": "Goose prepared in the aromatic porchetta style."
+    },
+    "nameEn": "Porchetta-Style Goose"
+  },
+  "oca-in-salmi": {
+    "source": {
+      "name": "Oca in Salmì"
+    },
+    "description": {
+      "it": "Oca in salmì, accompagnata dal fondo di questa preparazione tradizionale.",
+      "en": "Goose served with the cooking sauce of the traditional salmì preparation."
+    },
+    "nameEn": "Goose in Salmì",
+    "allergenChecks": [
+      9,
+      12
+    ]
+  },
+  "agnello-al-forno": {
+    "source": {
+      "name": "Agnello al Forno"
+    },
+    "description": {
+      "it": "Agnello cotto al forno.",
+      "en": "Lamb roasted in the oven."
+    },
+    "nameEn": "Oven-Roasted Lamb"
+  },
+  "grigliata-mista-di-agnello": {
+    "source": {
+      "name": "Grigliata Mista di Agnello"
+    },
+    "description": {
+      "it": "Assortimento di tagli di agnello alla griglia.",
+      "en": "An assortment of grilled lamb cuts."
+    },
+    "nameEn": "Mixed Lamb Grill"
+  },
+  "maialino-in-crosta": {
+    "source": {
+      "name": "Maialino in Crosta"
+    },
+    "description": {
+      "it": "Maialino in crosta. Chiedi in sala come viene preparato il rivestimento.",
+      "en": "Young pork in a crust. Ask the staff how the crust is made."
+    },
+    "nameEn": "Young Pork in a Crust",
+    "allergenChecks": [
+      1,
+      3,
+      7
+    ]
+  },
+  "agnello-misto-cappone-vitello-bollito": {
+    "source": {
+      "name": "Agnello Misto / Cappone / Vitello Bollito"
+    },
+    "description": {
+      "it": "La voce di carta riunisce agnello misto, cappone e vitello bollito. Chiedi in sala come vengono serviti.",
+      "en": "The menu lists mixed lamb, capon and boiled veal. Ask the staff how they are served."
+    },
+    "nameEn": "Mixed Lamb / Capon / Boiled Veal",
+    "allergenChecks": [
+      9
+    ]
+  },
+  "cotoletta-di-pollo": {
+    "source": {
+      "name": "Cotoletta di Pollo"
+    },
+    "description": {
+      "it": "Cotoletta di pollo con rivestimento croccante.",
+      "en": "Chicken cutlet with a crisp coating."
+    },
+    "nameEn": "Breaded Chicken Cutlet",
+    "allergenChecks": [
+      1,
+      3,
+      7
+    ]
+  },
+  "frittura-italiana": {
+    "source": {
+      "name": "Frittura Italiana"
+    },
+    "description": {
+      "it": "Assortimento di fritti. Composizione e ingredienti vanno chiesti al personale.",
+      "en": "An assortment of fried bites. Ask the staff about the selection and ingredients."
+    },
+    "nameEn": "Italian Fried Selection",
+    "allergenChecks": [
+      1,
+      3,
+      7
+    ]
+  },
+  "fiorentina-di-nostra-produzione": {
+    "source": {
+      "name": "Fiorentina di Nostra Produzione"
+    },
+    "description": {
+      "it": "Bistecca alla fiorentina di produzione dell’agriturismo, venduta a peso.",
+      "en": "Florentine steak from the farm’s own production, priced by weight."
+    },
+    "nameEn": "Farm-Raised Florentine Steak"
+  },
+  "bistecca-di-vitellone-grigliata-gr-250": {
+    "source": {
+      "name": "Bistecca di Vitellone Grigliata gr. 250"
+    },
+    "description": {
+      "it": "Bistecca di vitellone alla griglia, porzione indicata di 250 g.",
+      "en": "Grilled young beef steak, listed as a 250 g portion."
+    },
+    "nameEn": "Grilled Beef Steak · 250 g"
+  },
+  "patate-arrosto": {
+    "source": {
+      "name": "Patate Arrosto"
+    },
+    "description": {
+      "it": "Patate preparate arrosto.",
+      "en": "Roasted potatoes."
+    },
+    "nameEn": "Roast Potatoes"
+  },
+  "insalata-mista": {
+    "source": {
+      "name": "Insalata Mista"
+    },
+    "description": {
+      "it": "Insalata mista da accompagnare ai secondi. Chiedi in sala le verdure e il condimento del giorno.",
+      "en": "A mixed salad served as a side. Ask about today’s vegetables and dressing."
+    },
+    "nameEn": "Mixed Salad"
+  },
+  "insalata-verde": {
+    "source": {
+      "name": "Insalata Verde"
+    },
+    "description": {
+      "it": "Insalata verde servita come contorno.",
+      "en": "A green salad served as a side."
+    },
+    "nameEn": "Green Salad"
+  },
+  "verdure-gratinate": {
+    "source": {
+      "name": "Verdure Gratinate"
+    },
+    "description": {
+      "it": "Verdure gratinate al forno, con una superficie dorata.",
+      "en": "Oven-gratinated vegetables with a golden topping."
+    },
+    "nameEn": "Oven-Gratinated Vegetables",
+    "allergenChecks": [
+      1,
+      7
+    ]
+  },
+  "tris-di-fritti": {
+    "source": {
+      "name": "Tris di Fritti"
+    },
+    "description": {
+      "it": "Tre assaggi fritti. Chiedi al personale quali sono inclusi.",
+      "en": "Three fried bites. Ask the staff which ones are included."
+    },
+    "nameEn": "Trio of Fried Bites",
+    "allergenChecks": [
+      1,
+      3,
+      7
+    ]
+  },
+  "panna-cotta-fatta-in-casa": {
+    "source": {
+      "name": "Panna Cotta Fatta in Casa"
+    },
+    "description": {
+      "it": "Dolce al cucchiaio a base di panna, preparato in casa.",
+      "en": "A chilled cream dessert made in house."
+    },
+    "nameEn": "Homemade Panna Cotta",
+    "allergenChecks": [
+      7
+    ]
+  },
+  "crema-catalana-fatta-in-casa": {
+    "source": {
+      "name": "Crema Catalana Fatta in Casa"
+    },
+    "description": {
+      "it": "Crema al cucchiaio con la caratteristica superficie di zucchero caramellato.",
+      "en": "A custard dessert with a caramelised sugar top."
+    },
+    "nameEn": "Homemade Crema Catalana",
+    "allergenChecks": [
+      3,
+      7
+    ]
+  },
+  "tiramisu-fatto-in-casa": {
+    "source": {
+      "name": "Tiramisù Fatto in Casa"
+    },
+    "description": {
+      "it": "Dolce della casa al caffè. La versione classica alterna biscotti e crema al mascarpone.",
+      "en": "A house coffee dessert. The classic version layers biscuits and mascarpone cream."
+    },
+    "nameEn": "Homemade Tiramisù",
+    "allergenChecks": [
+      1,
+      3,
+      7
+    ]
+  },
+  "cantucci-con-vinsanto-e-visciole": {
+    "source": {
+      "name": "Cantucci con Vinsanto e Visciole"
+    },
+    "description": {
+      "it": "Biscotti secchi da accompagnare a Vinsanto e visciole. I cantucci tradizionali sono alle mandorle.",
+      "en": "Crisp biscuits served with Vin Santo and sour cherries. Traditional cantucci contain almonds."
+    },
+    "nameEn": "Cantucci with Vin Santo and Sour Cherries",
+    "allergenChecks": [
+      1,
+      3,
+      8,
+      12
+    ]
+  },
+  "degustazione-di-dolci-della-casa": {
+    "source": {
+      "name": "Degustazione di Dolci della Casa"
+    },
+    "description": {
+      "it": "Assaggi di dolci del laboratorio dell’agriturismo. Chiedi in sala la selezione del giorno.",
+      "en": "A selection of desserts from the farm kitchen. Ask about today’s selection."
+    },
+    "nameEn": "House Dessert Tasting",
+    "allergenChecks": [
+      1,
+      3,
+      7,
+      8
+    ]
+  },
+  "coca-cola-1-lt": {
+    "source": {
+      "name": "Coca Cola 1 lt"
+    },
+    "description": {
+      "it": "Bibita gassata alla cola, formato da un litro.",
+      "en": "Carbonated cola in a one-litre format."
+    },
+    "nameEn": "Coca-Cola · 1 L"
+  },
+  "coca-cola-33-cl": {
+    "source": {
+      "name": "Coca Cola 33 cl"
+    },
+    "description": {
+      "it": "Bibita gassata alla cola, formato da 33 cl.",
+      "en": "Carbonated cola in a 330 ml format."
+    },
+    "nameEn": "Coca-Cola · 330 ml"
+  },
+  "fanta-33-cl": {
+    "source": {
+      "name": "Fanta 33 cl"
+    },
+    "description": {
+      "it": "Bibita gassata Fanta nel formato da 33 cl.",
+      "en": "Fanta soft drink in a 330 ml format."
+    },
+    "nameEn": "Fanta · 330 ml"
+  },
+  "coca-cola-zero-33-cl": {
+    "source": {
+      "name": "Coca Cola Zero 33 cl"
+    },
+    "description": {
+      "it": "Coca-Cola Zero, formato da 33 cl.",
+      "en": "Coca-Cola Zero in a 330 ml format."
+    },
+    "nameEn": "Coca-Cola Zero · 330 ml"
+  },
+  "estathe-pesca-33-cl": {
+    "source": {
+      "name": "Estathé Pesca 33 cl"
+    },
+    "description": {
+      "it": "Tè freddo alla pesca, formato da 33 cl.",
+      "en": "Peach iced tea in a 330 ml format."
+    },
+    "nameEn": "Estathé Peach · 330 ml"
+  },
+  "acqua-1-lt": {
+    "source": {
+      "name": "Acqua 1 lt"
+    },
+    "description": {
+      "it": "Acqua nel formato da un litro.",
+      "en": "Water in a one-litre format."
+    },
+    "nameEn": "Water · 1 L"
+  },
+  "beck-s-33-cl": {
+    "source": {
+      "name": "Beck's 33 cl"
+    },
+    "description": {
+      "it": "Birra Beck’s nel formato da 33 cl.",
+      "en": "Beck’s beer in a 330 ml format."
+    },
+    "nameEn": "Beck’s · 330 ml",
+    "allergenChecks": [
+      1
+    ]
+  },
+  "ceres-strong-33-cl": {
+    "source": {
+      "name": "Ceres Strong 33 cl"
+    },
+    "description": {
+      "it": "Birra Ceres Strong nel formato da 33 cl.",
+      "en": "Ceres Strong beer in a 330 ml format."
+    },
+    "nameEn": "Ceres Strong · 330 ml",
+    "allergenChecks": [
+      1
+    ]
+  },
+  "messina-cristalli-di-sale-33-cl": {
+    "source": {
+      "name": "Messina Cristalli di Sale 33 cl"
+    },
+    "description": {
+      "it": "Lager al malto d’orzo con cristalli di sale, nel formato da 33 cl.",
+      "en": "Barley-malt lager with salt crystals, in a 330 ml format."
+    },
+    "nameEn": "Messina Cristalli di Sale · 330 ml",
+    "allergenChecks": [
+      1
+    ]
+  },
+  "ichnusa-66-cl": {
+    "source": {
+      "name": "Ichnusa 66 cl"
+    },
+    "description": {
+      "it": "Birra Ichnusa nel formato da 66 cl.",
+      "en": "Ichnusa beer in a 660 ml format."
+    },
+    "nameEn": "Ichnusa · 660 ml",
+    "allergenChecks": [
+      1
+    ]
+  },
+  "montesilvini-promosso-extra-dry-0-75-lt": {
+    "source": {
+      "name": "Montesilvini Promosso Extra Dry 0,75 lt"
+    },
+    "description": {
+      "it": "Spumante Extra Dry Montesilvini, bottiglia da 75 cl.",
+      "en": "Montesilvini Extra Dry sparkling wine, 750 ml bottle."
+    },
+    "allergenChecks": [
+      12
+    ]
+  },
+  "rosso-dei-forti-dolce-0-75-lt": {
+    "source": {
+      "name": "Rosso Dei Forti Dolce 0,75 lt"
+    },
+    "description": {
+      "it": "Spumante dolce della carta, bottiglia da 75 cl.",
+      "en": "Sweet sparkling wine from the list, 750 ml bottle."
+    },
+    "allergenChecks": [
+      12
+    ]
+  },
+  "mille-bolle-frizzante-0-75-lt": {
+    "source": {
+      "name": "Mille Bolle Frizzante 0,75 lt"
+    },
+    "description": {
+      "it": "Vino frizzante Mille Bolle, bottiglia da 75 cl.",
+      "en": "Mille Bolle lightly sparkling wine, 750 ml bottle."
+    },
+    "allergenChecks": [
+      12
+    ]
+  },
+  "vino-bianco-marche-igp-passione-di-peco-0-75-lt": {
+    "source": {
+      "name": "Vino Bianco Marche IGP Passione di Peco 0,75 lt"
+    },
+    "description": {
+      "it": "Bianco Marche IGP della carta, bottiglia da 75 cl.",
+      "en": "Marche IGP white wine, 750 ml bottle."
+    },
+    "allergenChecks": [
+      12
+    ]
+  },
+  "chardonnay-marche-igp-0-75-lt": {
+    "source": {
+      "name": "Chardonnay Marche IGP 0,75 lt"
+    },
+    "description": {
+      "it": "Chardonnay Marche IGP, bottiglia da 75 cl.",
+      "en": "Marche IGP Chardonnay, 750 ml bottle."
+    },
+    "allergenChecks": [
+      12
+    ]
+  },
+  "vino-rosato-marche-igp-0-75-lt": {
+    "source": {
+      "name": "Vino Rosato Marche IGP 0,75 lt"
+    },
+    "description": {
+      "it": "Rosato Marche IGP, bottiglia da 75 cl.",
+      "en": "Marche IGP rosé, 750 ml bottle."
+    },
+    "allergenChecks": [
+      12
+    ]
+  },
+  "verdicchio-class-le-barbatelle-doc-0-75-lt": {
+    "source": {
+      "name": "Verdicchio Class Le Barbatelle DOC 0,75 lt"
+    },
+    "description": {
+      "it": "Verdicchio DOC Le Barbatelle, bottiglia da 75 cl.",
+      "en": "Le Barbatelle Verdicchio DOC, 750 ml bottle."
+    },
+    "allergenChecks": [
+      12
+    ]
+  },
+  "passerina-le-barbatelle-igp-0-75-lt": {
+    "source": {
+      "name": "Passerina Le Barbatelle IGP 0,75 lt"
+    },
+    "description": {
+      "it": "Passerina IGP Le Barbatelle, bottiglia da 75 cl.",
+      "en": "Le Barbatelle Passerina IGP, 750 ml bottle."
+    },
+    "allergenChecks": [
+      12
+    ]
+  },
+  "pecorino-le-barbatelle-igp-0-75-lt": {
+    "source": {
+      "name": "Pecorino Le Barbatelle IGP 0,75 lt"
+    },
+    "description": {
+      "it": "Pecorino IGP Le Barbatelle, bottiglia da 75 cl.",
+      "en": "Le Barbatelle Pecorino IGP, 750 ml bottle."
+    },
+    "allergenChecks": [
+      12
+    ]
+  },
+  "rosso-conero-doc-piancarda-garofoli-0-75-lt": {
+    "source": {
+      "name": "Rosso Conero DOC Piancarda Garofoli 0,75 lt"
+    },
+    "description": {
+      "it": "Piancarda Rosso Conero DOC di Garofoli, da uve Montepulciano, bottiglia da 75 cl.",
+      "en": "Garofoli’s Piancarda Rosso Conero DOC, made from Montepulciano grapes, 750 ml bottle."
+    },
+    "allergenChecks": [
+      12
+    ]
+  },
+  "lacrima-di-morro-d-alba-le-barbatelle-0-75-lt": {
+    "source": {
+      "name": "Lacrima di Morro d'Alba Le Barbatelle 0,75 lt"
+    },
+    "description": {
+      "it": "Lacrima di Morro d’Alba Le Barbatelle, bottiglia da 75 cl.",
+      "en": "Le Barbatelle Lacrima di Morro d’Alba, 750 ml bottle."
+    },
+    "allergenChecks": [
+      12
+    ]
+  },
+  "rosso-conero-le-barbatelle-0-75-lt": {
+    "source": {
+      "name": "Rosso Conero Le Barbatelle 0,75 lt"
+    },
+    "description": {
+      "it": "Rosso Conero Le Barbatelle, bottiglia da 75 cl.",
+      "en": "Le Barbatelle Rosso Conero, 750 ml bottle."
+    },
+    "allergenChecks": [
+      12
+    ]
+  },
+  "passerina-1-lt": {
+    "source": {
+      "name": "Passerina 1 lt"
+    },
+    "description": {
+      "it": "Passerina della casa, formato da un litro.",
+      "en": "House Passerina, one-litre serving."
+    },
+    "nameEn": "House Passerina · 1 L",
+    "allergenChecks": [
+      12
+    ]
+  },
+  "rosso-marche-1-lt": {
+    "source": {
+      "name": "Rosso Marche 1 lt"
+    },
+    "description": {
+      "it": "Rosso Marche della casa, formato da un litro.",
+      "en": "House Marche red wine, one-litre serving."
+    },
+    "nameEn": "House Marche Red · 1 L",
+    "allergenChecks": [
+      12
+    ]
+  },
+  "fernet-branca": {
+    "source": {
+      "name": "Fernet Branca"
+    },
+    "description": {
+      "it": "Amaro Fernet-Branca, dal gusto marcatamente erbaceo.",
+      "en": "Fernet-Branca, a distinctly herbal bitter."
+    }
+  },
+  "amaro-del-capo": {
+    "source": {
+      "name": "Amaro del Capo"
+    },
+    "description": {
+      "it": "Amaro Del Capo, liquore da fine pasto.",
+      "en": "Amaro Del Capo, an after-dinner bitter liqueur."
+    }
+  },
+  "amaro-montenegro": {
+    "source": {
+      "name": "Amaro Montenegro"
+    },
+    "description": {
+      "it": "Amaro Montenegro, liquore aromatico da fine pasto.",
+      "en": "Amaro Montenegro, an aromatic after-dinner bitter."
+    }
+  },
+  "limone-brotto": {
+    "source": {
+      "name": "Limone Brotto"
+    },
+    "description": {
+      "it": "Liquore al limone indicato in carta come Limone Brotto.",
+      "en": "Lemon liqueur listed as Limone Brotto."
+    }
+  },
+  "diciotto-lune-marzadro": {
+    "source": {
+      "name": "Diciotto Lune Marzadro"
+    },
+    "description": {
+      "it": "Grappa invecchiata Diciotto Lune di Marzadro.",
+      "en": "Diciotto Lune aged grappa from Marzadro."
+    }
+  },
+  "candolini": {
+    "source": {
+      "name": "Candolini"
+    },
+    "description": {
+      "it": "Grappa Candolini. Chiedi al personale quale variante è servita.",
+      "en": "Candolini grappa. Ask the staff which expression is served."
+    }
+  }
+}

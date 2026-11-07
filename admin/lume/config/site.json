@@ -1,0 +1,128 @@
+{
+  "schemaVersion": 2,
+  "restaurant": {
+    "name": "Giuggioloni",
+    "tagline": {
+      "it": "I SAPORI DELL’ACQUAVIVA",
+      "en": "I SAPORI DELL’ACQUAVIVA"
+    },
+    "location": {
+      "it": "Osimo, Marche",
+      "en": "Osimo, Marche"
+    },
+    "description": {
+      "it": "Agriturismo e ristorante a Osimo. Pasta fresca, carni della nostra filiera e ricette della tradizione marchigiana.",
+      "en": "Farm restaurant in Osimo, with fresh pasta, meat from our own farm and traditional Marche dishes."
+    },
+    "coverCharge": 1.5,
+    "currency": "EUR",
+    "timezone": "Europe/Rome",
+    "hours": {
+      "it": "Venerdì a cena · sabato e domenica 11:30–15:00 e 19:00–23:00",
+      "en": "Friday dinner · Saturday and Sunday 11:30–15:00 and 19:00–23:00"
+    },
+    "closed": {
+      "it": "Da lunedì a giovedì",
+      "en": "Monday to Thursday"
+    },
+    "address": null,
+    "phone": null,
+    "email": null,
+    "reservationUrl": "https://agriturismogiuggioloni.it/menu/#contatti",
+    "mapsUrl": null,
+    "landingUrl": "https://agriturismogiuggioloni.it/",
+    "logo": null
+  },
+  "languages": [
+    "it",
+    "en"
+  ],
+  "defaultLanguage": "it",
+  "isDemo": false,
+  "contentReviewed": false,
+  "updatedAt": "2026-11-07",
+  "baseUrl": "https://agriturismogiuggioloni.it",
+  "menuPath": "/lume/",
+  "seo": {
+    "indexable": false,
+    "title": {
+      "it": "Menù digitale · Agriturismo Giuggioloni",
+      "en": "Digital menu · Agriturismo Giuggioloni"
+    },
+    "description": {
+      "it": "La carta digitale dell’Agriturismo Giuggioloni a Osimo, con piatti, menù fissi e vini.",
+      "en": "The digital menu of Agriturismo Giuggioloni in Osimo, with dishes, set menus and wines."
+    },
+    "image": "og-image-1200x630.png"
+  },
+  "branding": {
+    "preset": "osteria",
+    "light": {
+      "paper": "#f8f8f3",
+      "surface": "#ffffff",
+      "ink": "#193d32",
+      "muted": "#59685e",
+      "accent": "#bb3e1f",
+      "line": "#d9e0d4",
+      "soft": "#ebf0e7"
+    },
+    "dark": {
+      "paper": "#101a17",
+      "surface": "#18241f",
+      "ink": "#e5eee6",
+      "muted": "#acb9af",
+      "accent": "#ff9673",
+      "line": "#35473b",
+      "soft": "#24392c"
+    },
+    "typography": "serif"
+  },
+  "features": {
+    "featured": true,
+    "favorites": true,
+    "print": true,
+    "showUnavailable": true,
+    "compactQr": true,
+    "allergenGuide": true
+  },
+  "featured": {
+    "id": "tagliatella-al-ragu-di-papera",
+    "title": {
+      "it": "La sfoglia, fatta a mano.",
+      "en": "Fresh pasta, rolled by hand."
+    },
+    "caption": {
+      "it": "Il raccolto dell’Acquaviva",
+      "en": "The Acquaviva harvest"
+    }
+  },
+  "editorial": {
+    "intro": {
+      "it": "Buon appetito.",
+      "en": "Enjoy your meal."
+    },
+    "subtitle": {
+      "it": "Dalla nostra azienda agricola alla tua tavola.",
+      "en": "From our farm to your table."
+    },
+    "sideNote": {
+      "it": "Dal seme alla tavola.",
+      "en": "From seed to table."
+    },
+    "ending": {
+      "it": "Le cose buone meritano il loro tempo.",
+      "en": "Good things deserve their time."
+    },
+    "endingSub": {
+      "it": "Chiedici un consiglio, siamo qui per te.",
+      "en": "Ask us for a recommendation. We are here for you."
+    }
+  },
+  "privacy": {
+    "notice": {
+      "it": "Questa pagina non usa strumenti di analisi o pubblicità. Tema e preferiti sono salvati soltanto sul dispositivo.",
+      "en": "This page does not use analytics or advertising tools. Theme and favourites are stored only on this device."
+    },
+    "policyUrl": null
+  }
+}

@@ -1,6 +1,7 @@
 import { createServer } from 'node:http';
 import { createHash, timingSafeEqual } from 'node:crypto';
 import { readFile } from 'node:fs/promises';
+import { buildLume } from './lume/build.mjs';
 import { updateMenuPage, validMenu } from './menu-page.mjs';
 
 const password = process.env.ADMIN_PASSWORD;
@@ -70,6 +71,12 @@ async function publishMenu(menu, expectedSha) {
   const homeHtml = decode(home);
   if (homeHtml.includes('<!-- MENU-CONTENT:START -->')) {
     entries.push({ path: 'index.html', mode: '100644', type: 'blob', content: updateMenuPage(homeHtml, menu, { preview: true }) });
+  }
+  if (Array.isArray(menu.categories)) {
+    const data = JSON.parse(decode(await contents('dati.json', head)));
+    for (const [path, content] of await buildLume(menu, data)) {
+      entries.push({ path, mode: '100644', type: 'blob', content });
+    }
   }
   const tree = await github('/git/trees', 'POST', {
     base_tree: base.tree.sha,

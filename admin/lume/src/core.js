@@ -1,0 +1,113 @@
+'use strict';
+(function(root,factory){if(typeof module==='object'&&module.exports)module.exports=factory();else root.LumeMenuCore=factory();})(typeof window==='object'?window:globalThis,function(){
+  const own=(o,k)=>Object.prototype.hasOwnProperty.call(o,k);
+  const escape=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const localize=(v,lang='it')=>typeof v==='string'?v:(v?.[lang]??v?.it??'');
+  const normalize=value=>String(value??'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLocaleLowerCase().replace(/[^\p{L}\p{N}]+/gu,' ').trim();
+  const validDate=v=>typeof v==='string'&&/^\d{4}-\d{2}-\d{2}$/.test(v)&&!Number.isNaN(Date.parse(v+'T00:00:00Z'))&&new Date(v+'T00:00:00Z').toISOString().slice(0,10)===v;
+  function validate(site,menu){
+    const errors=[];const list=v=>Array.isArray(v)?v:[];const need=(ok,msg)=>{if(!ok)errors.push(msg);};
+    const languages=Array.isArray(site?.languages)?site.languages:[];
+    const localized=(v,path)=>languages.forEach(lang=>need(v&&typeof v==='object'&&typeof v[lang]==='string'&&v[lang].trim(),path+': traduzione '+lang+' mancante'));
+    const amount=(v,path)=>need(typeof v==='number'&&Number.isFinite(v)&&v>=0&&Math.abs(v*100-Math.round(v*100))<1e-6,path+': prezzo non valido (usa un numero, es. 12.50)');
+    const asset=(v,path)=>{if(v!=null)need(typeof v==='string'&&/^assets\/[a-zA-Z0-9_./-]+$/.test(v)&&!v.includes('..'),path+': percorso immagine non valido');};
+    need(site?.schemaVersion===2&&menu?.schemaVersion===2,'schemaVersion deve essere 2');
+    need(languages.length>0&&languages.every(l=>['it','en'].includes(l))&&new Set(languages).size===languages.length,'Lingue consentite: it, en');
+    need(languages.includes(site?.defaultLanguage),'Lingua predefinita non abilitata');
+    need(typeof site?.restaurant?.name==='string'&&site.restaurant.name.trim(),'Nome ristorante mancante');
+    try{new Intl.DateTimeFormat('en',{timeZone:site.restaurant.timezone}).format();}catch(_){errors.push('Fuso orario non valido');}
+    try{const url=new URL(site.baseUrl);need(url.protocol==='https:'&&url.origin===site.baseUrl.replace(/\/$/,''),'baseUrl deve essere un dominio HTTPS senza percorso');}catch(_){errors.push('baseUrl non valido');}
+    need(typeof site?.menuPath==='string'&&/^\/[a-zA-Z0-9_/-]+\/$/.test(site.menuPath)&&!site.menuPath.includes('..'),'menuPath deve essere un percorso, es. /menu/');
+    need(validDate(site?.updatedAt),'updatedAt deve essere una data valida YYYY-MM-DD');
+    need(typeof site?.isDemo==='boolean','isDemo deve essere true o false');
+    const guide=site?.features?.allergenGuide===true&&site?.seo?.indexable===false;
+    need(site?.isDemo||site?.contentReviewed===true||guide,'Per un locale reale imposta contentReviewed:true dopo la verifica');
+    need(!(site?.isDemo&&site?.seo?.indexable),'La demo non può essere indicizzabile: imposta seo.indexable:false');
+    for(const field of ['tagline','location','description','hours','closed'])localized(site?.restaurant?.[field],'restaurant.'+field);
+    amount(site?.restaurant?.coverCharge,'restaurant.coverCharge');
+    need(typeof site?.restaurant?.currency==='string'&&/^[A-Z]{3}$/.test(site.restaurant.currency),'Valuta non valida');
+    try{new Intl.NumberFormat('it',{style:'currency',currency:site.restaurant.currency});}catch(_){errors.push('Valuta non supportata');}
+    for(const field of ['landingUrl','reservationUrl','mapsUrl']){const v=site?.restaurant?.[field];if(v!=null)try{const u=new URL(v,site.baseUrl);need(u.protocol==='https:','restaurant.'+field+': URL HTTPS richiesto');}catch(_){errors.push('restaurant.'+field+': URL non valido');}}
+    if(site?.restaurant?.phone!=null)need(/^\+?[0-9 ()-]{5,25}$/.test(site.restaurant.phone),'Telefono non valido');
+    if(site?.restaurant?.email!=null)need(/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(site.restaurant.email),'Email non valida');
+    asset(site?.restaurant?.logo,'restaurant.logo');
+    for(const field of ['title','description'])localized(site?.seo?.[field],'seo.'+field);
+    for(const field of ['intro','subtitle','sideNote','ending','endingSub'])localized(site?.editorial?.[field],'editorial.'+field);
+    localized(site?.privacy?.notice,'privacy.notice');
+    if(site?.privacy?.policyUrl!=null)try{need(new URL(site.privacy.policyUrl,site.baseUrl).protocol==='https:','URL informativa non valido');}catch(_){errors.push('URL informativa non valido');}
+    for(const theme of ['light','dark'])for(const key of ['paper','surface','ink','muted','accent','line','soft'])need(/^#[0-9a-f]{6}$/i.test(site?.branding?.[theme]?.[key]),'branding.'+theme+'.'+key+': colore hex richiesto');
+    const categories=Array.isArray(menu?.categories)?menu.categories:[];
+    const allergenList=Array.isArray(menu?.allergens)?menu.allergens:[];
+    const items=Array.isArray(menu?.items)?menu.items:[];
+    const fixed=Array.isArray(menu?.fixedMenus)?menu.fixedMenus:[];
+    need(guide||(categories.length>0&&items.length>0),'Categorie e piatti sono obbligatori');
+    const categoryIds=new Set();const itemIds=new Set();const allergyIds=new Set();
+    const id=(v,path,set)=>{need(typeof v==='string'&&/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(v),path+': identificativo non valido');need(!set.has(v),path+': identificativo duplicato '+v);set.add(v);};
+    categories.forEach((c,i)=>{if(!c||typeof c!=='object'){errors.push('Categoria non valida');return;}id(c.id,'categorie['+i+']',categoryIds);need(['food','wine','drink','fixed'].includes(c.type),'Tipo categoria non valido: '+c.id);localized(c.name,c.id+'.name');localized(c.subtitle,c.id+'.subtitle');need(['cards','list'].includes(c.layout),'Layout categoria non valido');});
+    allergenList.forEach(a=>{if(!a||typeof a!=='object'){errors.push('Allergene non valido');return;}need(Number.isInteger(a.id)&&a.id>=1&&a.id<=14&&!allergyIds.has(a.id),'Identificativo allergene non valido o duplicato');allergyIds.add(a.id);localized(a.name,'allergene '+a.id);localized(a.description,'descrizione allergene '+a.id);});
+    need(allergyIds.size===14,'La legenda deve comprendere i 14 gruppi di allergeni');
+    const allergy=(entry,path)=>{need(entry.allergensStatus==='verified'||(guide&&entry.allergensStatus==='unknown'&&entry.allergens?.length===0),path+': allergeni da verificare');if(entry.allergenChecks!=null)need(Array.isArray(entry.allergenChecks)&&entry.allergenChecks.every(a=>allergyIds.has(a)),path+': allergeni da controllare non validi');need(Array.isArray(entry.allergens),path+': elenco allergeni mancante');if(Array.isArray(entry.allergens)){need(entry.allergens.every(a=>Number.isInteger(a)&&allergyIds.has(a)),path+': identificativo allergene sconosciuto o formato errato');need(new Set(entry.allergens).size===entry.allergens.length,path+': allergeni duplicati');}};
+    const schedule=(v,path)=>{if(!v)return;need(typeof v==='object'&&!Array.isArray(v),path+': calendario non valido');if(v.days!=null)need(Array.isArray(v.days)&&v.days.length>0&&v.days.every(d=>Number.isInteger(d)&&d>=1&&d<=7),path+': giorni da 1 (lunedì) a 7');for(const k of ['from','until'])if(v[k]!=null)need(validDate(v[k]),path+'.'+k+': data non valida');if(validDate(v.from)&&validDate(v.until))need(v.from<=v.until,path+': intervallo di date invertito');if(v.times!=null)need(Array.isArray(v.times)&&v.times.length>0&&v.times.every(t=>t&&/^([01]\d|2[0-3]):[0-5]\d$/.test(t.start)&&/^([01]\d|2[0-3]):[0-5]\d$/.test(t.end)&&t.start!==t.end),path+': fasce orarie non valide');};
+    const common=(entry,path)=>{localized(entry.name,path+'.name');localized(entry.description,path+'.description');amount(entry.price,path+'.price');need(['available','sold-out','suspended','seasonal'].includes(entry.status),path+': stato non valido');schedule(entry.schedule,path+'.schedule');if(entry.minPeople!=null)need(Number.isInteger(entry.minPeople)&&entry.minPeople>0,path+': minimo persone non valido');if(entry.reservationRequired!=null)need(typeof entry.reservationRequired==='boolean',path+': prenotazione non valida');if(entry.audience!=null)need(['all','children'].includes(entry.audience),path+': destinatari non validi');if(entry.diet!=null)need(['vegetarian','vegan'].includes(entry.diet),path+': preferenza alimentare non valida');if(entry.badges!=null)need(Array.isArray(entry.badges)&&entry.badges.every(b=>['house','recommended','popular'].includes(b)),path+': badge sconosciuto');};
+    items.forEach((entry,index)=>{if(!entry||typeof entry!=='object'){errors.push('Voce non valida');return;}const path='piatto '+(entry.id??index);id(entry.id,path,itemIds);common(entry,path);const c=categories.find(c=>c?.id===entry.category);need(Boolean(c)&&c.type===entry.kind&&c.type!=='fixed',path+': categoria o tipo non valido');allergy(entry,path);need(Array.isArray(entry.ingredients),path+': ingredienti mancanti');list(entry.ingredients).forEach((x,i)=>localized(x,path+'.ingredienti['+i+']'));asset(entry.image,path+'.image');need(['portion','bottle','person','100g','kg'].includes(entry.priceUnit),path+': unità prezzo non valida');if(entry.glassPrice!=null)amount(entry.glassPrice,path+'.glassPrice');if(entry.kind==='wine'){need(['red','white','sparkling','rose'].includes(entry.wineType)||(guide&&entry.wineType==null),path+': tipo vino non valido');if(!guide||entry.producer)localized(entry.producer,path+'.producer');need(typeof entry.volume==='string'&&(guide||entry.volume.trim()),path+': formato bottiglia mancante');if(entry.pairing)localized(entry.pairing,path+'.pairing');}
+      for(const key of ['variants','supplements']){const options=entry[key];if(options!=null){need(Array.isArray(options),path+'.'+key+': elenco richiesto');const ids=new Set();if(Array.isArray(options))options.forEach(o=>{if(!o||typeof o!=='object'){errors.push(path+': opzione non valida');return;}id(o.id,path+'.'+key,ids);localized(o.label,path+'.'+key+'.label');amount(o.price,path+'.'+key+'.price');allergy(o,path+'.'+key+'.'+o.id);list(o.ingredients).forEach(x=>localized(x,path+'.'+key+'.ingredients'));});}}
+    });
+    const byId=new Map(items.filter(Boolean).map(i=>[i.id,i]));
+    items.filter(Boolean).forEach(i=>list(i.pairingIds).forEach(ref=>need(byId.has(ref),'Abbinamento inesistente: '+ref)));
+    fixed.forEach((entry,index)=>{if(!entry||typeof entry!=='object'){errors.push('Menù fisso non valido');return;}const path='menù '+(entry.id??index);id(entry.id,path,itemIds);common(entry,path);if(guide)allergy(entry,path);else need(entry.allergensStatus==='verified',path+': stato allergeni da verificare');need(Array.isArray(entry.courses)&&(guide||entry.courses.length>0),path+': portate mancanti');list(entry.courses).forEach(c=>{if(!c||typeof c!=='object'){errors.push(path+': portata non valida');return;}localized(c.label,path+'.portata');need(['all','choice'].includes(c.mode),path+': modalità portata non valida');need(Array.isArray(c.itemIds)&&(c.itemIds.length>0||(guide&&c.mode==='all'))&&c.itemIds.every(id=>byId.has(id)&&byId.get(id).kind==='food'),path+': riferimento portata mancante o non alimentare');if(c.mode==='choice')need(Number.isInteger(c.choose)&&c.choose>0&&c.choose<=list(c.itemIds).length,path+': numero di scelte non valido');});need(Array.isArray(entry.inclusions),path+': inclusioni mancanti');list(entry.inclusions).forEach(x=>{if(!x||typeof x!=='object'){errors.push(path+': inclusione non valida');return;}localized(x.name,path+'.inclusione');localized(x.description,path+'.inclusione.description');allergy(x,path+'.inclusione');need(Array.isArray(x.ingredients),path+': ingredienti inclusione mancanti');list(x.ingredients).forEach(v=>localized(v,path+'.inclusione.ingredients'));});if(entry.extraAllergens!=null)need(Array.isArray(entry.extraAllergens)&&entry.extraAllergens.every(x=>Number.isInteger(x)&&allergyIds.has(x)),path+': allergeni extra non validi');});
+    if(fixed.length)need(categories.some(c=>c?.type==='fixed'),'Categoria menù fissi mancante');
+    if(site?.features?.featured){need(byId.has(site?.featured?.id),'Piatto in evidenza inesistente');localized(site?.featured?.title,'featured.title');localized(site?.featured?.caption,'featured.caption');}
+    return errors;
+  }
+  function localParts(date,timezone){const parts=new Intl.DateTimeFormat('en-GB',{timeZone:timezone,year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',weekday:'short',hourCycle:'h23'}).formatToParts(date);const p=Object.fromEntries(parts.map(x=>[x.type,x.value]));return {date:p.year+'-'+p.month+'-'+p.day,day:{Mon:1,Tue:2,Wed:3,Thu:4,Fri:5,Sat:6,Sun:7}[p.weekday],minutes:Number(p.hour)*60+Number(p.minute)};}
+  const minutes=t=>Number(t.slice(0,2))*60+Number(t.slice(3));
+  function inSchedule(schedule,date=new Date(),timezone='Europe/Rome'){
+    if(!schedule)return true;const p=localParts(date,timezone);
+    const dayAllowed=(day,dayDate)=>!((schedule.from&&dayDate<schedule.from)||(schedule.until&&dayDate>schedule.until))&&(!schedule.days||schedule.days.includes(day));
+    if(!schedule.times)return dayAllowed(p.day,p.date);
+    return schedule.times.some(t=>{const a=minutes(t.start),b=minutes(t.end);if(a<b)return dayAllowed(p.day,p.date)&&p.minutes>=a&&p.minutes<b;
+      if(p.minutes>=a)return dayAllowed(p.day,p.date);
+      const yesterday=new Date(p.date+'T12:00:00Z');yesterday.setUTCDate(yesterday.getUTCDate()-1);return p.minutes<b&&dayAllowed(p.day===1?7:p.day-1,yesterday.toISOString().slice(0,10));});
+  }
+  function availability(entry,date,timezone){if(entry.status==='suspended')return 'suspended';if(entry.status==='sold-out')return 'sold-out';if(!inSchedule(entry.schedule,date,timezone))return entry.status==='seasonal'?'seasonal':'scheduled';return 'available';}
+  function isVisible(item,site){return Boolean(item)&&item.availabilityState!=='suspended'&&(site.features.showUnavailable||item.availabilityState==='available');}
+  function prepare(site,menu,lang='it',date=new Date()){
+    const categories=menu.categories.map(c=>({...c,name:localize(c.name,lang),subtitle:localize(c.subtitle,lang)}));
+    const allergens=menu.allergens.map(a=>({...a,name:localize(a.name,lang),description:localize(a.description,lang)}));
+    const allergyIds=entry=>[...new Set([...(entry.allergens||[]),...(entry.variants||[]).flatMap(x=>x.allergens||[]),...(entry.supplements||[]).flatMap(x=>x.allergens||[])])].sort((a,b)=>a-b);
+    const items=menu.items.map(i=>({...i,name:localize(i.name,lang),description:localize(i.description,lang),ingredients:i.ingredients.map(x=>localize(x,lang)),note:localize(i.note,lang),badge:localize(i.badge,lang),producer:localize(i.producer,lang),pairing:localize(i.pairing,lang),variants:(i.variants||[]).map(x=>({...x,label:localize(x.label,lang),ingredients:(x.ingredients||[]).map(v=>localize(v,lang))})),supplements:(i.supplements||[]).map(x=>({...x,label:localize(x.label,lang),ingredients:(x.ingredients||[]).map(v=>localize(v,lang))})),allergens:allergyIds(i),availabilityState:availability(i,date,site.restaurant.timezone)}));
+    const byId=new Map(items.filter(Boolean).map(i=>[i.id,i]));
+    const fixedCategory=categories.find(c=>c.type==='fixed');
+    const fixed=menu.fixedMenus.map(m=>{const courses=m.courses.map(c=>({...c,label:localize(c.label,lang),items:c.itemIds.map(id=>byId.get(id))}));const inclusions=m.inclusions.map(x=>({...x,name:localize(x.name,lang),description:localize(x.description,lang),ingredients:x.ingredients.map(v=>localize(v,lang))}));const all=courses.flatMap(c=>c.items);let state=availability(m,date,site.restaurant.timezone);if(state==='available'&&courses.some(c=>c.mode==='choice'?c.items.filter(i=>i.availabilityState==='available').length<c.choose:c.items.some(i=>i.availabilityState!=='available')))state='unavailable';return {...m,kind:'fixed',category:fixedCategory?.id,name:localize(m.name,lang),description:localize(m.description,lang),availability:localize(m.availability,lang),conditions:localize(m.conditions,lang),priceUnit:'person',courses,inclusions,ingredients:[...new Set([...all.flatMap(i=>i.ingredients),...inclusions.flatMap(i=>i.ingredients)])],allergens:[...new Set([...all.flatMap(i=>i.allergens),...inclusions.flatMap(i=>i.allergens),...(m.extraAllergens||[])])].sort((a,b)=>a-b),courseCount:courses.reduce((n,c)=>n+(c.mode==='choice'?c.choose:Math.max(1,c.items.length)),0),availabilityState:state};});
+    return {site,categories,allergens,items:[...items,...fixed],lang};
+  }
+  function effectivePrice(item,basis='bottle'){if(item.kind==='wine'&&basis==='glass')return item.glassPrice??null;const options=(item.variants||[]).map(x=>x.price);return Math.min(item.price,...options);}
+  function editDistance(a,b){if(Math.abs(a.length-b.length)>1)return 2;let prev=Array.from({length:b.length+1},(_,i)=>i);for(let i=1;i<=a.length;i++){const row=[i];for(let j=1;j<=b.length;j++)row[j]=Math.min(row[j-1]+1,prev[j]+1,prev[j-1]+(a[i-1]===b[j-1]?0:1));prev=row;}return prev[b.length];}
+  function searchMatch(item,query,categories,allergens,badgeLabels={}){
+    const tokens=normalize(query).split(/\s+/).filter(Boolean);if(!tokens.length)return {matched:true,score:0,field:null,fuzzy:false};
+    const fields={name:normalize([item.name,...(item.aliases||[])].join(' ')),ingredients:normalize((item.ingredients||[]).join(' ')),description:normalize([item.description,categories.find(c=>c?.id===item.category)?.name,item.region,item.grapes,item.vintage,item.producer,item.note,item.badge,item.availability,item.conditions,...(item.badges||[]).map(x=>badgeLabels[x]),...item.allergens.map(id=>allergens.find(a=>a.id===id)?.name),...(item.courses||[]).flatMap(c=>c.items.map(i=>i.name)),...(item.inclusions||[]).map(x=>x.name)].join(' ')),pairing:normalize(item.pairing)};
+    let score=0,field=null,fuzzy=false;
+    for(const token of tokens){const found=Object.entries(fields).find(([,value])=>value.includes(token));if(found){const [key]=found;score+=key==='name'?100:key==='ingredients'?60:key==='description'?25:10;field=field||key;}else if(token.length>=5&&fields.name.split(' ').some(word=>editDistance(token,word)===1)){score+=15;fuzzy=true;field=field||'name';}else return {matched:false,score:0,field:null,fuzzy:false};}
+    return {matched:true,score,field,fuzzy};
+  }
+  function select(prepared,state,{ignoreCategory=false,date=new Date()}={}){
+    const matches=[];for(const item of prepared.items){item.availabilityState=availability(item,date,prepared.site.restaurant.timezone);if(item.kind==='fixed'&&item.availabilityState==='available'&&item.courses.some(c=>c.mode==='choice'?c.items.filter(i=>availability(i,date,prepared.site.restaurant.timezone)==='available').length<c.choose:c.items.some(i=>availability(i,date,prepared.site.restaurant.timezone)!=='available')))item.availabilityState='unavailable';
+      if(!isVisible(item,prepared.site))continue;
+      if(!ignoreCategory&&state.category!=='all'&&item.category!==state.category)continue;
+      if(state.diet==='vegetarian'&&!['vegetarian','vegan'].includes(item.diet))continue;
+      if(state.diet==='vegan'&&item.diet!=='vegan')continue;
+      if((state.exclusions||[]).length&&(item.allergensStatus!=='verified'||item.allergens.some(a=>state.exclusions.includes(a))))continue;
+      if(state.wineType!=='all'&&item.kind==='wine'&&item.wineType!==state.wineType)continue;
+      if(state.onlyAvailable&&item.availabilityState!=='available')continue;
+      if(state.favoritesOnly&&!(state.favorites||[]).includes(item.id))continue;
+      const p=effectivePrice(item,state.priceBasis);if(state.maxPrice!=null&&(p==null||p>state.maxPrice))continue;
+      const result=searchMatch(item,state.query,prepared.categories,prepared.allergens,state.badgeLabels);if(!result.matched)continue;matches.push({...item,searchResult:result,comparisonPrice:p});
+    }
+    if(state.sort==='price-asc')matches.sort((a,b)=>(a.comparisonPrice??Infinity)-(b.comparisonPrice??Infinity));else if(state.sort==='price-desc')matches.sort((a,b)=>(b.comparisonPrice??-Infinity)-(a.comparisonPrice??-Infinity));else if(state.sort==='name')matches.sort((a,b)=>a.name.localeCompare(b.name,prepared.lang));else if(state.query.trim())matches.sort((a,b)=>b.searchResult.score-a.searchResult.score);return matches;
+  }
+  const defaults=()=>({category:'all',diet:'all',exclusions:[],wineType:'all',query:'',maxPrice:null,sort:'menu',priceBasis:'bottle',onlyAvailable:false,favoritesOnly:false,favorites:[],badgeLabels:{}});
+  function changeCategory(state,id,categories){state.category=id;state.wineType='all';if(['wine','drink'].includes(categories.find(c=>c?.id===id)?.type))state.diet='all';return state;}
+  function stateFromUrl(url,categories){const s=defaults(),p=new URL(url,'https://example.test').searchParams;const cat=p.get('category');if(categories.some(c=>c.id===cat))s.category=cat;s.query=(p.get('q')||'').slice(0,120);if(['vegetarian','vegan'].includes(p.get('diet')))s.diet=p.get('diet');if(['red','white','sparkling','rose'].includes(p.get('wine')))s.wineType=p.get('wine');if(p.get('basis')==='glass')s.priceBasis='glass';if(p.has('max')&&p.get('max')!==''&&Number.isFinite(Number(p.get('max')))&&Number(p.get('max'))>=0)s.maxPrice=Number(p.get('max'));if(['price-asc','price-desc','name'].includes(p.get('sort')))s.sort=p.get('sort');s.exclusions=(p.get('exclude')||'').split(',').filter(Boolean).map(Number).filter(n=>Number.isInteger(n)&&n>=1&&n<=14);s.exclusions=[...new Set(s.exclusions)];s.onlyAvailable=p.get('available')==='1';s.favoritesOnly=p.get('favorites')==='1';if(['wine','drink'].includes(categories.find(c=>c.id===s.category)?.type))s.diet='all';return s;}
+  function urlForState(url,state,dishId=null){const u=new URL(url,'https://example.test');for(const key of ['category','q','diet','wine','basis','max','sort','exclude','available','favorites','dish'])u.searchParams.delete(key);if(state.category!=='all')u.searchParams.set('category',state.category);if(state.query)u.searchParams.set('q',state.query);if(state.diet!=='all')u.searchParams.set('diet',state.diet);if(state.wineType!=='all')u.searchParams.set('wine',state.wineType);if(state.priceBasis==='glass')u.searchParams.set('basis','glass');if(state.maxPrice!=null)u.searchParams.set('max',String(state.maxPrice));if(state.sort!=='menu')u.searchParams.set('sort',state.sort);if(state.exclusions.length)u.searchParams.set('exclude',state.exclusions.join(','));if(state.onlyAvailable)u.searchParams.set('available','1');if(state.favoritesOnly)u.searchParams.set('favorites','1');if(dishId)u.searchParams.set('dish',dishId);return u;}
+  return {escape,localize,normalize,validate,prepare,availability,isVisible,inSchedule,localParts,effectivePrice,searchMatch,select,defaults,changeCategory,stateFromUrl,urlForState,validDate};
+});

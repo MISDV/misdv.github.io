@@ -1,0 +1,156 @@
+[
+  {
+    "id": 1,
+    "name": {
+      "it": "Cereali contenenti glutine",
+      "en": "Cereals containing gluten"
+    },
+    "description": {
+      "it": "Cereali contenenti glutine e prodotti derivati.",
+      "en": "Wheat, rye, barley, oats, spelt, khorasan wheat and products thereof."
+    }
+  },
+  {
+    "id": 2,
+    "name": {
+      "it": "Crostacei",
+      "en": "Crustaceans"
+    },
+    "description": {
+      "it": "Crostacei e prodotti a base di crostacei.",
+      "en": "Crustaceans and products thereof."
+    }
+  },
+  {
+    "id": 3,
+    "name": {
+      "it": "Uova",
+      "en": "Eggs"
+    },
+    "description": {
+      "it": "Uova e prodotti a base di uova.",
+      "en": "Eggs and products thereof."
+    }
+  },
+  {
+    "id": 4,
+    "name": {
+      "it": "Pesce",
+      "en": "Fish"
+    },
+    "description": {
+      "it": "Pesce e prodotti a base di pesce.",
+      "en": "Fish and products thereof."
+    }
+  },
+  {
+    "id": 5,
+    "name": {
+      "it": "Arachidi",
+      "en": "Peanuts"
+    },
+    "description": {
+      "it": "Arachidi e prodotti a base di arachidi.",
+      "en": "Peanuts and products thereof."
+    }
+  },
+  {
+    "id": 6,
+    "name": {
+      "it": "Soia",
+      "en": "Soybeans"
+    },
+    "description": {
+      "it": "Soia e prodotti a base di soia.",
+      "en": "Soybeans and products thereof."
+    }
+  },
+  {
+    "id": 7,
+    "name": {
+      "it": "Latte",
+      "en": "Milk"
+    },
+    "description": {
+      "it": "Latte e prodotti a base di latte, incluso il lattosio.",
+      "en": "Milk and products thereof, including lactose."
+    }
+  },
+  {
+    "id": 8,
+    "name": {
+      "it": "Frutta a guscio",
+      "en": "Nuts"
+    },
+    "description": {
+      "it": "Mandorle, nocciole, noci, anacardi, pecan, noci del Brasile, pistacchi e macadamia.",
+      "en": "Almonds, hazelnuts, walnuts, cashews, pecans, Brazil nuts, pistachios and macadamias."
+    }
+  },
+  {
+    "id": 9,
+    "name": {
+      "it": "Sedano",
+      "en": "Celery"
+    },
+    "description": {
+      "it": "Sedano e prodotti a base di sedano.",
+      "en": "Celery and products thereof."
+    }
+  },
+  {
+    "id": 10,
+    "name": {
+      "it": "Senape",
+      "en": "Mustard"
+    },
+    "description": {
+      "it": "Senape e prodotti a base di senape.",
+      "en": "Mustard and products thereof."
+    }
+  },
+  {
+    "id": 11,
+    "name": {
+      "it": "Sesamo",
+      "en": "Sesame"
+    },
+    "description": {
+      "it": "Semi di sesamo e prodotti a base di sesamo.",
+      "en": "Sesame seeds and products thereof."
+    }
+  },
+  {
+    "id": 12,
+    "name": {
+      "it": "Solfiti",
+      "en": "Sulphites"
+    },
+    "description": {
+      "it": "Anidride solforosa e solfiti oltre 10 mg/kg o 10 mg/l, espressi come SO₂ totale.",
+      "en": "Sulphur dioxide and sulphites above 10 mg/kg or 10 mg/l, expressed as total SO₂."
+    }
+  },
+  {
+    "id": 13,
+    "name": {
+      "it": "Lupini",
+      "en": "Lupin"
+    },
+    "description": {
+      "it": "Lupini e prodotti a base di lupini.",
+      "en": "Lupin and products thereof."
+    }
+  },
+  {
+    "id": 14,
+    "name": {
+      "it": "Molluschi",
+      "en": "Molluscs"
+    },
+    "description": {
+      "it": "Molluschi e prodotti a base di molluschi.",
+      "en": "Molluscs and products thereof."
+    }
+  }
+]
