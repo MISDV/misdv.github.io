@@ -4,14 +4,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Menù del ristorante a Osimo | Agriturismo Giuggioloni</title>
-<meta name="description" content="Consulta i piatti, i prezzi e i menu fissi dell’Agriturismo Giuggioloni a Osimo. Cerca per piatto o giorno e trova i contatti per prenotare.">
+<meta name="description" content="Scopri il menù dell’Agriturismo Giuggioloni a Osimo: formule fisse, piatti alla carta e vini. Consulta i prezzi e i contatti per prenotare.">
 <meta name="robots" content="index,follow,max-image-preview:large">
 <link rel="canonical" href="https://agriturismogiuggioloni.it/menu/">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="it_IT">
 <meta property="og:site_name" content="Agriturismo Giuggioloni">
 <meta property="og:title" content="Menù del ristorante a Osimo | Agriturismo Giuggioloni">
-<meta property="og:description" content="Consulta i piatti, i prezzi e i menu fissi dell’Agriturismo Giuggioloni a Osimo. Cerca per piatto o giorno e trova i contatti per prenotare.">
+<meta property="og:description" content="Scopri il menù dell’Agriturismo Giuggioloni a Osimo: formule fisse, piatti alla carta e vini. Consulta i prezzi e i contatti per prenotare.">
 <meta property="og:url" content="https://agriturismogiuggioloni.it/menu/">
 <meta property="og:image" content="https://agriturismogiuggioloni.it/og-image-1200x630.png">
 <meta property="og:image:width" content="1200">
@@ -22,7 +22,7 @@
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta name="theme-color" content="#f5eee3">
-<link rel="stylesheet" href="/assets/site-legacy.min.css">
+<link rel="stylesheet" href="/assets/site-legacy.min.css?v=2">
 <script type="application/ld+json">{
   "@context": "https://schema.org",
   "@type": "Menu",
@@ -34,7 +34,7 @@
   }
 }</script>
 <script src="/assets/site.js?v=2" defer></script>
-<script type="module" src="/assets/menu.mjs"></script>
+<script type="module" src="/assets/menu.mjs?v=2"></script>
 </head>
 <body class="bg-background-cream dark:bg-background-dark text-gray-800 dark:text-gray-200 font-display transition-colors duration-300 bg-texture-cream">
 <a class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[100] focus:p-3 focus:bg-white" href="#contenuto">Vai al contenuto</a>
@@ -43,7 +43,7 @@
     <div class="flex justify-between items-center h-20 md:h-24">
       <div class="flex-shrink-0 flex items-center gap-3 group cursor-pointer">
         <div class="flex items-center justify-center w-12 h-12 md:w-16 md:h-16 bg-primary/10 p-2 rounded-full hover:bg-primary/20 transition-colors">
-          <img src="/logo.webp" width="92" height="92" alt="logo Giuggioloni Osimo" class="w-10 h-10 md:w-12 md:h-12 object-contain">
+          <img src="/logo.png" width="92" height="92" alt="logo Giuggioloni Osimo" class="w-10 h-10 md:w-12 md:h-12 object-contain">
         </div>
         <div class="flex flex-col">
           <span data-text="home.titolo" class="font-serif font-bold text-lg md:text-xl tracking-wide text-gray-900 dark:text-white leading-none">GIUGGIOLONI</span>
@@ -79,7 +79,7 @@
         <div class="p-5 space-y-4">
           <div class="flex items-center justify-between">
             <div class="flex items-center gap-3">
-              <div class="w-10 h-10 bg-primary/10 rounded-md flex items-center justify-center"><img src="/logo.webp" width="92" height="92" alt="Logo Giuggioloni Osimo" class="w-8 h-8 object-contain"></div>
+              <div class="w-10 h-10 bg-primary/10 rounded-md flex items-center justify-center"><img src="/logo.png" width="92" height="92" alt="Logo Giuggioloni Osimo" class="w-8 h-8 object-contain"></div>
               <div>
                 <div data-text="home.titolo" class="text-sm font-serif font-bold text-gray-900 dark:text-white">GIUGGIOLONI</div>
                 <div data-text="home.sottotitolo" class="text-xs text-primary uppercase tracking-wider">I sapori dell'Acquaviva</div>
@@ -134,66 +134,337 @@
   </section>
   <div class="menu-main max-w-4xl mx-auto px-4 sm:px-6">
     <div id="menu-controls" class="menu-controls" hidden>
-      <label>Giorno <select id="menu-day"><option value="">Tutti i giorni</option></select></label>
-      <label>Cerca un piatto <input type="search" id="menu-search" placeholder="Es. tagliatelline"></label>
+      <label>Categoria <select id="menu-category"><option value="">Tutte le categorie</option></select></label>
+      <label>Cerca nel menù <input type="search" id="menu-search" placeholder="Es. pappardelle o verdicchio"></label>
       <button type="button" id="menu-print" class="button secondary">Stampa</button>
     </div>
-    <p id="menu-empty" role="status" hidden>Nessun piatto corrisponde alla ricerca.</p>
+    <p id="menu-empty" role="status" hidden>Nessuna voce corrisponde alla ricerca.</p>
     <div id="menu-content">
 <!-- MENU-CONTENT:START -->
-<p class="eyebrow">Menu Ristorante</p>
-<p class="lede">La nostra cucina è un omaggio alla tradizione contadina. Ogni piatto racconta una storia di ingredienti freschi, baciati dal sole e raccolti la mattina stessa dal nostro orto.</p>
-<section class="menu-day" data-day="5" data-label="Sabato">
+<header class="menu-intro">
+  <p class="eyebrow">Stagione 2026/2027</p>
+  <h2>Il Vero Gusto della Nostra Terra: Dal Seme alla Tavola</h2>
+  <p class="lede">Dalla nostra azienda agricola alla tavola: valorizziamo la filiera corta, le carni del nostro allevamento e la pasta fresca fatta a mano, secondo la tradizione contadina.</p>
+</header>
+<aside class="menu-notice" aria-label="Coperto e allergeni"><p><strong>Coperto: 1,50 €</strong></p>
+<p>Acqua e coperto esclusi nel menù alla carta.</p>
+<p>Per informazioni su allergeni, intolleranze e ingredienti, è disponibile il libro degli allergeni: chiedere al personale di sala.</p></aside>
+<section class="menu-day" data-category="menu-fissi" data-label="Menù fissi">
   <header class="menu-day-header">
-    <p class="eyebrow">Sabato · Menù fisso</p>
-    <h2>Menù Spettacolare</h2>
-    <p>Cena con Spettacolo!</p>
-    <p class="menu-price">30,00 €</p>
+    <h2>Menù fissi</h2>
+    <p>Formula conviviale. Minimo 2 persone. Stesso menù per l&#39;intero tavolo.</p>
   </header>
   <ul class="menu-dishes"><li class="menu-dish" data-dish>
-    <div class="dish-title"><h3>Il nostro Antipasto</h3></div>
-    <p>La nostra crescia e gli sfizi di campagna</p>
-
-
+    <div class="dish-title"><h3>Menù Tradizione Rurale</h3><span class="menu-price">35,00 €</span></div>
+    <p>Il percorso essenziale per assaporare i sapori cardine della nostra tradizione contadina.</p>
+    <div class="menu-fixed-details"><div><h4>Il percorso</h4><ul><li>Antipasto alla Giuggiola</li><li>2 primi a scelta tra tutti i primi del Giorno</li><li>Degustazione Sapori della Tradizione</li><li>Contorno: patate arrosto, erbe di campo e insalata mista</li></ul></div><div><h4>Inclusi nel prezzo</h4><ul><li>Acqua</li><li>¼ di vino della casa</li><li>Caffè</li><li>Coperto</li></ul></div></div>
   </li>
 <li class="menu-dish" data-dish>
-    <div class="dish-title"><h3>Tagliatelline a scelta!</h3></div>
-    <p>Tagliatelline con carciofi e salsiccia o al ragù</p>
-
-
-  </li>
-<li class="menu-dish" data-dish>
-    <div class="dish-title"><h3>Maialino del fattore</h3></div>
-    <p>maialino cotto lentamente nella birra con aromi dell&#39;orto</p>
-
-
-  </li>
-<li class="menu-dish" data-dish>
-    <div class="dish-title"><h3>Dolce della casa</h3></div>
-    <p>Dolce della casa</p>
-
-
-  </li>
-<li class="menu-dish" data-dish>
-    <div class="dish-title"><h3>Bevande</h3></div>
-    <p>1/4 di Vino, acqua e caffè inclusi</p>
-
-
+    <div class="dish-title"><h3>Menù Gran Degustazione &quot;I Sapori dell&#39;Acquaviva&quot;</h3><span class="menu-price">40,00 €</span></div>
+    <p>L&#39;esperienza definitiva dell&#39;agriturismo. Senza compromessi, per esaltare l&#39;eccellenza della filiera.</p>
+    <div class="menu-fixed-details"><div><h4>Il percorso</h4><ul><li>Antipasto alla Giuggiola</li><li>2 primi a scelta tra tutti i primi del Giorno</li><li>Degustazione Sapori della Filiera</li><li>Contorno a scelta</li><li>Assaggio di fritti tradizionali: olive ascolane, cremini, panelle</li><li>Dolci caserecci della casa</li></ul></div><div><h4>Inclusi nel prezzo</h4><ul><li>Acqua</li><li>Bottiglia di vino di nostra produzione</li><li>Dessert</li><li>Caffè</li><li>Coperto</li></ul></div></div>
   </li></ul>
 </section>
-<section class="menu-day" data-day="6" data-label="Domenica">
+<section class="menu-day" data-category="primi-piatti" data-label="Primi piatti">
   <header class="menu-day-header">
-    <p class="eyebrow">Domenica · Menù fisso</p>
-    <h2>Menù della casa</h2>
-
-    <p class="menu-price">30,00 €</p>
+    <h2>Primi piatti</h2>
+    <p>Paste fresche tirate a mano con uova delle nostre galline.</p>
   </header>
-  <p class="menu-note">I piatti di questa giornata saranno comunicati dall’agriturismo.</p>
+  <ul class="menu-dishes"><li class="menu-dish" data-dish>
+    <div class="dish-title"><h3>Pappardelle al Cinghiale in Bianco</h3><span class="menu-price">13,00 €</span></div>
+  </li>
+<li class="menu-dish" data-dish>
+    <div class="dish-title"><h3>Gnocchi al Ragù di Papera</h3><span class="menu-price">12,00 €</span></div>
+  </li>
+<li class="menu-dish" data-dish>
+    <div class="dish-title"><h3>Tagliatella al Ragù di Papera</h3><span class="menu-price">12,00 €</span></div>
+  </li>
+<li class="menu-dish" data-dish>
+    <div class="dish-title"><h3>Ravioli con Crema di Zucchine e Pinoli</h3><span class="menu-price">14,00 €</span></div>
+  </li>
+<li class="menu-dish" data-dish>
+    <div class="dish-title"><h3>Tagliatella Primavera</h3><span class="menu-price">13,00 €</span></div>
+  </li>
+<li class="menu-dish" data-dish>
+    <div class="dish-title"><h3>Boccolotti del Batte Oca</h3><span class="menu-price">12,00 €</span></div>
+  </li>
+<li class="menu-dish" data-dish>
+    <div class="dish-title"><h3>Vincisgrassi Marchigiani</h3><span class="menu-price">14,00 €</span></div>
+  </li>
+<li class="menu-dish" data-dish>
+    <div class="dish-title"><h3>Lasagna Bianca</h3><span class="menu-price">12,00 €</span></div>
+  </li>
+<li class="menu-dish" data-dish>
+    <div class="dish-title"><h3>Lasagna Rossa</h3><span class="menu-price">12,00 €</span></div>
+  </li>
+<li class="menu-dish" data-dish>
+    <div class="dish-title"><h3>Tagliatella con Carciofi e Salsiccia</h3><span class="menu-price">14,00 €</span></div>
+  </li>
+<li class="menu-dish" data-dish>
+    <div class="dish-title"><h3>Tagliatella al Ragù Rosso</h3><span class="menu-price">12,00 €</span></div>
+  </li>
+<li class="menu-dish" data-dish>
+    <div class="dish-title"><h3>Tortellini in Brodo</h3><span class="menu-price">14,00 €</span></div>
+  </li>
+<li class="menu-dish" data-dish>
+    <div class="dish-title"><h3>Fagioli con Cotiche e Salsiccia</h3><span class="menu-price">13,00 €</span></div>
+  </li>
+<li class="menu-dish" data-dish>
+    <div class="dish-title"><h3>Polenta Bianca con Cipolla e Salsiccia</h3><span class="menu-price">11,00 €</span></div>
+  </li>
+<li class="menu-dish" data-dish>
+    <div class="dish-title"><h3>Polenta al Cinghiale</h3><span class="menu-price">13,00 €</span></div>
+  </li>
+<li class="menu-dish" data-dish>
+    <div class="dish-title"><h3>Tortellini con Funghi, Panna, Piselli e Salsiccia</h3><span class="menu-price">12,00 €</span></div>
+  </li>
+<li class="menu-dish" data-dish>
+    <div class="dish-title"><h3>Penne al Pomodoro e Basilico</h3><span class="menu-price">8,00 €</span></div>
+  </li></ul>
 </section>
-<p class="menu-updated">Ultimo aggiornamento <time datetime="2026-05-16">16 maggio 2026</time></p>
+<section class="menu-day" data-category="secondi-piatti" data-label="Secondi piatti">
+  <header class="menu-day-header">
+    <h2>Secondi piatti</h2>
+    <p>Carni della nostra filiera • Macellazione interna</p>
+    <p>Allevamento allo stato brado.</p>
+  </header>
+  <ul class="menu-dishes"><li class="menu-dish" data-dish>
+    <div class="dish-title"><h3>Pollo in Salmì</h3><span class="menu-price">14,00 €</span></div>
+  </li>
+<li class="menu-dish" data-dish>
+    <div class="dish-title"><h3>Pollo al Potacchio</h3><span class="menu-price">14,00 €</span></div>
+  </li>
+<li class="menu-dish" data-dish>
+    <div class="dish-title"><h3>Pollo Arrosto</h3><span class="menu-price">14,00 €</span></div>
+  </li>
+<li class="menu-dish" data-dish>
+    <div class="dish-title"><h3>Pollo alla Cacciatora</h3><span class="menu-price">15,00 €</span></div>
+  </li>
+<li class="menu-dish" data-dish>
+    <div class="dish-title"><h3>Stinco di Maiale</h3><span class="menu-price">12,00 €</span></div>
+  </li>
+<li class="menu-dish" data-dish>
+    <div class="dish-title"><h3>Arrosto di Maiale</h3><span class="menu-price">15,00 €</span></div>
+  </li>
+<li class="menu-dish" data-dish>
+    <div class="dish-title"><h3>Coniglio in Porchetta</h3><span class="menu-price">18,00 €</span></div>
+  </li>
+<li class="menu-dish" data-dish>
+    <div class="dish-title"><h3>Maialino alla Birra</h3><span class="menu-price">17,00 €</span></div>
+  </li>
+<li class="menu-dish" data-dish>
+    <div class="dish-title"><h3>Grigliata Mista di Maiale</h3><span class="menu-price">18,00 €</span></div>
+  </li>
+<li class="menu-dish" data-dish>
+    <div class="dish-title"><h3>Faraona alla Cacciatora</h3><span class="menu-price">16,00 €</span></div>
+  </li>
+<li class="menu-dish" data-dish>
+    <div class="dish-title"><h3>Faraona al Marsala</h3><span class="menu-price">16,00 €</span></div>
+  </li>
+<li class="menu-dish" data-dish>
+    <div class="dish-title"><h3>Oca Arrosto</h3><span class="menu-price">18,00 €</span></div>
+  </li>
+<li class="menu-dish" data-dish>
+    <div class="dish-title"><h3>Oca in Porchetta</h3><span class="menu-price">18,00 €</span></div>
+  </li>
+<li class="menu-dish" data-dish>
+    <div class="dish-title"><h3>Oca in Salmì</h3><span class="menu-price">18,00 €</span></div>
+  </li>
+<li class="menu-dish" data-dish>
+    <div class="dish-title"><h3>Agnello al Forno</h3><span class="menu-price">20,00 €</span></div>
+  </li>
+<li class="menu-dish" data-dish>
+    <div class="dish-title"><h3>Grigliata Mista di Agnello</h3><span class="menu-price">21,00 €</span></div>
+  </li>
+<li class="menu-dish" data-dish>
+    <div class="dish-title"><h3>Maialino in Crosta</h3><span class="menu-price">22,00 €</span></div>
+  </li>
+<li class="menu-dish" data-dish>
+    <div class="dish-title"><h3>Agnello Misto / Cappone / Vitello Bollito</h3><span class="menu-price">18,00 €</span></div>
+  </li>
+<li class="menu-dish" data-dish>
+    <div class="dish-title"><h3>Cotoletta di Pollo</h3><span class="menu-price">10,00 €</span></div>
+  </li>
+<li class="menu-dish" data-dish>
+    <div class="dish-title"><h3>Frittura Italiana</h3><span class="menu-price">27,00 €</span></div>
+  </li>
+<li class="menu-dish" data-dish>
+    <div class="dish-title"><h3>Fiorentina di Nostra Produzione</h3><span class="menu-price">50,00 €/kg</span></div>
+  </li>
+<li class="menu-dish" data-dish>
+    <div class="dish-title"><h3>Bistecca di Vitellone Grigliata gr. 250</h3><span class="menu-price">17,00 €</span></div>
+  </li></ul>
+</section>
+<section class="menu-day" data-category="contorni-e-fritti-della-tradizione" data-label="Contorni e fritti della tradizione">
+  <header class="menu-day-header">
+    <h2>Contorni e fritti della tradizione</h2>
+  </header>
+  <ul class="menu-dishes"><li class="menu-dish" data-dish>
+    <div class="dish-title"><h3>Patate Arrosto</h3><span class="menu-price">4,00 €</span></div>
+  </li>
+<li class="menu-dish" data-dish>
+    <div class="dish-title"><h3>Insalata Mista</h3><span class="menu-price">3,50 €</span></div>
+  </li>
+<li class="menu-dish" data-dish>
+    <div class="dish-title"><h3>Insalata Verde</h3><span class="menu-price">3,50 €</span></div>
+  </li>
+<li class="menu-dish" data-dish>
+    <div class="dish-title"><h3>Verdure Gratinate</h3><span class="menu-price">5,00 €</span></div>
+  </li>
+<li class="menu-dish" data-dish>
+    <div class="dish-title"><h3>Tris di Fritti</h3><span class="menu-price">6,00 €</span></div>
+  </li></ul>
+</section>
+<section class="menu-day" data-category="dolci-della-casa" data-label="Dolci della casa">
+  <header class="menu-day-header">
+    <h2>Dolci della casa</h2>
+    <p>Preparati ogni giorno nel nostro laboratorio.</p>
+  </header>
+  <ul class="menu-dishes"><li class="menu-dish" data-dish>
+    <div class="dish-title"><h3>Panna Cotta Fatta in Casa</h3><span class="menu-price">3,50 €</span></div>
+  </li>
+<li class="menu-dish" data-dish>
+    <div class="dish-title"><h3>Crema Catalana Fatta in Casa</h3><span class="menu-price">4,00 €</span></div>
+  </li>
+<li class="menu-dish" data-dish>
+    <div class="dish-title"><h3>Tiramisù Fatto in Casa</h3><span class="menu-price">4,00 €</span></div>
+  </li>
+<li class="menu-dish" data-dish>
+    <div class="dish-title"><h3>Cantucci con Vinsanto e Visciole</h3><span class="menu-price">4,50 €</span></div>
+  </li>
+<li class="menu-dish" data-dish>
+    <div class="dish-title"><h3>Degustazione di Dolci della Casa</h3><span class="menu-price">3,00 €</span></div>
+  </li></ul>
+</section>
+<section class="menu-day" data-category="bibite" data-label="Bibite" data-group="Bevande">
+  <header class="menu-day-header">
+    <p class="eyebrow">Bevande</p>
+    <h2>Bibite</h2>
+  </header>
+  <ul class="menu-dishes"><li class="menu-dish" data-dish>
+    <div class="dish-title"><h3>Coca Cola 1 lt</h3><span class="menu-price">5,00 €</span></div>
+  </li>
+<li class="menu-dish" data-dish>
+    <div class="dish-title"><h3>Coca Cola 33 cl</h3><span class="menu-price">2,50 €</span></div>
+  </li>
+<li class="menu-dish" data-dish>
+    <div class="dish-title"><h3>Fanta 33 cl</h3><span class="menu-price">2,50 €</span></div>
+  </li>
+<li class="menu-dish" data-dish>
+    <div class="dish-title"><h3>Coca Cola Zero 33 cl</h3><span class="menu-price">2,50 €</span></div>
+  </li>
+<li class="menu-dish" data-dish>
+    <div class="dish-title"><h3>Estathé Pesca 33 cl</h3><span class="menu-price">2,50 €</span></div>
+  </li>
+<li class="menu-dish" data-dish>
+    <div class="dish-title"><h3>Acqua 1 lt</h3><span class="menu-price">2,00 €</span></div>
+  </li></ul>
+</section>
+<section class="menu-day" data-category="birre" data-label="Birre" data-group="Bevande">
+  <header class="menu-day-header">
+    <p class="eyebrow">Bevande</p>
+    <h2>Birre</h2>
+  </header>
+  <ul class="menu-dishes"><li class="menu-dish" data-dish>
+    <div class="dish-title"><h3>Beck&#39;s 33 cl</h3><span class="menu-price">3,00 €</span></div>
+  </li>
+<li class="menu-dish" data-dish>
+    <div class="dish-title"><h3>Ceres Strong 33 cl</h3><span class="menu-price">3,50 €</span></div>
+  </li>
+<li class="menu-dish" data-dish>
+    <div class="dish-title"><h3>Messina Cristalli di Sale 33 cl</h3><span class="menu-price">3,50 €</span></div>
+  </li>
+<li class="menu-dish" data-dish>
+    <div class="dish-title"><h3>Ichnusa 66 cl</h3><span class="menu-price">4,00 €</span></div>
+  </li></ul>
+</section>
+<section class="menu-day" data-category="spumanti" data-label="Spumanti" data-group="Bevande">
+  <header class="menu-day-header">
+    <p class="eyebrow">Bevande</p>
+    <h2>Spumanti</h2>
+  </header>
+  <ul class="menu-dishes"><li class="menu-dish" data-dish>
+    <div class="dish-title"><h3>Montesilvini Promosso Extra Dry 0,75 lt</h3><span class="menu-price">15,00 €</span></div>
+  </li>
+<li class="menu-dish" data-dish>
+    <div class="dish-title"><h3>Rosso Dei Forti Dolce 0,75 lt</h3><span class="menu-price">15,00 €</span></div>
+  </li></ul>
+</section>
+<section class="menu-day" data-category="carta-vini" data-label="Carta vini" data-group="Bevande">
+  <header class="menu-day-header">
+    <p class="eyebrow">Bevande</p>
+    <h2>Carta vini</h2>
+  </header>
+  <ul class="menu-dishes"><li class="menu-dish" data-dish>
+    <div class="dish-title"><h3>Mille Bolle Frizzante 0,75 lt</h3><span class="menu-price">12,00 €</span></div>
+  </li>
+<li class="menu-dish" data-dish>
+    <div class="dish-title"><h3>Vino Bianco Marche IGP Passione di Peco 0,75 lt</h3><span class="menu-price">12,50 €</span></div>
+  </li>
+<li class="menu-dish" data-dish>
+    <div class="dish-title"><h3>Chardonnay Marche IGP 0,75 lt</h3><span class="menu-price">12,00 €</span></div>
+  </li>
+<li class="menu-dish" data-dish>
+    <div class="dish-title"><h3>Vino Rosato Marche IGP 0,75 lt</h3><span class="menu-price">12,00 €</span></div>
+  </li>
+<li class="menu-dish" data-dish>
+    <div class="dish-title"><h3>Verdicchio Class Le Barbatelle DOC 0,75 lt</h3><span class="menu-price">13,00 €</span></div>
+  </li>
+<li class="menu-dish" data-dish>
+    <div class="dish-title"><h3>Passerina Le Barbatelle IGP 0,75 lt</h3><span class="menu-price">13,50 €</span></div>
+  </li>
+<li class="menu-dish" data-dish>
+    <div class="dish-title"><h3>Pecorino Le Barbatelle IGP 0,75 lt</h3><span class="menu-price">13,50 €</span></div>
+  </li>
+<li class="menu-dish" data-dish>
+    <div class="dish-title"><h3>Rosso Conero DOC Piancarda Garofoli 0,75 lt</h3><span class="menu-price">24,00 €</span></div>
+  </li>
+<li class="menu-dish" data-dish>
+    <div class="dish-title"><h3>Lacrima di Morro d&#39;Alba Le Barbatelle 0,75 lt</h3><span class="menu-price">13,00 €</span></div>
+  </li>
+<li class="menu-dish" data-dish>
+    <div class="dish-title"><h3>Rosso Conero Le Barbatelle 0,75 lt</h3><span class="menu-price">14,00 €</span></div>
+  </li></ul>
+</section>
+<section class="menu-day" data-category="vini-della-casa" data-label="Vini della casa" data-group="Bevande">
+  <header class="menu-day-header">
+    <p class="eyebrow">Bevande</p>
+    <h2>Vini della casa</h2>
+  </header>
+  <ul class="menu-dishes"><li class="menu-dish" data-dish>
+    <div class="dish-title"><h3>Passerina 1 lt</h3><span class="menu-price">8,00 €</span></div>
+  </li>
+<li class="menu-dish" data-dish>
+    <div class="dish-title"><h3>Rosso Marche 1 lt</h3><span class="menu-price">8,00 €</span></div>
+  </li></ul>
+</section>
+<section class="menu-day" data-category="amari-e-grappe" data-label="Amari e grappe" data-group="Bevande">
+  <header class="menu-day-header">
+    <p class="eyebrow">Bevande</p>
+    <h2>Amari e grappe</h2>
+  </header>
+  <ul class="menu-dishes"><li class="menu-dish" data-dish>
+    <div class="dish-title"><h3>Fernet Branca</h3><span class="menu-price">2,50 €</span></div>
+  </li>
+<li class="menu-dish" data-dish>
+    <div class="dish-title"><h3>Amaro del Capo</h3><span class="menu-price">2,50 €</span></div>
+  </li>
+<li class="menu-dish" data-dish>
+    <div class="dish-title"><h3>Amaro Montenegro</h3><span class="menu-price">2,50 €</span></div>
+  </li>
+<li class="menu-dish" data-dish>
+    <div class="dish-title"><h3>Limone Brotto</h3><span class="menu-price">2,50 €</span></div>
+  </li>
+<li class="menu-dish" data-dish>
+    <div class="dish-title"><h3>Diciotto Lune Marzadro</h3><span class="menu-price">3,00 €</span></div>
+  </li>
+<li class="menu-dish" data-dish>
+    <div class="dish-title"><h3>Candolini</h3><span class="menu-price">2,50 €</span></div>
+  </li></ul>
+</section>
+<p class="menu-updated">Ultimo aggiornamento <time datetime="2026-11-07">7 novembre 2026</time></p>
 <!-- MENU-CONTENT:END -->
     </div>
-    <p class="menu-notice"><strong>Allergie e intolleranze.</strong> Chiedi al personale informazioni su ingredienti e allergeni prima di ordinare.</p>
   </div>
 </main>
 <footer class="bg-background-dark text-gray-300 pt-16 pb-10 border-t-4 border-primary" id="contatti">

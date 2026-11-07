@@ -51,25 +51,26 @@ function setupNavigation() {
 function setupHomeMenu() {
   const selector = document.querySelector('[data-home-menu]');
   if (!selector) return;
-  const days = Array.from(document.querySelectorAll('.home-menu [data-day]'));
-  if (days.length < 2) return;
-  const today = new Intl.DateTimeFormat('it-IT', { weekday: 'long', timeZone: 'Europe/Rome' }).format(new Date());
-  const buttons = days.map(day => {
+  const sections = Array.from(document.querySelectorAll('.home-menu [data-category], .home-menu [data-day]'));
+  if (sections.length < 2) return;
+  const today = sections[0].hasAttribute('data-day')
+    ? new Intl.DateTimeFormat('it-IT', { weekday: 'long', timeZone: 'Europe/Rome' }).format(new Date()) : '';
+  const buttons = sections.map(section => {
     const button = document.createElement('button');
     button.type = 'button';
-    button.textContent = day.dataset.label;
-    button.addEventListener('click', () => select(day));
+    button.textContent = section.dataset.label;
+    button.addEventListener('click', () => select(section));
     return button;
   });
   function select(selected) {
-    days.forEach((day, index) => {
-      day.hidden = day !== selected;
-      buttons[index].setAttribute('aria-pressed', String(day === selected));
+    sections.forEach((section, index) => {
+      section.hidden = section !== selected;
+      buttons[index].setAttribute('aria-pressed', String(section === selected));
     });
   }
   selector.append(...buttons);
   selector.hidden = false;
-  select(days.find(day => day.dataset.label.toLowerCase() === today) || days[0]);
+  select(sections.find(section => section.dataset.label.toLowerCase() === today) || sections[0]);
 }
 
 function renderHours(hours) {

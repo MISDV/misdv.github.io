@@ -373,6 +373,7 @@ html { scroll-padding-top: calc(var(--site-nav-height) + 1rem); }
 .menu-controls :focus-visible, .home-menu-tabs button:focus-visible { outline: 2px solid #d35400; outline-offset: 3px; }
 .eyebrow { color: #9a3412; font-size: .75rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
 .lede { color: #4b5563; font-weight: 300; line-height: 1.7; margin-block: .5rem 1.25rem; }
+.menu-intro h2 { font: 700 clamp(1.5rem, 4vw, 2.15rem)/1.2 "Playfair Display", serif; margin-top: .4rem; }
 .menu-day {
   margin-block: 1rem 1.5rem;
   overflow: hidden;
@@ -389,15 +390,24 @@ html { scroll-padding-top: calc(var(--site-nav-height) + 1rem); }
 .menu-dish { padding-block: .85rem; border-bottom: 1px dashed #e7e5e4; }
 .menu-dish:last-child { border-bottom: 0; }
 .dish-title { display: flex; justify-content: space-between; gap: .75rem; align-items: baseline; }
-.dish-title h3 { font: 700 1.15rem/1.35 "Playfair Display", serif; overflow-wrap: anywhere; }
+.dish-title h3 { font: 700 1.15rem/1.35 "Playfair Display", serif; min-width: 0; overflow-wrap: anywhere; }
 .menu-dish p { color: #57534e; margin-top: .2rem; font-size: .95rem; }
 .menu-dish details { font-size: .9rem; margin-top: .35rem; }
 .menu-dish summary { cursor: pointer; color: #9a3412; }
 .menu-note { padding: 1rem 1.5rem; }
 .menu-updated { color: #57534e; font-size: .85rem; margin-bottom: 1rem; }
 .menu-notice { background: #fff7ed; border: 1px solid #fed7aa; border-radius: .25rem; padding: 1rem; }
+.menu-notice p + p { margin-top: .35rem; }
+.menu-fixed-details { display: grid; gap: .75rem 1.5rem; margin-block: .85rem .3rem; font-size: .95rem; }
+.menu-fixed-details h4 { color: #9a3412; font-weight: 700; }
+.menu-fixed-details ul { list-style: disc; padding-inline-start: 1.2rem; margin-top: .2rem; }
+@media (min-width: 640px) {
+  .menu-fixed-details { grid-template-columns: 3fr 2fr; }
+}
 @media print {
-  #siteNav, #contatti, .menu-controls, .menu-hero picture, .menu-hero a, .home-menu-tabs { display: none !important; }
+  #siteNav, #contatti, #menu-empty, .menu-controls, .menu-hero picture, .menu-hero a, .home-menu-tabs { display: none !important; }
+  #menu-content [hidden][data-category] { display: block !important; }
+  #menu-content [hidden][data-dish] { display: list-item !important; }
   .subpage, .menu-main, .menu-hero { padding-block: 0 !important; }
   .menu-hero, .menu-day-header { background: #fff; }
   .menu-dish, .menu-day-header { break-inside: avoid; }

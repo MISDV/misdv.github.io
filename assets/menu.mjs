@@ -1,38 +1,55 @@
 const content = document.querySelector('#menu-content');
 const controls = document.querySelector('#menu-controls');
-const day = document.querySelector('#menu-day');
+const category = document.querySelector('#menu-category, #menu-day');
 const search = document.querySelector('#menu-search');
 const empty = document.querySelector('#menu-empty');
-const normalize = value => value.normalize('NFD').replace(/\p{Diacritic}/gu, '').toLowerCase().trim();
+const normalize = value => value.normalize('NFD').replace(/\p{Diacritic}/gu, '').replaceAll('’', "'")
+  .replace(/\s+/g, ' ').toLowerCase().trim();
+const sections = Array.from(content.querySelectorAll('[data-category], [data-day]'), section => ({
+  section,
+  key: section.dataset.category ?? section.dataset.day,
+  label: normalize(section.querySelector('header').textContent),
+  dishes: Array.from(section.querySelectorAll('[data-dish]'), dish => [dish, normalize(dish.textContent)]),
+}));
 
 function filter() {
   const query = normalize(search.value);
   let visible = 0;
-  for (const section of content.querySelectorAll('[data-day]')) {
-    const selected = !day.value || day.value === section.dataset.day;
-    const matchesDay = normalize(section.querySelector('header').textContent).includes(query);
+  for (const { section, key, label, dishes } of sections) {
+    const selected = !category.value || category.value === key;
+    const matchesSection = label.includes(query);
     let matchingDishes = 0;
-    for (const dish of section.querySelectorAll('[data-dish]')) {
-      dish.hidden = Boolean(query) && !matchesDay && !normalize(dish.textContent).includes(query);
+    for (const [dish, name] of dishes) {
+      dish.hidden = !matchesSection && !name.includes(query);
       if (!dish.hidden) matchingDishes++;
     }
-    section.hidden = !selected || (Boolean(query) && !matchesDay && matchingDishes === 0);
+    section.hidden = !selected || (!matchesSection && matchingDishes === 0);
     if (!section.hidden) visible++;
   }
-  empty.hidden = visible > 0 || (!day.value && !query);
+  empty.hidden = visible > 0 || (!category.value && !query);
 }
 
 function setup() {
-  const today = new Intl.DateTimeFormat('it-IT', { weekday: 'long', timeZone: 'Europe/Rome' }).format(new Date());
-  for (const section of content.querySelectorAll('[data-day]')) {
+  const today = sections.some(({ section }) => section.hasAttribute('data-day'))
+    ? new Intl.DateTimeFormat('it-IT', { weekday: 'long', timeZone: 'Europe/Rome' }).format(new Date()) : '';
+  const groups = new Map();
+  for (const { section, key } of sections) {
     const label = section.dataset.label;
-    day.add(new Option(label.toLowerCase() === today ? `${label} · oggi` : label, section.dataset.day));
+    const name = section.dataset.group;
+    if (name && !groups.has(name)) {
+      const group = document.createElement('optgroup');
+      group.label = name;
+      groups.set(name, group);
+      category.append(group);
+    }
+    const option = new Option(label.toLowerCase() === today ? `${label} · oggi` : label, key);
+    (groups.get(name) ?? category).append(option);
   }
-  controls.hidden = day.options.length <= 1;
+  controls.hidden = sections.length === 0;
   filter();
 }
 
-day.addEventListener('change', filter);
+category.addEventListener('change', filter);
 search.addEventListener('input', filter);
 document.querySelector('#menu-print').addEventListener('click', () => window.print());
 setup();

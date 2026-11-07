@@ -41,16 +41,19 @@ function action(text, run) {
 
 function field(box, title, data, key, type = 'text') {
   const label = element('label', title);
-  const input = element(type === 'textarea' ? 'textarea' : 'input');
-  if (type !== 'textarea') input.type = type === 'list' ? 'text' : type;
+  const multiline = type === 'textarea' || type === 'lines';
+  const input = element(multiline ? 'textarea' : 'input');
+  if (!multiline) input.type = type === 'list' ? 'text' : type;
   if (type === 'number') input.step = '0.01';
   if (type === 'checkbox') input.checked = key === 'available' ? data[key] !== false : Boolean(data[key]);
   else if (type === 'list') input.value = (data[key] || []).join(', ');
+  else if (type === 'lines') input.value = (data[key] || []).join('\n');
   else input.value = data[key] ?? '';
   input.addEventListener('input', () => {
     if (type === 'checkbox') data[key] = input.checked;
     else if (type === 'number') data[key] = input.value === '' ? null : input.valueAsNumber;
     else if (type === 'list') data[key] = input.value.split(',').map(value => value.trim()).filter(Boolean);
+    else if (type === 'lines') data[key] = input.value.split('\n').map(value => value.trim()).filter(Boolean);
     else data[key] = input.value;
     markDirty();
   });
@@ -126,6 +129,36 @@ function renderMenu(data) {
   field(heading, 'Titolo', data, 'title');
   field(heading, 'Introduzione', data, 'description', 'textarea');
   editor.append(heading);
+  if (Array.isArray(data.categories)) {
+    field(heading, 'Stagione', data, 'season');
+    field(heading, 'Coperto', data, 'cover_charge', 'number');
+    field(heading, 'Nota per la carta', data, 'a_la_carte_note');
+    field(heading, 'Avviso sugli allergeni', data, 'allergen_note', 'textarea');
+    const categories = group('Categorie del menù');
+    collection(categories, data.categories, 'categoria', () => ({ id: crypto.randomUUID(), dishes: [] }), (card, category) => {
+      const panel = element('details');
+      panel.append(element('summary', category.title || 'Nuova categoria'));
+      field(panel, 'Titolo', category, 'title');
+      field(panel, 'Gruppo (facoltativo, es. Bevande)', category, 'group');
+      field(panel, 'Descrizione', category, 'description', 'textarea');
+      field(panel, 'Sottotitolo', category, 'subtitle');
+      collection(panel, category.dishes, 'voce', () => ({ id: crypto.randomUUID(), available: true }), (box, dish) => {
+        field(box, 'Nome', dish, 'name');
+        field(box, 'Prezzo', dish, 'price', 'number');
+        field(box, 'Unità di prezzo (kg oppure vuoto)', dish, 'price_unit');
+        field(box, 'Descrizione', dish, 'description', 'textarea');
+        if (category.id === 'menu-fissi' || dish.courses?.length || dish.includes?.length) {
+          field(box, 'Portate (una per riga)', dish, 'courses', 'lines');
+          field(box, 'Inclusi nel prezzo (uno per riga)', dish, 'includes', 'lines');
+        }
+        field(box, 'Allergeni verificati (separati da virgola)', dish, 'allergens', 'list');
+        field(box, 'Disponibile', dish, 'available', 'checkbox');
+      });
+      card.append(panel);
+    });
+    editor.append(categories);
+    return;
+  }
   data.days ??= {};
   for (const day of weekdays) {
     const entry = data.days[day.toLowerCase()] ??= { enabled: false, dishes: [] };

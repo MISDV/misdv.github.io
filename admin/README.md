@@ -27,9 +27,15 @@ per associarlo al catalogo. La pagina del menù e l'anteprima nella home vengono
 aggiornate nello stesso commit del JSON. Se la versione online è cambiata, ricarica la scheda e
 riapplica le modifiche.
 
+`menu.json` contiene le categorie e le voci nell'ordine di presentazione.
+Usa prezzi numerici in euro; per un prezzo al chilogrammo, imposta anche
+`price_unit` su `kg`. Per i menù fissi, inserisci ogni portata e ogni servizio
+incluso su una riga separata nell'editor.
+
 Se modifichi `menu.json` a mano, esegui `node admin/sync-menu.mjs` e pubblica
 insieme `menu.json`, `menu/index.html` e `index.html`. Il browser usa la carta
-già inclusa nella pagina.
+già inclusa nella pagina; la home mostra fino a tre voci delle prime due
+categorie disponibili.
 
 Il servizio ascolta solo su `127.0.0.1`. Fermalo con Ctrl+C, poi chiudi la
 finestra di PowerShell. Per usare il pannello con il sito aggiornato, pubblica

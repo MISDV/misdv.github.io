@@ -1,7 +1,7 @@
 import { createServer } from 'node:http';
 import { createHash, timingSafeEqual } from 'node:crypto';
 import { readFile } from 'node:fs/promises';
-import { updateMenuPage } from './menu-page.mjs';
+import { updateMenuPage, validMenu } from './menu-page.mjs';
 
 const password = process.env.ADMIN_PASSWORD;
 if (!password || password.length < 16) {
@@ -69,7 +69,7 @@ async function publishMenu(menu, expectedSha) {
   ];
   const homeHtml = decode(home);
   if (homeHtml.includes('<!-- MENU-CONTENT:START -->')) {
-    entries.push({ path: 'index.html', mode: '100644', type: 'blob', content: updateMenuPage(homeHtml, menu) });
+    entries.push({ path: 'index.html', mode: '100644', type: 'blob', content: updateMenuPage(homeHtml, menu, { preview: true }) });
   }
   const tree = await github('/git/trees', 'POST', {
     base_tree: base.tree.sha,
@@ -108,8 +108,8 @@ function validate(path, data) {
     return;
   }
   if (!data || typeof data !== 'object' || Array.isArray(data)) throw error(400, 'Dati non validi.');
-  if (path === 'menu.json' && (!data.days || typeof data.days !== 'object' || Array.isArray(data.days))) {
-    throw error(400, 'Giorni del menù non validi.');
+  if (path === 'menu.json' && !validMenu(data)) {
+    throw error(400, 'Controlla i nomi, i prezzi e le unità di prezzo del menù.');
   }
 }
 

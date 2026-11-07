@@ -1,134 +1,523 @@
 {
-  "title": "Menu Ristorante",
-  "description": "La nostra cucina è un omaggio alla tradizione contadina. Ogni piatto racconta una storia di ingredienti freschi, baciati dal sole e raccolti la mattina stessa dal nostro orto.",
-  "updated": "2026-05-16T10:57:37.078Z",
-  "days": {
-    "lunedì": {
-      "enabled": false,
-      "title": "Pranzo del Lunedì",
-      "fisso": false,
-      "fixed_price": "€35,90",
-      "description": "",
-      "updated": "2026-05-16T10:57:37.078Z",
-      "dishes": []
-    },
-    "martedì": {
-      "enabled": false,
-      "title": "Menù Chiuso",
-      "fisso": false,
-      "fixed_price": "€35,90",
-      "description": "",
-      "updated": "2026-05-16T10:57:37.078Z",
+  "title": "Il Vero Gusto della Nostra Terra: Dal Seme alla Tavola",
+  "description": "Dalla nostra azienda agricola alla tavola: valorizziamo la filiera corta, le carni del nostro allevamento e la pasta fresca fatta a mano, secondo la tradizione contadina.",
+  "season": "2026/2027",
+  "updated": "2026-11-07",
+  "cover_charge": 1.5,
+  "a_la_carte_note": "Acqua e coperto esclusi nel menù alla carta.",
+  "allergen_note": "Per informazioni su allergeni, intolleranze e ingredienti, è disponibile il libro degli allergeni: chiedere al personale di sala.",
+  "categories": [
+    {
+      "id": "menu-fissi",
+      "title": "Menù fissi",
+      "description": "Formula conviviale. Minimo 2 persone. Stesso menù per l'intero tavolo.",
       "dishes": [
         {
-          "id": "gen-1771467034016",
-          "name": "Nuovo Piatto",
-          "description": "4",
-          "price": 1,
-          "price_display": "",
-          "tags": [
-            "2"
+          "id": "menu-tradizione-rurale",
+          "name": "Menù Tradizione Rurale",
+          "price": 35.0,
+          "description": "Il percorso essenziale per assaporare i sapori cardine della nostra tradizione contadina.",
+          "courses": [
+            "Antipasto alla Giuggiola",
+            "2 primi a scelta tra tutti i primi del Giorno",
+            "Degustazione Sapori della Tradizione",
+            "Contorno: patate arrosto, erbe di campo e insalata mista"
           ],
-          "allergens": [
-            "3"
+          "includes": [
+            "Acqua",
+            "¼ di vino della casa",
+            "Caffè",
+            "Coperto"
+          ]
+        },
+        {
+          "id": "menu-gran-degustazione-i-sapori-dell-acquaviva",
+          "name": "Menù Gran Degustazione \"I Sapori dell'Acquaviva\"",
+          "price": 40.0,
+          "description": "L'esperienza definitiva dell'agriturismo. Senza compromessi, per esaltare l'eccellenza della filiera.",
+          "courses": [
+            "Antipasto alla Giuggiola",
+            "2 primi a scelta tra tutti i primi del Giorno",
+            "Degustazione Sapori della Filiera",
+            "Contorno a scelta",
+            "Assaggio di fritti tradizionali: olive ascolane, cremini, panelle",
+            "Dolci caserecci della casa"
           ],
-          "available": true
+          "includes": [
+            "Acqua",
+            "Bottiglia di vino di nostra produzione",
+            "Dessert",
+            "Caffè",
+            "Coperto"
+          ]
         }
       ]
     },
-    "mercoledì": {
-      "enabled": false,
-      "title": "Primi & Secondi",
-      "fisso": false,
-      "fixed_price": "€35,90",
-      "description": "",
-      "updated": "2026-05-16T10:57:37.078Z",
-      "dishes": []
-    },
-    "giovedì": {
-      "enabled": false,
-      "title": "",
-      "fisso": false,
-      "fixed_price": "€35,90",
-      "description": "",
-      "updated": "2026-05-16T10:57:37.078Z",
-      "dishes": []
-    },
-    "venerdì": {
-      "enabled": false,
-      "title": "",
-      "fisso": false,
-      "fixed_price": "€35,90",
-      "description": "",
-      "updated": "2026-05-16T10:57:37.078Z",
-      "dishes": []
-    },
-    "sabato": {
-      "enabled": true,
-      "title": "Menù Spettacolare",
-      "fisso": true,
-      "fixed_price": "30",
-      "description": "Cena con Spettacolo!",
-      "updated": "2026-05-16T10:57:37.078Z",
+    {
+      "id": "primi-piatti",
+      "title": "Primi piatti",
+      "description": "Paste fresche tirate a mano con uova delle nostre galline.",
       "dishes": [
         {
-          "id": "p1",
-          "name": "Il nostro Antipasto",
-          "description": "La nostra crescia e gli sfizi di campagna",
-          "price": null,
-          "price_display": "€7,50",
-          "tags": [],
-          "allergens": [],
-          "available": true
+          "id": "pappardelle-al-cinghiale-in-bianco",
+          "name": "Pappardelle al Cinghiale in Bianco",
+          "price": 13.0
         },
         {
-          "id": "p2",
-          "name": "Tagliatelline a scelta!",
-          "description": "Tagliatelline con carciofi e salsiccia o al ragù",
-          "price": null,
-          "tags": [],
-          "allergens": [],
-          "available": true,
-          "price_display": "€15,00"
+          "id": "gnocchi-al-ragu-di-papera",
+          "name": "Gnocchi al Ragù di Papera",
+          "price": 12.0
         },
         {
-          "id": "p3",
-          "name": "Maialino del fattore",
-          "description": "maialino cotto lentamente nella birra con aromi dell'orto",
-          "price": null,
-          "tags": [],
-          "allergens": [],
-          "available": true,
-          "price_display": "€15,00"
+          "id": "tagliatella-al-ragu-di-papera",
+          "name": "Tagliatella al Ragù di Papera",
+          "price": 12.0
         },
         {
-          "id": "d-1778928921289",
-          "name": "Dolce della casa",
-          "description": "Dolce della casa",
-          "price": null,
-          "tags": [],
-          "allergens": [],
-          "available": true
+          "id": "ravioli-con-crema-di-zucchine-e-pinoli",
+          "name": "Ravioli con Crema di Zucchine e Pinoli",
+          "price": 14.0
         },
         {
-          "id": "d-1778928956761",
-          "name": "Bevande",
-          "description": "1/4 di Vino, acqua e caffè inclusi",
-          "price": null,
-          "tags": [],
-          "allergens": [],
-          "available": true
+          "id": "tagliatella-primavera",
+          "name": "Tagliatella Primavera",
+          "price": 13.0
+        },
+        {
+          "id": "boccolotti-del-batte-oca",
+          "name": "Boccolotti del Batte Oca",
+          "price": 12.0
+        },
+        {
+          "id": "vincisgrassi-marchigiani",
+          "name": "Vincisgrassi Marchigiani",
+          "price": 14.0
+        },
+        {
+          "id": "lasagna-bianca",
+          "name": "Lasagna Bianca",
+          "price": 12.0
+        },
+        {
+          "id": "lasagna-rossa",
+          "name": "Lasagna Rossa",
+          "price": 12.0
+        },
+        {
+          "id": "tagliatella-con-carciofi-e-salsiccia",
+          "name": "Tagliatella con Carciofi e Salsiccia",
+          "price": 14.0
+        },
+        {
+          "id": "tagliatella-al-ragu-rosso",
+          "name": "Tagliatella al Ragù Rosso",
+          "price": 12.0
+        },
+        {
+          "id": "tortellini-in-brodo",
+          "name": "Tortellini in Brodo",
+          "price": 14.0
+        },
+        {
+          "id": "fagioli-con-cotiche-e-salsiccia",
+          "name": "Fagioli con Cotiche e Salsiccia",
+          "price": 13.0
+        },
+        {
+          "id": "polenta-bianca-con-cipolla-e-salsiccia",
+          "name": "Polenta Bianca con Cipolla e Salsiccia",
+          "price": 11.0
+        },
+        {
+          "id": "polenta-al-cinghiale",
+          "name": "Polenta al Cinghiale",
+          "price": 13.0
+        },
+        {
+          "id": "tortellini-con-funghi-panna-piselli-e-salsiccia",
+          "name": "Tortellini con Funghi, Panna, Piselli e Salsiccia",
+          "price": 12.0
+        },
+        {
+          "id": "penne-al-pomodoro-e-basilico",
+          "name": "Penne al Pomodoro e Basilico",
+          "price": 8.0
         }
       ]
     },
-    "domenica": {
-      "enabled": true,
-      "title": "Menù della casa",
-      "fisso": true,
-      "fixed_price": "30",
-      "description": "",
-      "updated": "2026-05-16T10:57:37.078Z",
-      "dishes": []
+    {
+      "id": "secondi-piatti",
+      "title": "Secondi piatti",
+      "description": "Carni della nostra filiera • Macellazione interna",
+      "subtitle": "Allevamento allo stato brado.",
+      "dishes": [
+        {
+          "id": "pollo-in-salmi",
+          "name": "Pollo in Salmì",
+          "price": 14.0
+        },
+        {
+          "id": "pollo-al-potacchio",
+          "name": "Pollo al Potacchio",
+          "price": 14.0
+        },
+        {
+          "id": "pollo-arrosto",
+          "name": "Pollo Arrosto",
+          "price": 14.0
+        },
+        {
+          "id": "pollo-alla-cacciatora",
+          "name": "Pollo alla Cacciatora",
+          "price": 15.0
+        },
+        {
+          "id": "stinco-di-maiale",
+          "name": "Stinco di Maiale",
+          "price": 12.0
+        },
+        {
+          "id": "arrosto-di-maiale",
+          "name": "Arrosto di Maiale",
+          "price": 15.0
+        },
+        {
+          "id": "coniglio-in-porchetta",
+          "name": "Coniglio in Porchetta",
+          "price": 18.0
+        },
+        {
+          "id": "maialino-alla-birra",
+          "name": "Maialino alla Birra",
+          "price": 17.0
+        },
+        {
+          "id": "grigliata-mista-di-maiale",
+          "name": "Grigliata Mista di Maiale",
+          "price": 18.0
+        },
+        {
+          "id": "faraona-alla-cacciatora",
+          "name": "Faraona alla Cacciatora",
+          "price": 16.0
+        },
+        {
+          "id": "faraona-al-marsala",
+          "name": "Faraona al Marsala",
+          "price": 16.0
+        },
+        {
+          "id": "oca-arrosto",
+          "name": "Oca Arrosto",
+          "price": 18.0
+        },
+        {
+          "id": "oca-in-porchetta",
+          "name": "Oca in Porchetta",
+          "price": 18.0
+        },
+        {
+          "id": "oca-in-salmi",
+          "name": "Oca in Salmì",
+          "price": 18.0
+        },
+        {
+          "id": "agnello-al-forno",
+          "name": "Agnello al Forno",
+          "price": 20.0
+        },
+        {
+          "id": "grigliata-mista-di-agnello",
+          "name": "Grigliata Mista di Agnello",
+          "price": 21.0
+        },
+        {
+          "id": "maialino-in-crosta",
+          "name": "Maialino in Crosta",
+          "price": 22.0
+        },
+        {
+          "id": "agnello-misto-cappone-vitello-bollito",
+          "name": "Agnello Misto / Cappone / Vitello Bollito",
+          "price": 18.0
+        },
+        {
+          "id": "cotoletta-di-pollo",
+          "name": "Cotoletta di Pollo",
+          "price": 10.0
+        },
+        {
+          "id": "frittura-italiana",
+          "name": "Frittura Italiana",
+          "price": 27.0
+        },
+        {
+          "id": "fiorentina-di-nostra-produzione",
+          "name": "Fiorentina di Nostra Produzione",
+          "price": 50.0,
+          "price_unit": "kg"
+        },
+        {
+          "id": "bistecca-di-vitellone-grigliata-gr-250",
+          "name": "Bistecca di Vitellone Grigliata gr. 250",
+          "price": 17.0
+        }
+      ]
+    },
+    {
+      "id": "contorni-e-fritti-della-tradizione",
+      "title": "Contorni e fritti della tradizione",
+      "dishes": [
+        {
+          "id": "patate-arrosto",
+          "name": "Patate Arrosto",
+          "price": 4.0
+        },
+        {
+          "id": "insalata-mista",
+          "name": "Insalata Mista",
+          "price": 3.5
+        },
+        {
+          "id": "insalata-verde",
+          "name": "Insalata Verde",
+          "price": 3.5
+        },
+        {
+          "id": "verdure-gratinate",
+          "name": "Verdure Gratinate",
+          "price": 5.0
+        },
+        {
+          "id": "tris-di-fritti",
+          "name": "Tris di Fritti",
+          "price": 6.0
+        }
+      ]
+    },
+    {
+      "id": "dolci-della-casa",
+      "title": "Dolci della casa",
+      "description": "Preparati ogni giorno nel nostro laboratorio.",
+      "dishes": [
+        {
+          "id": "panna-cotta-fatta-in-casa",
+          "name": "Panna Cotta Fatta in Casa",
+          "price": 3.5
+        },
+        {
+          "id": "crema-catalana-fatta-in-casa",
+          "name": "Crema Catalana Fatta in Casa",
+          "price": 4.0
+        },
+        {
+          "id": "tiramisu-fatto-in-casa",
+          "name": "Tiramisù Fatto in Casa",
+          "price": 4.0
+        },
+        {
+          "id": "cantucci-con-vinsanto-e-visciole",
+          "name": "Cantucci con Vinsanto e Visciole",
+          "price": 4.5
+        },
+        {
+          "id": "degustazione-di-dolci-della-casa",
+          "name": "Degustazione di Dolci della Casa",
+          "price": 3.0
+        }
+      ]
+    },
+    {
+      "id": "bibite",
+      "title": "Bibite",
+      "group": "Bevande",
+      "dishes": [
+        {
+          "id": "coca-cola-1-lt",
+          "name": "Coca Cola 1 lt",
+          "price": 5.0
+        },
+        {
+          "id": "coca-cola-33-cl",
+          "name": "Coca Cola 33 cl",
+          "price": 2.5
+        },
+        {
+          "id": "fanta-33-cl",
+          "name": "Fanta 33 cl",
+          "price": 2.5
+        },
+        {
+          "id": "coca-cola-zero-33-cl",
+          "name": "Coca Cola Zero 33 cl",
+          "price": 2.5
+        },
+        {
+          "id": "estathe-pesca-33-cl",
+          "name": "Estathé Pesca 33 cl",
+          "price": 2.5
+        },
+        {
+          "id": "acqua-1-lt",
+          "name": "Acqua 1 lt",
+          "price": 2.0
+        }
+      ]
+    },
+    {
+      "id": "birre",
+      "title": "Birre",
+      "group": "Bevande",
+      "dishes": [
+        {
+          "id": "beck-s-33-cl",
+          "name": "Beck's 33 cl",
+          "price": 3.0
+        },
+        {
+          "id": "ceres-strong-33-cl",
+          "name": "Ceres Strong 33 cl",
+          "price": 3.5
+        },
+        {
+          "id": "messina-cristalli-di-sale-33-cl",
+          "name": "Messina Cristalli di Sale 33 cl",
+          "price": 3.5
+        },
+        {
+          "id": "ichnusa-66-cl",
+          "name": "Ichnusa 66 cl",
+          "price": 4.0
+        }
+      ]
+    },
+    {
+      "id": "spumanti",
+      "title": "Spumanti",
+      "group": "Bevande",
+      "dishes": [
+        {
+          "id": "montesilvini-promosso-extra-dry-0-75-lt",
+          "name": "Montesilvini Promosso Extra Dry 0,75 lt",
+          "price": 15.0
+        },
+        {
+          "id": "rosso-dei-forti-dolce-0-75-lt",
+          "name": "Rosso Dei Forti Dolce 0,75 lt",
+          "price": 15.0
+        }
+      ]
+    },
+    {
+      "id": "carta-vini",
+      "title": "Carta vini",
+      "group": "Bevande",
+      "dishes": [
+        {
+          "id": "mille-bolle-frizzante-0-75-lt",
+          "name": "Mille Bolle Frizzante 0,75 lt",
+          "price": 12.0
+        },
+        {
+          "id": "vino-bianco-marche-igp-passione-di-peco-0-75-lt",
+          "name": "Vino Bianco Marche IGP Passione di Peco 0,75 lt",
+          "price": 12.5
+        },
+        {
+          "id": "chardonnay-marche-igp-0-75-lt",
+          "name": "Chardonnay Marche IGP 0,75 lt",
+          "price": 12.0
+        },
+        {
+          "id": "vino-rosato-marche-igp-0-75-lt",
+          "name": "Vino Rosato Marche IGP 0,75 lt",
+          "price": 12.0
+        },
+        {
+          "id": "verdicchio-class-le-barbatelle-doc-0-75-lt",
+          "name": "Verdicchio Class Le Barbatelle DOC 0,75 lt",
+          "price": 13.0
+        },
+        {
+          "id": "passerina-le-barbatelle-igp-0-75-lt",
+          "name": "Passerina Le Barbatelle IGP 0,75 lt",
+          "price": 13.5
+        },
+        {
+          "id": "pecorino-le-barbatelle-igp-0-75-lt",
+          "name": "Pecorino Le Barbatelle IGP 0,75 lt",
+          "price": 13.5
+        },
+        {
+          "id": "rosso-conero-doc-piancarda-garofoli-0-75-lt",
+          "name": "Rosso Conero DOC Piancarda Garofoli 0,75 lt",
+          "price": 24.0
+        },
+        {
+          "id": "lacrima-di-morro-d-alba-le-barbatelle-0-75-lt",
+          "name": "Lacrima di Morro d'Alba Le Barbatelle 0,75 lt",
+          "price": 13.0
+        },
+        {
+          "id": "rosso-conero-le-barbatelle-0-75-lt",
+          "name": "Rosso Conero Le Barbatelle 0,75 lt",
+          "price": 14.0
+        }
+      ]
+    },
+    {
+      "id": "vini-della-casa",
+      "title": "Vini della casa",
+      "group": "Bevande",
+      "dishes": [
+        {
+          "id": "passerina-1-lt",
+          "name": "Passerina 1 lt",
+          "price": 8.0
+        },
+        {
+          "id": "rosso-marche-1-lt",
+          "name": "Rosso Marche 1 lt",
+          "price": 8.0
+        }
+      ]
+    },
+    {
+      "id": "amari-e-grappe",
+      "title": "Amari e grappe",
+      "group": "Bevande",
+      "dishes": [
+        {
+          "id": "fernet-branca",
+          "name": "Fernet Branca",
+          "price": 2.5
+        },
+        {
+          "id": "amaro-del-capo",
+          "name": "Amaro del Capo",
+          "price": 2.5
+        },
+        {
+          "id": "amaro-montenegro",
+          "name": "Amaro Montenegro",
+          "price": 2.5
+        },
+        {
+          "id": "limone-brotto",
+          "name": "Limone Brotto",
+          "price": 2.5
+        },
+        {
+          "id": "diciotto-lune-marzadro",
+          "name": "Diciotto Lune Marzadro",
+          "price": 3.0
+        },
+        {
+          "id": "candolini",
+          "name": "Candolini",
+          "price": 2.5
+        }
+      ]
     }
-  }
+  ]
 }

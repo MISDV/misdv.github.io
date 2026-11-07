@@ -51,7 +51,7 @@
   ]
 }</script>
 <link rel="manifest" href="/manifest.json">
-<script src="/assets/site.js?v=2" defer></script>
+<script src="/assets/site.js?v=3" defer></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag() { dataLayer.push(arguments); }
@@ -78,7 +78,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="flex justify-between items-center h-20 md:h-24">
       <div class="flex-shrink-0 flex items-center gap-3 group cursor-pointer">
         <div class="flex items-center justify-center w-12 h-12 md:w-16 md:h-16 bg-primary/10 p-2 rounded-full hover:bg-primary/20 transition-colors">
-          <img src="/logo.webp" width="92" height="92" alt="logo Giuggioloni Osimo" class="w-10 h-10 md:w-12 md:h-12 object-contain">
+          <img src="/logo.png" width="92" height="92" alt="logo Giuggioloni Osimo" class="w-10 h-10 md:w-12 md:h-12 object-contain">
         </div>
         <div class="flex flex-col">
           <span data-text="home.titolo" class="font-serif font-bold text-lg md:text-xl tracking-wide text-gray-900 dark:text-white leading-none">GIUGGIOLONI</span>
@@ -114,7 +114,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="p-5 space-y-4">
           <div class="flex items-center justify-between">
             <div class="flex items-center gap-3">
-              <div class="w-10 h-10 bg-primary/10 rounded-md flex items-center justify-center"><img src="/logo.webp" width="92" height="92" alt="Logo Giuggioloni Osimo" class="w-8 h-8 object-contain"></div>
+              <div class="w-10 h-10 bg-primary/10 rounded-md flex items-center justify-center"><img src="/logo.png" width="92" height="92" alt="Logo Giuggioloni Osimo" class="w-8 h-8 object-contain"></div>
               <div>
                 <div data-text="home.titolo" class="text-sm font-serif font-bold text-gray-900 dark:text-white">GIUGGIOLONI</div>
                 <div data-text="home.sottotitolo" class="text-xs text-primary uppercase tracking-wider">I sapori dell'Acquaviva</div>
@@ -265,59 +265,38 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <span class="text-primary font-bold tracking-widest uppercase mb-3 block font-serif">I Nostri Piatti</span>
 
         <h2 id="menuTitle" class="text-2xl md:text-5xl font-serif font-bold text-gray-900 dark:text-white mb-4 md:mb-8">Sapori di Stagione</h2>
-        <div class="home-menu-tabs" data-home-menu role="group" aria-label="Seleziona il giorno" hidden></div>
+        <div class="home-menu-tabs" data-home-menu role="group" aria-label="Anteprima per categoria" hidden></div>
         <div class="home-menu mb-8">
 <!-- MENU-CONTENT:START -->
-<p class="eyebrow">Menu Ristorante</p>
-<p class="lede">La nostra cucina è un omaggio alla tradizione contadina. Ogni piatto racconta una storia di ingredienti freschi, baciati dal sole e raccolti la mattina stessa dal nostro orto.</p>
-<section class="menu-day" data-day="5" data-label="Sabato">
+<section class="menu-day" data-category="menu-fissi" data-label="Menù fissi">
   <header class="menu-day-header">
-    <p class="eyebrow">Sabato · Menù fisso</p>
-    <h2>Menù Spettacolare</h2>
-    <p>Cena con Spettacolo!</p>
-    <p class="menu-price">30,00 €</p>
+    <h2>Menù fissi</h2>
+    <p>Formula conviviale. Minimo 2 persone. Stesso menù per l&#39;intero tavolo.</p>
   </header>
   <ul class="menu-dishes"><li class="menu-dish" data-dish>
-    <div class="dish-title"><h3>Il nostro Antipasto</h3></div>
-    <p>La nostra crescia e gli sfizi di campagna</p>
-
-
+    <div class="dish-title"><h3>Menù Tradizione Rurale</h3><span class="menu-price">35,00 €</span></div>
+    <p>Il percorso essenziale per assaporare i sapori cardine della nostra tradizione contadina.</p>
   </li>
 <li class="menu-dish" data-dish>
-    <div class="dish-title"><h3>Tagliatelline a scelta!</h3></div>
-    <p>Tagliatelline con carciofi e salsiccia o al ragù</p>
-
-
-  </li>
-<li class="menu-dish" data-dish>
-    <div class="dish-title"><h3>Maialino del fattore</h3></div>
-    <p>maialino cotto lentamente nella birra con aromi dell&#39;orto</p>
-
-
-  </li>
-<li class="menu-dish" data-dish>
-    <div class="dish-title"><h3>Dolce della casa</h3></div>
-    <p>Dolce della casa</p>
-
-
-  </li>
-<li class="menu-dish" data-dish>
-    <div class="dish-title"><h3>Bevande</h3></div>
-    <p>1/4 di Vino, acqua e caffè inclusi</p>
-
-
+    <div class="dish-title"><h3>Menù Gran Degustazione &quot;I Sapori dell&#39;Acquaviva&quot;</h3><span class="menu-price">40,00 €</span></div>
+    <p>L&#39;esperienza definitiva dell&#39;agriturismo. Senza compromessi, per esaltare l&#39;eccellenza della filiera.</p>
   </li></ul>
 </section>
-<section class="menu-day" data-day="6" data-label="Domenica">
+<section class="menu-day" data-category="primi-piatti" data-label="Primi piatti">
   <header class="menu-day-header">
-    <p class="eyebrow">Domenica · Menù fisso</p>
-    <h2>Menù della casa</h2>
-
-    <p class="menu-price">30,00 €</p>
+    <h2>Primi piatti</h2>
+    <p>Paste fresche tirate a mano con uova delle nostre galline.</p>
   </header>
-  <p class="menu-note">I piatti di questa giornata saranno comunicati dall’agriturismo.</p>
+  <ul class="menu-dishes"><li class="menu-dish" data-dish>
+    <div class="dish-title"><h3>Pappardelle al Cinghiale in Bianco</h3><span class="menu-price">13,00 €</span></div>
+  </li>
+<li class="menu-dish" data-dish>
+    <div class="dish-title"><h3>Gnocchi al Ragù di Papera</h3><span class="menu-price">12,00 €</span></div>
+  </li>
+<li class="menu-dish" data-dish>
+    <div class="dish-title"><h3>Tagliatella al Ragù di Papera</h3><span class="menu-price">12,00 €</span></div>
+  </li></ul>
 </section>
-<p class="menu-updated">Ultimo aggiornamento <time datetime="2026-05-16">16 maggio 2026</time></p>
 <!-- MENU-CONTENT:END -->
         </div>
 
