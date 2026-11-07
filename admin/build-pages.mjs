@@ -78,8 +78,9 @@ function page({ path, title, description, trail, content, hero, privacy = false 
 <link rel="stylesheet" href="/assets/booking.css?v=1">
 ${breadcrumbSchema(trail)}
 ${schema}
-<script src="/assets/site.js?v=6" defer></script>
-<script src="/assets/booking.js?v=1" defer></script>
+<script src="/assets/place-map.js?v=1" defer></script>
+<script src="/assets/site.js?v=8" defer></script>
+<script src="/assets/booking.js?v=3" defer></script>
 ${privacy ? '<script src="/assets/consent.js?v=1" defer></script>' : ''}
 </head>
 <body class="bg-background-cream dark:bg-background-dark text-gray-800 dark:text-gray-200 font-display bg-texture-cream">

@@ -1,4 +1,5 @@
 import { readFile } from 'node:fs/promises';
+import placeMap from '../assets/place-map.js';
 import { escapeHtml } from '../assets/menu-render.mjs';
 
 // The approved home layout is the source for the site's common header/footer.
@@ -27,6 +28,7 @@ const translations = new Map([
 export function siteLayout(path = '/', language = 'it') {
   let header = source.slice(begin, main);
   let footer = source.slice(foot, source.indexOf('</footer>', foot) + 9);
+  footer = footer.replace(/(<a data-maps href=")[^"]+/, '$1' + placeMap.placeUrl);
   header = header.replaceAll('hidden lg:flex space-x-8 items-center', 'site-desktop-links space-x-8 items-center')
     .replaceAll('lg:hidden flex items-center', 'site-mobile-toggle items-center')
     .replaceAll('lg:hidden fixed inset-0', 'site-mobile-overlay fixed inset-0')

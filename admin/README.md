@@ -31,6 +31,10 @@ Il popup prenotazioni è gestito da `assets/booking.js` e `assets/booking.css`.
 Il numero di prenotazione è +39 392 252 9406. La mappa si carica soltanto
 quando il popup viene aperto; senza JavaScript i pulsanti chiamano direttamente.
 
+La scheda Google Maps e l’iframe sono definiti in `assets/place-map.js`.
+Footer, popup, pagina inglese e Lume usano lo stesso riferimento, ripreso anche
+dal campo SEO `hasMap` della home.
+
 Prima del push pubblica insieme i file sorgente modificati e i file HTML,
 CSS e JavaScript generati. GitHub Pages continua a servire file statici.
 I controlli prima della pubblicazione servono a verificare link, immagini,

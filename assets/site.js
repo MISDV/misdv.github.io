@@ -1,4 +1,5 @@
 const englishSite = document.documentElement.lang.startsWith('en');
+const restaurantMap = window.GiuggioloniMap;
 
 function setText(selector, value) {
   if (typeof value !== 'string' || !value.trim()) return;
@@ -83,22 +84,20 @@ function setupMaps() {
   for (const map of document.querySelectorAll('[data-map]')) {
     const button = map.querySelector('[data-map-toggle]');
     const slot = map.querySelector('[data-map-slot]');
-    const directions = map.querySelector('[data-maps]');
     button.hidden = false;
     button.addEventListener('click', () => {
       if (!slot.hidden) {
         slot.replaceChildren();
         slot.hidden = true;
       } else {
-        const query = new URL(directions.href).searchParams.get('query');
-        const url = new URL('https://maps.google.com/maps');
-        url.searchParams.set('q', query);
-        url.searchParams.set('z', '15');
-        url.searchParams.set('output', 'embed');
         const iframe = document.createElement('iframe');
         iframe.title = 'Google Maps — Agriturismo Giuggioloni, Osimo';
-        iframe.referrerPolicy = 'no-referrer';
-        iframe.src = url.href;
+        iframe.width = '600';
+        iframe.height = '450';
+        iframe.allowFullscreen = true;
+        iframe.loading = 'lazy';
+        iframe.referrerPolicy = 'strict-origin-when-cross-origin';
+        iframe.src = restaurantMap.embedUrl;
         slot.append(iframe);
         slot.hidden = false;
       }
@@ -170,8 +169,7 @@ async function updateSite() {
     setText('[data-via]', contact.via);
     setText('[data-comune]', contact.comune);
     if (contact.via && contact.comune) {
-      const query = encodeURIComponent(`${contact.via}, ${contact.comune}`);
-      document.querySelectorAll('[data-maps]').forEach(map => { map.href = `https://www.google.com/maps/search/?api=1&query=${query}`; });
+      document.querySelectorAll('[data-maps]').forEach(map => { map.href = restaurantMap.placeUrl; });
     }
     const email = document.querySelector('[data-email]');
     if (email && typeof contact.mail === 'string' && /^[^\s@]+@[^\s@]+$/.test(contact.mail)) {

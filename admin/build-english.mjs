@@ -1,4 +1,5 @@
 import { mkdir, writeFile } from 'node:fs/promises';
+import placeMap from '../assets/place-map.js';
 import { breadcrumbSchema, breadcrumbs, jsonLd } from './site-seo.mjs';
 import { siteLayout } from './site-layout.mjs';
 
@@ -23,8 +24,9 @@ const html = `<!doctype html>
 <meta name="twitter:card" content="summary_large_image"><meta name="theme-color" content="#f5eee3">
 <link rel="icon" href="/favicon.ico"><link rel="stylesheet" href="/assets/site-legacy.min.css">
 <link rel="stylesheet" href="/assets/site-extras.css?v=5"><link rel="stylesheet" href="/assets/booking.css?v=1">
-<script src="/assets/booking.js?v=1" defer></script>
-<script src="/assets/site.js?v=6" defer></script>
+<script src="/assets/place-map.js?v=1" defer></script>
+<script src="/assets/booking.js?v=3" defer></script>
+<script src="/assets/site.js?v=8" defer></script>
 ${breadcrumbSchema(trail)}
 ${jsonLd({ '@type': 'WebPage', '@id': 'https://agriturismogiuggioloni.it/en/#page', url: 'https://agriturismogiuggioloni.it/en/', name: title, description, inLanguage: 'en', isPartOf: { '@id': 'https://agriturismogiuggioloni.it/#sito' }, about: { '@id': 'https://agriturismogiuggioloni.it/#ristorante' } })}
 </head><body class="bg-background-cream text-gray-800 font-display">
@@ -40,7 +42,7 @@ ${header}
 <h2>Opening times and reservations</h2><p>Friday dinner: please call to confirm the time. Saturday and Sunday: 11:30–15:00 and 19:00–23:00. Closed Monday to Thursday.</p>
 <p>Call <a href="tel:+393922529406">+39 392 252 9406</a> to arrange your table, or email <a href="mailto:info@agriturismogiuggioloni.it">info@agriturismogiuggioloni.it</a>.</p>
 <div class="place-actions"><a href="tel:+393922529406" data-booking>Book a table</a><a href="/lume/en/">Dishes, prices and allergen guide</a></div>
-<h2>Find us</h2><p>Via Acquaviva 34, 60027 Osimo (AN), Marche, Italy.</p><p><a href="https://www.google.com/maps/search/?api=1&amp;query=Via+Acquaviva+34%2C+60027+Osimo+Italy" target="_blank" rel="noopener noreferrer">Directions on Google Maps</a></p>
+<h2>Find us</h2><p>Via Acquaviva 34, 60027 Osimo (AN), Marche, Italy.</p><p><a href="${placeMap.placeUrl}" target="_blank" rel="noopener noreferrer">Directions on Google Maps</a></p>
 </article></div></main>
 ${footer}
 </body></html>`;
