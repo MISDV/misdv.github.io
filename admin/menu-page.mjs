@@ -6,5 +6,7 @@ export function updateMenuPage(html, menu) {
   const from = html.indexOf(start);
   const to = html.indexOf(end);
   if (from < 0 || to < from) throw new Error('Modello della pagina menù non disponibile.');
-  return html.slice(0, from + start.length) + '\n' + renderMenu(menu) + '\n' + html.slice(to);
+  const newline = html.includes('\r\n') ? '\r\n' : '\n';
+  const content = renderMenu(menu).replace(/^[ \t]+$/gm, '').replaceAll('\n', newline);
+  return html.slice(0, from + start.length) + newline + content + newline + html.slice(to);
 }

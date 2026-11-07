@@ -1,0 +1,409 @@
+@font-face {
+  font-family: 'Be Vietnam Pro';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url(site-fonts/be-vietnam-pro-300-latin-ext.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Be Vietnam Pro';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url(site-fonts/be-vietnam-pro-300-latin.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Be Vietnam Pro';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(shop-fonts/be-vietnam-pro-400-latin-ext.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Be Vietnam Pro';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(shop-fonts/be-vietnam-pro-400-latin.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Be Vietnam Pro';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(shop-fonts/be-vietnam-pro-500-latin-ext.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Be Vietnam Pro';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(shop-fonts/be-vietnam-pro-500-latin.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Be Vietnam Pro';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url(shop-fonts/be-vietnam-pro-600-latin-ext.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Be Vietnam Pro';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url(shop-fonts/be-vietnam-pro-600-latin.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Be Vietnam Pro';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url(shop-fonts/be-vietnam-pro-700-latin-ext.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Be Vietnam Pro';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url(shop-fonts/be-vietnam-pro-700-latin.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url(site-fonts/playfair-display-400-italic-latin-ext.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url(site-fonts/playfair-display-400-italic-latin.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(shop-fonts/playfair-display-700-latin-ext.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(shop-fonts/playfair-display-700-latin.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url(shop-fonts/playfair-display-700-latin-ext.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url(shop-fonts/playfair-display-700-latin.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url(shop-fonts/playfair-display-700-latin-ext.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url(shop-fonts/playfair-display-700-latin.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+
+@font-face {
+  font-family: 'Material Icons';
+  src: url(site-fonts/material-icons-site.woff2) format('woff2');
+  font-style: normal;
+  font-weight: 400;
+  font-display: block;
+}
+@font-face {
+  font-family: 'Material Icons Full';
+  src: url(site-fonts/material-icons-full.woff2) format('woff2');
+  font-style: normal;
+  font-weight: 400;
+  font-display: block;
+}
+.material-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  font-feature-settings: 'rlig';
+  -webkit-font-smoothing: antialiased;
+}
+.material-icons-full { font-family: 'Material Icons Full'; }
+.social-icon { width: 1em; height: 1em; fill: currentColor; }
+
+/* -------------------------
+   Variabili globali
+   ------------------------- */
+:root{
+  --site-nav-height: 80px;                    /* fallback navbar height */
+  --safe-bottom-offset: env(safe-area-inset-bottom, 0px);
+  --safe-top-offset: env(safe-area-inset-top, 0px);
+}
+
+/* -------------------------
+   Reset utili / box-sizing
+   ------------------------- */
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+html, body { max-width: 100%; overflow-x: hidden; }
+
+/* -------------------------
+   Helper generali
+   ------------------------- */
+.text-shadow { text-shadow: 0 2px 4px rgba(0,0,0,0.4); }
+.text-shadow-light { text-shadow: 0 1px 2px rgba(0,0,0,0.2); }
+.warm-filter { filter: sepia(20%) saturate(120%) contrast(105%); }
+
+/* small helper to avoid body jump when locking scroll */
+.lock-scroll {
+  position: fixed;
+  width: 100%;
+}
+
+/* -------------------------
+   Media responsiveness (media, imgs, video)
+   ------------------------- */
+img, picture, svg, video, iframe { max-width: 100%; height: auto; display: block; }
+
+/* Evitiamo overflow causato da 100vw / utilità full-bleed */
+[class*="w-screen"], [style*="100vw"], .w-screen, .full-bleed, .full-width {
+  width: 100% !important;
+  max-width: 100% !important;
+  left: 0 !important;
+  right: 0 !important;
+}
+
+/* Assicura che elementi posizionati non spingano oltre il viewport */
+.fixed, .absolute, .relative { max-width: 100%; box-sizing: border-box; }
+
+/* -------------------------
+   Header / Navbar / Hero
+   ------------------------- */
+/* forza .hero-original a rispettare l'altezza della navbar e ad usare safe-area (notch) */
+.hero-original {
+  padding-top: calc(var(--site-nav-height) + var(--safe-top-offset));
+  box-sizing: border-box;
+  overflow: visible !important; /* important per non tagliare lo "Scorri" */
+}
+
+/* regola minima dell'hero su desktop considerando nav */
+@media (min-width: 768px) {
+  :root { --site-nav-height: 96px; } /* fallback desktop */
+  .hero-original {
+    min-height: calc(100vh - var(--site-nav-height));
+  }
+}
+
+/* Consentiamo all'.hero-original di espandersi su dispositivi piccoli */
+@media (max-width: 767px) {
+  /* selettore con classe Tailwind escape-ata se presente */
+  .hero-original.min-h-\[62vh\], .hero-original {
+    height: auto !important;
+    min-height: 62vh !important;
+    padding-bottom: calc(48px + var(--safe-bottom-offset));
+    width: 100% !important;
+    overflow: visible !important;
+  }
+
+  .hero-original .relative.z-10 {
+    padding-bottom: calc(48px + var(--safe-bottom-offset));
+  }
+
+  /* assicurati che i pulsanti nel hero non forzino overflow */
+  .hero-original .relative.z-10 .flex { flex-wrap: wrap; gap: 0.5rem; }
+}
+
+/* extra small screens: font & spacing safety */
+@media (max-width: 420px) {
+  .hero-original h1 { font-size: 1.5rem !important; line-height: 1.05 !important; }
+  .hero-original .inline-block.border-y { padding-left: 0.75rem; padding-right: 0.75rem; }
+}
+
+/* Title in hero: maggiore breathing on mobile */
+.hero-original .inline-block.border-y {
+  padding-top: 0.4rem;
+  padding-bottom: 0.4rem;
+}
+.hero-original .hero-title,
+.hero-original h1 {
+  margin-top: 0.15rem;
+  margin-bottom: 0.4rem;
+}
+
+/* -------------------------
+   Indicatore "Scorri"
+   ------------------------- */
+.scroll-indicator {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: clamp(12px, 4vw, 28px);
+  z-index: 60;                /* lascia 60: sopra la maggior parte del contenuto */
+  pointer-events: none;
+  overflow: visible;
+  transition: bottom 220ms ease, opacity 180ms ease;
+  max-width: 90%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  opacity: .95;
+}
+
+/* se vogliamo evitare che copra le CTA sui telefoni stretti */
+@media (max-width: 420px) {
+  .scroll-indicator { bottom: calc(18px + var(--safe-bottom-offset)) !important; }
+}
+
+/* -------------------------
+   Fix per overflow orizzontale cumulativo
+   ------------------------- */
+/* fallback per elementi che in passato usavano 100vw */
+[style*="width:100vw"], [style*="100vw"], [class*="w-screen"] {
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+html { scroll-padding-top: calc(var(--site-nav-height) + 1rem); }
+[hidden] { display: none !important; }
+.subpage { padding-top: calc(var(--site-nav-height) + var(--safe-top-offset)); }
+[data-hours] li { display: flex; justify-content: space-between; align-items: start; gap: .65rem; }
+[data-hours] li span:first-child { color: #9ca3af; }
+[data-hours] li span:last-child { color: #fff; min-width: 5rem; text-align: right; }
+[data-hours] li .closed { color: #fb923c; font-weight: 500; }
+
+.home-menu-tabs { display: flex; gap: .5rem; flex-wrap: wrap; margin: 1rem 0 .75rem; }
+.home-menu-tabs button {
+  border: 1px solid #e7e5e4;
+  background: #fff;
+  border-radius: .25rem;
+  color: #44403c;
+  padding: .45rem .9rem;
+  font-size: .875rem;
+}
+.home-menu-tabs button[aria-pressed="true"] {
+  border-color: #e67e22;
+  background: #fff7ed;
+  color: #9a3412;
+  font-weight: 600;
+}
+.home-menu .eyebrow, .home-menu .menu-updated { display: none; }
+.home-menu .lede { margin-bottom: 1rem; }
+.home-menu .menu-day-header, .home-menu .menu-dishes { padding-inline: 1rem; }
+.home-menu .menu-day-header { background: #fff; }
+.home-menu .menu-day-header h2 { font-size: 1.25rem; }
+
+.menu-main { padding-block: 2rem 4rem; }
+.menu-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  gap: .75rem;
+  padding-bottom: 1.15rem;
+  border-bottom: 1px solid #e7d9c8;
+  margin-bottom: 1.15rem;
+}
+.menu-controls label { flex: 1 1 13rem; font-weight: 600; }
+.menu-controls input, .menu-controls select {
+  display: block;
+  width: 100%;
+  min-height: 44px;
+  padding: .45rem .65rem;
+  margin-top: .2rem;
+  background: #fff;
+  border: 1px solid #c8b8a9;
+  border-radius: .25rem;
+}
+.menu-controls select { padding-right: 2rem; }
+.menu-controls button {
+  min-height: 44px;
+  padding: .55rem 1.1rem;
+  border: 1px solid #e67e22;
+  border-radius: .25rem;
+  font-weight: 700;
+  color: #9a3412;
+  background: #fff7ed;
+}
+.menu-controls :focus-visible, .home-menu-tabs button:focus-visible { outline: 2px solid #d35400; outline-offset: 3px; }
+.eyebrow { color: #9a3412; font-size: .75rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+.lede { color: #4b5563; font-weight: 300; line-height: 1.7; margin-block: .5rem 1.25rem; }
+.menu-day {
+  margin-block: 1rem 1.5rem;
+  overflow: hidden;
+  background: #fff;
+  border: 1px solid #e7e5e4;
+  border-radius: .25rem;
+  box-shadow: 0 1px 2px #1c19170a;
+}
+.menu-day-header { padding: 1.25rem 1.5rem; background: #f5f0e6; }
+.menu-day-header h2 { font: 700 clamp(1.5rem, 4vw, 2.15rem)/1.15 "Playfair Display", serif; margin-block: .3rem; }
+.menu-day-header p:not(.eyebrow) { margin-top: .45rem; }
+.menu-price { color: #9a3412; font-weight: 700; white-space: nowrap; }
+.menu-dishes { padding-inline: 1.5rem; }
+.menu-dish { padding-block: .85rem; border-bottom: 1px dashed #e7e5e4; }
+.menu-dish:last-child { border-bottom: 0; }
+.dish-title { display: flex; justify-content: space-between; gap: .75rem; align-items: baseline; }
+.dish-title h3 { font: 700 1.15rem/1.35 "Playfair Display", serif; overflow-wrap: anywhere; }
+.menu-dish p { color: #57534e; margin-top: .2rem; font-size: .95rem; }
+.menu-dish details { font-size: .9rem; margin-top: .35rem; }
+.menu-dish summary { cursor: pointer; color: #9a3412; }
+.menu-note { padding: 1rem 1.5rem; }
+.menu-updated { color: #57534e; font-size: .85rem; margin-bottom: 1rem; }
+.menu-notice { background: #fff7ed; border: 1px solid #fed7aa; border-radius: .25rem; padding: 1rem; }
+@media print {
+  #siteNav, #contatti, .menu-controls, .menu-hero picture, .menu-hero a, .home-menu-tabs { display: none !important; }
+  .subpage, .menu-main, .menu-hero { padding-block: 0 !important; }
+  .menu-hero, .menu-day-header { background: #fff; }
+  .menu-dish, .menu-day-header { break-inside: avoid; }
+  .menu-price { color: #000; }
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

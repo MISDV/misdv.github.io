@@ -16,6 +16,98 @@ function listItem(text, href) {
   return item;
 }
 
+function setupNavigation() {
+  const button = document.querySelector('#mobileMenuButton');
+  const panel = document.querySelector('#mobileMenu');
+  const overlay = document.querySelector('#mobileOverlay');
+  if (!button || !panel || !overlay) return;
+  const close = panel.querySelector('#mobileMenuClose');
+  const setOpen = open => {
+    button.setAttribute('aria-expanded', String(open));
+    button.setAttribute('aria-label', open ? 'Chiudi menu principale' : 'Apri menu principale');
+    panel.hidden = !open;
+    overlay.hidden = !open;
+    button.querySelector('#menuIconOpen').classList.toggle('hidden', open);
+    button.querySelector('#menuIconClose').classList.toggle('hidden', !open);
+    if (open) close.focus();
+  };
+  button.addEventListener('click', () => setOpen(panel.hidden));
+  close.addEventListener('click', () => { setOpen(false); button.focus(); });
+  overlay.addEventListener('click', () => { setOpen(false); button.focus(); });
+  panel.addEventListener('click', event => {
+    if (event.target.closest('a')) setOpen(false);
+  });
+  document.addEventListener('keydown', event => {
+    if (event.key === 'Escape' && !panel.hidden) {
+      setOpen(false);
+      button.focus();
+    }
+  });
+  matchMedia('(min-width: 1024px)').addEventListener('change', event => {
+    if (event.matches) setOpen(false);
+  });
+}
+
+function setupHomeMenu() {
+  const selector = document.querySelector('[data-home-menu]');
+  if (!selector) return;
+  const days = Array.from(document.querySelectorAll('.home-menu [data-day]'));
+  if (days.length < 2) return;
+  const today = new Intl.DateTimeFormat('it-IT', { weekday: 'long', timeZone: 'Europe/Rome' }).format(new Date());
+  const buttons = days.map(day => {
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.textContent = day.dataset.label;
+    button.addEventListener('click', () => select(day));
+    return button;
+  });
+  function select(selected) {
+    days.forEach((day, index) => {
+      day.hidden = day !== selected;
+      buttons[index].setAttribute('aria-pressed', String(day === selected));
+    });
+  }
+  selector.append(...buttons);
+  selector.hidden = false;
+  select(days.find(day => day.dataset.label.toLowerCase() === today) || days[0]);
+}
+
+function renderHours(hours) {
+  const list = document.querySelector('[data-hours]');
+  if (!list || !hours || !Object.keys(hours).length) return;
+  list.replaceChildren(...Object.entries(hours).map(([day, service]) => {
+    const times = [service?.pranzo, service?.cena].filter(Boolean).map(time => String(time).replace('-', '–'));
+    const label = times.join(' · ') || (service?.note === 'Cena' ? 'Cena, orario da confermare' : service?.note || 'Orario da confermare');
+    const item = document.createElement('li');
+    const name = document.createElement('span');
+    const schedule = document.createElement('span');
+    name.textContent = day;
+    schedule.textContent = label;
+    if (service?.note === 'Chiuso') schedule.className = 'closed';
+    item.append(name, schedule);
+    return item;
+  }));
+}
+
+function renderCards(cards) {
+  const container = document.querySelector('[data-cards]');
+  const template = document.querySelector('#farm-card-template');
+  if (!container || !template || !Array.isArray(cards)) return;
+  const fragment = document.createDocumentFragment();
+  for (const card of cards) {
+    const item = template.content.cloneNode(true);
+    item.querySelector('[data-card-title]').textContent = card.titolo;
+    item.querySelector('[data-card-body]').textContent = card.valore;
+    for (const icon of item.querySelectorAll('.material-icons')) {
+      const name = /^[a-z_]+$/.test(card.icona || '') ? card.icona : 'info';
+      icon.textContent = name;
+      icon.classList.toggle('material-icons-full', !['agriculture', 'restaurant_menu', 'favorite', 'info'].includes(name));
+    }
+    fragment.append(item);
+  }
+  container.replaceChildren(fragment);
+}
+
 async function updateSite() {
   const response = await fetch('/dati.json');
   if (!response.ok) return;
@@ -34,45 +126,29 @@ async function updateSite() {
   if (contact) {
     setText('[data-via]', contact.via);
     setText('[data-comune]', contact.comune);
-    if (contact.via && contact.comune) {
+    const maps = document.querySelector('[data-maps]');
+    if (maps && contact.via && contact.comune) {
       const query = encodeURIComponent(`${contact.via}, ${contact.comune}`);
-      document.querySelector('[data-maps]').href = `https://www.google.com/maps/search/?api=1&query=${query}`;
+      maps.href = `https://www.google.com/maps/search/?api=1&query=${query}`;
     }
     const email = document.querySelector('[data-email]');
-    if (typeof contact.mail === 'string' && /^[^\s@]+@[^\s@]+$/.test(contact.mail)) {
+    if (email && typeof contact.mail === 'string' && /^[^\s@]+@[^\s@]+$/.test(contact.mail)) {
       email.href = `mailto:${contact.mail}`;
       email.textContent = contact.mail;
     }
     const phones = Array.isArray(contact.numeri_telefono) ? contact.numeri_telefono.filter(phone => typeof phone === 'string' && /\d/.test(phone)) : [];
-    if (phones.length) {
-      document.querySelector('[data-phones]').replaceChildren(...phones.map(phone => listItem(phone, `tel:${phone.replace(/[^+\d]/g, '')}`)));
+    const phoneList = document.querySelector('[data-phones]');
+    if (phoneList && phones.length) {
+      phoneList.replaceChildren(...phones.map(phone => listItem(phone, `tel:${phone.replace(/[^+\d]/g, '')}`)));
     }
   }
 
-  const hours = data.orari;
-  if (hours && Object.keys(hours).length) {
-    document.querySelector('[data-hours]').replaceChildren(...Object.entries(hours).map(([day, service]) => {
-      const times = [service?.pranzo, service?.cena].filter(Boolean).map(time => time.replace('-', '–'));
-      const label = times.join(' e ') || (service?.note === 'Cena' ? 'Cena, orario da confermare' : service?.note || 'Orario da confermare');
-      return listItem(`${day} · ${label}`);
-    }));
-  }
-
-  const cards = document.querySelector('[data-cards]');
-  if (cards && Array.isArray(data.cards)) {
-    cards.replaceChildren(...data.cards.map(card => {
-      const article = document.createElement('article');
-      article.className = 'card';
-      const title = document.createElement('h3');
-      title.textContent = card.titolo;
-      const body = document.createElement('p');
-      body.textContent = card.valore;
-      article.append(title, body);
-      return article;
-    }));
-  }
+  renderHours(data.orari);
+  renderCards(data.cards);
 }
 
+setupNavigation();
+setupHomeMenu();
 updateSite().catch(() => {
   // I contenuti principali sono disponibili nell'HTML.
 });

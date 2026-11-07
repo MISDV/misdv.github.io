@@ -22,7 +22,7 @@
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta name="theme-color" content="#f5eee3">
-<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/site-legacy.min.css">
 <script type="application/ld+json">{
   "@context": "https://schema.org",
   "@type": "Menu",
@@ -33,36 +33,106 @@
     "@id": "https://agriturismogiuggioloni.it/#ristorante"
   }
 }</script>
-<script src="/assets/site.js" defer></script>
+<script src="/assets/site.js?v=2" defer></script>
 <script type="module" src="/assets/menu.mjs"></script>
 </head>
-<body>
-<a class="skip" href="#contenuto">Vai al contenuto</a>
-<header class="site-header">
-  <div class="wrap">
-    <a class="brand" href="/"><img src="/logo.webp" alt="" width="44" height="44"><span>Giuggioloni<small>I sapori dell’Acquaviva</small></span></a>
-    <nav class="nav" aria-label="Navigazione principale">
-    <a href="/">Home</a>
-    <a href="/menu/" aria-current="page">Menù</a>
-    <a href="/storia.html">La fattoria</a>
-    <a href="/shop.html">Prodotti</a>
-    <a href="#contatti">Contatti</a>
-    </nav>
-  </div>
-</header>
-<main id="contenuto">
-  <section class="menu-hero">
-    <div class="wrap split">
-      <div>
-        <p class="eyebrow">I sapori dell’Acquaviva · Osimo</p>
-        <h1>Il menù</h1>
-        <p class="lede">La cucina dell’Agriturismo Giuggioloni, con proposte che seguono la stagione e il raccolto.</p>
-        <a class="button" href="#contatti">Prenota un tavolo</a>
+<body class="bg-background-cream dark:bg-background-dark text-gray-800 dark:text-gray-200 font-display transition-colors duration-300 bg-texture-cream">
+<a class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[100] focus:p-3 focus:bg-white" href="#contenuto">Vai al contenuto</a>
+<nav id="siteNav" aria-label="Navigazione principale" class="fixed top-0 w-full z-50 transition-all duration-300 bg-background-light/95 dark:bg-background-dark/95 backdrop-blur-md shadow-md border-b border-primary/10">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between items-center h-20 md:h-24">
+      <div class="flex-shrink-0 flex items-center gap-3 group cursor-pointer">
+        <div class="flex items-center justify-center w-12 h-12 md:w-16 md:h-16 bg-primary/10 p-2 rounded-full hover:bg-primary/20 transition-colors">
+          <img src="/logo.webp" width="92" height="92" alt="logo Giuggioloni Osimo" class="w-10 h-10 md:w-12 md:h-12 object-contain">
+        </div>
+        <div class="flex flex-col">
+          <span data-text="home.titolo" class="font-serif font-bold text-lg md:text-xl tracking-wide text-gray-900 dark:text-white leading-none">GIUGGIOLONI</span>
+          <span data-text="home.sottotitolo" class="font-display text-primary font-medium text-xs md:text-sm tracking-widest uppercase">I sapori dell'Acquaviva</span>
+        </div>
       </div>
-      <img class="photo" src="/assets/agriturismo-orto.webp" alt="Il raccolto dell’orto dell’agriturismo" width="555" height="740" loading="eager" decoding="async">
+
+      <!-- desktop links -->
+      <div class="hidden lg:flex space-x-8 items-center">
+        <a class="text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors text-sm uppercase tracking-widest font-bold font-serif" href="/">Home</a>
+        <a class="text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors text-sm uppercase tracking-widest font-bold font-serif" href="/menu/">Vedi il menu</a>
+        <a class="text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors text-sm uppercase tracking-widest font-bold font-serif" href="/storia.html">La Fattoria</a>
+        <a class="text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors text-sm uppercase tracking-widest font-bold font-serif" href="/shop.html">I Nostri Prodotti</a>
+        <a class="bg-primary hover:bg-primary-dark text-white px-4 md:px-6 py-2.5 rounded-sm transition-colors text-sm font-bold uppercase tracking-wide shadow-lg shadow-primary/30 border border-primary-dark" href="#contatti">Prenota Ora!</a>
+      </div>
+
+      <!-- Menu mobile -->
+      <div class="lg:hidden flex items-center">
+        <button id="mobileMenuButton" class="text-gray-600 dark:text-gray-300 hover:text-primary p-2 rounded-md focus:outline-none" type="button"
+                aria-controls="mobileMenu" aria-expanded="false" aria-label="Apri menu principale">
+          <svg id="menuIconOpen" class="w-6 h-6" viewBox="0 0 24 24" fill="none"><path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          <svg id="menuIconClose" class="w-6 h-6 hidden" viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+  <!-- MOBILE MENU: overlay + panel -->
+  <div id="mobileOverlay" class="lg:hidden fixed inset-0 bg-black/40 z-40" hidden></div>
+
+  <div id="mobileMenu" class="lg:hidden fixed inset-x-0 top-[var(--site-nav-height)] z-50 overflow-y-auto max-h-[calc(100dvh-5rem)]" hidden>
+    <div class="max-w-4xl mx-auto px-4">
+      <div class="bg-background-light dark:bg-background-dark/95 rounded-b-md shadow-lg border-t border-primary/10 overflow-visible">
+        <div class="p-5 space-y-4">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 bg-primary/10 rounded-md flex items-center justify-center"><img src="/logo.webp" width="92" height="92" alt="Logo Giuggioloni Osimo" class="w-8 h-8 object-contain"></div>
+              <div>
+                <div data-text="home.titolo" class="text-sm font-serif font-bold text-gray-900 dark:text-white">GIUGGIOLONI</div>
+                <div data-text="home.sottotitolo" class="text-xs text-primary uppercase tracking-wider">I sapori dell'Acquaviva</div>
+              </div>
+            </div>
+            <button id="mobileMenuClose" aria-label="Chiudi menu" class="p-2 rounded-md hover:bg-primary/5 focus:outline-none">
+              <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            </button>
+          </div>
+
+          <nav aria-label="Menu principale mobile" class="flex flex-col gap-2">
+            <a class="block py-3 px-3 rounded-md text-base font-bold text-gray-800 dark:text-gray-100 hover:bg-primary/5" href="/">Home</a>
+            <a class="block py-3 px-3 rounded-md text-base font-bold text-gray-800 dark:text-gray-100 hover:bg-primary/5" href="/menu/">Il Ristorante</a>
+            <a class="block py-3 px-3 rounded-md text-base font-bold text-gray-800 dark:text-gray-100 hover:bg-primary/5" href="/storia.html">La Fattoria</a>
+            <a class="block py-3 px-3 rounded-md text-base font-bold text-gray-800 dark:text-gray-100 hover:bg-primary/5" href="/shop.html">Prodotti</a>
+            <a class="block py-3 px-3 rounded-md text-base font-bold bg-primary text-white text-center rounded-sm" href="#contatti">Contatti</a>
+          </nav>
+
+          <div class="pt-4 border-t border-stone-200 dark:border-stone-700">
+            <div class="flex items-center gap-3">
+              <a class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-gray-400 hover:text-white hover:bg-primary transition-all duration-300" data-social="instagram" href="https://www.instagram.com/az.agricolagiuggioloni/" aria-label="Instagram">
+                <svg class="social-icon text-lg" aria-hidden="true" focusable="false"><use href="/assets/site-social.svg#instagram"></use></svg>
+              </a>
+              <a class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-gray-400 hover:text-white hover:bg-primary transition-all duration-300" data-social="facebook" href="https://www.facebook.com/p/Az-Agricola-Giuggioloni-61575483554711/" aria-label="Facebook">
+                <svg class="social-icon text-lg" aria-hidden="true" focusable="false"><use href="/assets/site-social.svg#facebook"></use></svg>
+              </a>
+              <a class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-gray-400 hover:text-white hover:bg-primary transition-all duration-300" data-social="tiktok" href="https://www.tiktok.com/@agriturismogiuggioloni" aria-label="TikTok">
+                <svg class="social-icon text-lg" aria-hidden="true" focusable="false"><use href="/assets/site-social.svg#tiktok"></use></svg>
+              </a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+<main id="contenuto" class="subpage">
+  <section class="menu-hero bg-background-cream border-b border-primary/20 py-12 md:py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid md:grid-cols-2 gap-10 items-center">
+      <div>
+        <p class="text-primary text-sm font-bold tracking-widest uppercase mb-3 font-serif">I sapori dell’Acquaviva · Osimo</p>
+        <h1 class="text-4xl md:text-6xl font-serif font-bold text-gray-900 mb-6">Il menù</h1>
+        <p class="text-gray-600 font-light text-lg leading-relaxed mb-6">La cucina dell’Agriturismo Giuggioloni, con proposte che seguono la stagione e il raccolto.</p>
+        <a class="inline-block bg-primary hover:bg-primary-dark text-white px-6 py-3 rounded-sm font-serif font-bold uppercase tracking-wide shadow-lg" href="#contatti">Prenota un tavolo</a>
+      </div>
+      <picture class="block">
+        <source type="image/avif" srcset="/assets/agriturismo-orto.avif" width="555" height="416">
+        <img src="/assets/agriturismo-orto.webp" alt="Il raccolto dell’orto dell’agriturismo" width="555" height="740" decoding="async" class="w-full aspect-[8/5] object-cover rounded-sm shadow-lg warm-filter">
+      </picture>
     </div>
   </section>
-  <div class="wrap menu-main">
+  <div class="menu-main max-w-4xl mx-auto px-4 sm:px-6">
     <div id="menu-controls" class="menu-controls" hidden>
       <label>Giorno <select id="menu-day"><option value="">Tutti i giorni</option></select></label>
       <label>Cerca un piatto <input type="search" id="menu-search" placeholder="Es. tagliatelline"></label>
@@ -83,39 +153,39 @@
   <ul class="menu-dishes"><li class="menu-dish" data-dish>
     <div class="dish-title"><h3>Il nostro Antipasto</h3></div>
     <p>La nostra crescia e gli sfizi di campagna</p>
-    
-    
+
+
   </li>
 <li class="menu-dish" data-dish>
     <div class="dish-title"><h3>Tagliatelline a scelta!</h3></div>
     <p>Tagliatelline con carciofi e salsiccia o al ragù</p>
-    
-    
+
+
   </li>
 <li class="menu-dish" data-dish>
     <div class="dish-title"><h3>Maialino del fattore</h3></div>
     <p>maialino cotto lentamente nella birra con aromi dell&#39;orto</p>
-    
-    
+
+
   </li>
 <li class="menu-dish" data-dish>
     <div class="dish-title"><h3>Dolce della casa</h3></div>
     <p>Dolce della casa</p>
-    
-    
+
+
   </li>
 <li class="menu-dish" data-dish>
     <div class="dish-title"><h3>Bevande</h3></div>
     <p>1/4 di Vino, acqua e caffè inclusi</p>
-    
-    
+
+
   </li></ul>
 </section>
 <section class="menu-day" data-day="6" data-label="Domenica">
   <header class="menu-day-header">
     <p class="eyebrow">Domenica · Menù fisso</p>
     <h2>Menù della casa</h2>
-    
+
     <p class="menu-price">30,00 €</p>
   </header>
   <p class="menu-note">I piatti di questa giornata saranno comunicati dall’agriturismo.</p>
@@ -123,37 +193,88 @@
 <p class="menu-updated">Ultimo aggiornamento <time datetime="2026-05-16">16 maggio 2026</time></p>
 <!-- MENU-CONTENT:END -->
     </div>
-    <p class="card"><strong>Allergie e intolleranze.</strong> Chiedi al personale informazioni su ingredienti e allergeni prima di ordinare.</p>
+    <p class="menu-notice"><strong>Allergie e intolleranze.</strong> Chiedi al personale informazioni su ingredienti e allergeni prima di ordinare.</p>
   </div>
 </main>
-<footer class="site-footer" id="contatti">
-  <div class="wrap grid">
-    <div>
-      <p class="eyebrow">Agriturismo Giuggioloni</p>
-      <h2>Vieni a trovarci</h2>
-      <address><span data-via>Via Acquaviva 34</span><br><span data-comune>60027 Osimo (AN) - Marche</span></address>
-      <p><a data-maps href="https://www.google.com/maps/search/?api=1&amp;query=Via+Acquaviva+34%2C+Osimo">Indicazioni stradali</a></p>
-    </div>
-    <div>
-      <h3>Contatti e prenotazioni</h3>
-      <ul data-phones>
-        <li><a href="tel:+393922529406">+39 392 252 9406</a></li>
-        <li><a href="tel:+390717230408">+39 071 723 0408</a></li>
-      </ul>
-      <p><a data-email href="mailto:info@agriturismogiuggioloni.it">info@agriturismogiuggioloni.it</a></p>
-      <div class="actions" aria-label="Social">
-        <a data-social="instagram" href="https://www.instagram.com/az.agricolagiuggioloni/">Instagram</a>
-        <a data-social="facebook" href="https://www.facebook.com/p/Az-Agricola-Giuggioloni-61575483554711/">Facebook</a>
-        <a data-social="tiktok" href="https://www.tiktok.com/@agriturismogiuggioloni">TikTok</a>
+<footer class="bg-background-dark text-gray-300 pt-16 pb-10 border-t-4 border-primary" id="contatti">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+      <div>
+        <div class="flex items-center gap-3 mb-6">
+          <div class="flex items-center justify-center bg-primary/20 p-2 rounded-full">
+            <img src="/logo.webp" width="92" height="92" loading="lazy" alt="logo Giuggioloni Osimo" class="w-10 h-10 object-contain">
+          </div>
+          <div class="flex flex-col">
+            <span class="font-serif font-bold text-lg text-white leading-none tracking-wide">Agriturismo Giuggioloni</span>
+            <span class="text-xs text-primary uppercase tracking-widest">I sapori dell'Acquaviva</span>
+          </div>
+        </div>
+        <p data-text="home.descrizione" class="text-sm leading-relaxed mb-6 text-gray-400 font-light">
+          Un angolo di paradiso nelle Marche dove riscoprire i sapori autentici e la bellezza della vita semplice, immersi nei colori caldi della natura.
+        </p>
+        <div class="flex space-x-4">
+          <a class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-gray-400 hover:text-white hover:bg-primary transition-all duration-300" data-social="facebook" id="footerFacebook" href="https://www.facebook.com/p/Az-Agricola-Giuggioloni-61575483554711/" target="_blank" rel="noopener noreferrer" aria-label="Facebook Giuggioloni"><svg class="social-icon text-lg" aria-hidden="true" focusable="false"><use href="/assets/site-social.svg#facebook"></use></svg></a>
+          <a class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-gray-400 hover:text-white hover:bg-primary transition-all duration-300" data-social="instagram" id="footerInstagram" href="https://www.instagram.com/az.agricolagiuggioloni/" target="_blank" rel="noopener noreferrer" aria-label="Instagram Giuggioloni"><svg class="social-icon text-lg" aria-hidden="true" focusable="false"><use href="/assets/site-social.svg#instagram"></use></svg></a>
+          <a class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-gray-400 hover:text-white hover:bg-primary transition-all duration-300" data-social="tiktok" id="footerTiktok" href="https://www.tiktok.com/@agriturismogiuggioloni" target="_blank" rel="noopener noreferrer" aria-label="TikTok Giuggioloni"><svg class="social-icon text-lg" aria-hidden="true" focusable="false"><use href="/assets/site-social.svg#tiktok"></use></svg></a>
+        </div>
+      </div>
+
+      <div>
+        <h3 class="text-white font-serif font-bold text-xl mb-6 relative inline-block">Esplora<span class="absolute -bottom-2 left-0 w-12 h-1 bg-primary rounded-full"></span></h3>
+        <ul class="space-y-4 text-sm font-light">
+          <li><a class="hover:text-primary transition-colors flex items-center gap-2 group" href="/storia.html"><span class="material-icons text-xs text-primary opacity-0 group-hover:opacity-100 transition-opacity">chevron_right</span>La Nostra Storia</a></li>
+          <li><a class="hover:text-primary transition-colors flex items-center gap-2 group" href="/menu/"><span class="material-icons text-xs text-primary opacity-0 group-hover:opacity-100 transition-opacity">chevron_right</span>I Nostri Piatti</a></li>
+          <li><a class="hover:text-primary transition-colors flex items-center gap-2 group" href="/shop.html"><span class="material-icons text-xs text-primary opacity-0 group-hover:opacity-100 transition-opacity">chevron_right</span>I Nostri Prodotti</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h3 class="text-white font-serif font-bold text-xl mb-6 relative inline-block">Contatti<span class="absolute -bottom-2 left-0 w-12 h-1 bg-primary rounded-full"></span></h3>
+        <ul class="space-y-6 text-sm font-light">
+          <li class="flex items-start">
+            <span class="material-icons text-primary text-lg mr-4 mt-0.5">location_on</span>
+            <span><p data-via>Via Acquaviva 34</p><p data-comune>60027 Osimo (AN) - Marche</p></span>
+          </li>
+          <li class="flex items-center">
+            <span class="material-icons text-primary text-lg mr-4">phone</span>
+            <ul data-phones>
+              <li><a href="tel:+393922529406">+39 392 252 9406</a></li>
+              <li><a href="tel:+390717230408">+39 071 723 0408</a></li>
+            </ul>
+          </li>
+          <li class="flex items-center">
+            <span class="material-icons text-primary text-lg mr-4">email</span>
+            <span><a data-email href="mailto:info@agriturismogiuggioloni.it">info@agriturismogiuggioloni.it</a></span>
+          </li>
+        </ul>
+      </div>
+
+      <div>
+        <h3 class="text-white font-serif font-bold text-xl mb-6 relative inline-block">Orari<span class="absolute -bottom-2 left-0 w-12 h-1 bg-primary rounded-full"></span></h3>
+        <ul data-hours class="space-y-3 text-sm font-light border-l border-white/10 pl-6">
+          <li><span>Lunedì</span><span class="closed">Chiuso</span></li>
+          <li><span>Martedì</span><span class="closed">Chiuso</span></li>
+          <li><span>Mercoledì</span><span class="closed">Chiuso</span></li>
+          <li><span>Giovedì</span><span class="closed">Chiuso</span></li>
+          <li><span>Venerdì</span><span>Cena, orario da confermare</span></li>
+          <li><span>Sabato</span><span>11:30–15:00 · 19:00–23:00</span></li>
+          <li><span>Domenica</span><span>11:30–15:00 · 19:00–23:00</span></li>
+        </ul>
       </div>
     </div>
-    <div>
-      <h3>Orari del ristorante</h3>
-      <ul data-hours>
-        <li>Lunedì–giovedì · Chiuso</li>
-        <li>Venerdì · Cena, orario da confermare</li>
-        <li>Sabato e domenica · 11:30–15:00 e 19:00–23:00</li>
-      </ul>
+
+    <a data-maps href="https://www.google.com/maps/search/?api=1&amp;query=Via+Acquaviva+34%2C+60027+Osimo+%28AN%29+-+Marche" class="block w-full h-64 md:h-72 bg-gray-800 rounded-sm overflow-visible mb-8 relative group border border-white/10">
+      <img alt="" class="w-full h-full object-cover opacity-60 group-hover:opacity-40 transition-opacity filter sepia" src="/assets/mappa-osimo.webp" width="512" height="512" loading="lazy" decoding="async">
+      <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+        <div class="bg-background-dark/90 backdrop-blur-sm px-6 py-3 rounded-sm flex items-center gap-3 border border-primary/50 shadow-2xl">
+          <span class="material-icons text-primary">map</span>
+          <span class="text-white font-bold font-serif tracking-wide">Vedi su Mappa</span>
+        </div>
+      </div>
+    </a>
+
+    <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-gray-500 font-light">
+      <p>© 2026 Agriturismo Giuggioloni - I sapori dell'Acquaviva. Tutti i diritti riservati.</p>
     </div>
   </div>
 </footer>

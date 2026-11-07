@@ -1,2 +1,5 @@
 exclude:
   - admin
+  - README.txt
+  - img/read.me
+  - img/1778928681206-IMG20260412165528.jpg

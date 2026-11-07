@@ -57,17 +57,23 @@ async function publishMenu(menu, expectedSha) {
   const branchPath = branch.split('/').map(encodeURIComponent).join('/');
   const ref = await github(`/git/ref/heads/${branchPath}`);
   const head = ref.object.sha;
-  const [previous, template, base] = await Promise.all([
-    contents('menu.json', head), contents('menu/index.html', head), github(`/git/commits/${head}`),
+  const [previous, template, home, base] = await Promise.all([
+    contents('menu.json', head), contents('menu/index.html', head),
+    contents('index.html', head), github(`/git/commits/${head}`),
   ]);
   if (previous.sha !== expectedSha) throw error(409, 'Il menù online è cambiato. Ricaricalo prima di salvare.');
   const menuJson = JSON.stringify(menu, null, 2) + '\n';
+  const entries = [
+    { path: 'menu.json', mode: '100644', type: 'blob', content: menuJson },
+    { path: 'menu/index.html', mode: '100644', type: 'blob', content: updateMenuPage(decode(template), menu) },
+  ];
+  const homeHtml = decode(home);
+  if (homeHtml.includes('<!-- MENU-CONTENT:START -->')) {
+    entries.push({ path: 'index.html', mode: '100644', type: 'blob', content: updateMenuPage(homeHtml, menu) });
+  }
   const tree = await github('/git/trees', 'POST', {
     base_tree: base.tree.sha,
-    tree: [
-      { path: 'menu.json', mode: '100644', type: 'blob', content: menuJson },
-      { path: 'menu/index.html', mode: '100644', type: 'blob', content: updateMenuPage(decode(template), menu) },
-    ],
+    tree: entries,
   });
   const commit = await github('/git/commits', 'POST', {
     message: 'Aggiorna il menù del ristorante',
