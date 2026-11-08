@@ -1,5 +1,5 @@
 module.exports = {
-    content: ["./shop.html"],
+    content: ["./shop/index.html"],
     plugins: [require("@tailwindcss/forms"), require("@tailwindcss/container-queries")],
     darkMode: "class",
     theme: {

@@ -55,7 +55,7 @@ export function siteLayout(path = '/', language = 'it') {
   }
   if (language === 'en') {
     header = header.replaceAll('href="#contenuto"', 'href="#content"').replaceAll('href="/"', 'href="/en/"')
-      .replaceAll('href="/#fattoria"', 'href="#farm"').replaceAll('href="/#prodotti"', 'href="/shop.html"')
+      .replaceAll('href="/#fattoria"', 'href="#farm"').replaceAll('href="/#prodotti"', 'href="/shop/"')
       .replaceAll('href="/lume/"', 'href="/lume/en/"');
     footer = footer.replaceAll('href="/lume/"', 'href="/lume/en/"').replace('href="/" aria-label=', 'href="/en/" aria-label=')
       .replace('href="/en/" lang="en" hreflang="en">English', 'href="/" lang="it" hreflang="it">Italiano');

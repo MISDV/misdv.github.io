@@ -29,10 +29,14 @@ Header e footer comuni sono ricavati dalla home tramite `admin/site-layout.mjs`.
 La pagina inglese usa lo stesso formato con testi e navigazione tradotti.
 La storia e la home si modificano direttamente nei rispettivi HTML.
 
-Il logo comune è `/logo.png`, trasparente, come in `shop.html`. Il contenitore
+Il logo comune è `/logo.png`, trasparente, come in `shop/index.html`. Il contenitore
 `.shop-brand-mark` mantiene le dimensioni del riferimento: 48/64 px nell’header
 e 56 px nel footer, con immagine da 40/48 px. Anche Lume usa lo stesso PNG.
 Nel footer scuro il cerchio resta chiaro, così il simbolo mantiene la leggibilità.
+
+Il catalogo è in `shop/index.html` e si apre all’indirizzo `/shop/`.
+Il file `shop.html` è soltanto un rimando per i vecchi collegamenti. Le immagini
+relative del catalogo sono risolte rispetto a `/items.json`, nella radice del sito.
 
 Il popup prenotazioni è gestito da `assets/booking.js` e `assets/booking.css`.
 Il CSS del sito viene riunito in `assets/site.min.css` da `admin/site-assets.mjs`:

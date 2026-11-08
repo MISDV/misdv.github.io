@@ -78,7 +78,7 @@ non una prova su telefoni fisici, Safari iOS o dati CrUX degli utenti reali.
   sintattici JavaScript e `git diff --check` superati.
 
 Le sorgenti modificate sono `assets/site.js`, `assets/site-extras.css`,
-`menu/index.html`, il comportamento dei filtri in `shop.html` e i sorgenti Lume
+`menu/index.html`, il comportamento dei filtri in `shop/index.html` e i sorgenti Lume
 in `admin/lume/src/`. I generatori usano le nuove versioni delle risorse condivise;
 i file pubblici delle pagine Fattoria/privacy e Lume sono stati rigenerati.
 
