@@ -9,6 +9,7 @@ I contenuti si aggiornano nei file locali. Dopo modifiche a `menu.json`, esegui:
 
 ```powershell
 node admin/sync-menu.mjs
+node admin/build-site-assets.mjs
 ```
 
 Il comando aggiorna la carta `/menu/`, l’anteprima nella home e le versioni
@@ -20,6 +21,7 @@ Per allineare header e footer, rigenerare le pagine informative e aggiornare i m
 node admin/sync-layout.mjs
 node admin/build-pages.mjs
 node admin/sync-menu.mjs
+node admin/build-site-assets.mjs
 ```
 
 Le sorgenti sono `admin/build-pages.mjs` e `admin/build-english.mjs`.
@@ -28,6 +30,11 @@ La pagina inglese usa lo stesso formato con testi e navigazione tradotti.
 La storia e la home si modificano direttamente nei rispettivi HTML.
 
 Il popup prenotazioni è gestito da `assets/booking.js` e `assets/booking.css`.
+Il CSS del sito viene riunito in `assets/site.min.css` da `admin/site-assets.mjs`:
+include lo stile storico, gli extra, il popup e `admin/site-accessibility.css`.
+Dopo modifiche a questi CSS esegui `node admin/build-site-assets.mjs` e pubblica
+anche gli HTML aggiornati: il parametro di versione dipende dal contenuto.
+Shop e Lume mantengono i propri fogli di stile separati.
 Il numero di prenotazione è +39 392 252 9406. La mappa si carica soltanto
 quando il popup viene aperto; senza JavaScript i pulsanti chiamano direttamente.
 
@@ -49,4 +56,5 @@ Per rigenerare il CSS Tailwind usa la CLI standalone 3.4.17:
 ```powershell
 tailwindcss -c admin/site-tailwind.config.cjs -i admin/site-tailwind.css -o assets/site-legacy.min.css --minify
 tailwindcss -c admin/shop-tailwind.config.cjs -i admin/shop-tailwind.css -o assets/shop-tailwind.min.css --minify
+node admin/build-site-assets.mjs
 ```

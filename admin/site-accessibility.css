@@ -1,0 +1,8 @@
+/* Darker burnt orange for text and white-labelled buttons; decorative orange stays unchanged. */
+:root:not(.dark) #siteNav .text-primary,
+:root:not(.dark) main .text-primary:not(.material-icons){color:#ad4c0b}
+:root:not(.dark) a.bg-primary{background-color:#b94f09}
+:root:not(.dark) a.bg-primary:hover{background-color:#9d3e06}
+:root:not(.dark) main .hover\:text-primary:hover{color:#ad4c0b}
+/* Reserve the glyph's dimensions while the tiny icon subset is loading. */
+.material-icons{width:1em;overflow:hidden;vertical-align:middle;flex-shrink:0}

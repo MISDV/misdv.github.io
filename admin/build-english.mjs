@@ -2,6 +2,7 @@ import { mkdir, writeFile } from 'node:fs/promises';
 import placeMap from '../assets/place-map.js';
 import { breadcrumbSchema, breadcrumbs, jsonLd } from './site-seo.mjs';
 import { siteLayout } from './site-layout.mjs';
+import { applySiteStyles } from './site-assets.mjs';
 
 const title = 'Farm restaurant in Osimo, Marche | Agriturismo Giuggioloni';
 const description = 'Family-run farm restaurant in Osimo: seasonal Marche cooking, two dining rooms, a garden, parking and wheelchair access. View the English menu and call to book.';
@@ -48,4 +49,4 @@ ${footer}
 </body></html>`;
 const directory = new URL('../en/', import.meta.url);
 await mkdir(directory, { recursive: true });
-await writeFile(new URL('index.html', directory), html + '\n', 'utf8');
+await writeFile(new URL('index.html', directory), applySiteStyles(html) + '\n', 'utf8');

@@ -149,14 +149,14 @@
   src: url(site-fonts/material-icons-site.woff2) format('woff2');
   font-style: normal;
   font-weight: 400;
-  font-display: block;
+  font-display: swap;
 }
 @font-face {
   font-family: 'Material Icons Full';
   src: url(site-fonts/material-icons-full.woff2) format('woff2');
   font-style: normal;
   font-weight: 400;
-  font-display: block;
+  font-display: swap;
 }
 .material-icons {
   font-family: 'Material Icons';

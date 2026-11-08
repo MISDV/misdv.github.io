@@ -31,7 +31,7 @@
 <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta name="theme-color" content="#f5eee3">
-<link rel="stylesheet" href="/assets/site-legacy.min.css">
+<link rel="stylesheet" href="/assets/site.min.css?v=48595bef529e">
 <script type="application/ld+json">{
   "@context": "https://schema.org",
   "@graph": [{
@@ -94,9 +94,10 @@
 <script src="/assets/place-map.js?v=1" defer></script>
 <script src="/assets/site.js?v=8" defer></script>
 <script src="/assets/consent.js?v=2" defer></script>
-<link rel="stylesheet" href="/assets/site-extras.css?v=5">
-<link rel="stylesheet" href="/assets/booking.css?v=1">
+
+
 <script src="/assets/booking.js?v=3" defer></script>
+<link rel="preload" href="/assets/site-fonts/material-icons-site.woff2" as="font" type="font/woff2" crossorigin>
 </head>
 <body data-analytics class="bg-background-cream dark:bg-background-dark text-gray-800 dark:text-gray-200 font-display transition-colors duration-300 bg-texture-cream">
 <a class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[100] focus:p-3 focus:bg-white" href="#contenuto">Vai al contenuto</a>
@@ -105,7 +106,7 @@
     <div class="flex justify-between items-center h-20 md:h-24">
       <a href="/" aria-label="Agriturismo Giuggioloni — home" class="flex-shrink-0 flex items-center gap-3 group cursor-pointer">
         <div class="flex items-center justify-center w-12 h-12 md:w-16 md:h-16 bg-primary/10 p-2 rounded-full hover:bg-primary/20 transition-colors">
-          <img src="/logo.png" width="92" height="92" alt="logo Giuggioloni Osimo" class="w-10 h-10 md:w-12 md:h-12 object-contain">
+          <img src="/logo.webp" width="92" height="92" alt="logo Giuggioloni Osimo" class="w-10 h-10 md:w-12 md:h-12 object-contain">
         </div>
         <div class="flex flex-col">
           <span data-text="home.titolo" class="font-serif font-bold text-lg md:text-xl tracking-wide text-gray-900 dark:text-white leading-none">GIUGGIOLONI</span>
@@ -141,7 +142,7 @@
         <div class="p-5 space-y-4">
           <div class="flex items-center justify-between">
             <div class="flex items-center gap-3">
-              <div class="w-10 h-10 bg-primary/10 rounded-md flex items-center justify-center"><img src="/logo.png" width="92" height="92" alt="Logo Giuggioloni Osimo" class="w-8 h-8 object-contain"></div>
+              <div class="w-10 h-10 bg-primary/10 rounded-md flex items-center justify-center"><img src="/logo.webp" width="92" height="92" alt="Logo Giuggioloni Osimo" class="w-8 h-8 object-contain"></div>
               <div>
                 <div data-text="home.titolo" class="text-sm font-serif font-bold text-gray-900 dark:text-white">GIUGGIOLONI</div>
                 <div data-text="home.sottotitolo" class="text-xs text-primary uppercase tracking-wider">I sapori dell'Acquaviva</div>
@@ -323,25 +324,25 @@
 
     <div class="grid grid-cols-1 md:grid-cols-4 md:grid-rows-2 gap-6 h-auto md:h-[650px]">
   <a href="/fattoria/animali/" class="farm-tile md:col-span-2 md:row-span-2 relative group w-full h-full overflow-hidden rounded-sm shadow-lg">
-    <picture class="block w-full h-full"><source type="image/avif" srcset="/assets/fattoria/animali-480.avif 480w, /assets/fattoria/animali-800.avif 800w" sizes="(min-width: 768px) 48vw, 100vw"><img src="/assets/fattoria/animali-480.webp" srcset="/assets/fattoria/animali-480.webp 480w, /assets/fattoria/animali-800.webp 800w" sizes="(min-width: 768px) 48vw, 100vw" width="480" height="360" loading="lazy" decoding="async" alt="Un bovino della fattoria Giuggioloni" class="block w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 warm-filter"></picture>
+    <picture class="block w-full h-full"><source type="image/avif" srcset="/assets/fattoria/animali-480.avif 480w, /assets/fattoria/animali-800.avif 800w" sizes="(min-width: 1280px) 596px, (min-width: 1024px) calc(50vw - 44px), (min-width: 768px) calc(50vw - 36px), calc(100vw - 32px)"><img src="/assets/fattoria/animali-480.webp" srcset="/assets/fattoria/animali-480.webp 480w, /assets/fattoria/animali-800.webp 800w" sizes="(min-width: 1280px) 596px, (min-width: 1024px) calc(50vw - 44px), (min-width: 768px) calc(50vw - 36px), calc(100vw - 32px)" width="480" height="360" loading="lazy" decoding="async" alt="Un bovino della fattoria Giuggioloni" class="block w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 warm-filter"></picture>
     <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-6">
       <div><span class="text-orange-50 text-xs font-bold uppercase tracking-wider mb-2 block">Animali</span><p class="text-white font-serif text-xl">Gli animali della fattoria</p><span class="farm-tile-arrow" aria-hidden="true">Scopri di più →</span></div>
     </div>
   </a>
   <a href="/fattoria/orto/" class="farm-tile md:col-span-2 relative group w-full h-full overflow-hidden rounded-sm shadow-lg">
-    <picture class="block w-full h-full"><source type="image/avif" srcset="/assets/fattoria/campo-480.avif 480w, /assets/fattoria/campo-800.avif 800w" sizes="(min-width: 768px) 48vw, 100vw"><img src="/assets/fattoria/campo-480.webp" srcset="/assets/fattoria/campo-480.webp 480w, /assets/fattoria/campo-800.webp 800w" sizes="(min-width: 768px) 48vw, 100vw" width="480" height="360" loading="lazy" decoding="async" alt="Le file dell’orto tra le colline di Osimo" class="block w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 warm-filter"></picture>
+    <picture class="block w-full h-full"><source type="image/avif" srcset="/assets/fattoria/campo-480.avif 480w, /assets/fattoria/campo-800.avif 800w" sizes="(min-width: 1280px) 596px, (min-width: 1024px) calc(50vw - 44px), (min-width: 768px) calc(50vw - 36px), calc(100vw - 32px)"><img src="/assets/fattoria/campo-480.webp" srcset="/assets/fattoria/campo-480.webp 480w, /assets/fattoria/campo-800.webp 800w" sizes="(min-width: 1280px) 596px, (min-width: 1024px) calc(50vw - 44px), (min-width: 768px) calc(50vw - 36px), calc(100vw - 32px)" width="480" height="360" loading="lazy" decoding="async" alt="Le file dell’orto tra le colline di Osimo" class="block w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 warm-filter"></picture>
     <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-6">
       <div><span class="text-orange-50 text-xs font-bold uppercase tracking-wider mb-2 block">Coltivazioni</span><p class="text-white font-serif text-xl">L’orto sinergico</p><span class="farm-tile-arrow" aria-hidden="true">Scopri di più →</span></div>
     </div>
   </a>
   <a href="/storia.html" class="farm-tile relative group w-full h-full overflow-hidden rounded-sm shadow-lg">
-    <picture class="block w-full h-full"><source type="image/avif" srcset="/assets/fattoria/storia-480.avif 480w, /assets/fattoria/storia-800.avif 800w" sizes="(min-width: 768px) 24vw, 100vw"><img src="/assets/fattoria/storia-480.webp" srcset="/assets/fattoria/storia-480.webp 480w, /assets/fattoria/storia-800.webp 800w" sizes="(min-width: 768px) 24vw, 100vw" width="480" height="360" loading="lazy" decoding="async" alt="Gli ulivi negli spazi verdi dell’agriturismo" class="block w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 warm-filter"></picture>
+    <picture class="block w-full h-full"><source type="image/avif" srcset="/assets/fattoria/storia-480.avif 480w, /assets/fattoria/storia-800.avif 800w" sizes="(min-width: 1280px) 286px, (min-width: 1024px) calc(25vw - 34px), (min-width: 768px) calc(25vw - 30px), calc(100vw - 32px)"><img src="/assets/fattoria/storia-480.webp" srcset="/assets/fattoria/storia-480.webp 480w, /assets/fattoria/storia-800.webp 800w" sizes="(min-width: 1280px) 286px, (min-width: 1024px) calc(25vw - 34px), (min-width: 768px) calc(25vw - 30px), calc(100vw - 32px)" width="480" height="360" loading="lazy" decoding="async" alt="Gli ulivi negli spazi verdi dell’agriturismo" class="block w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 warm-filter"></picture>
     <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-6">
       <div><span class="text-orange-50 text-xs font-bold uppercase tracking-wider mb-2 block">Tradizione</span><p class="text-white font-serif text-xl">La nostra storia</p><span class="farm-tile-arrow" aria-hidden="true">Scopri di più →</span></div>
     </div>
   </a>
   <a href="/fattoria/locale/" class="farm-tile relative group w-full h-full overflow-hidden rounded-sm shadow-lg">
-    <picture class="block w-full h-full"><source type="image/avif" srcset="/assets/fattoria/giardino-480.avif 480w, /assets/fattoria/giardino-800.avif 800w" sizes="(min-width: 768px) 24vw, 100vw"><img src="/assets/fattoria/giardino-480.webp" srcset="/assets/fattoria/giardino-480.webp 480w, /assets/fattoria/giardino-800.webp 800w" sizes="(min-width: 768px) 24vw, 100vw" width="480" height="360" loading="lazy" decoding="async" alt="Il giardino dell’agriturismo a Osimo" class="block w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 warm-filter"></picture>
+    <picture class="block w-full h-full"><source type="image/avif" srcset="/assets/fattoria/giardino-480.avif 480w, /assets/fattoria/giardino-800.avif 800w" sizes="(min-width: 1280px) 286px, (min-width: 1024px) calc(25vw - 34px), (min-width: 768px) calc(25vw - 30px), calc(100vw - 32px)"><img src="/assets/fattoria/giardino-480.webp" srcset="/assets/fattoria/giardino-480.webp 480w, /assets/fattoria/giardino-800.webp 800w" sizes="(min-width: 1280px) 286px, (min-width: 1024px) calc(25vw - 34px), (min-width: 768px) calc(25vw - 30px), calc(100vw - 32px)" width="480" height="360" loading="lazy" decoding="async" alt="Il giardino dell’agriturismo a Osimo" class="block w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 warm-filter"></picture>
     <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-6">
       <div><span class="text-orange-50 text-xs font-bold uppercase tracking-wider mb-2 block">Ospitalità</span><p class="text-white font-serif text-xl">Il locale e il giardino</p><span class="farm-tile-arrow" aria-hidden="true">Scopri di più →</span></div>
     </div>
@@ -389,7 +390,7 @@
       <div>
         <a href="/" aria-label="Agriturismo Giuggioloni — home" class="site-footer-brand flex items-center gap-3 mb-6">
           <div class="flex items-center justify-center bg-primary/20 p-2 rounded-full">
-            <img src="/logo.png" width="92" height="92" loading="lazy" alt="logo Giuggioloni Osimo" class="w-10 h-10 object-contain">
+            <img src="/logo.webp" width="92" height="92" loading="lazy" alt="logo Giuggioloni Osimo" class="w-10 h-10 object-contain">
           </div>
           <div class="flex flex-col">
             <span class="font-serif font-bold text-lg text-white leading-none tracking-wide">Agriturismo Giuggioloni</span>

@@ -2,6 +2,7 @@ import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { escapeHtml as escape } from '../assets/menu-render.mjs';
 import { breadcrumbs, breadcrumbSchema, jsonLd, origin } from './site-seo.mjs';
 import { siteLayout } from './site-layout.mjs';
+import { applySiteStyles } from './site-assets.mjs';
 
 const farm = [
   {
@@ -53,7 +54,7 @@ function page({ path, title, description, trail, content, hero, privacy = false 
   const social = hero ? `${origin}/assets/fattoria/${hero[0]}-800.webp` : `${origin}/og-image-1200x630.png`;
   const robots = privacy ? 'noindex,follow' : 'index,follow,max-image-preview:large';
   const schema = jsonLd({ '@type': 'WebPage', '@id': canonical + '#pagina', url: canonical, name: title, description, inLanguage: 'it', about: { '@id': origin + '/#ristorante' } });
-  return `<!doctype html>
+  return applySiteStyles(`<!doctype html>
 <html lang="it">
 <head>
 <meta charset="utf-8">
@@ -90,7 +91,7 @@ ${content}
 </div></main>
 ${footer}
 </body></html>
-`;
+`);
 }
 
 for (const entry of farm) {
