@@ -1,10 +1,210 @@
 [
   {
-    "titolo": "Presto nuovi prodotti!",
-    "immagine": "assets/catalogo-anteprima.webp",
-    "categoria": "Nuovo",
-    "tipologia": "Nuovo",
-    "prezzo": 0,
-    "prezzo_scontato": 1
+    "slug": "uova",
+    "titolo": "Uova",
+    "categoria": "Uova",
+    "tipologia": "Uova",
+    "prezzo": 0.5,
+    "unita": "pezzo",
+    "descrizione": "Uova in vendita presso lo spaccio aziendale. Il prezzo indicato si riferisce a un singolo uovo."
+  },
+  {
+    "slug": "olio",
+    "titolo": "Olio",
+    "categoria": "Olio",
+    "tipologia": "Latta e sfuso",
+    "prezzo": 13,
+    "unita": "l",
+    "prezzo_da": true,
+    "descrizione": "Olio disponibile in latta da 1 litro, in latta da 3 litri e sfuso. Scegli il formato presso lo spaccio aziendale.",
+    "varianti": [
+      {
+        "nome": "Latta da 1 litro",
+        "prezzo": 15,
+        "unita": "l",
+        "quantita": 1,
+        "totale": 15
+      },
+      {
+        "nome": "Latta da 3 litri",
+        "prezzo": 14,
+        "unita": "l",
+        "quantita": 3,
+        "totale": 42
+      },
+      {
+        "nome": "Sfuso",
+        "prezzo": 13,
+        "unita": "l"
+      }
+    ]
+  },
+  {
+    "slug": "pasta-secca-campofilone",
+    "titolo": "Pasta secca Campofilone",
+    "categoria": "Pasta",
+    "tipologia": "Chitarrine e fettuccine",
+    "prezzo": 3.7,
+    "unita": null,
+    "descrizione": "Pasta secca Campofilone nei formati chitarrine e fettuccine. Entrambi i formati sono proposti a 3,70 € presso lo spaccio aziendale.",
+    "varianti": [
+      {
+        "nome": "Chitarrine",
+        "prezzo": 3.7,
+        "unita": null
+      },
+      {
+        "nome": "Fettuccine",
+        "prezzo": 3.7,
+        "unita": null
+      }
+    ]
+  },
+  {
+    "slug": "lombo",
+    "titolo": "Lombo",
+    "categoria": "Carni",
+    "tipologia": "Tagli di carne",
+    "prezzo": 9.5,
+    "unita": "kg",
+    "descrizione": "Lombo in vendita a peso presso lo spaccio aziendale. Il prezzo indicato è al chilogrammo."
+  },
+  {
+    "slug": "costine",
+    "titolo": "Costine",
+    "categoria": "Carni",
+    "tipologia": "Tagli di carne",
+    "prezzo": 10.5,
+    "unita": "kg",
+    "descrizione": "Costine in vendita a peso presso lo spaccio aziendale. Il prezzo indicato è al chilogrammo."
+  },
+  {
+    "slug": "capocollo",
+    "titolo": "Capocollo",
+    "categoria": "Carni",
+    "tipologia": "Tagli di carne",
+    "prezzo": 12,
+    "unita": "kg",
+    "descrizione": "Capocollo in vendita a peso presso lo spaccio aziendale. Il prezzo indicato è al chilogrammo."
+  },
+  {
+    "slug": "filetto",
+    "titolo": "Filetto",
+    "categoria": "Carni",
+    "tipologia": "Tagli di carne",
+    "prezzo": 20.2,
+    "unita": "kg",
+    "descrizione": "Filetto in vendita a peso presso lo spaccio aziendale. Il prezzo indicato è al chilogrammo."
+  },
+  {
+    "slug": "magro",
+    "titolo": "Magro",
+    "categoria": "Carni",
+    "tipologia": "Tagli di carne",
+    "prezzo": 18.8,
+    "unita": "kg",
+    "descrizione": "Magro in vendita a peso presso lo spaccio aziendale. Il prezzo indicato è al chilogrammo."
+  },
+  {
+    "slug": "spezzatino",
+    "titolo": "Spezzatino",
+    "categoria": "Carni",
+    "tipologia": "Tagli di carne",
+    "prezzo": 10.5,
+    "unita": "kg",
+    "descrizione": "Spezzatino in vendita a peso presso lo spaccio aziendale. Il prezzo indicato è al chilogrammo."
+  },
+  {
+    "slug": "arista",
+    "titolo": "Arista",
+    "categoria": "Carni",
+    "tipologia": "Tagli di carne",
+    "prezzo": 13,
+    "unita": "kg",
+    "descrizione": "Arista in vendita a peso presso lo spaccio aziendale. Il prezzo indicato è al chilogrammo."
+  },
+  {
+    "slug": "salsiccia",
+    "titolo": "Salsiccia",
+    "categoria": "Carni",
+    "tipologia": "Tagli di carne",
+    "prezzo": 12,
+    "unita": "kg",
+    "descrizione": "Salsiccia in vendita a peso presso lo spaccio aziendale. Il prezzo indicato è al chilogrammo."
+  },
+  {
+    "slug": "stinco",
+    "titolo": "Stinco",
+    "categoria": "Carni",
+    "tipologia": "Tagli di carne",
+    "prezzo": 7,
+    "unita": "kg",
+    "descrizione": "Stinco in vendita a peso presso lo spaccio aziendale. Il prezzo indicato è al chilogrammo."
+  },
+  {
+    "slug": "faraona",
+    "titolo": "Faraona",
+    "categoria": "Carni",
+    "tipologia": "Animali da cortile",
+    "prezzo": 20,
+    "unita": "kg",
+    "descrizione": "Faraona in vendita presso lo spaccio aziendale. Il prezzo è compreso tra 20,00 e 25,00 € al chilogrammo.",
+    "prezzo_massimo": 25
+  },
+  {
+    "slug": "coniglio",
+    "titolo": "Coniglio",
+    "categoria": "Carni",
+    "tipologia": "Animali da cortile",
+    "prezzo": 12.9,
+    "unita": "kg",
+    "descrizione": "Coniglio in vendita presso lo spaccio aziendale. Il prezzo indicato è al chilogrammo."
+  },
+  {
+    "slug": "papera",
+    "titolo": "Papera",
+    "categoria": "Carni",
+    "tipologia": "Animali da cortile",
+    "prezzo": 11.9,
+    "unita": "kg",
+    "descrizione": "Papera in vendita presso lo spaccio aziendale. Il prezzo indicato è al chilogrammo."
+  },
+  {
+    "slug": "oca",
+    "titolo": "Oca",
+    "categoria": "Carni",
+    "tipologia": "Animali da cortile",
+    "prezzo": 55,
+    "unita": "pezzo",
+    "descrizione": "Oca in vendita presso lo spaccio aziendale. Il prezzo è compreso tra 55,00 e 60,00 € al pezzo.",
+    "prezzo_massimo": 60
+  },
+  {
+    "slug": "pollo",
+    "titolo": "Pollo",
+    "categoria": "Carni",
+    "tipologia": "Animali da cortile",
+    "prezzo": 12.9,
+    "unita": "kg",
+    "descrizione": "Pollo in vendita presso lo spaccio aziendale. Il prezzo indicato è al chilogrammo."
+  },
+  {
+    "slug": "cappone",
+    "titolo": "Cappone",
+    "categoria": "Carni",
+    "tipologia": "Animali da cortile",
+    "prezzo": null,
+    "unita": null,
+    "descrizione": "Il prezzo del cappone è attualmente da definire. Contattaci per informazioni sul prezzo e sulla disponibilità presso lo spaccio aziendale."
+  },
+  {
+    "slug": "pacco-famiglia-vitellone",
+    "titolo": "Pacco famiglia Vitellone",
+    "categoria": "Pacchi famiglia",
+    "tipologia": "Offerta su prenotazione",
+    "prezzo": 13.9,
+    "unita": "kg",
+    "prenotazione_obbligatoria": true,
+    "descrizione": "Offerta pacco famiglia di vitellone a 13,90 € al chilogrammo. Il pacco può comprendere vari formati e tagli di vitellone, a discrezione del macellaio e secondo disponibilità. È necessario chiamare per prenotare."
   }
 ]

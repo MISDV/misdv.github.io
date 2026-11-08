@@ -8,4 +8,25 @@
   <url><loc>https://agriturismogiuggioloni.it/fattoria/orto/</loc></url>
   <url><loc>https://agriturismogiuggioloni.it/fattoria/locale/</loc></url>
   <url><loc>https://agriturismogiuggioloni.it/shop/</loc></url>
+<!-- SHOP-PRODUCTS:START -->
+  <url><loc>https://agriturismogiuggioloni.it/shop/uova/</loc></url>
+  <url><loc>https://agriturismogiuggioloni.it/shop/olio/</loc></url>
+  <url><loc>https://agriturismogiuggioloni.it/shop/pasta-secca-campofilone/</loc></url>
+  <url><loc>https://agriturismogiuggioloni.it/shop/lombo/</loc></url>
+  <url><loc>https://agriturismogiuggioloni.it/shop/costine/</loc></url>
+  <url><loc>https://agriturismogiuggioloni.it/shop/capocollo/</loc></url>
+  <url><loc>https://agriturismogiuggioloni.it/shop/filetto/</loc></url>
+  <url><loc>https://agriturismogiuggioloni.it/shop/magro/</loc></url>
+  <url><loc>https://agriturismogiuggioloni.it/shop/spezzatino/</loc></url>
+  <url><loc>https://agriturismogiuggioloni.it/shop/arista/</loc></url>
+  <url><loc>https://agriturismogiuggioloni.it/shop/salsiccia/</loc></url>
+  <url><loc>https://agriturismogiuggioloni.it/shop/stinco/</loc></url>
+  <url><loc>https://agriturismogiuggioloni.it/shop/faraona/</loc></url>
+  <url><loc>https://agriturismogiuggioloni.it/shop/coniglio/</loc></url>
+  <url><loc>https://agriturismogiuggioloni.it/shop/papera/</loc></url>
+  <url><loc>https://agriturismogiuggioloni.it/shop/oca/</loc></url>
+  <url><loc>https://agriturismogiuggioloni.it/shop/pollo/</loc></url>
+  <url><loc>https://agriturismogiuggioloni.it/shop/cappone/</loc></url>
+  <url><loc>https://agriturismogiuggioloni.it/shop/pacco-famiglia-vitellone/</loc></url>
+<!-- SHOP-PRODUCTS:END -->
 </urlset>

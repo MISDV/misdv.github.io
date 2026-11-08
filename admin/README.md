@@ -38,6 +38,19 @@ Il catalogo è in `shop/index.html` e si apre all’indirizzo `/shop/`.
 Il file `shop.html` è soltanto un rimando per i vecchi collegamenti. Le immagini
 relative del catalogo sono risolte rispetto a `/items.json`, nella radice del sito.
 
+I prodotti dello spaccio si aggiornano in `items.json`. Dopo le modifiche esegui
+`node admin/build-shop.mjs`: genera il catalogo statico, le pagine `/shop/<slug>/`,
+la sitemap e le versioni degli asset. Viene eseguito anche da `build-pages.mjs`.
+`assets/shop-catalog.js` condivide prezzi e schede fra generazione e filtri del browser;
+`assets/shop-products.css` aggiunge avvisi, segnaposto e stile delle schede senza
+modificare la grafica generale dello shop. Per aggiungere foto usa `immagine`.
+Non indicare zero per un prezzo sconosciuto: usa `prezzo: null`.
+Il catalogo JSON viene richiesto con una versione legata al contenuto. Se il
+caricamento dei filtri fallisce, rimangono visibili le schede statiche con i link.
+Le varianti dell’olio riportano sia il prezzo al litro sia il totale della latta.
+Il pacco famiglia richiede prenotazione telefonica; tutte le pagine indicano
+la vendita esclusivamente nello spaccio. Non sono previste vendita online o spedizioni.
+
 Il popup prenotazioni è gestito da `assets/booking.js` e `assets/booking.css`.
 Il CSS del sito viene riunito in `assets/site.min.css` da `admin/site-assets.mjs`:
 include lo stile storico, gli extra, il popup e `admin/site-accessibility.css`.
