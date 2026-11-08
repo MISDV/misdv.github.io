@@ -1,0 +1,1053 @@
+<!DOCTYPE html>
+<html lang="it"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Prodotti della fattoria a Osimo | Agriturismo Giuggioloni</title>
+<meta name="description" content="Scopri i prodotti dell’Agriturismo Giuggioloni e vieni a trovarci in azienda a Osimo, nelle Marche. Consulta il catalogo e i contatti.">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="canonical" href="https://agriturismogiuggioloni.it/shop.html">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="it_IT">
+<meta property="og:site_name" content="Agriturismo Giuggioloni">
+<meta property="og:title" content="Prodotti della fattoria a Osimo | Agriturismo Giuggioloni">
+<meta property="og:description" content="Scopri i prodotti dell’Agriturismo Giuggioloni e vieni a trovarci in azienda a Osimo, nelle Marche. Consulta il catalogo e i contatti.">
+<meta property="og:url" content="https://agriturismogiuggioloni.it/shop.html">
+<meta property="og:image" content="https://agriturismogiuggioloni.it/og-image-1200x630.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Agriturismo Giuggioloni, I sapori dell’Acquaviva, Osimo">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="theme-color" content="#f5eee3">
+<link rel="stylesheet" href="/assets/shop-tailwind.min.css">
+<link rel="stylesheet" href="/assets/site-extras.css?v=5">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://agriturismogiuggioloni.it/"},{"@type":"ListItem","position":2,"name":"Prodotti","item":"https://agriturismogiuggioloni.it/shop.html"}]}</script>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-gray-800 dark:text-gray-100 font-display min-h-screen flex flex-col">
+<!-- Navbar (cart e account rimossi) -->
+<nav class="sticky top-0 z-50 bg-white/90 dark:bg-[#2c2018]/90 backdrop-blur-md shadow-sm border-b border-primary/10">
+<div class="container mx-auto px-4 md:px-6 h-20 flex items-center justify-between">
+<!-- Logo -->
+<a href="/" aria-label="Agriturismo Giuggioloni — home" class="shop-site-brand">
+<div class="shop-brand-mark">
+<img src="/logo.png" alt="Logo Agriturismo Giuggioloni" width="92" height="92">
+</div>
+<div class="flex flex-col">
+          <span id="titolo" class="font-serif font-bold text-lg md:text-xl tracking-wide text-gray-900 dark:text-white leading-none">GIUGGIOLONI</span>
+          <span id="sottotitolo" class="font-display text-primary font-medium text-xs md:text-sm tracking-widest uppercase">I sapori dell'Acquaviva</span>
+</div>
+</a>
+
+<!-- Desktop Nav Links -->
+<div class="hidden md:flex items-center gap-8">
+<a class="text-gray-600 dark:text-gray-300 hover:text-primary transition-colors font-medium" href="/">Home</a>
+<a class="text-primary font-bold transition-colors" href="/shop.html" aria-current="page">Prodotti</a>
+<a class="text-gray-600 dark:text-gray-300 hover:text-primary transition-colors font-medium" href="#footer">Contatti</a>
+</div>
+
+<!-- (azioni rimosse: carrello, account) -->
+<div class="flex items-center gap-4">
+<!-- spazio lasciato intenzionalmente vuoto per azioni future -->
+</div>
+</div>
+</nav>
+
+<nav class="breadcrumbs" aria-label="Percorso di navigazione"><ol><li><a href="/">Home</a></li><li aria-current="page">Prodotti</li></ol></nav>
+<!-- Main Content Area -->
+<main class="flex-grow container mx-auto px-4 md:px-6 py-5 flex gap-8">
+  <h1 class="sr-only">Prodotti dell’agriturismo</h1>
+<!-- Sidebar Filters (Desktop) -->
+<aside class="hidden lg:block w-64 flex-shrink-0">
+<div class="sticky top-28 space-y-8">
+<!-- Categories (popolate dinamicamente) -->
+<div class="bg-white dark:bg-[#2c2018] rounded-xl p-6 shadow-sm border border-primary/10">
+<h3 class="text-lg font-bold mb-4 flex items-center gap-2">
+<span class="material-icons text-primary text-xl">category</span> Categorie
+                    </h3>
+<ul id="categoriesList" class="space-y-2">
+<!-- elementi generati via JS -->
+<li>
+<a id="cat-all" class="flex items-center justify-between p-2 rounded-lg bg-primary/10 text-primary font-medium cursor-pointer" href="#">
+<span>Tutti i prodotti</span>
+<span id="totalCount" class="text-xs bg-white dark:bg-primary/20 px-2 py-0.5 rounded-full">0</span>
+</a>
+</li>
+</ul>
+</div>
+<!-- Filters -->
+<div class="bg-white dark:bg-[#2c2018] rounded-xl p-6 shadow-sm border border-primary/10">
+<h3 class="text-lg font-bold mb-4 flex items-center gap-2">
+<span class="material-icons text-primary text-xl">tune</span>
+Filtri
+</h3>
+<div class="mb-6">
+<h4 class="text-sm font-semibold text-gray-500 mb-3 uppercase tracking-wider">Prezzo</h4>
+<div class="flex items-center gap-3">
+<input id="priceMin" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-primary" type="range" min="0" max="100" value="0"/>
+</div>
+<div class="flex justify-between text-sm mt-2 text-gray-600 dark:text-gray-400">
+<span id="priceMinLabel">€0</span>
+<span id="priceMaxLabel">€100</span>
+</div>
+</div>
+<div>
+<h4 class="text-sm font-semibold text-gray-500 mb-3 uppercase tracking-wider">Tipologia</h4>
+<div id="typesList" class="space-y-2">
+<!-- tipi generati via JS -->
+</div>
+</div>
+</div>
+<!-- Banner semplice -->
+<div class="relative overflow-hidden rounded-xl h-44 shadow-lg group">
+<img alt="" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" src="/assets/shop-vetrina.webp" srcset="/assets/shop-vetrina-480.webp 480w, /assets/shop-vetrina.webp 1200w" sizes="(min-width: 1024px) calc(100vw - 21rem), calc(100vw - 2rem)" width="1200" height="799" fetchpriority="high"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent p-6 flex flex-col justify-end">
+<span class="text-white text-xs font-bold uppercase tracking-widest mb-1">Vieni a trovarci!</span>
+<h3 class="text-white text-lg font-bold mb-2">Prodotti serve freschi</h3>
+</div>
+</div>
+</div>
+</aside>
+
+<!-- Product Grid Area -->
+<div class="flex-grow">
+  <!-- MOBILE: button per mostrare i filtri (visibile solo su < lg) -->
+<button id="filtersToggle" class="lg:hidden flex items-center gap-2 px-4 py-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-full shadow-sm text-sm font-medium">
+  <span class="material-icons text-primary">filter_list</span>
+  Filtri
+</button>
+<!-- Search & Sort Header -->
+<div class="mb-8 bg-white dark:bg-[#2c2018] p-4 rounded-xl shadow-sm border border-primary/10">
+<div class="flex flex-col md:flex-row gap-4 items-center">
+<div class="relative flex-grow"> <!-- w-full -->
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+<span class="material-icons text-gray-400">search</span>
+</div>
+<input id="searchInput" class="block w-full pl-10 pr-3 py-3 border-gray-200 dark:border-gray-700 dark:bg-white/5 rounded-lg leading-5 bg-background-light dark:text-gray-100 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary sm:text-sm transition-shadow" placeholder="Ricerca tra i nostri prodotti..." type="text"/>
+</div>
+<button id="searchBtn" class="w-full md:w-auto bg-primary hover:bg-orange-600 text-white px-8 py-3 rounded-lg font-bold shadow-lg shadow-primary/30 transition-all hover:-translate-y-0.5 active:translate-y-0 flex items-center justify-center gap-2">
+<span>Cerca</span>
+</button>
+
+<!-- Beautiful custom dropdown (replaces the visible native select) -->
+<div class="relative w-full md:w-48" data-dropdown>
+  <!-- keep the real select for form/legacy, but hide it -->
+  <label for="sortSelect" class="sr-only">Ordina per</label>
+  <select id="sortSelect" name="sort" class="hidden">
+    <option value="relevant">Più rilevanti</option>
+    <option value="price-asc">Prezzo: Basso - Alto</option>
+    <option value="price-desc">Prezzo: Alto - Basso</option>
+  </select>
+
+  <!-- visible button -->
+  <button
+    id="sortButton"
+    type="button"
+    aria-haspopup="listbox"
+    aria-expanded="false"
+    aria-labelledby="sortButtonLabel"
+    class="w-full flex items-center justify-between px-8 py-2 text-sm font-medium bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-400/40 transition-transform hover:scale-[1.01]">
+    <div class="flex items-center gap-3">
+      <svg class="w-5 h-5 text-gray-500" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M3 6h18M6 12h12M10 18h4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+      </svg>
+      <span id="sortButtonLabel">Più rilevanti</span>
+    </div>
+
+    <svg id="chev" class="w-5 h-5 text-gray-400 transition-transform" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+      <path d="M6 8l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
+
+  <!-- custom list -->
+  <ul id="sortList" role="listbox" tabindex="-1"
+      class="hidden absolute z-50 mt-2 w-full bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800
+             rounded-xl shadow-lg py-1 max-h-70 overflow-auto focus:outline-none ring-1 ring-black/5
+             animate-fade-in">
+    <li role="option" data-value="relevant" class="option flex items-center justify-between gap-3 px-4 py-3 text-sm cursor-pointer select-none">
+      <div class="flex items-center gap-3">
+        <span class="font-medium">Più rilevanti</span>
+        <span class="text-xs text-gray-400">Suggerito</span>
+      </div>
+      <svg class="w-5 h-5 text-indigo-500 hidden check" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </li>
+
+    <li role="option" data-value="price-asc" class="option flex items-center justify-between gap-3 px-4 py-3 text-sm cursor-pointer select-none">
+      <div class="flex items-center gap-3">
+        <span class="font-medium">Prezzo: Basso - Alto</span>
+        <span class="text-xs text-gray-400">Economico → Costoso</span>
+      </div>
+      <svg class="w-5 h-5 text-indigo-500 hidden check" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </li>
+
+    <li role="option" data-value="price-desc" class="option flex items-center justify-between gap-3 px-4 py-3 text-sm cursor-pointer select-none">
+      <div class="flex items-center gap-3">
+        <span class="font-medium">Prezzo: Alto - Basso</span>
+        <span class="text-xs text-gray-400">Costoso → Economico</span>
+      </div>
+      <svg class="w-5 h-5 text-indigo-500 hidden check" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </li>
+  </ul>
+</div>
+
+</div>
+</div>
+<!-- Products Grid (render dinamico) -->
+<div id="productsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+<!-- cards generate via JS -->
+</div>
+<!-- Pagination placeholder (non implementata) 
+<div class="mt-12 flex justify-center">
+<nav class="flex items-center space-x-2" aria-label="Paginazione">
+<button id="prevPage" class="p-2 rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-white/5 text-gray-500 dark:text-gray-400 disabled:opacity-50" disabled>
+<span class="material-icons">chevron_left</span>
+</button>
+<button id="nextPage" class="p-2 rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-white/5 text-gray-500 dark:text-gray-400"> 
+<span class="material-icons">chevron_right</span>
+</button>
+</nav>
+</div>
+-->
+</div>
+</main>
+
+<!-- Mobile filters overlay (hidden by default) -->
+<div id="mobileFiltersOverlay" class="fixed inset-0 z-[60] hidden" aria-hidden="true">
+  <!-- backdrop -->
+  <div id="mobileFiltersBackdrop" class="absolute inset-0 bg-black/50 backdrop-blur-sm"></div>
+
+  <!-- panel (slide from left) -->
+  <aside id="mobileFiltersPanel" role="dialog" aria-modal="true" aria-label="Filtri dei prodotti" class="absolute left-0 top-0 h-full w-[90vw] max-w-xs bg-background-light dark:bg-background-dark shadow-2xl overflow-auto transform transition-transform duration-300 -translate-x-full">
+    <div class="p-4 flex items-center justify-between border-b border-primary/10">
+      <div class="flex items-center gap-3">
+        <span class="material-icons text-primary">tune</span>
+        <h3 class="font-bold">Filtri</h3>
+      </div>
+      <button id="mobileFiltersClose" aria-label="Chiudi filtri" class="p-2 rounded-md hover:bg-gray-100 dark:hover:bg-white/5">
+        <span class="material-icons">close</span>
+      </button>
+    </div>
+
+    <!-- qui verrà spostato dinamicamente l'aside originale -->
+    <div id="mobileFiltersContent" class="p-4 space-y-6"></div>
+  </aside>
+</div>
+
+<!-- Footer -->
+<footer id="footer" class="bg-white dark:bg-[#2c2018] border-t border-primary/10 mt-12 py-12">
+<div class="container mx-auto px-4 md:px-6">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+<div class="col-span-1 md:col-span-1">
+<!-- Logo -->
+<a href="/" aria-label="Agriturismo Giuggioloni — home" class="shop-site-brand">
+<div class="shop-brand-mark">
+<img src="/logo.png" alt="Logo Agriturismo Giuggioloni" width="92" height="92">
+</div>
+<div class="flex flex-col">
+<span class="font-serif text-lg font-bold leading-none text-gray-900 dark:text-white">Agriturismo Giuggioloni</span>
+<span class="text-sm text-primary font-medium tracking-wide">I sapori dell'Acquaviva</span>
+</div>
+</a>
+<p class="text-gray-600 dark:text-gray-400 text-sm mb-4" id="descrizione" data-bind="shop.descrizione">Portiamo i sapori autentici della cucina Marchigiana direttamente sulla tua tavola dalle colline di Osimo (Ancona). Prodotti genuini, fatti con amore.</p>
+</div>
+<div>
+<h4 class="font-bold text-gray-900 dark:text-white mb-4 uppercase text-sm tracking-wider">Link Rapidi</h4>
+<ul class="space-y-2 text-sm text-gray-600 dark:text-gray-400">
+<li><a class="hover:text-primary" href="/">Home</a></li>
+<li><a class="hover:text-primary" href="storia.html">La Nostra Storia</a></li>
+<li><a class="hover:text-primary" href="/lume/">Menù completo</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-bold text-gray-900 dark:text-white mb-4 uppercase text-sm tracking-wider">Contatti</h4>
+<ul class="space-y-2 text-base text-gray-600 dark:text-gray-400">
+<li class="flex items-center gap-2"><span class="material-icons text-primary text-xl">location_on</span><a href="https://www.google.com/maps?cid=15872387788371118319" target="_blank" rel="noopener noreferrer" aria-label="Apri la scheda dell’agriturismo su Google Maps"><p id="indirizzo" data-bind="contatto.via">Via Acquaviva 34</p><p id="comune" data-bind="contatto.comune">60027 Osimo (AN) - Marche</p></a></li>
+<li class="flex items-center gap-2"><span class="material-icons text-primary text-base">phone</span><a data-bind="contatto.numeri_telefono.0" href="tel:+393922529406">+39 392 252 9406</a></li>
+<li class="flex items-center gap-2"><span class="material-icons text-primary text-base">email</span><a id="mail" data-bind="contatto.mail" href="mailto:info@agriturismogiuggioloni.it">info@agriturismogiuggioloni.it</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-bold text-gray-900 dark:text-white mb-4 uppercase text-sm tracking-wider"><p id="frase1" data-bind="shop.frase1">VUOI VEDERE I NOSTRI PRODOTTI?</p></h4>
+<p id="frase2" data-bind="shop.frase2" class="text-gray-600 dark:text-gray-400 text-sm mb-4">Vieni a trovarci!</p>
+<!-- Form Mail
+<div class="flex gap-2">
+<input class="w-full px-3 py-2 bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-gray-700 rounded-lg text-sm focus:outline-none focus:ring-1 focus:ring-primary" placeholder="La tua email" type="email"/>
+<button class="bg-primary hover:bg-orange-600 text-white p-2 rounded-lg transition-colors">
+<span class="material-icons text-sm">arrow_forward</span>
+</button>
+</div>
+-->
+</div>
+</div>
+<div class="border-t border-gray-100 dark:border-white/5 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-gray-500">
+<p>© 2026 Agriturismo Giuggioloni - I sapori dell'Acquaviva. Tutti i diritti riservati.</p>
+<div class="flex gap-4 mt-4 md:mt-0">
+<a class="hover:text-primary" href="/privacy/#preferenze-cookie">Cookie e privacy</a>
+</div>
+</div>
+</div>
+</footer>
+<!-- Script: fetch items.json, render prodotti, filtri, ricerca -->
+<script>
+const localPath = '/items.json';
+
+let allItems = [];
+let filteredItems = [];
+let categories = new Set();
+let types = new Set();
+let currentCategory = null;
+let currentTypeFilters = new Set();
+let currentSearch = '';
+let currentSort = 'relevant';
+let maxPrice = 100;
+
+const productsGrid = document.getElementById('productsGrid');
+const categoriesList = document.getElementById('categoriesList');
+
+const catAll = document.getElementById('cat-all');
+
+const typesList = document.getElementById('typesList');
+const totalCount = document.getElementById('totalCount');
+const priceMin = document.getElementById('priceMin');
+const priceMinLabel = document.getElementById('priceMinLabel');
+const priceMaxLabel = document.getElementById('priceMaxLabel');
+const searchInput = document.getElementById('searchInput');
+const searchBtn = document.getElementById('searchBtn');
+const sortSelect = document.getElementById('sortSelect');
+
+async function fetchItems() {
+    try {
+        const response = await fetch(localPath);
+        if (!response.ok) throw new Error('HTTP ' + response.status);
+        const data = await response.json();
+        return Array.isArray(data) ? data : Array.isArray(data?.items) ? data.items : [];
+    } catch (error) {
+        console.warn('Catalogo non disponibile', error);
+        return [];
+    }
+}
+
+function normalize(item) {
+    return {
+        titolo: item.titolo || item.title || 'Senza titolo',
+        immagine: item.immagine || item.image || item.img || '',
+        categoria: item.categoria || item.category || 'Altro',
+        tipologia: item.tipologia || item.type || item.tip || 'Generico',
+        prezzo: Number(item.prezzo ?? item.price ?? 0),
+        prezzo_scontato: item.prezzo_scontato != null ? Number(item.prezzo_scontato) : (item.discountedPrice != null ? Number(item.discountedPrice) : null),
+        rating: item.rating !== undefined ? Number(item.rating) : null,
+        nuovo: !!item.nuovo
+    };
+}
+
+function buildUI(items) {
+    // reset
+    categories.clear();
+    types.clear();
+
+    items.forEach(i => {
+        const n = normalize(i);
+        categories.add(n.categoria);
+        types.add(n.tipologia);
+    });
+
+    // popola categoriesList
+    // rimuovi tutti tranne "Tutti i prodotti"
+    categoriesList.querySelectorAll('.cat-item')?.forEach(n => n.remove());
+    categories.forEach(cat => {
+        const li = document.createElement('li');
+        li.className = 'cat-item';
+        li.innerHTML = `<a class="flex items-center justify-between p-2 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-white/5 transition-colors cursor-pointer" data-cat="${escapeHtml(cat)}"><span>${escapeHtml(cat)}</span><span class="text-xs bg-gray-100 dark:bg-gray-700 px-2 py-0.5 rounded-full">0</span></a>`;
+        categoriesList.appendChild(li);
+    });
+
+    // popola typesList (checkboxes)
+    typesList.innerHTML = '';
+    Array.from(types).sort().forEach(t => {
+        const id = 'type-' + slugify(t);
+        const label = document.createElement('label');
+        label.className = 'flex items-center space-x-3 cursor-pointer group';
+        label.innerHTML = `<input id="${id}" data-type="${escapeHtml(t)}" class="form-checkbox text-primary rounded border-gray-300 focus:ring-primary h-5 w-5 transition duration-150 ease-in-out" type="checkbox"/><span class="text-gray-700 dark:text-gray-300 group-hover:text-primary transition-colors">${escapeHtml(t)}</span>`;
+        typesList.appendChild(label);
+    });
+
+    // set price range
+    const prices = items.map(i => normalize(i).prezzo_scontato ?? normalize(i).prezzo).filter(p => !isNaN(p) && p !== null);
+    const max = prices.length ? Math.ceil(Math.max(...prices)) : 100;
+    maxPrice = max;
+    priceMin.min = 0;
+    priceMin.max = max;
+    priceMin.value = max;
+    priceMinLabel.textContent = '€0';
+    priceMaxLabel.textContent = `€${max}`;
+
+    // update total count
+    totalCount.textContent = items.length;
+
+    // attach listeners
+    attachListeners();
+}
+
+function attachListeners() {
+  // classi riutilizzate
+  const CAT_ACTIVE = ['bg-primary/10','text-primary','font-medium'];
+  const CAT_INACTIVE = ['text-gray-600','dark:text-gray-300','hover:bg-gray-50','dark:hover:bg-white/5','transition-colors','cursor-pointer'];
+  const CATALL_ACTIVE = ['flex','items-center','justify-between','p-2','rounded-lg','bg-primary/10','text-primary','font-medium','cursor-pointer'];
+  const CATALL_INACTIVE = ['flex','items-center','justify-between','p-2','rounded-lg','text-gray-600','dark:text-gray-300','hover:bg-gray-50','dark:hover:bg-white/5','transition-colors','cursor-pointer'];
+  const TOTAL_ACTIVE = ['text-xs','bg-white','dark:bg-primary/20','px-2','py-0.5','rounded-full'];
+  const TOTAL_INACTIVE = ['text-xs','bg-gray-100','dark:bg-gray-700','px-2','py-0.5','rounded-full'];
+
+  function removeClasses(el, classes) {
+    if (!el) return;
+    classes.forEach(c => el.classList.remove(c));
+  }
+  function addClasses(el, classes) {
+    if (!el) return;
+    classes.forEach(c => el.classList.add(c));
+  }
+
+  function deselectAllCategoriesUI() {
+    const items = categoriesList.querySelectorAll('[data-cat]');
+    items.forEach(x => {
+      removeClasses(x, CAT_ACTIVE);
+      addClasses(x, CAT_INACTIVE);
+    });
+  }
+
+  function setCatAllActiveUI() {
+    if (!catAll) return;
+    removeClasses(catAll, CATALL_INACTIVE);
+    addClasses(catAll, CATALL_ACTIVE);
+    removeClasses(totalCount, TOTAL_INACTIVE);
+    addClasses(totalCount, TOTAL_ACTIVE);
+    // deseleziona le categorie singole
+    deselectAllCategoriesUI();
+  }
+
+  function setCatAllInactiveUI() {
+    if (!catAll) return;
+    removeClasses(catAll, CATALL_ACTIVE);
+    addClasses(catAll, CATALL_INACTIVE);
+    removeClasses(totalCount, TOTAL_ACTIVE);
+    addClasses(totalCount, TOTAL_INACTIVE);
+  }
+
+  function setCategoryActiveUI(catKey) {
+    // disattiva catAll
+    setCatAllInactiveUI();
+    // togli selezioni e attiva quella richiesta
+    deselectAllCategoriesUI();
+    const sel = categoriesList.querySelector(`[data-cat="${cssEscape(catKey)}"]`);
+    if (sel) {
+      removeClasses(sel, CAT_INACTIVE);
+      addClasses(sel, CAT_ACTIVE);
+    }
+  }
+
+  // Assicuriamoci che ci sia una categoria iniziale: 'cat-all' per default (mostra tutti i prodotti)
+  if (!currentCategory) currentCategory = 'cat-all';
+  // Aggiorna UI iniziale
+  if (currentCategory === 'cat-all') {
+    setCatAllActiveUI();
+  } else {
+    setCategoryActiveUI(currentCategory);
+  }
+
+  // Gestore "Tutti i prodotti" — NON è toggle: clicca -> imposta cat-all (mostra tutti)
+  if (catAll) {
+    catAll.addEventListener('click', (e) => {
+      if (currentCategory !== 'cat-all') {
+        currentCategory = 'cat-all';
+        setCatAllActiveUI();
+        applyFilters();
+      }
+      // se era già 'cat-all' non facciamo nulla (rimane attivo e mostra tutto)
+    });
+  }
+
+  // Gestore per le singole categorie
+  categoriesList.querySelectorAll('[data-cat]').forEach(a => {
+    a.addEventListener('click', (e) => {
+      e.preventDefault && e.preventDefault();
+      const cat = e.currentTarget.dataset.cat;
+      if (!cat) return;
+
+      // se l'utente clicca la stessa categoria già selezionata => la deselezioniamo e torniamo a 'cat-all'
+      if (currentCategory === cat) {
+        currentCategory = 'cat-all';
+        setCatAllActiveUI();
+        applyFilters();
+        return;
+      }
+
+      // altrimenti selezioniamo la nuova categoria e disattiviamo 'cat-all'
+      currentCategory = cat;
+      setCategoryActiveUI(cat);
+      applyFilters();
+    });
+  });
+
+  // type checkboxes
+  typesList.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+    cb.addEventListener('change', (e) => {
+      const t = e.currentTarget.dataset.type;
+      if (e.currentTarget.checked) currentTypeFilters.add(t); else currentTypeFilters.delete(t);
+      applyFilters();
+    });
+  });
+
+  // price range
+  priceMin.addEventListener('input', (e) => {
+    const v = Number(e.currentTarget.value);
+    priceMaxLabel.textContent = `€${v}`;
+    applyFilters();
+  });
+
+  // search
+  searchBtn.addEventListener('click', () => {
+    currentSearch = searchInput.value.trim().toLowerCase();
+    applyFilters();
+  });
+  searchInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+      currentSearch = searchInput.value.trim().toLowerCase();
+      applyFilters();
+    }
+  });
+
+  // sort
+  sortSelect.addEventListener('change', (e) => {
+    currentSort = e.currentTarget.value;
+    applyFilters();
+  });
+}
+
+function applyFilters() {
+  const maxP = Number(priceMin.value);
+  const hasMax = !isNaN(maxP);
+
+  // mappiamo tutti gli elementi con la loro versione normalizzata per non ricalcolare normalize() troppe volte
+  const mapped = allItems.map(it => ({ it, n: normalize(it) }));
+
+  // filtri
+  const filteredMapped = mapped.filter(({ it, n }) => {
+    // price filter (uses prezzo_scontato if present)
+    const price = (n.prezzo_scontato !== null && !isNaN(n.prezzo_scontato)) ? n.prezzo_scontato : n.prezzo;
+    if (hasMax && (isNaN(price) || price > maxP)) return false;
+
+    // category: considera 'cat-all' come "nessun filtro"
+    if (currentCategory && currentCategory !== 'cat-all' && n.categoria !== currentCategory) return false;
+
+    // types
+    if (currentTypeFilters.size > 0 && !currentTypeFilters.has(n.tipologia)) return false;
+
+    // search
+    if (currentSearch) {
+      const hay = `${n.titolo || ''} ${n.categoria || ''} ${n.tipologia || ''}`.toLowerCase();
+      if (!hay.includes(currentSearch)) return false;
+    }
+
+    return true;
+  });
+
+  // sorting (usando i valori già normalizzati)
+  if (currentSort === 'price-asc') {
+    filteredMapped.sort((a, b) => {
+      const pa = (a.n.prezzo_scontato ?? a.n.prezzo) || 0;
+      const pb = (b.n.prezzo_scontato ?? b.n.prezzo) || 0;
+      return pa - pb;
+    });
+  } else if (currentSort === 'price-desc') {
+    filteredMapped.sort((a, b) => {
+      const pa = (a.n.prezzo_scontato ?? a.n.prezzo) || 0;
+      const pb = (b.n.prezzo_scontato ?? b.n.prezzo) || 0;
+      return pb - pa;
+    });
+  } else if (currentSort === 'newest') {
+    // se hai created_at / data, ordina qui; altrimenti lascia l'ordine originale
+  }
+
+  // ricava gli items finali e renderizza
+  filteredItems = filteredMapped.map(x => x.it);
+
+  renderProducts(filteredItems);
+  updateCategoryCounts();
+}
+
+function renderProducts(items) {
+    productsGrid.innerHTML = '';
+    if (!items.length) {
+        productsGrid.innerHTML = `<div class="col-span-1 sm:col-span-2 lg:col-span-3 p-8 text-center text-gray-500">Nessun prodotto trovato.</div>`;
+        return;
+    }
+
+    items.forEach(item => {
+        const n = normalize(item);
+        const priceHtml = (n.prezzo_scontato !== null && n.prezzo_scontato < n.prezzo) ? `
+            <span class="block text-xs text-gray-400 line-through">€${n.prezzo.toFixed(2)}</span>
+            <span class="text-lg font-bold text-primary">€${n.prezzo_scontato.toFixed(2)}</span>
+        ` : `<span class="text-lg font-bold text-primary">€${n.prezzo.toFixed(2)}</span>`;
+
+        // mostra rating SOLO se presente ("solo in presenza")
+        const ratingHtml = (n.rating !== null && !isNaN(n.rating)) ? `<div class="flex text-yellow-400 text-xs" aria-hidden="true">${renderStars(n.rating)}</div>` : '';
+
+        const card = document.createElement('div');
+        card.className = 'bg-white dark:bg-[#2c2018] rounded-xl shadow-sm hover:shadow-xl hover:shadow-primary/10 border border-gray-100 dark:border-white/5 overflow-hidden group transition-all duration-300 flex flex-col h-full';
+        card.innerHTML = `
+            <div class="relative h-56 overflow-hidden">
+                <img alt="${escapeHtml(n.titolo)}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy" src="${escapeHtml(n.immagine)}"/>
+            </div>
+            <div class="p-5 flex flex-col flex-grow">
+                <div class="flex items-start justify-between mb-2">
+                    <span class="text-xs text-gray-500 uppercase tracking-wide">${escapeHtml(n.categoria)}</span>
+                    ${ratingHtml}
+                </div>
+                <h3 class="text-xl font-bold text-gray-800 dark:text-gray-100 mb-2 leading-tight group-hover:text-primary transition-colors">${escapeHtml(n.titolo)}</h3>
+                <p class="text-gray-600 dark:text-gray-400 text-sm mb-4 line-clamp-2">${escapeHtml(n.tipologia)}</p>
+                <div class="mt-auto pt-4 border-t border-gray-100 dark:border-white/5 flex items-center justify-between">
+                    <div>${priceHtml}</div>
+                    <!-- Aggiungi al carrello rimosso poiché non si effettua vendita online -->
+                </div>
+            </div>
+        `;
+
+        productsGrid.appendChild(card);
+    });
+}
+
+function updateCategoryCounts() {
+    const counts = {};
+    allItems.forEach(i => {
+        const n = normalize(i);
+        counts[n.categoria] = (counts[n.categoria] || 0) + 1;
+    });
+    categoriesList.querySelectorAll('[data-cat]').forEach(a => {
+        const cat = a.dataset.cat;
+        const badge = a.querySelector('span:last-child');
+        if (badge) badge.textContent = counts[cat] || 0;
+    });
+}
+
+function renderStars(rating) {
+    const full = Math.floor(rating);
+    const half = rating - full >= 0.5 ? 1 : 0;
+    const empty = 5 - full - half;
+    return ' '.repeat(0) + ' '.repeat(0) + '<span class="sr-only">Valutazione ' + rating + ' su 5</span>' + Array.from({length:full}).map(()=>'<span class="material-icons text-[16px]">star</span>').join('') + (half?'<span class="material-icons text-[16px]">star_half</span>':'') + Array.from({length:empty}).map(()=>'<span class="material-icons text-[16px]">star_border</span>').join('');
+}
+
+// utility
+function slugify(str){ return String(str||'').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,''); }
+function escapeHtml(unsafe) { return String(unsafe||'').replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;').replaceAll("'","&#039;"); }
+function cssEscape(s){ return s.replace(/([\\"'\[\]\/])/g,'\\$1'); }
+
+// init
+(async function(){
+    allItems = await fetchItems();
+    buildUI(allItems);
+    // initial render
+    filteredItems = allItems.slice();
+    applyFilters();
+})();
+</script>
+<script>
+(async function bindExtraDati() {
+  const DATA_JSON_PATH = '/dati.json';
+
+  // helper minimale (se non li hai già definiti)
+  // Nuova getValueByPath: supporta:
+// - 'a.b[0].c' (normale)
+// - 'via' -> cerca via a root, poi dentro i nodi di primo livello (es. contatto.via)
+// - 'instagram.link' -> se 'instagram' non esiste a root prova a trovare 'instagram' dentro un primo-level (es. socials.instagram.link)
+function getValueByPath(obj, path) {
+  if (!path) return undefined;
+  // normalizza gli indici [0] -> .0
+  const normalized = path.replace(/\[(\d+)\]/g, '.$1');
+  const parts = normalized.split('.');
+
+  // tenta la risoluzione diretta (classica)
+  let direct = parts.reduce((acc, key) => (acc == null ? undefined : acc[key]), obj);
+  if (direct !== undefined) return direct;
+
+  // se path è singolo (es. 'via'), cerca nei nodi di primo livello
+  if (parts.length === 1) {
+    const key = parts[0];
+    // cerca a root (già fatto) --> se non trovato, cerca dentro ogni primo livello
+    for (const topKey of Object.keys(obj || {})) {
+      const child = obj[topKey];
+      if (child && typeof child === 'object' && key in child) {
+        return child[key];
+      }
+    }
+    return undefined;
+  }
+
+  // se path ha più segmenti (es. 'instagram.link') e il primo segmento non esiste a root,
+  // cerchiamo un "padre" di primo livello che contenga quel primo segmento.
+  const first = parts[0];
+  if (!(first in obj)) {
+    for (const topKey of Object.keys(obj || {})) {
+      const child = obj[topKey];
+      if (child && typeof child === 'object' && (first in child)) {
+        // ricomponi nuovo percorso: topKey + remainingParts
+        const newParts = [topKey].concat(parts);
+        const newPath = newParts.join('.');
+        // risolvi di nuovo con il percorso espanso
+        return newPath.replace(/\[(\d+)\]/g, '.$1').split('.').reduce((acc, k) => (acc == null ? undefined : acc[k]), obj);
+      }
+    }
+  }
+
+  // nulla trovato
+  return undefined;
+}
+function escapeHtml(s=''){ return String(s==null ? '' : s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;'); }
+
+  try {
+    const res = await fetch(DATA_JSON_PATH);
+    if (!res.ok) throw new Error('Impossibile caricare ' + DATA_JSON_PATH + ': ' + res.status);
+    const dati = await res.json();
+
+    // 1) Se hai processRepeats / bindAll definiti GLOBALMENTE, usali (mantengono la logica già esistente)
+    if (typeof processRepeats === 'function' && typeof bindAll === 'function') {
+      try {
+        processRepeats(document, dati);
+        bindAll(document, dati);
+      } catch (e) {
+        console.warn('Errore usando processRepeats/bindAll:', e);
+      }
+    }
+
+    // 2) Fallback semplice: data-bind (testo) e data-bind-href (href)
+    // Esempi HTML:
+    // <span data-bind="contatto.via"></span>
+    // <a data-bind-href="socials.instagram.link">IG</a>
+    document.querySelectorAll('[data-bind]').forEach(el => {
+      const path = el.dataset.bind;
+      const val = getValueByPath(dati, path);
+      el.textContent = val == null ? '' : String(val);
+    });
+    document.querySelectorAll('[data-bind-href]').forEach(el => {
+      const path = el.dataset.bindHref;
+      const val = getValueByPath(dati, path);
+      if (val) el.setAttribute('href', String(val));
+    });
+    // supporto per attributi img src (data-bind-src)
+    document.querySelectorAll('[data-bind-src]').forEach(el => {
+      const path = el.dataset.bindSrc;
+      const val = getValueByPath(dati, path);
+      if (val) el.setAttribute('src', String(val));
+    });
+
+    // 3) Se vuoi popolare una lista di numeri di telefono in un elemento con id="phoneList"
+    // (es. <ul id="phoneList"></ul>), decommenta / adatta il codice qui sotto:
+    /*
+    if (Array.isArray(dati.contatto?.numeri_telefono) && document.getElementById('phoneList')) {
+      const wrap = document.getElementById('phoneList');
+      wrap.innerHTML = '';
+      const frag = document.createDocumentFragment();
+      dati.contatto.numeri_telefono.forEach(num => {
+        const li = document.createElement('li');
+        li.textContent = num;
+        frag.appendChild(li);
+      });
+      wrap.appendChild(frag);
+    }
+    */
+
+    // 4) Esempio: popolare badge "aggiornato" se hai <span id="datiUpdated"></span>
+    if (dati.updated && document.getElementById('datiUpdated')) {
+      const d = new Date(dati.updated);
+      document.getElementById('datiUpdated').textContent = d.toLocaleString('it-IT', { timeZone: 'Europe/Rome' });
+    }
+
+    // DEBUG: esponi i dati su window per ispezione (rimuovi in produzione)
+    window.__DATA__ = dati;
+
+  } catch (err) {
+    console.warn('bindExtraDati error:', err);
+  }
+})();
+</script>
+<!-- small script: accessible behavior + sync with hidden select -->
+<script>
+(function(){
+  const container = document.querySelector('[data-dropdown]');
+  if (!container) return;
+
+  const native = document.getElementById('sortSelect'); // usa la select esistente
+  const btn = container.querySelector('#sortButton');
+  const list = container.querySelector('#sortList');
+  const options = Array.from(list.querySelectorAll('.option'));
+  const label = btn.querySelector('#sortButtonLabel');
+  const chevron = btn.querySelector('#chev');
+
+  let open = false;
+  let focused = -1;
+  let selected = 0;
+
+  // trova l'indice iniziale basato sul valore della select nativa
+  function findIndexByValue(val){
+    return options.findIndex(o => o.dataset.value === val);
+  }
+
+  function openList(focusIndex = selected){
+    open = true;
+    list.classList.remove('hidden');
+    btn.setAttribute('aria-expanded','true');
+    chevron.style.transform = 'rotate(180deg)';
+    focusOption(focusIndex);
+  }
+
+  function closeList(){
+    open = false;
+    list.classList.add('hidden');
+    btn.setAttribute('aria-expanded','false');
+    chevron.style.transform = '';
+    focused = -1;
+    options.forEach(el => el.classList.remove('bg-gray-50','dark:bg-gray-800'));
+  }
+
+  function focusOption(index){
+    if(index < 0) index = 0;
+    if(index >= options.length) index = options.length - 1;
+    focused = index;
+    options.forEach((el,i) => {
+      el.classList.toggle('bg-gray-50', i === index);
+      el.classList.toggle('dark:bg-gray-800', i === index);
+      if(i === index) {
+        el.scrollIntoView({ block: 'nearest' });
+        el.focus();
+      }
+    });
+  }
+
+  // aggiorna l'UI (label + check icons). dispatch = se vogliamo anche aggiornare la select nativa e sparare change
+  function updateUI(index, dispatch = false){
+    selected = index;
+    const opt = options[index];
+    const val = opt.dataset.value;
+    // aggiorna etichetta
+    label.textContent = opt.querySelector('.font-medium').textContent;
+    // mostra check
+    options.forEach((el,i) => el.querySelector('.check').classList.toggle('hidden', i !== index));
+    // aggiorna select nativa se richiesto
+    if(dispatch && native){
+      native.value = val;
+      // invia evento change per compatibilità con codice legacy
+      native.dispatchEvent(new Event('change', { bubbles: true }));
+      // se vuoi submit automatico, decommenta la linea seguente:
+      // native.form?.submit();
+    }
+  }
+
+  // seleziona e chiudi
+  function selectOption(index){
+    updateUI(index, true);
+    closeList();
+    btn.focus();
+  }
+
+  // inizializza: usa il valore attuale della select nativa (se presente)
+  (function init(){
+    let idx = 0;
+    if (native) {
+      const i = findIndexByValue(native.value);
+      if (i >= 0) idx = i;
+    }
+    updateUI(idx, false); // inizializza interfaccia senza dispatch change
+  })();
+
+  // eventi
+  btn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    open ? closeList() : openList(selected);
+  });
+
+  options.forEach((opt, idx) => {
+    opt.setAttribute('tabindex', '-1');
+    opt.addEventListener('click', (e) => {
+      e.stopPropagation();
+      selectOption(idx);
+    });
+    opt.addEventListener('mouseenter', () => {
+      focusOption(idx);
+    });
+  });
+
+  // keyboard sul button
+  btn.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowDown') { e.preventDefault(); openList(Math.max(0, selected)); }
+    else if (e.key === 'ArrowUp') { e.preventDefault(); openList(Math.max(0, selected)); focusOption(options.length - 1); }
+    else if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open ? closeList() : openList(selected); }
+  });
+
+  // keyboard sulla lista
+  list.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowDown') { e.preventDefault(); focusOption(focused + 1); }
+    else if (e.key === 'ArrowUp') { e.preventDefault(); focusOption(focused - 1); }
+    else if (e.key === 'Home') { e.preventDefault(); focusOption(0); }
+    else if (e.key === 'End') { e.preventDefault(); focusOption(options.length - 1); }
+    else if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); selectOption(focused >= 0 ? focused : selected); }
+    else if (e.key === 'Escape') { e.preventDefault(); closeList(); btn.focus(); }
+    else if (e.key.length === 1) {
+      const ch = e.key.toLowerCase();
+      const idx = options.findIndex(o => o.textContent.trim().toLowerCase().startsWith(ch));
+      if (idx >= 0) focusOption(idx);
+    }
+  });
+
+  // chiudi cliccando fuori
+  document.addEventListener('click', (e) => {
+    if (!container.contains(e.target)) closeList();
+  });
+
+  // se la select nativa cambia da codice esterno, sincronizziamo l'interfaccia
+  if (native) {
+    native.addEventListener('change', () => {
+      const i = findIndexByValue(native.value);
+      if (i >= 0) updateUI(i, false);
+    });
+  }
+})();
+</script>
+<script>
+(function(){
+  const toggleBtn = document.getElementById('filtersToggle');
+  const overlay = document.getElementById('mobileFiltersOverlay');
+  const backdrop = document.getElementById('mobileFiltersBackdrop');
+  const panel = document.getElementById('mobileFiltersPanel');
+  const content = document.getElementById('mobileFiltersContent');
+  const closeBtn = document.getElementById('mobileFiltersClose');
+
+  // seleziona l'aside originale: usa un selettore robusto (adatta se nel tuo markup cambia)
+  const sidebar = document.querySelector('aside.w-64') || document.querySelector('aside.hidden.lg\\:block');
+  if (!toggleBtn || !overlay || !panel || !content || !sidebar) return;
+
+  // salva info per ripristino
+  const originalParent = sidebar.parentNode;
+  const originalNextSibling = sidebar.nextSibling;
+  const originalHadSticky = sidebar.classList.contains('sticky') || sidebar.classList.contains('top-28'); // boolean-ish
+  const originalHadHidden = sidebar.classList.contains('hidden');
+
+  let closingTimeout = null;
+  let closingHandler = null;
+
+  function openFilters() {
+    if (closingHandler) { panel.removeEventListener('transitionend', closingHandler); closingHandler = null; }
+    // sposta l'aside dentro il pannello e mostrala
+    content.appendChild(sidebar);
+    sidebar.classList.remove('hidden');
+
+    // rimuovi sticky per evitare conflict di posizione all'interno del panel
+    if (originalHadSticky) {
+      sidebar.classList.remove('sticky','top-28');
+    }
+
+    // mostra overlay / pannello con transizione
+    overlay.classList.add('show');
+    requestAnimationFrame(() => panel.classList.add('open'));
+
+    // blocca scroll
+    document.documentElement.classList.add('no-scroll');
+
+    // accessibilità
+    toggleBtn.setAttribute('aria-expanded','true');
+    overlay.setAttribute('aria-hidden','false');
+
+    // focus sulla close button
+    closeBtn.focus();
+
+    // pulizia eventuale fallback di chiusura precedente
+    if (closingTimeout) { clearTimeout(closingTimeout); closingTimeout = null; }
+  }
+
+  function finishCloseAndRestore() {
+    if (closingTimeout) { clearTimeout(closingTimeout); closingTimeout = null; }
+    if (closingHandler) { panel.removeEventListener('transitionend', closingHandler); closingHandler = null; }
+    // rimuovi overlay dalla UI
+    overlay.classList.remove('show');
+
+    // riposiziona l'aside nella sua posizione originale
+    if (originalNextSibling) originalParent.insertBefore(sidebar, originalNextSibling);
+    else originalParent.appendChild(sidebar);
+
+    // ripristina sticky se l'aveva
+    if (originalHadSticky) sidebar.classList.add('sticky','top-28');
+    else { sidebar.classList.remove('sticky','top-28'); }
+
+    // ripristina la visibilità mobile come era all'inizio
+    if (originalHadHidden) sidebar.classList.add('hidden');
+    else sidebar.classList.remove('hidden');
+
+    // sblocca lo scroll
+    document.documentElement.classList.remove('no-scroll');
+
+    // accessibilità
+    toggleBtn.setAttribute('aria-expanded','false');
+    overlay.setAttribute('aria-hidden','true');
+
+    // ritorna il focus al toggle
+    toggleBtn.focus();
+  }
+
+  function closeFilters() {
+    if (!overlay.classList.contains('show') || closingTimeout) return;
+    // chiudi pannello con transizione
+    panel.classList.remove('open');
+
+    // aspetta transitionend per completare l'animazione prima di spostare l'aside
+    const onFinish = (event) => {
+      if (event.target === panel && event.propertyName === 'transform') finishCloseAndRestore();
+    };
+    closingHandler = onFinish;
+    panel.addEventListener('transitionend', onFinish);
+
+    // fallback: se transitionend non scatta (es. browser), forziamo il restore dopo 350ms
+    closingTimeout = setTimeout(() => {
+      panel.removeEventListener('transitionend', onFinish);
+      finishCloseAndRestore();
+      closingTimeout = null;
+    }, 400);
+  }
+
+  // open/close handlers
+  toggleBtn.addEventListener('click', (e) => { e.preventDefault(); openFilters(); });
+  closeBtn.addEventListener('click', (e) => { e.preventDefault(); closeFilters(); });
+  backdrop.addEventListener('click', closeFilters);
+
+  // esc key closes
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Tab' && overlay.classList.contains('show')) {
+      const controls = [...panel.querySelectorAll('button:not([disabled]),a[href],input:not([disabled]),select:not([disabled]),[tabindex="0"]')].filter(el => el.getClientRects().length);
+      const first = controls[0], last = controls.at(-1);
+      if (e.shiftKey && (document.activeElement === first || !panel.contains(document.activeElement))) { e.preventDefault(); last?.focus(); }
+      else if (!e.shiftKey && (document.activeElement === last || !panel.contains(document.activeElement))) { e.preventDefault(); first?.focus(); }
+    }
+    if (e.key === 'Escape' && overlay.classList.contains('show')) closeFilters();
+  });
+
+  // se ridimensioni a desktop mentre il pannello è aperto -> chiudi e ripristina
+  window.addEventListener('resize', () => {
+    if (window.innerWidth >= 1024 && overlay.classList.contains('show')) closeFilters();
+  });
+
+  // sincronizzazione: se la pagina modifica il select/filtri programmaticamente, manteniamo l'UI coerente
+  // (opzionale) esempio: se ci sono checkbox/range dentro i filtri potresti voler chiudere automaticamente:
+  // Uncomment the block below to auto-close the panel when a filter input changes (handy on mobile)
+  /*
+  content.addEventListener('change', (e) => {
+    // se vuoi chiudere immediatamente dopo la modifica:
+    closeFilters();
+  });
+  */
+
+})();
+</script>
+</body></html>
