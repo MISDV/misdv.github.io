@@ -1,5 +1,10 @@
 # PageSpeed: interventi su prestazioni e accessibilità
 
+Nota successiva dell’8 novembre: ripristinato il logo PNG trasparente dello shop
+su tutte le pagine. Il WebP usato nel primo intervento aveva uno sfondo bianco.
+I benchmark qui sotto documentano la revisione precedente a questa correzione
+grafica; non rappresentano il peso della versione con i loghi ripristinati.
+
 8 novembre 2026. Analisi dell’HTML del report fornito dall’utente, relativo alla home.
 Il report originale indica 98 prestazioni, 96 accessibilità, 100 best practice e 100 SEO.
 Questi sono i punteggi iniziali: non rappresentano una nuova misurazione dopo le modifiche.

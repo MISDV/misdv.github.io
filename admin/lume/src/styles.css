@@ -44,3 +44,14 @@
 @container (min-width: 48rem){#lume-menu .lm-fixed-grid:has(.lm-fixed-card){grid-template-columns:repeat(2,minmax(0,1fr))}}
 /* Keep the restaurant name intact above the touch controls on narrow screens. */
 @media(max-width:620px){#lume-menu .lm-brand{max-width:100%;flex-basis:100%;overflow-wrap:normal}#lume-menu .lm-topbar-actions{width:100%;margin-left:0;justify-content:space-between}}
+/* The transparent restaurant mark uses the same circle and sizing as the shop. */
+#lume-menu .lm-brand,#lume-menu .lm-footer-brand{display:flex;align-items:center;gap:12px;max-width:100%;min-width:0}
+#lume-menu .shop-brand-mark{display:flex;flex:none;align-items:center;justify-content:center;width:48px;height:48px;padding:8px;border-radius:50%;background:#e67e221a}
+#lume-menu .shop-brand-mark img{display:block;flex:none;width:40px;height:40px;max-width:none;max-height:none;object-fit:contain;background:transparent}
+#lume-menu .lm-brand-copy{min-width:0}
+#lume-menu .lm-brand .lm-brand-copy{white-space:nowrap}
+#lume-menu .lm-footer-brand{justify-self:start;letter-spacing:normal}
+#lume-menu .lm-footer-brand .shop-brand-mark{width:56px;height:56px;background:#fae5d3}
+#lume-menu .lm-footer-brand strong{display:block;font:700 18px/1.2 var(--lm-serif);color:var(--lm-ink)}
+#lume-menu .lm-footer-brand small{display:block;margin-top:3px;font-size:11px;letter-spacing:.04em}
+@media(min-width:768px){#lume-menu .lm-brand .shop-brand-mark{width:64px;height:64px}#lume-menu .lm-brand .shop-brand-mark img{width:48px;height:48px}}

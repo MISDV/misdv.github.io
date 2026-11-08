@@ -66,7 +66,8 @@
 #contatti [data-hours] .service-time{display:block;white-space:nowrap;color:#fff}
 #contatti .border-t>p{color:#b9afa6}
 .shop-site-brand{display:flex;align-items:center;gap:.75rem;min-width:0}.shop-brand-mark{display:flex;flex:none;align-items:center;justify-content:center;width:48px;height:48px;padding:8px;border-radius:50%;background:#e67e221a}.shop-brand-mark img{width:40px;height:40px;max-width:none;object-fit:contain}
-#footer .shop-site-brand{margin-bottom:1rem}#footer .shop-brand-mark{width:56px;height:56px;background:#e67e2233}#footer .shop-brand-mark img{width:40px;height:40px}#footer #mail{overflow-wrap:anywhere}
+#footer .shop-site-brand{margin-bottom:1rem}#footer .shop-brand-mark,.site-footer-brand .shop-brand-mark{width:56px;height:56px;background:#e67e2233}#footer .shop-brand-mark img,.site-footer-brand .shop-brand-mark img{width:40px;height:40px}#footer #mail{overflow-wrap:anywhere}
+.site-footer-brand .shop-brand-mark{background:#fae5d3}
 @media(min-width:768px){nav .shop-brand-mark{width:64px;height:64px}nav .shop-brand-mark img{width:48px;height:48px}}
 @media screen{#menu-content>.menu-day{content-visibility:auto;contain-intrinsic-block-size:auto 700px}}
 @media(max-width:47.99rem){.farm-tile{aspect-ratio:4/3}}
