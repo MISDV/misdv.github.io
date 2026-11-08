@@ -38,14 +38,14 @@
   function card(item){
     const p=normalize(item),href='/shop/'+p.slug+'/';
     return `<a href="${escape(href)}" class="shop-product-card bg-white dark:bg-[#2c2018] rounded-xl shadow-sm hover:shadow-xl hover:shadow-primary/10 border border-gray-100 dark:border-white/5 overflow-hidden group transition-all duration-300 flex flex-col h-full" data-product="${escape(p.slug)}">
-      <div class="relative h-56 overflow-hidden">${media(p)}</div>
+      <div class="shop-card-media${p.immagine?'':' shop-card-placeholder'} relative h-56 overflow-hidden">${media(p)}</div>
       <div class="p-5 flex flex-col flex-grow"><span class="text-xs text-gray-500 uppercase tracking-wide">${escape(p.categoria)}</span>
       <h2 class="text-xl font-bold text-gray-800 dark:text-gray-100 mb-2 leading-tight group-hover:text-primary transition-colors">${escape(p.titolo)}</h2>
       <p class="text-gray-600 dark:text-gray-400 text-sm mb-4">${escape(p.tipologia)}</p>${p.prenotazione_obbligatoria?'<p class="shop-reservation-tag">Prenotazione telefonica necessaria</p>':''}
       <div class="shop-card-bottom mt-auto pt-4 border-t border-gray-100 dark:border-white/5"><span class="shop-price">${escape(priceText(p))}</span><span class="shop-card-link">Scopri il prodotto <span aria-hidden="true">→</span></span></div></div></a>`;
   }
   function notice(){
-    return `<aside class="shop-local-notice" aria-labelledby="shop-local-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M3 10h18M4 10v11h16V10M2 10l2-7h16l2 7M8 21v-7h5v7"/></svg><div><h2 id="shop-local-title">Solo nello spaccio aziendale</h2><p>Acquisto esclusivamente in loco all’Agriturismo Giuggioloni di Osimo. Nessuna vendita online o spedizione.</p><p class="shop-local-address">Via Acquaviva 34, Osimo · Disponibilità da verificare.</p><a href="tel:+393922529406">Chiama: <span class="shop-notice-phone">+39 392 252 9406</span></a></div></aside>`;
+    return `<aside class="shop-local-notice" aria-labelledby="shop-local-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M3 10h18M4 10v11h16V10M2 10l2-7h16l2 7M8 21v-7h5v7"/></svg><div><h2 id="shop-local-title">Solo nello spaccio aziendale</h2><p>Vendita esclusivamente in loco. Nessuna vendita online o spedizione.</p><p class="shop-local-address">Via Acquaviva 34, Osimo</p><a href="tel:+393922529406" aria-label="Chiama lo Spaccio Aziendale Giuggioloni al +39 392 252 9406"><span class="shop-notice-phone">+39 392 252 9406</span></a></div></aside>`;
   }
   return {escape,money,normalize,priceText,media,variants,card,notice};
 });
