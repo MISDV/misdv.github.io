@@ -30,6 +30,9 @@ Le sorgenti sono `admin/build-pages.mjs` e `admin/build-english.mjs`.
 Header e footer comuni sono ricavati dalla home tramite `admin/site-layout.mjs`.
 La pagina inglese usa lo stesso formato con testi e navigazione tradotti.
 La storia e la home si modificano direttamente nei rispettivi HTML.
+I collegamenti al menù del sito portano a `/menu/`. L’accesso a `/lume/`
+è nel riquadro finale della pagina `/menu/`; Lume mantiene i propri link interni
+per lingue, piatti e stampa.
 
 Il logo comune è `/logo.png`, trasparente, come in `shop/index.html`. Il contenitore
 `.shop-brand-mark` mantiene le dimensioni del riferimento: 48/64 px nell’header

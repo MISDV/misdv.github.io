@@ -96,7 +96,7 @@ ${footer}
 
 for (const entry of farm) {
   const related = [...farm, { path: '/storia.html', label: 'La nostra storia' }].filter(link => link.path !== entry.path);
-  const content = `<section class="farm-hero"><div><p class="eyebrow">La fattoria · Osimo</p><h1>${escape(entry.heading)}</h1><p>${escape(entry.intro)}</p><div class="place-actions"><a href="/lume/">Scopri il menù completo</a><a href="#contatti">Contatti e indicazioni</a></div></div>${photo(entry.hero, true)}</section>
+  const content = `<section class="farm-hero"><div><p class="eyebrow">La fattoria · Osimo</p><h1>${escape(entry.heading)}</h1><p>${escape(entry.intro)}</p><div class="place-actions"><a href="/menu/">Scopri il menù completo</a><a href="#contatti">Contatti e indicazioni</a></div></div>${photo(entry.hero, true)}</section>
 <section class="farm-content"><h2>${entry.label === 'Il locale' ? 'Vieni a trovarci' : 'La vita in fattoria'}</h2><p>${escape(entry.content)}</p>
 ${entry.gallery ? `<div class="farm-gallery">${entry.gallery.map(image => `<figure>${photo(image)}<figcaption>${escape(image[1])}</figcaption></figure>`).join('')}</div>` : ''}</section>
 ${entry.extra || ''}

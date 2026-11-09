@@ -18,7 +18,7 @@ const translations = new Map([
   ['Navigazione principale', 'Main navigation'], ['Menu principale mobile', 'Mobile navigation'],
   ['Apri menu principale', 'Open navigation menu'], ['Chiudi menu', 'Close menu'], ['Vai al contenuto', 'Skip to content'],
   ['I Nostri Prodotti', 'Products (IT)'], ['La Nostra Storia', 'Our story (IT)'], ['La Fattoria', 'Our farm'],
-  ['Menù completo', 'English menu'], ['Prenota Ora!', 'Book a table'], ['Prenota', 'Book a table'],
+  ['Menù completo', 'Restaurant menu (IT)'], ['Prenota Ora!', 'Book a table'], ['Prenota', 'Book a table'],
   ['Preferenze cookie', 'Cookie preferences'], ['Informativa', 'Privacy (IT)'],
   ['Tutti i diritti riservati.', 'All rights reserved.'], ['Esplora', 'Explore'], ['Contatti', 'Contact'], ['Orari', 'Opening times'],
   ['Lunedì', 'Monday'], ['Martedì', 'Tuesday'], ['Mercoledì', 'Wednesday'], ['Giovedì', 'Thursday'],
@@ -36,8 +36,8 @@ export function siteLayout(path = '/', language = 'it') {
     .replaceAll(' aria-current="page"', '');
   if (path !== '/') header = header.replaceAll('href="#fattoria"', 'href="/#fattoria"').replaceAll('href="#prodotti"', 'href="/#prodotti"');
   if (path === '/menu/') {
-    header = header.replaceAll('href="/lume/">Menù completo', 'href="/menu/" aria-current="page">Il menù');
-    footer = footer.replaceAll('href="/lume/"', 'href="#menu-lume"');
+    header = header.replaceAll('href="/menu/">Menù completo', 'href="/menu/" aria-current="page">Il menù');
+    footer = footer.replaceAll('href="/menu/"', 'href="#menu-lume"');
   }
   if (path === '/') header = header.replaceAll('href="/">Home</a>', 'href="/" aria-current="page">Home</a>');
   footer = footer.replace(/<div class="flex items-center gap-3 mb-6">([\s\S]*?)(?=\s*<p data-text="home.descrizione")/, block =>
@@ -55,9 +55,8 @@ export function siteLayout(path = '/', language = 'it') {
   }
   if (language === 'en') {
     header = header.replaceAll('href="#contenuto"', 'href="#content"').replaceAll('href="/"', 'href="/en/"')
-      .replaceAll('href="/#fattoria"', 'href="#farm"').replaceAll('href="/#prodotti"', 'href="/shop/"')
-      .replaceAll('href="/lume/"', 'href="/lume/en/"');
-    footer = footer.replaceAll('href="/lume/"', 'href="/lume/en/"').replace('href="/" aria-label=', 'href="/en/" aria-label=')
+      .replaceAll('href="/#fattoria"', 'href="#farm"').replaceAll('href="/#prodotti"', 'href="/shop/"');
+    footer = footer.replace('href="/" aria-label=', 'href="/en/" aria-label=')
       .replace('href="/en/" lang="en" hreflang="en">English', 'href="/" lang="it" hreflang="it">Italiano');
     for (const [from, to] of translations) { header = header.replaceAll(from, to); footer = footer.replaceAll(from, to); }
     header = header.replace(/ data-text="[^"]*"/g, '');
