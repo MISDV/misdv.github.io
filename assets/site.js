@@ -26,6 +26,22 @@ function setupNavigation() {
   const panel = document.querySelector('#mobileMenu');
   const overlay = document.querySelector('#mobileOverlay');
   if (!button || !panel || !overlay) return;
+  const header = document.querySelector('#siteNav');
+  if (header) {
+    let height = matchMedia('(min-width: 768px)').matches ? 96 : 80;
+    const syncHeight = next => {
+      if (next === height) return;
+      height = next;
+      document.documentElement.style.setProperty('--site-nav-height', `${height}px`);
+    };
+    if (typeof ResizeObserver === 'function') {
+      new ResizeObserver(([entry]) => syncHeight(entry.borderBoxSize?.[0]?.blockSize ?? entry.contentRect.height)).observe(header);
+    } else {
+      const measure = () => syncHeight(header.getBoundingClientRect().height);
+      measure();
+      window.addEventListener('resize', measure);
+    }
+  }
   const close = panel.querySelector('#mobileMenuClose');
   panel.setAttribute('role', 'dialog');
   panel.setAttribute('aria-modal', 'true');

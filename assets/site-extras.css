@@ -59,6 +59,16 @@
 .site-meta-links{text-align:center;padding-block:.75rem;font-size:.85rem}
 #mobileMenu{max-height:calc(100dvh - var(--site-nav-height));overscroll-behavior:contain}
 .site-desktop-links{display:none;gap:0;flex-shrink:0}.site-mobile-toggle{display:flex}
+#siteNav>div>div{height:auto;min-height:5rem}
+#siteNav a.group{min-width:0;flex-shrink:1}
+#siteNav a.group>div:last-child{min-width:0;overflow-wrap:anywhere}
+#siteNav .site-mobile-toggle{flex:none}
+#mobileMenu .flex{min-width:0}
+#mobileMenu .shop-brand-mark+div{min-width:0;overflow-wrap:anywhere}
+#mobileMenu button{flex-shrink:0}
+.hero-original>div.relative{min-width:0;width:100%}
+.hero-original :is(h1,p,a),#prodotti .flex>*{min-width:0;max-width:100%;overflow-wrap:anywhere}
+@media(min-width:768px){#siteNav>div>div{min-height:6rem}}
 @media(min-width:1200px){.site-desktop-links{display:flex}.site-mobile-toggle,.site-mobile-overlay,.site-mobile-panel{display:none!important}}
 .site-footer-brand>div:first-child{flex:none}.site-footer-brand{max-width:100%}
 #contatti [data-email]{overflow-wrap:anywhere}#contatti .material-icons{flex-shrink:0}#contatti li>span:not(.material-icons){min-width:0}
@@ -76,3 +86,4 @@
 .dark .menu-main .menu-updated{color:#ded0c3}
 @media(max-width:1023px){#searchInput{font-size:16px}}
 @media print{.breadcrumbs,.cookie-banner,.site-meta-links{display:none!important}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}

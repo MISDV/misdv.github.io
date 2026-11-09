@@ -80,7 +80,7 @@ function page({ path, title, description, trail, content, hero, privacy = false 
 ${breadcrumbSchema(trail)}
 ${schema}
 <script src="/assets/place-map.js?v=1" defer></script>
-<script src="/assets/site.js?v=8" defer></script>
+<script src="/assets/site.js?v=9" defer></script>
 <script src="/assets/booking.js?v=3" defer></script>
 ${privacy ? '<script src="/assets/consent.js?v=1" defer></script>' : ''}
 </head>

@@ -106,7 +106,7 @@ for (const item of items) {
 <meta property="og:title" content="${e(title)}"><meta property="og:description" content="${e(description)}"><meta property="og:url" content="${url}">
 <meta property="og:image" content="${origin}/assets/shop-vetrina.webp"><meta property="og:image:alt" content="Insegna dello ${shopName} a Osimo"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="${e(title)}"><meta name="twitter:description" content="${e(description)}"><meta name="twitter:image" content="${origin}/assets/shop-vetrina.webp">
 <meta name="theme-color" content="#f5eee3"><link rel="icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<link rel="stylesheet" href="/assets/shop-tailwind.min.css"><link rel="stylesheet" href="/assets/site-extras.css?v=5"><link rel="stylesheet" href="${style}"><script src="${mapScript}" defer></script>
+<link rel="stylesheet" href="/assets/shop-tailwind.min.css"><link rel="stylesheet" href="/assets/site-extras.css?v=6"><link rel="stylesheet" href="${style}"><script src="${mapScript}" defer></script>
 ${breadcrumbSchema(trail)}${jsonLd({'@graph':[business,product,{'@type':'WebPage','@id':url+'#pagina',url,name:title,inLanguage:'it',mainEntity:{'@id':product['@id']},about:{'@id':shopId}}]})}</head>
 <body class="bg-background-light dark:bg-background-dark text-gray-800 dark:text-gray-100 font-display min-h-screen flex flex-col">
 ${header}${breadcrumbs(trail)}<main class="shop-detail-page">${catalog.notice()}

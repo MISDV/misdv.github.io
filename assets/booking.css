@@ -10,4 +10,5 @@
 .booking-map{background:#efe5d7;min-height:11rem;border-radius:.5rem;overflow:hidden;margin:.65rem 0}.booking-map iframe{display:block;width:100%;height:clamp(11rem,33vh,15rem);border:0}
 .booking-directions{display:inline-flex;align-items:center;min-height:44px}.booking-email{margin-top:1rem;border-top:1px solid #dec8af;padding-top:.85rem}.booking-email a{display:inline-block;max-width:100%;overflow-wrap:anywhere;padding-block:.3rem}
 .site-booking .booking-note{font-size:.75rem;margin:1rem 0 0;color:#66594b}
+.site-booking .booking-note a{text-decoration:underline}
 @media print{.site-booking{display:none!important}}

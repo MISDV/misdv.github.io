@@ -27,7 +27,7 @@ const html = `<!doctype html>
 <link rel="stylesheet" href="/assets/site-extras.css?v=5"><link rel="stylesheet" href="/assets/booking.css?v=1">
 <script src="/assets/place-map.js?v=1" defer></script>
 <script src="/assets/booking.js?v=3" defer></script>
-<script src="/assets/site.js?v=8" defer></script>
+<script src="/assets/site.js?v=9" defer></script>
 ${breadcrumbSchema(trail)}
 ${jsonLd({ '@type': 'WebPage', '@id': 'https://agriturismogiuggioloni.it/en/#page', url: 'https://agriturismogiuggioloni.it/en/', name: title, description, inLanguage: 'en', isPartOf: { '@id': 'https://agriturismogiuggioloni.it/#sito' }, about: { '@id': 'https://agriturismogiuggioloni.it/#ristorante' } })}
 </head><body class="bg-background-cream text-gray-800 font-display">

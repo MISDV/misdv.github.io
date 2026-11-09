@@ -1,6 +1,8 @@
 # File di gestione e generazione
 
 Il pannello admin è archiviato e non viene più utilizzato per aggiornare il sito.
+L’audit mobile più recente è [MOBILE-AUDIT-2026-11-09.md](MOBILE-AUDIT-2026-11-09.md):
+include correzioni, verifiche e limiti delle misurazioni locali.
 Il servizio permette soltanto richieste GET e restituisce dati in sola lettura:
 non pubblica modifiche, menù o immagini. La cartella `admin/` resta esclusa
 dalla pubblicazione Pages tramite `_config.yml`.
