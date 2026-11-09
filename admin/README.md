@@ -33,6 +33,15 @@ La storia e la home si modificano direttamente nei rispettivi HTML.
 I collegamenti al menù del sito portano a `/menu/`. L’accesso a `/lume/`
 è nel riquadro finale della pagina `/menu/`; Lume mantiene i propri link interni
 per lingue, piatti e stampa.
+La carta inglese è `/menu/en/` e apre `/lume/en/`. `sync-menu.mjs` rigenera
+entrambe le carte dagli stessi prezzi in `menu.json`; `admin/menu-english.mjs`
+riutilizza le traduzioni di Lume per nomi, descrizioni e portate dei menù fissi.
+Le due carte hanno selettore Italiano/English e riferimenti hreflang reciproci.
+`assets/language.js` ricorda la scelta esplicita in `giuggioloni-language` e
+indirizza i collegamenti al menù nella lingua scelta, anche dalle pagine italiane
+o dallo shop. I link di cambio lingua restano sempre espliciti; la lingua del
+browser non provoca reindirizzamenti automatici. Gli script sono versionati
+da `admin/site-language.mjs` e inseriti dai generatori.
 
 Il logo comune è `/logo.png`, trasparente, come in `shop/index.html`. Il contenitore
 `.shop-brand-mark` mantiene le dimensioni del riferimento: 48/64 px nell’header

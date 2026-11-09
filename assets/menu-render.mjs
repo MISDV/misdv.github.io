@@ -77,8 +77,22 @@ function renderCatalog(menu, preview) {
     preview ? '' : renderUpdated(menu.updated)].filter(Boolean).join('\n');
 }
 
-export function renderMenu(menu, { preview = false } = {}) {
-  if (Array.isArray(menu.categories)) return renderCatalog(menu, preview);
+export function renderMenu(menu, { preview = false, language = 'it' } = {}) {
+  if (Array.isArray(menu.categories)) {
+    let html = renderCatalog(menu, preview);
+    if (language === 'en') {
+      for (const [it,en] of [
+        ['Il percorso','The courses'],['Inclusi nel prezzo','Included in the price'],
+        ['Allergeni indicati','Listed allergens'],['Stagione ','Season '],['Coperto:','Cover charge:'],
+        ['aria-label="Coperto"','aria-label="Cover charge"'],['Allergie e intolleranze','Allergies and intolerances'],
+        ['Il menù digitale Lume','The Lume digital menu'],
+        ['Consulta la carta interattiva, le descrizioni dei piatti e la guida agli allergeni, anche in inglese.','Explore the interactive menu, dish descriptions and allergen guide in English.'],
+        ['Apri il menù digitale Lume','Open the Lume digital menu'],['href="/lume/"','href="/lume/en/"'],
+      ]) html = html.replaceAll(it,en);
+      if (menu.updated) html = html.replace(/<p class="menu-updated">[\s\S]*?<\/p>/, `<p class="menu-updated">Last updated <time datetime="${escapeHtml(menu.updated.slice(0,10))}">${new Intl.DateTimeFormat('en-GB',{dateStyle:'long',timeZone:'Europe/Rome'}).format(new Date(menu.updated))}</time></p>`);
+    }
+    return html;
+  }
   const sections = weekdays.flatMap((day, index) => {
     const entry = menu.days?.[day];
     if (!entry?.enabled) return [];

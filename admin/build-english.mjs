@@ -5,7 +5,7 @@ import { siteLayout } from './site-layout.mjs';
 import { applySiteStyles } from './site-assets.mjs';
 
 const title = 'Farm restaurant in Osimo, Marche | Agriturismo Giuggioloni';
-const description = 'Family-run farm restaurant in Osimo: seasonal Marche cooking, two dining rooms, a garden, parking and wheelchair access. View the restaurant menu (IT) and call to book.';
+const description = 'Family-run farm restaurant in Osimo: seasonal Marche cooking, two dining rooms, a garden, parking and wheelchair access. View the menu in English and call to book.';
 const trail = [['Home', '/'], ['English', '/en/']];
 const { header, footer } = siteLayout('/en/', 'en');
 const html = `<!doctype html>
@@ -33,7 +33,7 @@ ${jsonLd({ '@type': 'WebPage', '@id': 'https://agriturismogiuggioloni.it/en/#pag
 </head><body class="bg-background-cream text-gray-800 font-display">
 ${header}
 <main id="content" class="subpage"><div class="farm-page english-home">${breadcrumbs(trail, 'en')}
-<section class="farm-hero"><div><p class="eyebrow">Osimo · Marche · Italy</p><h1>A family table in the Marche countryside</h1><p>Welcome to Agriturismo Giuggioloni, a farm restaurant in Osimo, in the province of Ancona. Our family brings the farm’s produce and the flavours of seasonal Marche cooking to the table.</p><div class="place-actions"><a href="/menu/">View the restaurant menu (IT)</a><a href="tel:+393922529406" data-booking>Book your table</a></div></div><picture><source type="image/avif" srcset="/assets/fattoria/giardino-480.avif 480w,/assets/fattoria/giardino-800.avif 800w" sizes="(min-width:768px) 48vw,100vw"><img class="farm-photo" src="/assets/fattoria/giardino-800.webp" alt="The garden surrounding our restaurant" width="800" height="600" fetchpriority="high"></picture></section>
+<section class="farm-hero"><div><p class="eyebrow">Osimo · Marche · Italy</p><h1>A family table in the Marche countryside</h1><p>Welcome to Agriturismo Giuggioloni, a farm restaurant in Osimo, in the province of Ancona. Our family brings the farm’s produce and the flavours of seasonal Marche cooking to the table.</p><div class="place-actions"><a href="/menu/en/">View the menu in English</a><a href="tel:+393922529406" data-booking>Book your table</a></div></div><picture><source type="image/avif" srcset="/assets/fattoria/giardino-480.avif 480w,/assets/fattoria/giardino-800.avif 800w" sizes="(min-width:768px) 48vw,100vw"><img class="farm-photo" src="/assets/fattoria/giardino-800.webp" alt="The garden surrounding our restaurant" width="800" height="600" fetchpriority="high"></picture></section>
 <article class="farm-content">
 <h2 id="farm">From father to sons</h2><p>Our story is a family story, passed from father to sons. Maurizio is our cook and prepares the food; Massimo manages the dining room and welcomes our guests. We grow what the seasons allow and use the harvest in our menu.</p>
 <h2>Two dining rooms, throughout the year</h2><p>The indoor dining room has a long row of windows overlooking the garden. Our second room is outdoors and covered: its sides stay open in summer and can be closed in winter, so it can be used in the colder months too.</p>
@@ -42,7 +42,7 @@ ${header}
 <aside class="farm-note"><h2>A working farm</h2><p>Our farm raises geese, hens, chickens, ducks, rabbits, lambs, goats, sheep, calves and pigs. It is a working farm, not an educational farm, and is not open for visits.</p></aside>
 <h2>Opening times and reservations</h2><p>Friday dinner: please call to confirm the time. Saturday and Sunday: 11:30–15:00 and 19:00–23:00. Closed Monday to Thursday.</p>
 <p>Call <a href="tel:+393922529406">+39 392 252 9406</a> to arrange your table, or email <a href="mailto:info@agriturismogiuggioloni.it">info@agriturismogiuggioloni.it</a>.</p>
-<div class="place-actions"><a href="tel:+393922529406" data-booking>Book a table</a><a href="/menu/">Dishes and prices (IT)</a></div>
+<div class="place-actions"><a href="tel:+393922529406" data-booking>Book a table</a><a href="/menu/en/">Dishes and prices</a></div>
 <h2>Find us</h2><p>Via Acquaviva 34, 60027 Osimo (AN), Marche, Italy.</p><p><a href="${placeMap.placeUrl}" target="_blank" rel="noopener noreferrer">Directions on Google Maps</a></p>
 </article></div></main>
 ${footer}

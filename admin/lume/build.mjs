@@ -3,6 +3,7 @@ import placeMap from '../../assets/place-map.js';
 import { readFile } from 'node:fs/promises';
 import { createRequire } from 'node:module';
 import { breadcrumbs, breadcrumbSchema } from '../site-seo.mjs';
+import { applyLanguage } from '../site-language.mjs';
 
 const require = createRequire(import.meta.url);
 const core = require('./src/core.js');
@@ -53,7 +54,7 @@ function matchingNote(dish, note) {
   return fields.every(key => JSON.stringify(dish[key]) === JSON.stringify(note.source[key])) ? note : undefined;
 }
 
-function adaptCatalog(catalog, descriptions, allergens) {
+export function adaptCatalog(catalog, descriptions, allergens) {
   const menu = { schemaVersion: 2, allergens, categories: [], items: [], fixedMenus: [] };
   for (const category of catalog.categories) {
     const type = category.id === 'menu-fissi' ? 'fixed' : wineCategories.has(category.id) ? 'wine' : category.group === 'Bevande' ? 'drink' : 'food';
@@ -129,11 +130,12 @@ export async function buildLume(catalog, contactData) {
     qrPath: '/lume/assets/menu-qr.svg',
   };
   for (const lang of site.languages) {
-    const prepared = core.prepare(site, menu, lang);
+    const localizedSite = lang === 'en' ? { ...site, restaurant: { ...site.restaurant, landingUrl: site.baseUrl + '/en/' } } : site;
+    const prepared = core.prepare(localizedSite, menu, lang);
     const t = strings[lang];
     const path = options.languagePaths[lang];
     const pageOptions = { ...options, printPath: path + 'print/' };
-    const trail = [['Home', '/'], [lang === 'it' ? 'Menù' : 'Menu', '/menu/'], [lang === 'it' ? 'Carta Lume' : 'Lume menu', path]];
+    const trail = [['Home', lang === 'it' ? '/' : '/en/'], [lang === 'it' ? 'Menù' : 'Menu', lang === 'it' ? '/menu/' : '/menu/en/'], [lang === 'it' ? 'Carta Lume' : 'Lume menu', path]];
     const root = view.root(prepared, t, pageOptions).replace('<main id="lm-content" tabindex="-1">', '<main id="lm-content" tabindex="-1">' + breadcrumbs(trail, lang));
     const escape = core.escape;
     const canonical = site.baseUrl + path;
@@ -142,7 +144,7 @@ export async function buildLume(catalog, contactData) {
     const head = `<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><script src="/assets/place-map.js?v=1" defer></script><link rel="icon" href="/favicon.ico"><link rel="stylesheet" href="${css}"><link rel="stylesheet" href="/assets/site-extras.css?v=6"><link rel="stylesheet" href="/assets/booking.css?v=2">`;
     const alternate = site.languages.map(language => `<link rel="alternate" hreflang="${language}" href="${site.baseUrl + options.languagePaths[language]}">`).join('');
     const metadata = `<title>${title}</title><meta name="description" content="${description}"><meta name="robots" content="noindex,follow"><link rel="canonical" href="${canonical}">${alternate}<meta property="og:title" content="${title}"><meta property="og:description" content="${description}"><meta property="og:url" content="${canonical}"><meta property="og:image" content="${site.baseUrl}/og-image-1200x630.png"><meta name="theme-color" content="${site.branding.light.paper}">`;
-    const app = `<script type="application/json" data-lume-payload>${encode({ site, menu, strings, lang, options: pageOptions })}</script><script src="${js}" defer></script><script src="/assets/booking.js?v=3" defer></script>`;
+    const app = `<script type="application/json" data-lume-payload>${encode({ site: localizedSite, menu, strings, lang, options: pageOptions })}</script><script src="${js}" defer></script><script src="/assets/booking.js?v=3" defer></script>`;
     files.set(path.slice(1) + 'index.html', `<!doctype html>\n<html lang="${lang}"><head>${head}${metadata}${breadcrumbSchema(trail)}</head><body class="lume-document">${root}${app}</body></html>\n`);
 
     const print = root.replace('class="lm-root"', 'class="lm-root lm-print"').replace(/<details /g, '<details open ')
@@ -151,5 +153,6 @@ export async function buildLume(catalog, contactData) {
     const printBar = `<nav class="lm-print-bar" aria-label="${escape(t.print)}"><button type="button" onclick="window.print()">${escape(t.print)}</button><a href="${path}">${escape(t.edition)}</a></nav>`;
     files.set(path.slice(1) + 'print/index.html', `<!doctype html>\n<html lang="${lang}"><head>${head}<title>${title} · ${escape(t.print)}</title><meta name="robots" content="noindex,follow"></head><body class="lume-document">${printBar}${print}</body></html>\n`);
   }
+  for(const [path,html] of files) if(path.endsWith('.html')) files.set(path,applyLanguage(html));
   return files;
 }

@@ -17,6 +17,10 @@
 .menu-hero{padding-block:clamp(1.25rem,4vw,3rem)}
 .menu-hero .breadcrumbs{padding:0 0 .75rem}
 .menu-field{flex:1 1 13rem;min-width:0}
+.menu-languages{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1rem;font:.875rem/1.4 system-ui,sans-serif}
+.menu-languages a{display:inline-flex;align-items:center;min-height:44px;padding:.5rem .8rem;border:1px solid #bd805c;border-radius:.4rem;color:#71320f;text-decoration:underline;text-underline-offset:.2em}
+.menu-languages [aria-current]{background:#71320f;color:#fff;text-decoration:none;font-weight:700}
+.menu-languages a:focus-visible{outline:3px solid #a74b11;outline-offset:3px}
 .menu-select{display:block;position:relative;color:#793213}
 .menu-controls .menu-select select{appearance:none;border:1px solid #bd805c;border-radius:.45rem;background:#fffaf4;color:#5e2b14;font:inherit;font-weight:650;padding:.65rem 2.7rem .65rem .75rem;min-height:48px;cursor:pointer}
 .menu-select svg{pointer-events:none;position:absolute;top:50%;right:.85rem;transform:translateY(-50%)}
