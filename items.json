@@ -200,6 +200,7 @@
   {
     "slug": "pacco-famiglia-vitellone",
     "titolo": "Pacco famiglia Vitellone",
+    "promozione": true,
     "categoria": "Pacchi famiglia",
     "tipologia": "Offerta su prenotazione",
     "prezzo": 13.9,

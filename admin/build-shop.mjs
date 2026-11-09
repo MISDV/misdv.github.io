@@ -51,6 +51,10 @@ function mapControls(){
 }
 let index = await read('shop/index.html');
 index = block(index, 'SHOP-NOTICE', catalog.notice());
+index = block(index, 'SHOP-PROMO', items.filter(item => item.promozione === true).map(item => {
+  const p = normalize(item);
+  return `<section class="shop-promo" aria-labelledby="promo-${e(p.slug)}"><div class="shop-promo-copy"><p class="shop-promo-eyebrow">Offerta dello spaccio</p><h2 id="promo-${e(p.slug)}">${e(p.titolo)}</h2><p>Tagli e formati scelti dal macellaio, secondo disponibilità.</p></div><div class="shop-promo-offer"><p class="shop-promo-price">${e(priceText(p))}</p><p class="shop-promo-conditions">Prenotazione telefonica necessaria · Ritiro nello spaccio</p><div class="shop-promo-actions"><a class="shop-phone-button" href="tel:${e(business.telephone)}" aria-label="Chiama per prenotare ${e(p.titolo)}">Chiama e prenota</a><a class="shop-promo-details" href="/shop/${e(p.slug)}/">Scopri il pacco <span aria-hidden="true">→</span></a></div></div></section>`;
+}).join('\n'));
 index = block(index, 'SHOP-CATALOG', items.map(catalog.card).join('\n'));
 index = block(index, 'SHOP-LIST-SCHEMA', jsonLd({ '@graph': [business,
   { '@type': 'WebPage', '@id': origin+'/shop/#pagina', url: origin+'/shop/', name: shopName+' a Osimo: prodotti e prezzi', inLanguage:'it', mainEntity:{'@id':shopId}, about:{'@id':shopId} },
@@ -111,7 +115,7 @@ ${breadcrumbSchema(trail)}${jsonLd({'@graph':[business,product,{'@type':'WebPage
 <body class="bg-background-light dark:bg-background-dark text-gray-800 dark:text-gray-100 font-display min-h-screen flex flex-col">
 ${header}${breadcrumbs(trail)}<main class="shop-detail-page">${catalog.notice()}
 <article class="shop-product-layout"><div class="shop-detail-media${p.immagine ? '' : ' shop-detail-placeholder'}">${catalog.media(p, true)}</div><div class="shop-detail-copy">
-<p class="shop-product-category">${e(p.categoria)} · Spaccio aziendale</p><h1>${e(p.titolo)}</h1><p class="shop-price">${e(priceText(p))}</p><p>${e(p.descrizione)}</p>
+${p.promozione===true?'<p class="shop-promo-tag">Offerta dello spaccio</p>':''}<p class="shop-product-category">${e(p.categoria)} · Spaccio aziendale</p><h1>${e(p.titolo)}</h1><p class="shop-price">${e(priceText(p))}</p><p>${e(p.descrizione)}</p>
 ${p.varianti.length ? '<h2>Formati disponibili</h2>' + catalog.variants(p) : ''}${priceNote}${reservation}
 <a class="shop-phone-button" href="tel:+393922529406">${p.prenotazione_obbligatoria ? 'Chiama per prenotare il pacco' : 'Chiama per informazioni'} <span aria-hidden="true">↗</span></a>
 </div></article><section class="shop-purchase"><h2>Come acquistare nello spaccio</h2><p>Ti aspettiamo nello <strong>${shopName}</strong>, in <strong>Via Acquaviva 34, 60027 Osimo (AN)</strong>, nella stessa struttura dell’agriturismo. Prodotti e disponibilità si verificano in azienda: il catalogo non costituisce una conferma di disponibilità.</p><p>Per informazioni${p.prenotazione_obbligatoria ? ' e per la prenotazione obbligatoria del pacco' : ''}: <a href="tel:+393922529406">+39 392 252 9406</a> · <a href="mailto:info@agriturismogiuggioloni.it">info@agriturismogiuggioloni.it</a>.</p>${mapControls()}</section>

@@ -1,4 +1,21 @@
 .shop-catalog-area{min-width:0}
+.shop-promo{display:grid;gap:1rem;margin-bottom:1.25rem;padding:1.15rem;border:1px solid #d4a36e;border-left:4px solid #a94b12;border-radius:.85rem;background:linear-gradient(120deg,#fff8eb,#f9ecda);color:#49321a}
+.shop-promo-copy,.shop-promo-offer{min-width:0}
+.shop-promo .shop-promo-eyebrow{margin:0 0 .4rem;color:#88400f;font-size:.72rem;font-weight:750;letter-spacing:.08em;text-transform:uppercase}
+.shop-promo h2{margin:0 0 .5rem;font:700 clamp(1.5rem,3vw,1.9rem)/1.2 "Playfair Display",Georgia,serif;overflow-wrap:anywhere}
+.shop-promo-copy>p:last-child{margin:0;max-width:40ch;font-size:.86rem;line-height:1.6}
+.shop-promo .shop-promo-price{margin:0 0 .4rem;color:#88400f;font-size:clamp(1.8rem,4vw,2.2rem);font-weight:750;line-height:1.2}
+.shop-promo-conditions{margin:0 0 .65rem;max-width:38ch;font-size:.78rem;line-height:1.55}
+.shop-promo-actions{display:flex;flex-wrap:wrap;align-items:center;gap:.35rem 1rem}
+.shop-promo-actions .shop-phone-button{font-size:.85rem;padding:.65rem .9rem}
+.shop-promo-details{display:inline-flex;align-items:center;gap:.4rem;min-height:44px;color:#71320f;font-size:.85rem;font-weight:650;text-decoration:underline;text-underline-offset:.2em}
+.shop-promo a:focus-visible{outline:3px solid #a74b11;outline-offset:4px}
+.shop-promo-tag{display:inline-block;align-self:flex-start;margin:0 0 .65rem;padding:.3rem .5rem;border-radius:.3rem;background:#fff0c5;color:#75480f;font-size:.72rem;font-weight:750;line-height:1.35}
+.shop-detail-copy>.shop-promo-tag{display:inline-block;margin:0 0 .75rem;line-height:1.35}
+@media(min-width:768px){.shop-promo{grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:center;gap:1.5rem;padding:1.5rem}}
+.dark .shop-promo{background:linear-gradient(120deg,#392a1c,#30251c);border-color:#9b744e;color:#f6e5cd}
+.dark .shop-promo .shop-promo-eyebrow,.dark .shop-promo .shop-promo-price,.dark .shop-promo-details{color:#ffd5a1}
+.dark .shop-promo-tag{background:#563a19;color:#ffe0a4}
 .shop-search-field{min-width:0}
 .shop-search-tools{display:contents}
 #shop-results-status{scroll-margin-top:6rem}

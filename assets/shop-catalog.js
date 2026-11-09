@@ -39,7 +39,7 @@
     const p=normalize(item),href='/shop/'+p.slug+'/';
     return `<a href="${escape(href)}" class="shop-product-card bg-white dark:bg-[#2c2018] rounded-xl shadow-sm hover:shadow-xl hover:shadow-primary/10 border border-gray-100 dark:border-white/5 overflow-hidden group transition-all duration-300 flex flex-col h-full" data-product="${escape(p.slug)}">
       <div class="shop-card-media${p.immagine?'':' shop-card-placeholder'} relative h-56 overflow-hidden">${media(p)}</div>
-      <div class="p-5 flex flex-col flex-grow"><span class="text-xs text-gray-500 uppercase tracking-wide">${escape(p.categoria)}</span>
+      <div class="p-5 flex flex-col flex-grow">${p.promozione===true?'<span class="shop-promo-tag">Offerta dello spaccio</span>':''}<span class="text-xs text-gray-500 uppercase tracking-wide">${escape(p.categoria)}</span>
       <h2 class="text-xl font-bold text-gray-800 dark:text-gray-100 mb-2 leading-tight group-hover:text-primary transition-colors">${escape(p.titolo)}</h2>
       <p class="text-gray-600 dark:text-gray-400 text-sm mb-4">${escape(p.tipologia)}</p>${p.prenotazione_obbligatoria?'<p class="shop-reservation-tag">Prenotazione telefonica necessaria</p>':''}
       <div class="shop-card-bottom mt-auto pt-4 border-t border-gray-100 dark:border-white/5"><span class="shop-price">${escape(priceText(p))}</span><span class="shop-card-link">Scopri il prodotto <span aria-hidden="true">→</span></span></div></div></a>`;

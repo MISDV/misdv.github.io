@@ -47,6 +47,10 @@ la sitemap e le versioni degli asset. Viene eseguito anche da `build-pages.mjs`.
 `assets/shop-products.css` aggiunge avvisi, segnaposto e stile delle schede senza
 modificare la grafica generale dello shop. Per aggiungere foto usa `immagine`.
 Non indicare zero per un prezzo sconosciuto: usa `prezzo: null`.
+Il pacco famiglia è in evidenza con `promozione: true` in `items.json`: il prezzo
+della promo viene generato dal prezzo del prodotto. Il richiamo nello shop,
+la scheda nel catalogo e la pagina del pacco riportano l’offerta, senza aggiungere
+sconti o scadenze. Per disattivarla imposta il valore a `false` e rigenera lo shop.
 Il catalogo JSON viene richiesto con una versione legata al contenuto. Se il
 caricamento dei filtri fallisce, rimangono visibili le schede statiche con i link.
 La barra categorie/filtri ha uno scorrimento indipendente su desktop; su mobile
