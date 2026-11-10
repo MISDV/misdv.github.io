@@ -5,6 +5,7 @@ import { origin, breadcrumbs, breadcrumbSchema, jsonLd } from './site-seo.mjs';
 import shopMap from '../assets/shop-map.js';
 import { shopBusiness, shopId, shopName } from './shop-business.mjs';
 import { applyLanguage } from './site-language.mjs';
+import { renderSiteData, siteData } from './site-data.mjs';
 
 const require = createRequire(import.meta.url);
 const catalog = require('../assets/shop-catalog.js');
@@ -12,7 +13,7 @@ const { escape: e, normalize, priceText } = catalog;
 const root = new URL('../', import.meta.url);
 const read = path => readFile(new URL(path, root), 'utf8');
 const items = JSON.parse(await read('items.json'));
-const business = shopBusiness(JSON.parse(await read('dati.json')));
+const business = shopBusiness(siteData);
 const slugs = new Set();
 if (!Array.isArray(items) || !items.length) throw new Error('Il catalogo deve contenere prodotti.');
 for (const item of items) {
@@ -29,7 +30,7 @@ for (const item of items) {
 }
 
 async function save(path, text) {
-  if(path.endsWith('.html')) text=applyLanguage(text);
+  if(path.endsWith('.html')) text=applyLanguage(renderSiteData(text));
   const url = new URL(path, root);
   await mkdir(new URL('.', url), { recursive: true });
   if (await readFile(url, 'utf8').catch(() => '') !== text) await writeFile(url, text);

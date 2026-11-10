@@ -1,10 +1,9 @@
 import { readFile } from 'node:fs/promises';
 import placeMap from '../assets/place-map.js';
-import { escapeHtml } from '../assets/menu-render.mjs';
+import { renderSiteData } from './site-data.mjs';
 
 // The approved home layout is the source for the site's common header/footer.
 const source = await readFile(new URL('../index.html', import.meta.url), 'utf8');
-const data = JSON.parse(await readFile(new URL('../dati.json', import.meta.url), 'utf8'));
 const begin = source.indexOf('<a class="sr-only');
 const main = source.indexOf('<main id="contenuto"');
 const foot = source.indexOf('<footer ');
@@ -42,12 +41,8 @@ export function siteLayout(path = '/', language = 'it') {
   if (path === '/') header = header.replaceAll('href="/">Home</a>', 'href="/" aria-current="page">Home</a>');
   footer = footer.replace(/<div class="flex items-center gap-3 mb-6">([\s\S]*?)(?=\s*<p data-text="home.descrizione")/, block =>
     block.replace('<div class="flex items-center gap-3 mb-6">', '<a href="/" aria-label="Agriturismo Giuggioloni — home" class="site-footer-brand flex items-center gap-3 mb-6">').replace(/<\/div>(\s*)$/, '</a>$1'));
-  const hours = Object.entries(data.orari).map(([day, service]) => {
-    const times = [service.pranzo, service.cena].filter(Boolean).map(time => String(time).replace('-', '–'));
-    const label = times.length ? times.map(time => `<span class="service-time">${escapeHtml(time)}</span>`).join('') : escapeHtml(service.note === 'Cena' ? 'Cena, orario da confermare' : service.note || 'Orario da confermare');
-    return `<li><span>${escapeHtml(day)}</span><span${service.note === 'Chiuso' ? ' class="closed"' : ''}>${label}</span></li>`;
-  }).join('\n');
-  footer = footer.replace(/(<ul data-hours[^>]*>)[\s\S]*?<\/ul>/, '$1\n' + hours + '\n</ul>');
+  header = renderSiteData(header);
+  footer = renderSiteData(footer);
   for (const section of ['header', 'footer']) {
     let markup = section === 'header' ? header : footer;
     markup = markup.replace(/<span\b[^>]*class="material-icons[^>]*>/g, tag => tag.includes('aria-hidden=') ? tag : tag.slice(0, -1) + ' aria-hidden="true">');

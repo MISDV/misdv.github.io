@@ -28,6 +28,17 @@ node admin/build-site-assets.mjs
 
 Le sorgenti sono `admin/build-pages.mjs` e `admin/build-english.mjs`.
 Header e footer comuni sono ricavati dalla home tramite `admin/site-layout.mjs`.
+
+`dati.json` resta la sorgente dei contatti, degli orari, dei social e dei testi
+condivisi. `admin/site-data.mjs` li inserisce direttamente negli HTML durante
+la generazione: il browser non richiede più questo JSON e non deve eseguire
+JavaScript per leggere questi contenuti. Dopo modifiche a `dati.json`, esegui
+la sequenza completa dei quattro comandi sopra e pubblica anche gli HTML generati.
+Le traduzioni inglesi restano nelle rispettive sorgenti; orari, contatti e link
+social sono sincronizzati anche nelle pagine inglesi. Il file tecnico JSON non
+è una pagina da aggiungere alla sitemap: sono le pagine HTML a presentare le
+informazioni da rendere ricercabili. `menu.json` e `items.json` continuano a
+gestire, rispettivamente, piatti e prodotti; i filtri dello shop usano `items.json`.
 La pagina inglese usa lo stesso formato con testi e navigazione tradotti.
 La storia e la home si modificano direttamente nei rispettivi HTML.
 I collegamenti al menù del sito portano a `/menu/`. L’accesso a `/lume/`
