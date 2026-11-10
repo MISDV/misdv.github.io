@@ -2,14 +2,11 @@
   const key = 'giuggioloni-language';
   let saved;
   try { saved = localStorage.getItem(key); } catch {}
-  const english = document.documentElement.lang.startsWith('en');
-  let language = english ? 'en' : saved === 'en' ? 'en' : 'it';
+  const pageLanguage = document.documentElement.lang.toLowerCase().split('-')[0];
+  // An explicitly Italian or English page always keeps its own menu language.
+  let language = ['it', 'en'].includes(pageLanguage) ? pageLanguage : saved === 'en' ? 'en' : 'it';
   const save = value => { language = value; try { localStorage.setItem(key, value); } catch {} };
-  if (english) save('en');
-  if (language === 'en' && /^\/menu\/(?:index\.html)?$/.test(location.pathname)) {
-    location.replace('/menu/en/' + location.search + location.hash);
-    return;
-  }
+  if (pageLanguage === 'it' || pageLanguage === 'en') save(pageLanguage);
   function updateLinks() {
     for (const link of document.querySelectorAll('a[href]')) {
       if (link.hasAttribute('hreflang')) continue;

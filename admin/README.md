@@ -37,10 +37,12 @@ La carta inglese è `/menu/en/` e apre `/lume/en/`. `sync-menu.mjs` rigenera
 entrambe le carte dagli stessi prezzi in `menu.json`; `admin/menu-english.mjs`
 riutilizza le traduzioni di Lume per nomi, descrizioni e portate dei menù fissi.
 Le due carte hanno selettore Italiano/English e riferimenti hreflang reciproci.
-`assets/language.js` ricorda la scelta esplicita in `giuggioloni-language` e
-indirizza i collegamenti al menù nella lingua scelta, anche dalle pagine italiane
-o dallo shop. I link di cambio lingua restano sempre espliciti; la lingua del
-browser non provoca reindirizzamenti automatici. Gli script sono versionati
+`assets/language.js` ricorda la lingua in `giuggioloni-language`, dando sempre
+precedenza alla lingua dichiarata dalla pagina: le pagine italiane e lo shop
+aprono `/menu/`, quelle inglesi aprono `/menu/en/`. La preferenza salvata serve
+solo come ripiego se una pagina non dichiara Italiano o English. I link di cambio
+lingua restano espliciti e non ci sono reindirizzamenti automatici da `/menu/`.
+Gli script sono versionati
 da `admin/site-language.mjs` e inseriti dai generatori.
 
 Il logo comune è `/logo.png`, trasparente, come in `shop/index.html`. Il contenitore
