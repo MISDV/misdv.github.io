@@ -17,6 +17,7 @@ const translations = new Map([
   ['Navigazione principale', 'Main navigation'], ['Menu principale mobile', 'Mobile navigation'],
   ['Apri menu principale', 'Open navigation menu'], ['Chiudi menu', 'Close menu'], ['Vai al contenuto', 'Skip to content'],
   ['I Nostri Prodotti', 'Products (IT)'], ['La Nostra Storia', 'Our story (IT)'], ['La Fattoria', 'Our farm'],
+  ['Lo spaccio aziendale', 'Farm shop (IT)'],
   ['Menù completo', 'Restaurant menu'], ['Prenota Ora!', 'Book a table'], ['Prenota', 'Book a table'],
   ['Preferenze cookie', 'Cookie preferences'], ['Informativa', 'Privacy (IT)'],
   ['Tutti i diritti riservati.', 'All rights reserved.'], ['Esplora', 'Explore'], ['Contatti', 'Contact'], ['Orari', 'Opening times'],

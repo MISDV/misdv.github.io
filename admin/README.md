@@ -62,6 +62,29 @@ e 56 px nel footer, con immagine da 40/48 px. Anche Lume usa lo stesso PNG.
 Nel footer scuro il cerchio resta chiaro, così il simbolo mantiene la leggibilità.
 
 Il catalogo è in `shop/index.html` e si apre all’indirizzo `/shop/`.
+La pagina di presentazione dello **Spaccio Aziendale Giuggioloni** è `/spaccio/`:
+foto del punto vendita e dei prodotti, informazioni sulla vendita in loco,
+contatti e mappa della distinta attività Google. Si rigenera con
+`node admin/build-spaccio.mjs`, eseguito anche da `build-pages.mjs`.
+Lo stile specifico è `assets/spaccio.css`; il catalogo conserva la sua grafica.
+Il prezzo del pacco famiglia è letto da `items.json`, i contatti da `dati.json`.
+Gli orari del ristorante non sono applicati allo spaccio: finché non confermati,
+la pagina invita a telefonare e non dichiara orari nel dato strutturato Store.
+L’identificatore dello Store resta `/shop/#spaccio` per mantenere la stessa entità
+nelle pagine prodotto; il suo URL di presentazione punta a `/spaccio/`.
+Le foto del proprietario sono in `assets/spaccio/`, con varianti AVIF/WebP
+480, 800 e 1200 px; viene riutilizzata anche l’insegna `assets/shop-vetrina.webp`.
+Gli originali selezionati sono `IMG20261107183323.jpg` (interno),
+`IMG20261107154932.jpg` (carni), `IMG20261107155916.jpg` (uova),
+`IMG20261107004642.jpg` (olio/pasta).
+La foto social 1200×630 deriva da `IMG20261107183308.jpg` (insegna).
+La sezione del frigo usa `IMG20261107183049.jpg` (salumi),
+`IMG20261107183043.jpg` (formaggi) e `IMG20261107004713.jpg` (altri prodotti).
+È distinta dal banco macelleria e ha una galleria statica, senza slider.
+`pasta fresca dietro.jpg` mostra la pasta fresca all’uovo esposta nel banco carne:
+chitarrine, tagliatelle, cappelletti e ravioli. La pagina la distingue dalla pasta
+secca Campofilone; per prezzi e disponibilità rimanda al telefono, senza inserire
+prezzi non confermati nel catalogo. Anche queste foto hanno varianti AVIF/WebP.
 Il file `shop.html` è soltanto un rimando per i vecchi collegamenti. Le immagini
 relative del catalogo sono risolte rispetto a `/items.json`, nella radice del sito.
 

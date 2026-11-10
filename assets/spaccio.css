@@ -1,0 +1,41 @@
+.spaccio-page{color:#382b20;--spaccio-accent:#823815;--spaccio-line:#d9c4af}
+.spaccio-page section{scroll-margin-top:calc(var(--site-nav-height,6rem) + 1rem)}
+.spaccio-page p{line-height:1.75}.spaccio-page figure{margin:0;min-width:0}
+.spaccio-page picture,.spaccio-page img{display:block;width:100%;height:auto}
+.spaccio-page img{object-fit:cover;border-radius:.5rem}
+.spaccio-page figcaption{margin-top:.6rem;color:#685442;font-size:.8rem;line-height:1.5}
+.spaccio-page .spaccio-eyebrow{font-size:.75rem;font-weight:750;letter-spacing:.12em;line-height:1.6;text-transform:uppercase;color:var(--spaccio-accent);margin:0 0 .8rem}
+.spaccio-hero{display:grid;gap:1.75rem;margin:1.25rem 0 3rem;align-items:center}
+.spaccio-hero h1{font-size:clamp(2.1rem,7.8vw,3.7rem);letter-spacing:-.035em;max-width:14ch;text-wrap:balance}
+.spaccio-hero-copy>p:not(.spaccio-eyebrow){margin:0 0 1.25rem}
+.spaccio-hero .spaccio-lead{font-family:"Playfair Display",Georgia,serif;font-size:clamp(1.2rem,3vw,1.55rem);line-height:1.4;color:var(--spaccio-accent)}
+.spaccio-page .place-actions{gap:.65rem}.spaccio-page .place-actions a,.spaccio-page .place-actions button{padding:.65rem 1rem;text-align:center;font-size:.95rem;line-height:1.4;min-height:48px;max-width:100%}
+.spaccio-page .place-actions .spaccio-primary{background:var(--spaccio-accent);border-color:var(--spaccio-accent);color:#fff}
+.spaccio-page .spaccio-hero-copy .spaccio-local-note{font-size:.85rem;line-height:1.6;color:#685442;margin:1rem 0 0}
+.spaccio-hero-photo img{aspect-ratio:4/5}
+.spaccio-intro{max-width:48rem;margin:0 auto 3.5rem;padding:1.5rem 0;border-block:1px solid var(--spaccio-line)}
+.spaccio-intro p:not(.spaccio-eyebrow){margin:.85rem 0 0}
+.spaccio-section-heading{max-width:43rem;margin-bottom:1.5rem}
+.spaccio-product-grid{display:grid;gap:2rem;margin-bottom:1.75rem}
+.spaccio-product{min-width:0}.spaccio-product img{aspect-ratio:4/3}
+.spaccio-product>div{padding:1.1rem .1rem 0}.spaccio-product h3{font:700 1.5rem/1.25 "Playfair Display",Georgia,serif;margin:0 0 .6rem}
+.spaccio-product p{margin:0 0 .65rem}.spaccio-product a{display:table;min-height:44px;padding-block:.5rem;font-weight:700}
+.spaccio-fridge{margin-top:3.5rem;padding-top:2rem;border-top:1px solid var(--spaccio-line)}
+.spaccio-fridge-gallery{display:grid;gap:1.5rem;margin-block:1.5rem}.spaccio-fridge-gallery img{aspect-ratio:4/3}
+.spaccio-fridge>.place-actions{margin-top:1rem}
+.spaccio-page a:not(.place-actions a),.spaccio-page summary{color:var(--spaccio-accent)}
+.spaccio-page a:not(.place-actions a){text-decoration:underline;text-underline-offset:.2em}
+.spaccio-page :is(a,button,summary):focus-visible{outline:3px solid #a74b11;outline-offset:4px}
+.spaccio-family{display:grid;gap:1.5rem;margin-block:3.5rem;padding:clamp(1.2rem,4vw,2rem);border:1px solid var(--spaccio-line);border-inline-start:4px solid var(--spaccio-accent);border-radius:.5rem;background:#fff7e9}
+.spaccio-family p{margin:.5rem 0}.spaccio-family .spaccio-family-price{font:700 clamp(1.8rem,6vw,2.4rem)/1.3 "Playfair Display",Georgia,serif;color:var(--spaccio-accent);margin:0 0 .5rem}
+.spaccio-family .place-actions{margin-top:1rem}
+.spaccio-visit{display:grid;gap:1.75rem;margin-block:3.5rem;align-items:center}.spaccio-visit img{aspect-ratio:4/3}
+.spaccio-visit p{margin:.75rem 0 1.1rem}.spaccio-page .spaccio-phone{display:inline-block;font-size:clamp(1.5rem,6vw,2rem);font-weight:700;line-height:1.4;padding-block:.3rem;font-variant-numeric:tabular-nums}
+.spaccio-email{overflow-wrap:anywhere}.spaccio-map .spaccio-map-note{margin:1rem 0 0;font-size:.8rem}.spaccio-map [hidden]{display:none}
+.spaccio-faq{margin-top:3rem}.spaccio-faq details{padding:.2rem 0;border-bottom:1px solid var(--spaccio-line)}
+.spaccio-faq summary{cursor:pointer;font-weight:700;line-height:1.5;padding:1rem .25rem;min-height:48px}.spaccio-faq details p{max-width:70ch;margin:0 0 1rem;padding-inline:.25rem}
+.spaccio-faq details[open] summary{padding-bottom:.65rem}
+.spaccio-page :is(h1,h2,h3,p,a,summary){overflow-wrap:break-word}
+@media(min-width:640px){.spaccio-product-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:2.5rem 2rem}}
+@media(min-width:768px){.spaccio-hero,.spaccio-visit{grid-template-columns:repeat(2,minmax(0,1fr));gap:3rem}.spaccio-family{grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);align-items:center;gap:2rem}.spaccio-hero{margin-bottom:4rem}.spaccio-intro{padding-block:2rem}.spaccio-fridge-gallery{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:374px){.spaccio-hero h1{font-size:2rem}.spaccio-hero .place-actions a{flex:1 1 100%}}

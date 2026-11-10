@@ -72,7 +72,7 @@ index = index.replace(/href="\/assets\/shop-products\.css\?[^"\s]+"/, `href="${s
   .replace(/(id="totalCount"[^>]*>)[^<]*/, '$1' + items.length)
   .replace(/(id="shop-results-status"[^>]*>)[^<]*/, '$1' + items.length + ' prodotti');
 index = index.replace(/(<div id="productsGrid")([^>]*)(>)/, (_, start, attrs) => start + attrs.replace(/\sdata-catalog-src="[^"]*"/, '') + ` data-catalog-src="${catalogSource}">`);
-const indexTrail=[['Agriturismo','/'],['Spaccio aziendale','/shop/']];
+const indexTrail=[['Agriturismo','/'],['Spaccio aziendale','/spaccio/'],['Prodotti','/shop/']];
 index=index.replace(/<script type="application\/ld\+json">[^<]*"@type":"BreadcrumbList"[^<]*<\/script>/,breadcrumbSchema(indexTrail))
   .replace(/<nav class="breadcrumbs"[\s\S]*?<\/nav>/,breadcrumbs(indexTrail));
 const maxPrice=Math.ceil(Math.max(...items.map(p=>p.prezzo_massimo??p.prezzo??0)));
@@ -98,7 +98,7 @@ function offer(p, v = p) {
 }
 for (const item of items) {
   const p = normalize(item), path = '/shop/' + p.slug + '/', url = origin + path;
-  const trail = [['Agriturismo', '/'], ['Spaccio', '/shop/'], [p.titolo, path]];
+  const trail = [['Agriturismo', '/'], ['Spaccio aziendale', '/spaccio/'], ['Prodotti', '/shop/'], [p.titolo, path]];
   const title = p.titolo + ' | Spaccio Giuggioloni a Osimo';
   const description = p.titolo + ': ' + priceText(p) + '. Vendita solo nello Spaccio Aziendale Giuggioloni a Osimo. ' + (p.prenotazione_obbligatoria ? 'Prenotazione telefonica necessaria.' : 'Contattaci per la disponibilità.');
   const product = { '@type': 'Product', '@id':url+'#prodotto', name: p.titolo, description: p.descrizione, category: p.categoria, url };

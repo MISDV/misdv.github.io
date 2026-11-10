@@ -124,4 +124,5 @@ async function save(path, content) {
 }
 
 await import('./build-english.mjs');
+await import('./build-spaccio.mjs');
 await import('./build-shop.mjs');
