@@ -1,0 +1,15 @@
+{
+  "aggiornato": "2026-11-11",
+  "prodotti": [
+    { "slug": "lasagna", "titolo": "Lasagna", "prezzo": 20, "unita": "kg" },
+    { "slug": "ragu", "titolo": "Ragù", "prezzo": 20, "unita": "kg" },
+    { "slug": "olive-allascolana", "titolo": "Olive all’ascolana", "prezzo": 19.5, "unita": "kg" },
+    { "slug": "cremini", "titolo": "Cremini", "prezzo": 17.5, "unita": "kg" },
+    { "slug": "pasta-fresca", "titolo": "Pasta fresca", "prezzo": 10, "unita": "kg", "tipologie_da_confermare": true },
+    { "slug": "pollo", "titolo": "Pollo", "prezzo": null, "unita": null },
+    { "slug": "oca", "titolo": "Oca", "prezzo": null, "unita": null },
+    { "slug": "caponata", "titolo": "Caponata", "prezzo": null, "unita": null },
+    { "slug": "grigliata-mista", "titolo": "Grigliata mista", "prezzo": null, "unita": null },
+    { "slug": "parmigiana", "titolo": "Parmigiana", "prezzo": null, "unita": null }
+  ]
+}

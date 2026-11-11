@@ -11,13 +11,16 @@
     const image=item.immagine||item.image||item.img||'';
     const imageUrl=image?new URL(image,'https://agriturismogiuggioloni.it/'):null;
     const src=imageUrl?(imageUrl.origin==='https://agriturismogiuggioloni.it'?imageUrl.pathname+imageUrl.search:imageUrl.href):'';
-    return {...item,titolo:item.titolo||item.title||'Prodotto',immagine:src,categoria:item.categoria||'Altro',tipologia:item.tipologia||'',prezzo:amount(item.prezzo),prezzo_massimo:amount(item.prezzo_massimo),prezzo_scontato:amount(item.prezzo_scontato),varianti:Array.isArray(item.varianti)?item.varianti:[]};
+    return {...item,titolo:item.titolo||item.title||'Prodotto',immagine:src,categoria:item.categoria||'Altro',tipologia:item.tipologia||'',prezzo:amount(item.prezzo),prezzo_massimo:amount(item.prezzo_massimo),prezzo_scontato:amount(item.prezzo_scontato),varianti:Array.isArray(item.varianti)?item.varianti:[],supplementi:Array.isArray(item.supplementi)?item.supplementi:[]};
   }
   function priceText(item){
     const p=normalize(item),price=p.prezzo_scontato??p.prezzo;
     if(price===null)return 'Prezzo da definire';
     const value=p.prezzo_massimo!==null?`${money(price)} – ${money(p.prezzo_massimo)}`:money(price);
-    return `${p.prezzo_da?'da ':''}${value}${p.unita==='kg'?' / kg':p.unita==='l'?' / l':p.unita==='pezzo'?' al pezzo':''}`;
+    return `${p.prezzo_da?'da ':''}${value}${p.unita==='kg'?' / kg':p.unita==='l'?' / l':p.unita==='uovo'?' / uovo':p.unita==='pacco'?` / pacco${p.peso_confezione_g?' da '+p.peso_confezione_g+' g':''}`:p.unita==='pezzo'?' al pezzo':''}`;
+  }
+  function supplements(item){
+    return normalize(item).supplementi.map(extra=>`<p class="shop-surcharge">${escape(extra.nome)}: <strong>+ ${escape(money(extra.prezzo))}</strong></p>`).join('');
   }
   const paths={
     Uova:'<path d="M12 3C8 3 5 11 5 15a7 7 0 0 0 14 0c0-4-3-12-7-12Z"/>',
@@ -42,10 +45,10 @@
       <div class="p-5 flex flex-col flex-grow">${p.promozione===true?'<span class="shop-promo-tag">Offerta dello spaccio</span>':''}<span class="text-xs text-gray-500 uppercase tracking-wide">${escape(p.categoria)}</span>
       <h2 class="text-xl font-bold text-gray-800 dark:text-gray-100 mb-2 leading-tight group-hover:text-primary transition-colors">${escape(p.titolo)}</h2>
       <p class="text-gray-600 dark:text-gray-400 text-sm mb-4">${escape(p.tipologia)}</p>${p.prenotazione_obbligatoria?'<p class="shop-reservation-tag">Prenotazione telefonica necessaria</p>':''}
-      <div class="shop-card-bottom mt-auto pt-4 border-t border-gray-100 dark:border-white/5"><span class="shop-price">${escape(priceText(p))}</span><span class="shop-card-link">Scopri il prodotto <span aria-hidden="true">→</span></span></div></div></a>`;
+      <div class="shop-card-bottom mt-auto pt-4 border-t border-gray-100 dark:border-white/5"><span class="shop-price">${escape(priceText(p))}</span>${supplements(p)}<span class="shop-card-link">Scopri il prodotto <span aria-hidden="true">→</span></span></div></div></a>`;
   }
   function notice(){
     return `<aside class="shop-local-notice" aria-labelledby="shop-local-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M3 10h18M4 10v11h16V10M2 10l2-7h16l2 7M8 21v-7h5v7"/></svg><div><h2 id="shop-local-title">Solo nello spaccio aziendale</h2><p>Vendita esclusivamente in loco. Nessuna vendita online o spedizione.</p><p class="shop-local-address">Via Acquaviva 34, Osimo</p><a href="tel:+393922529406" aria-label="Chiama lo Spaccio Aziendale Giuggioloni al +39 392 252 9406"><span class="shop-notice-phone">+39 392 252 9406</span></a></div></aside>`;
   }
-  return {escape,money,normalize,priceText,media,variants,card,notice};
+  return {escape,money,normalize,priceText,supplements,media,variants,card,notice};
 });

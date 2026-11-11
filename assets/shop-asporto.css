@@ -1,0 +1,26 @@
+.asporto-skip{position:fixed;left:1rem;top:-10rem;z-index:100;background:#fff;color:#71320f;padding:.75rem 1rem;border:2px solid #a94b12;border-radius:.4rem}
+.asporto-skip:focus{top:1rem}
+.asporto-page{padding-bottom:3rem}.asporto-page .breadcrumbs{padding-inline:0}
+.asporto-page h1,.asporto-page h2{font-family:"Playfair Display",Georgia,serif;font-weight:700;line-height:1.2}
+.asporto-hero{max-width:46rem;padding:1.5rem 0 2rem}.asporto-hero h1{font-size:clamp(2rem,6vw,3rem);margin:0 0 1rem;overflow-wrap:break-word;text-wrap:balance}
+.asporto-hero>p:not(.shop-product-category){line-height:1.7;margin:0 0 1.25rem}
+.asporto-hero .shop-phone-button{flex-wrap:wrap;gap:.35rem .75rem}.asporto-cta-number{white-space:nowrap;font-variant-numeric:tabular-nums}
+.asporto-columns{display:grid;gap:1.5rem;align-items:start}
+.asporto-section{min-width:0;padding:1.15rem;border:1px solid #e3d4bf;border-radius:.75rem;background:#fff}
+.asporto-section h2{font-size:clamp(1.35rem,4vw,1.7rem);margin:0 0 1rem}
+.asporto-list{list-style:none;margin:0;padding:0}
+.asporto-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:.75rem;align-items:baseline;padding:1rem 0;border-bottom:1px solid #e7ddcf}
+.asporto-row:first-child{padding-top:.25rem}.asporto-row:last-child{border-bottom:0}
+.asporto-row h3{margin:0;font-size:1rem;font-weight:700;line-height:1.5;overflow-wrap:break-word}
+.asporto-row .shop-price{font-size:1.05rem;text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
+.asporto-row-note,.asporto-price-note{font-size:.825rem;line-height:1.6;color:#66594c}
+.asporto-row-note{margin:.4rem 0 0}.asporto-price-note{margin:1rem 0 0;padding-top:.85rem;border-top:1px solid #e7ddcf}
+.asporto-pending{background:#fff7eb}.asporto-pending>p{font-size:.9rem;line-height:1.65;margin:0 0 .75rem}
+.asporto-pending-price{max-width:8rem;text-align:right;font-size:.825rem;font-weight:600;line-height:1.5;color:#795331}
+.asporto-updated{text-align:right;font-size:.8rem;line-height:1.5;color:#66594c;margin:1.5rem 0 0}
+.asporto-page :is(a):focus-visible{outline:3px solid #a74b11;outline-offset:4px}
+@media(min-width:900px){.asporto-columns{grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:2rem}.asporto-section{padding:1.5rem}}
+.dark .asporto-section{background:#2c2018;border-color:#69503a}.dark .asporto-pending{background:#362a1d}
+.dark .asporto-row,.dark .asporto-price-note{border-color:#69503a}.dark :is(.asporto-row-note,.asporto-price-note,.asporto-updated){color:#dac7b1}.dark .asporto-pending-price{color:#efc59a}
+.dark #footer .text-gray-500{color:#dac7b1}
+@media print{.asporto-skip,.asporto-hero .shop-phone-button{display:none}.asporto-columns{display:block}.asporto-section{margin-bottom:1rem;break-inside:avoid}}

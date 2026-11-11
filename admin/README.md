@@ -96,7 +96,7 @@ La sezione del frigo usa `IMG20261107183049.jpg` (salumi),
 È distinta dal banco macelleria e ha una galleria statica, senza slider.
 `pasta fresca dietro.jpg` mostra la pasta fresca all’uovo esposta nel banco carne:
 chitarrine, tagliatelle, cappelletti e ravioli. La pagina la distingue dalla pasta
-secca Campofilone; per prezzi e disponibilità rimanda al telefono, senza inserire
+secca De Carlonis; per prezzi e disponibilità rimanda al telefono, senza inserire
 prezzi non confermati nel catalogo. Anche queste foto hanno varianti AVIF/WebP.
 Il file `shop.html` è soltanto un rimando per i vecchi collegamenti. Le immagini
 relative del catalogo sono risolte rispetto a `/items.json`, nella radice del sito.
@@ -104,10 +104,30 @@ relative del catalogo sono risolte rispetto a `/items.json`, nella radice del si
 I prodotti dello spaccio si aggiornano in `items.json`. Dopo le modifiche esegui
 `node admin/build-shop.mjs`: genera il catalogo statico, le pagine `/shop/<slug>/`,
 la sitemap e le versioni degli asset. Viene eseguito anche da `build-pages.mjs`.
+
+Il listino **asporto** è separato, all’URL `/shop/asporto/`, e si aggiorna in
+`admin/asporto.json`. Non è presente in `items.json`, nelle categorie dello shop,
+nei menu di navigazione o nella sitemap; l’HTML contiene `noindex,follow`.
+Si accede tramite il link diretto, senza aggiungere una voce nel catalogo pubblico.
+`node admin/build-asporto.mjs` lo rigenera; viene eseguito anche da `build-shop.mjs`.
+Per i prezzi non ancora confermati usa `prezzo: null` e `unita: null`: i prezzi
+di pollo e oca da asporto restano distinti da quelli del catalogo dello spaccio.
+`tipologie_da_confermare: true` mostra la nota sulle tipologie di pasta fresca.
+I contenuti sono nell’HTML, senza richieste JSON dal browser; lo stile specifico
+è in `assets/shop-asporto.css` e riutilizza header, footer e firma DoubleN dello shop.
+
 `assets/shop-catalog.js` condivide prezzi e schede fra generazione e filtri del browser;
 `assets/shop-products.css` aggiunge avvisi, segnaposto e stile delle schede senza
 modificare la grafica generale dello shop. Per aggiungere foto usa `immagine`.
 Non indicare zero per un prezzo sconosciuto: usa `prezzo: null`.
+Le unità `uovo` e `pacco` rendono espliciti i prezzi per singolo uovo e per
+confezione; `peso_confezione_g` descrive il peso del pacco di pasta.
+La pasta De Carlonis mantiene l’URL `/shop/pasta-secca-campofilone/` già utilizzato,
+con titolo, marchio, confezione da 250 g e prezzo aggiornati.
+I costi aggiuntivi vanno in `supplementi`, con `nome` e `prezzo`: la pelatura
+dell’oca è mostrata separatamente dal prezzo al kg, sia nel catalogo sia nella
+pagina prodotto. Anche il dato strutturato distingue il prezzo a peso dal
+supplemento fisso tramite `CompoundPriceSpecification`.
 Il pacco famiglia è in evidenza con `promozione: true` in `items.json`: il prezzo
 della promo viene generato dal prezzo del prodotto. Il richiamo nello shop,
 la scheda nel catalogo e la pagina del pacco riportano l’offerta, senza aggiungere

@@ -4,8 +4,8 @@
     "titolo": "Uova",
     "categoria": "Uova",
     "tipologia": "Uova",
-    "prezzo": 0.5,
-    "unita": "pezzo",
+    "prezzo": 0.6,
+    "unita": "uovo",
     "descrizione": "Uova in vendita presso lo spaccio aziendale. Il prezzo indicato si riferisce a un singolo uovo."
   },
   {
@@ -16,7 +16,7 @@
     "prezzo": 13,
     "unita": "l",
     "prezzo_da": true,
-    "descrizione": "Olio disponibile in latta da 1 litro, in latta da 3 litri e sfuso. Scegli il formato presso lo spaccio aziendale.",
+    "descrizione": "Olio disponibile in latte da 1, 2 e 5 litri e sfuso. Il prezzo indicato è al litro; per ogni latta è riportato anche il totale del formato.",
     "varianti": [
       {
         "nome": "Latta da 1 litro",
@@ -26,11 +26,18 @@
         "totale": 15
       },
       {
-        "nome": "Latta da 3 litri",
+        "nome": "Latta da 2 litri",
         "prezzo": 14,
         "unita": "l",
-        "quantita": 3,
-        "totale": 42
+        "quantita": 2,
+        "totale": 28
+      },
+      {
+        "nome": "Latta da 5 litri",
+        "prezzo": 13.5,
+        "unita": "l",
+        "quantita": 5,
+        "totale": 67.5
       },
       {
         "nome": "Sfuso",
@@ -41,24 +48,28 @@
   },
   {
     "slug": "pasta-secca-campofilone",
-    "titolo": "Pasta secca Campofilone",
+    "titolo": "Pasta De Carlonis",
     "categoria": "Pasta",
     "tipologia": "Chitarrine e fettuccine",
-    "prezzo": 3.7,
-    "unita": null,
-    "descrizione": "Pasta secca Campofilone nei formati chitarrine e fettuccine. Entrambi i formati sono proposti a 3,70 € presso lo spaccio aziendale.",
+    "prezzo": 3.8,
+    "unita": "pacco",
+    "descrizione": "Pasta secca De Carlonis nei formati chitarrine e fettuccine, in pacchi da 250 g. Il prezzo è di 3,80 € per pacco presso lo spaccio aziendale.",
     "varianti": [
       {
         "nome": "Chitarrine",
-        "prezzo": 3.7,
-        "unita": null
+        "prezzo": 3.8,
+        "unita": "pacco",
+        "peso_confezione_g": 250
       },
       {
         "nome": "Fettuccine",
-        "prezzo": 3.7,
-        "unita": null
+        "prezzo": 3.8,
+        "unita": "pacco",
+        "peso_confezione_g": 250
       }
-    ]
+    ],
+    "marchio": "De Carlonis",
+    "peso_confezione_g": 250
   },
   {
     "slug": "lombo",
@@ -156,7 +167,7 @@
     "titolo": "Coniglio",
     "categoria": "Carni",
     "tipologia": "Animali da cortile",
-    "prezzo": 12.9,
+    "prezzo": 13.5,
     "unita": "kg",
     "descrizione": "Coniglio in vendita presso lo spaccio aziendale. Il prezzo indicato è al chilogrammo."
   },
@@ -165,7 +176,7 @@
     "titolo": "Papera",
     "categoria": "Carni",
     "tipologia": "Animali da cortile",
-    "prezzo": 11.9,
+    "prezzo": 13,
     "unita": "kg",
     "descrizione": "Papera in vendita presso lo spaccio aziendale. Il prezzo indicato è al chilogrammo."
   },
@@ -174,10 +185,15 @@
     "titolo": "Oca",
     "categoria": "Carni",
     "tipologia": "Animali da cortile",
-    "prezzo": 55,
-    "unita": "pezzo",
-    "descrizione": "Oca in vendita presso lo spaccio aziendale. Il prezzo è compreso tra 55,00 e 60,00 € al pezzo.",
-    "prezzo_massimo": 60
+    "prezzo": 13.5,
+    "unita": "kg",
+    "descrizione": "Oca in vendita a 13,50 € al chilogrammo presso lo spaccio aziendale, più 10,00 € per la pelatura. Il totale dipende dal peso effettivo, a cui si aggiunge il costo della pelatura.",
+    "supplementi": [
+      {
+        "nome": "Pelatura",
+        "prezzo": 10
+      }
+    ]
   },
   {
     "slug": "pollo",
@@ -193,9 +209,36 @@
     "titolo": "Cappone",
     "categoria": "Carni",
     "tipologia": "Animali da cortile",
-    "prezzo": null,
-    "unita": null,
-    "descrizione": "Il prezzo del cappone è attualmente da definire. Contattaci per informazioni sul prezzo e sulla disponibilità presso lo spaccio aziendale."
+    "prezzo": 15,
+    "unita": "kg",
+    "descrizione": "Cappone in vendita a peso presso lo spaccio aziendale. Il prezzo indicato è al chilogrammo."
+  },
+  {
+    "slug": "gallina",
+    "titolo": "Gallina",
+    "categoria": "Carni",
+    "tipologia": "Animali da cortile",
+    "prezzo": 10,
+    "unita": "kg",
+    "descrizione": "Gallina in vendita a peso presso lo spaccio aziendale. Il prezzo indicato è al chilogrammo."
+  },
+  {
+    "slug": "tacchino-femmina",
+    "titolo": "Tacchino femmina",
+    "categoria": "Carni",
+    "tipologia": "Animali da cortile",
+    "prezzo": 19,
+    "unita": "kg",
+    "descrizione": "Tacchino femmina in vendita a peso presso lo spaccio aziendale. Il prezzo indicato è al chilogrammo."
+  },
+  {
+    "slug": "tacchino-maschio",
+    "titolo": "Tacchino maschio",
+    "categoria": "Carni",
+    "tipologia": "Animali da cortile",
+    "prezzo": 16,
+    "unita": "kg",
+    "descrizione": "Tacchino maschio in vendita a peso presso lo spaccio aziendale. Il prezzo indicato è al chilogrammo."
   },
   {
     "slug": "pacco-famiglia-vitellone",
