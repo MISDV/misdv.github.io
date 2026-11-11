@@ -2,7 +2,7 @@
   "title": "Il Vero Gusto della Nostra Terra: Dal Seme alla Tavola",
   "description": "Dalla nostra azienda agricola alla tavola: valorizziamo la filiera corta, le carni del nostro allevamento e la pasta fresca fatta a mano, secondo la tradizione contadina.",
   "season": "2026/2027",
-  "updated": "2026-11-07",
+  "updated": "2026-11-11",
   "cover_charge": 1.5,
   "a_la_carte_note": "Acqua e coperto esclusi nel menù alla carta.",
   "allergen_note": "Per informazioni su allergeni, intolleranze e ingredienti, è disponibile il libro degli allergeni: chiedere al personale di sala.",
@@ -15,7 +15,7 @@
         {
           "id": "menu-tradizione-rurale",
           "name": "Menù Tradizione Rurale",
-          "price": 35.0,
+          "price": 38.0,
           "description": "Il percorso essenziale per assaporare i sapori cardine della nostra tradizione contadina.",
           "courses": [
             "Antipasto alla Giuggiola",

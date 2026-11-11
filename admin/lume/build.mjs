@@ -4,6 +4,7 @@ import { readFile } from 'node:fs/promises';
 import { createRequire } from 'node:module';
 import { breadcrumbs, breadcrumbSchema } from '../site-seo.mjs';
 import { applyLanguage } from '../site-language.mjs';
+import { applyFooterCredit } from '../site-credit.mjs';
 
 const require = createRequire(import.meta.url);
 const core = require('./src/core.js');
@@ -153,6 +154,6 @@ export async function buildLume(catalog, contactData) {
     const printBar = `<nav class="lm-print-bar" aria-label="${escape(t.print)}"><button type="button" onclick="window.print()">${escape(t.print)}</button><a href="${path}">${escape(t.edition)}</a></nav>`;
     files.set(path.slice(1) + 'print/index.html', `<!doctype html>\n<html lang="${lang}"><head>${head}<title>${title} · ${escape(t.print)}</title><meta name="robots" content="noindex,follow"></head><body class="lume-document">${printBar}${print}</body></html>\n`);
   }
-  for(const [path,html] of files) if(path.endsWith('.html')) files.set(path,applyLanguage(html));
+  for(const [path,html] of files) if(path.endsWith('.html')) files.set(path,applyFooterCredit(applyLanguage(html)));
   return files;
 }

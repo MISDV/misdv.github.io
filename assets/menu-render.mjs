@@ -20,15 +20,16 @@ function renderList(title, items) {
   return Array.isArray(items) && items.length ? `<div><h4>${title}</h4><ul>${items.map(item => `<li>${escapeHtml(item)}</li>`).join('')}</ul></div>` : '';
 }
 
-function renderDish(dish, { fixed = false, preview = false } = {}) {
+function renderDish(dish, { fixed = false, preview = false, setMenu = false } = {}) {
   const basePrice = money(String(dish.price_display ?? '').trim() || dish.price);
   const price = fixed ? '' : basePrice + (basePrice && dish.price_unit === 'kg' ? '/kg' : '');
   const labels = Array.isArray(dish.tags) ? dish.tags.filter(Boolean).join(' · ') : '';
   const allergens = Array.isArray(dish.allergens) ? dish.allergens.filter(Boolean).join(', ') : '';
   const details = preview ? '' : renderList('Il percorso', dish.courses) + renderList('Inclusi nel prezzo', dish.includes);
   const heading = preview ? 'h4' : 'h3';
-  return `<li class="menu-dish" data-dish>
-    <div class="dish-title"><${heading}>${escapeHtml(dish.name || dish.title)}</${heading}>${price ? `<span class="menu-price">${escapeHtml(price)}</span>` : ''}</div>
+  const priceMarkup = price ? (setMenu ? `<span class="menu-price menu-set-price"><strong>${escapeHtml(price)}</strong><small>a persona</small></span>` : `<span class="menu-price">${escapeHtml(price)}</span>`) : '';
+  return `<li class="menu-dish${setMenu ? ' menu-set' : ''}" data-dish>
+    <div class="dish-title"><${heading}>${escapeHtml(dish.name || dish.title)}</${heading}>${priceMarkup}</div>
     ${dish.description ? `<p>${escapeHtml(dish.description)}</p>` : ''}
     ${labels ? `<p><small>${escapeHtml(labels)}</small></p>` : ''}
     ${allergens ? `<details><summary>Allergeni indicati</summary><p>${escapeHtml(allergens)}</p></details>` : ''}
@@ -57,7 +58,7 @@ function renderCatalog(menu, preview) {
     ${category.description ? `<p>${escapeHtml(category.description)}</p>` : ''}
     ${category.subtitle ? `<p>${escapeHtml(category.subtitle)}</p>` : ''}
   </header>
-  <ul class="menu-dishes">${dishes.map(dish => renderDish(dish, { preview })).join('\n')}</ul>
+  <ul class="menu-dishes${category.id === 'menu-fissi' ? ' menu-set-list' : ''}">${dishes.map(dish => renderDish(dish, { preview, setMenu: category.id === 'menu-fissi' })).join('\n')}</ul>
 </section>`;
   });
   const intro = preview ? '' : `<header class="menu-intro">
@@ -83,6 +84,7 @@ export function renderMenu(menu, { preview = false, language = 'it' } = {}) {
     if (language === 'en') {
       for (const [it,en] of [
         ['Il percorso','The courses'],['Inclusi nel prezzo','Included in the price'],
+        ['<small>a persona</small>','<small>per person</small>'],
         ['Allergeni indicati','Listed allergens'],['Stagione ','Season '],['Coperto:','Cover charge:'],
         ['aria-label="Coperto"','aria-label="Cover charge"'],['Allergie e intolleranze','Allergies and intolerances'],
         ['Il menù digitale Lume','The Lume digital menu'],

@@ -29,6 +29,19 @@ node admin/build-site-assets.mjs
 Le sorgenti sono `admin/build-pages.mjs` e `admin/build-english.mjs`.
 Header e footer comuni sono ricavati dalla home tramite `admin/site-layout.mjs`.
 
+La firma **Firmato DoubleN** viene inserita nei footer pubblici da
+`admin/site-credit.mjs`, integrato nei generatori di sito, shop e Lume.
+I file del kit sono in `assets/doublen/`: CSS, configurazione e popup JavaScript;
+il logo SVG è incluso nel componente e non richiede immagini esterne.
+Per compilare i recapiti DoubleN modifica `assets/doublen/doublen-config.js`:
+telefono, email e profilo Google sono inizialmente vuoti, come nel kit fornito.
+Il sito del portfolio è già configurato. I contatti dell’agriturismo restano distinti.
+Con JavaScript la firma apre il popup; senza JavaScript apre il portfolio.
+Nelle pagine inglesi firma e popup sono tradotti. La firma segue il tema di
+shop e Lume e viene nascosta soltanto nella stampa. Non carica servizi esterni
+automaticamente. Dopo modifiche al kit esegui la sequenza completa dei quattro
+comandi sopra: i parametri di versione degli asset sono calcolati dai contenuti.
+
 `dati.json` resta la sorgente dei contatti, degli orari, dei social e dei testi
 condivisi. `admin/site-data.mjs` li inserisce direttamente negli HTML durante
 la generazione: il browser non richiede più questo JSON e non deve eseguire

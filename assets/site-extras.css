@@ -34,6 +34,17 @@
 .home-menu-hero{max-width:64rem;margin-inline:auto}
 .home-menu .menu-day-header h3{font:700 1.25rem/1.15 "Playfair Display",serif;margin-block:.3rem}
 .home-menu .dish-title h4{font:700 1.15rem/1.35 "Playfair Display",serif;min-width:0;overflow-wrap:anywhere}
+.menu-set-list{display:grid;grid-template-columns:minmax(0,1fr);gap:1.25rem;padding:1.25rem;margin:0}
+.menu-set-list>.menu-set{min-width:0;padding:clamp(1rem,3vw,1.5rem);border:1px solid #dfc2a6;border-inline-start:4px solid #a8572a;border-radius:.5rem;background:#fffaf3;color:#3e2d20}
+.menu-set .dish-title{display:grid;grid-template-columns:minmax(0,1fr);gap:.75rem;align-items:start}
+.menu-set .dish-title :is(h3,h4){margin:0;font:700 clamp(1.25rem,3vw,1.5rem)/1.25 "Playfair Display",Georgia,serif;min-width:0;overflow-wrap:break-word;text-wrap:balance}
+.menu-set .menu-set-price{display:inline-flex;align-items:baseline;flex-wrap:wrap;gap:.3rem .45rem;justify-self:start;max-width:100%;padding:.45rem .65rem;border:1px solid #dfc2a6;border-radius:.35rem;background:#fff;color:#783713;white-space:normal}
+.menu-set-price strong{font-size:1.35rem;line-height:1.25;white-space:nowrap}.menu-set-price small{font-size:.75rem;font-weight:500}
+.menu-set>p{margin-top:.85rem;line-height:1.65}
+.menu-set .menu-fixed-details{margin-top:1.15rem;gap:1rem}
+.menu-set .menu-fixed-details>div{min-width:0;padding:.9rem;border:1px solid #eadbcc;border-radius:.35rem;background:#fff}
+.menu-set .menu-fixed-details li{line-height:1.6}.menu-set .menu-fixed-details li+li{margin-top:.3rem}
+@media(min-width:640px){.menu-main .menu-set .dish-title{grid-template-columns:minmax(0,1fr) auto}.menu-main .menu-set-price{justify-self:end}}
 .menu-text-link{color:#96380f;text-decoration:underline;text-underline-offset:.2em}
 .farm-tile{display:block}
 .farm-tile .farm-tile-arrow{display:inline-block;margin-top:.25rem;color:#fff;font:700 .8rem/1.3 system-ui,sans-serif;text-decoration:underline;text-underline-offset:.2em}
@@ -85,7 +96,7 @@
 @media(min-width:768px){nav .shop-brand-mark{width:64px;height:64px}nav .shop-brand-mark img{width:48px;height:48px}}
 @media screen{#menu-content>.menu-day{content-visibility:auto;contain-intrinsic-block-size:auto 700px}}
 @media(max-width:47.99rem){.farm-tile{aspect-ratio:4/3}}
-@media(min-width:48rem){.home-menu [data-category="menu-fissi"] .menu-dishes{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}.home-menu [data-category="menu-fissi"] .menu-dish{border-bottom:0}}
+@media(min-width:48rem){.home-menu [data-category="menu-fissi"] .menu-dishes{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:1.25rem}}
 @media(min-width:48rem){.farm-hero{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:2rem}}
 .dark .menu-main .menu-updated{color:#ded0c3}
 @media(max-width:1023px){#searchInput{font-size:16px}}
