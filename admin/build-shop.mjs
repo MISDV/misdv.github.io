@@ -29,9 +29,10 @@ for (const item of items) {
   if (item.marchio !== undefined && (typeof item.marchio !== 'string' || !item.marchio.trim())) throw new Error(`${item.slug}: marchio non valido.`);
   if (item.supplementi !== undefined && (!Array.isArray(item.supplementi) || item.supplementi.some(extra => typeof extra.nome !== 'string' || !extra.nome.trim() || !Number.isFinite(extra.prezzo) || extra.prezzo <= 0))) throw new Error(`${item.slug}: supplemento non valido.`);
   for (const v of item.varianti || []) {
-    if (!v.nome || !Number.isFinite(v.prezzo) || v.prezzo <= 0 || ![null, 'kg', 'l', 'pezzo', 'uovo', 'pacco'].includes(v.unita)) throw new Error(`${item.slug}: variante non valida.`);
+    if (!v.nome || (v.prezzo !== null && (!Number.isFinite(v.prezzo) || v.prezzo <= 0)) || ![null, 'kg', 'l', 'pezzo', 'uovo', 'pacco'].includes(v.unita)) throw new Error(`${item.slug}: variante non valida.`);
+    if (v.quantita !== undefined && (!Number.isFinite(v.quantita) || v.quantita <= 0)) throw new Error(`${item.slug}: quantità della variante non valida.`);
     if (v.peso_confezione_g !== undefined && (!Number.isFinite(v.peso_confezione_g) || v.peso_confezione_g <= 0)) throw new Error(`${item.slug}: peso della variante non valido.`);
-    if (v.totale !== undefined && (!Number.isFinite(v.quantita) || v.quantita <= 0 || Math.abs(v.totale - v.quantita * v.prezzo) > .001)) throw new Error(`${item.slug}: totale del formato non valido.`);
+    if (v.totale !== undefined && (v.prezzo === null || !Number.isFinite(v.totale) || !Number.isFinite(v.quantita) || v.quantita <= 0 || Math.abs(v.totale - v.quantita * v.prezzo) > .001)) throw new Error(`${item.slug}: totale del formato non valido.`);
   }
 }
 
@@ -118,9 +119,11 @@ for (const item of items) {
   if (p.immagine) product.image = new URL(p.immagine, origin).href;
   if (p.marchio) product.brand = { '@type': 'Brand', name: p.marchio };
   if (p.peso_confezione_g) product.weight = { '@type': 'QuantitativeValue', value: p.peso_confezione_g, unitCode: 'GRM', unitText: 'g' };
-  if (p.prezzo !== null) product.offers = p.varianti.length ? p.varianti.map(v => offer(p, v)) : offer(p);
+  const pricedVariants = p.varianti.filter(v => v.prezzo !== null);
+  if (pricedVariants.length) product.offers = pricedVariants.map(v => offer(p, v));
+  else if (!p.varianti.length && p.prezzo !== null) product.offers = offer(p);
   const reservation = p.prenotazione_obbligatoria ? '<aside class="shop-reservation-note"><h2>Prenotazione telefonica necessaria</h2><p>Il pacco può comprendere vari formati e tagli di vitellone, a discrezione del macellaio e secondo disponibilità. Chiama per prenotare e concordare il ritiro in azienda.</p></aside>' : '';
-  const priceNote = p.unita === 'kg' ? '<p class="shop-price-note">Il prezzo è al chilogrammo. Il totale dipende dal peso effettivo del prodotto.</p>' : p.prezzo === null ? '<p class="shop-price-note">Il prezzo non è ancora definito: chiedici informazioni prima di venire in azienda.</p>' : '';
+  const priceNote = p.prezzo === null ? '<p class="shop-price-note">Il prezzo non è ancora definito: chiedici informazioni prima di venire in azienda.</p>' : p.unita === 'kg' ? '<p class="shop-price-note">Il prezzo è al chilogrammo. Il totale dipende dal peso effettivo del prodotto.</p>' : '';
   const html = `<!doctype html>
 <html lang="it"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>${e(title)}</title><meta name="description" content="${e(description)}"><meta name="robots" content="index,follow,max-image-preview:large">

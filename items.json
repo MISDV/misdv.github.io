@@ -16,7 +16,7 @@
     "prezzo": 13,
     "unita": "l",
     "prezzo_da": true,
-    "descrizione": "Olio disponibile in latte da 1, 2 e 5 litri e sfuso. Il prezzo indicato è al litro; per ogni latta è riportato anche il totale del formato.",
+    "descrizione": "Olio disponibile in latte da 1, 2, 3 e 5 litri e sfuso. Il prezzo indicato è al litro; per le latte con prezzo confermato è riportato anche il totale del formato. Il prezzo della latta da 3 litri è da definire.",
     "varianti": [
       {
         "nome": "Latta da 1 litro",
@@ -31,6 +31,12 @@
         "unita": "l",
         "quantita": 2,
         "totale": 28
+      },
+      {
+        "nome": "Latta da 3 litri",
+        "prezzo": null,
+        "unita": "l",
+        "quantita": 3
       },
       {
         "nome": "Latta da 5 litri",
@@ -50,24 +56,10 @@
     "slug": "pasta-secca-campofilone",
     "titolo": "Pasta De Carlonis",
     "categoria": "Pasta",
-    "tipologia": "Chitarrine e fettuccine",
+    "tipologia": "Formati da definire",
     "prezzo": 3.8,
     "unita": "pacco",
-    "descrizione": "Pasta secca De Carlonis nei formati chitarrine e fettuccine, in pacchi da 250 g. Il prezzo è di 3,80 € per pacco presso lo spaccio aziendale.",
-    "varianti": [
-      {
-        "nome": "Chitarrine",
-        "prezzo": 3.8,
-        "unita": "pacco",
-        "peso_confezione_g": 250
-      },
-      {
-        "nome": "Fettuccine",
-        "prezzo": 3.8,
-        "unita": "pacco",
-        "peso_confezione_g": 250
-      }
-    ],
+    "descrizione": "Pasta secca De Carlonis in pacchi da 250 g, a 3,80 € per pacco presso lo spaccio aziendale. I formati di pasta sono da definire.",
     "marchio": "De Carlonis",
     "peso_confezione_g": 250
   },
@@ -209,9 +201,9 @@
     "titolo": "Cappone",
     "categoria": "Carni",
     "tipologia": "Animali da cortile",
-    "prezzo": 15,
+    "prezzo": null,
     "unita": "kg",
-    "descrizione": "Cappone in vendita a peso presso lo spaccio aziendale. Il prezzo indicato è al chilogrammo."
+    "descrizione": "Cappone in vendita presso lo spaccio aziendale. Prezzo da definire: contattaci per informazioni e disponibilità."
   },
   {
     "slug": "gallina",
@@ -239,6 +231,73 @@
     "prezzo": 16,
     "unita": "kg",
     "descrizione": "Tacchino maschio in vendita a peso presso lo spaccio aziendale. Il prezzo indicato è al chilogrammo."
+  },
+  {
+    "slug": "ciauscolo",
+    "titolo": "Ciauscolo",
+    "categoria": "Salumi",
+    "tipologia": "Salumi dello spaccio",
+    "prezzo": null,
+    "unita": null,
+    "descrizione": "Ciauscolo in vendita nello spaccio aziendale. Prezzo da definire: contattaci per informazioni e disponibilità."
+  },
+  {
+    "slug": "salame-lardellato",
+    "titolo": "Salame lardellato",
+    "categoria": "Salumi",
+    "tipologia": "Salumi dello spaccio",
+    "prezzo": null,
+    "unita": null,
+    "descrizione": "Salame lardellato in vendita nello spaccio aziendale. Prezzo da definire: contattaci per informazioni e disponibilità."
+  },
+  {
+    "slug": "coppa",
+    "titolo": "Coppa",
+    "categoria": "Salumi",
+    "tipologia": "Salumi dello spaccio",
+    "prezzo": null,
+    "unita": null,
+    "descrizione": "Coppa in vendita nello spaccio aziendale. Prezzo da definire: contattaci per informazioni e disponibilità."
+  },
+  {
+    "slug": "salsiccia-secca",
+    "titolo": "Salsiccia secca",
+    "categoria": "Salumi",
+    "tipologia": "Normale e piccante",
+    "prezzo": null,
+    "unita": null,
+    "descrizione": "Salsiccia secca disponibile nelle varianti normale e piccante nello spaccio aziendale. Prezzi da definire: contattaci per informazioni e disponibilità.",
+    "varianti": [
+      { "nome": "Normale", "prezzo": null, "unita": null },
+      { "nome": "Piccante", "prezzo": null, "unita": null }
+    ]
+  },
+  {
+    "slug": "lonza",
+    "titolo": "Lonza",
+    "categoria": "Salumi",
+    "tipologia": "Salumi dello spaccio",
+    "prezzo": null,
+    "unita": null,
+    "descrizione": "Lonza in vendita nello spaccio aziendale. Prezzo da definire: contattaci per informazioni e disponibilità."
+  },
+  {
+    "slug": "oca-al-pezzo",
+    "titolo": "Oca al pezzo",
+    "categoria": "Carni",
+    "tipologia": "Animali da cortile",
+    "prezzo": null,
+    "unita": "pezzo",
+    "descrizione": "Oca al pezzo nello spaccio aziendale, con prezzo da definire. Questa voce è distinta dall’oca venduta al chilogrammo. Contattaci per informazioni e disponibilità."
+  },
+  {
+    "slug": "pasta-alluovo-fresca",
+    "titolo": "Pasta all’uovo fresca",
+    "categoria": "Pasta",
+    "tipologia": "Pasta fresca",
+    "prezzo": null,
+    "unita": null,
+    "descrizione": "Pasta all’uovo fresca esposta nel bancone della carne dello spaccio: chitarrine, tagliatelle, cappelletti e ravioli. Prezzo da definire: contattaci per informazioni e disponibilità."
   },
   {
     "slug": "pacco-famiglia-vitellone",
