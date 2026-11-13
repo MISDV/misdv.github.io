@@ -50,6 +50,18 @@
 .farm-tile .farm-tile-arrow{display:inline-block;margin-top:.25rem;color:#fff;font:700 .8rem/1.3 system-ui,sans-serif;text-decoration:underline;text-underline-offset:.2em}
 .farm-page{max-width:70rem;margin-inline:auto;padding:0 1rem 3.5rem}
 .farm-page .breadcrumbs{padding-inline:0}
+.farm-overview-intro{max-width:48rem;margin:1.25rem 0 2.25rem}
+.farm-overview-intro p{line-height:1.75;color:#685442}
+.farm-overview-intro .eyebrow{font-size:.8rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#823815;margin-bottom:.65rem}
+.farm-overview-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:1.25rem;margin:1.4rem 0 2rem}
+.farm-overview-card{display:flex;flex-direction:column;overflow:hidden;min-width:0;border:1px solid #dfc5ab;border-radius:.55rem;background:#fffaf3;color:#382b20;text-decoration:none;box-shadow:0 3px 12px #382b200a;transition:border-color .2s,box-shadow .2s}
+.farm-overview-card picture{display:block}.farm-overview-card .farm-photo{border-radius:0;aspect-ratio:16/9}
+.farm-overview-card>div{display:flex;flex:1;flex-direction:column;padding:1.25rem}
+.farm-overview-card h3{font:700 1.6rem/1.25 "Playfair Display",Georgia,serif;margin:0 0 .65rem}
+.farm-overview-card p{font-size:.95rem;line-height:1.7;color:#685442;margin:0 0 1.1rem}
+.farm-overview-card>div>span{display:flex;justify-content:space-between;align-items:center;gap:1rem;margin-top:auto;font-size:.9rem;font-weight:700;color:#823815;text-decoration:underline;text-underline-offset:.2em}
+.farm-overview-card:hover{border-color:#a74b11;box-shadow:0 5px 18px #382b2014}.farm-overview-card:focus-visible{outline:3px solid #a74b11;outline-offset:4px}
+@media(min-width:640px){.farm-overview-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:1.5rem}}
 .farm-page h1,.farm-page h2{font-family:"Playfair Display",Georgia,serif;font-weight:700;line-height:1.14}
 .farm-page h1{font-size:clamp(2rem,7vw,3.75rem);margin:.2rem 0 1rem}
 .farm-page h2{font-size:clamp(1.35rem,4vw,2.1rem);margin-bottom:.7rem}

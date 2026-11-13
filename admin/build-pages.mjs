@@ -40,20 +40,22 @@ const farm = [
   },
 ];
 
-function photo([name, alt], eager = false) {
+function photo([name, alt], eager = false, card = false) {
   const prefix = '/assets/fattoria/' + name;
-  const sizes = eager ? '(min-width: 768px) min(48vw, 540px), calc(100vw - 2rem)' : '(min-width: 768px) 33vw, calc(100vw - 2rem)';
+  const sizes = eager || card ? '(min-width: 768px) min(48vw, 540px), calc(100vw - 2rem)' : '(min-width: 768px) 33vw, calc(100vw - 2rem)';
   return `<picture><source type="image/avif" srcset="${prefix}-480.avif 480w, ${prefix}-800.avif 800w" sizes="${sizes}"><img class="farm-photo" src="${prefix}-480.webp" srcset="${prefix}-480.webp 480w, ${prefix}-800.webp 800w" sizes="${sizes}" width="480" height="360" alt="${escape(alt)}" ${eager ? 'fetchpriority="high"' : 'loading="lazy"'} decoding="async"></picture>`;
 }
 
-function page({ path, title, description, trail, content, hero, privacy = false }) {
+function page({ path, title, description, trail, content, hero, privacy = false, collection = [] }) {
   const { header, footer } = siteLayout(path);
   const canonical = origin + path;
   const fullTitle = escape(title + ' | Agriturismo Giuggioloni');
   const summary = escape(description);
   const social = hero ? `${origin}/assets/fattoria/${hero[0]}-800.webp` : `${origin}/og-image-1200x630.png`;
   const robots = privacy ? 'noindex,follow' : 'index,follow,max-image-preview:large';
-  const schema = jsonLd({ '@type': 'WebPage', '@id': canonical + '#pagina', url: canonical, name: title, description, inLanguage: 'it', about: { '@id': origin + '/#ristorante' } });
+  const webPage = { '@type': collection.length ? 'CollectionPage' : 'WebPage', '@id': canonical + '#pagina', url: canonical, name: title, description, inLanguage: 'it', isPartOf: { '@id': origin + '/#sito' }, about: { '@id': origin + '/#ristorante' } };
+  if (collection.length) webPage.mainEntity = { '@id': canonical + '#percorsi' };
+  const schema = jsonLd(collection.length ? { '@graph': [webPage, { '@type': 'ItemList', '@id': canonical + '#percorsi', name: 'Scopri la fattoria Giuggioloni', numberOfItems: collection.length, itemListElement: collection.map((entry, i) => ({ '@type': 'ListItem', position: i + 1, name: entry.label, url: origin + entry.path })) }] } : webPage);
   return applySiteStyles(`<!doctype html>
 <html lang="it">
 <head>
@@ -94,6 +96,22 @@ ${footer}
 `);
 }
 
+const farmOverview = [
+  { path: '/fattoria/animali/', label: 'Gli animali', hero: ['animali', 'Un bovino della fattoria Giuggioloni'], text: 'Gli allevamenti dell’azienda agricola e il loro legame con la cucina dell’agriturismo.' },
+  { path: '/fattoria/orto/', label: 'L’orto', hero: ['campo', 'I filari dell’orto tra le colline di Osimo'], text: 'Il lavoro nei campi, le coltivazioni e gli ortaggi che seguono il ritmo delle stagioni.' },
+  { path: '/storia.html', label: 'La nostra storia', hero: ['storia', 'Gli ulivi negli spazi verdi dell’agriturismo'], text: 'Una storia dal padre ai figli: Maurizio in cucina e Massimo in sala, tra tradizione e accoglienza.' },
+  { path: '/fattoria/locale/', label: 'Il locale e il giardino', hero: ['giardino', 'Il giardino dell’Agriturismo Giuggioloni a Osimo'], text: 'Due sale, il giardino, il parcheggio e gli spazi accessibili per stare insieme in campagna.' },
+];
+await save('/fattoria/', page({
+  path: '/fattoria/', title: 'La fattoria, l’orto e la nostra storia a Osimo',
+  description: 'Conosci la fattoria Giuggioloni a Osimo: animali, orto, storia di famiglia, ristorante e giardino. Scopri le quattro pagine dell’agriturismo.',
+  trail: [['Home', '/'], ['La fattoria', '/fattoria/']], hero: ['giardino', 'Il giardino dell’Agriturismo Giuggioloni'], collection: farmOverview,
+  content: `<header class="farm-overview-intro"><p class="eyebrow">Giuggioloni · Osimo, Marche</p><h1>La nostra fattoria</h1><p>La vita dell’azienda agricola, il lavoro nell’orto e l’accoglienza di famiglia. Quattro percorsi per conoscere il legame tra la nostra terra e la tavola dell’agriturismo.</p></header>
+<section aria-labelledby="farm-overview-title"><h2 id="farm-overview-title">Scopri il mondo Giuggioloni</h2><div class="farm-overview-grid">${farmOverview.map((entry, index) => `<a class="farm-overview-card" href="${entry.path}">${photo(entry.hero, index === 0, true)}<div><h3>${entry.label}</h3><p>${escape(entry.text)}</p><span aria-hidden="true">Scopri di più <span>→</span></span></div></a>`).join('\n')}</div></section>
+<aside class="farm-note"><h2>Un’azienda agricola, ogni giorno</h2><p>La fattoria non è didattica e non è aperta alle visite. Ti raccontiamo il nostro lavoro attraverso queste pagine e la cucina dell’agriturismo; il giardino del ristorante è lo spazio dedicato al relax e al gioco.</p></aside>
+<div class="place-actions"><a href="/menu/">Scopri il menù completo</a><a href="/spaccio/">Lo spaccio aziendale</a><a href="tel:+393922529406" data-booking>Prenota un tavolo</a></div>`,
+}));
+
 for (const entry of farm) {
   const related = [...farm, { path: '/storia.html', label: 'La nostra storia' }].filter(link => link.path !== entry.path);
   const content = `<section class="farm-hero"><div><p class="eyebrow">La fattoria · Osimo</p><h1>${escape(entry.heading)}</h1><p>${escape(entry.intro)}</p><div class="place-actions"><a href="/menu/">Scopri il menù completo</a><a href="#contatti">Contatti e indicazioni</a></div></div>${photo(entry.hero, true)}</section>
@@ -101,7 +119,7 @@ for (const entry of farm) {
 ${entry.gallery ? `<div class="farm-gallery">${entry.gallery.map(image => `<figure>${photo(image)}<figcaption>${escape(image[1])}</figcaption></figure>`).join('')}</div>` : ''}</section>
 ${entry.extra || ''}
 <nav class="farm-more" aria-label="Altre pagine della fattoria"><h2>Scopri la fattoria</h2><ul>${related.map(link => `<li><a href="${link.path}">${escape(link.label)}</a></li>`).join('')}</ul></nav>`;
-  await save(entry.path, page({ ...entry, trail: [['Home', '/'], ['Fattoria', '/#fattoria'], [entry.label, entry.path]], content }));
+  await save(entry.path, page({ ...entry, trail: [['Home', '/'], ['Fattoria', '/fattoria/'], [entry.label, entry.path]], content }));
 }
 
 const privacyPath = '/privacy/';
@@ -121,6 +139,13 @@ async function save(path, content) {
   const directory = new URL('..' + path, import.meta.url);
   await mkdir(directory, { recursive: true });
   await writeFile(new URL('index.html', directory), content, 'utf8');
+}
+
+const sitemapURL = new URL('../sitemap.xml', import.meta.url);
+let sitemap = await readFile(sitemapURL, 'utf8');
+if (!sitemap.includes(`${origin}/fattoria/</loc>`)) {
+  sitemap = sitemap.replace('</urlset>', `  <url><loc>${origin}/fattoria/</loc></url>\n</urlset>`);
+  await writeFile(sitemapURL, sitemap);
 }
 
 await import('./build-english.mjs');

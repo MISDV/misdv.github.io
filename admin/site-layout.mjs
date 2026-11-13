@@ -16,7 +16,7 @@ const translations = new Map([
   ['Mostra la mappa Google', 'Show Google map'], ['Cena, orario da confermare', 'Dinner, time to be confirmed'],
   ['Navigazione principale', 'Main navigation'], ['Menu principale mobile', 'Mobile navigation'],
   ['Apri menu principale', 'Open navigation menu'], ['Chiudi menu', 'Close menu'], ['Vai al contenuto', 'Skip to content'],
-  ['I Nostri Prodotti', 'Products (IT)'], ['La Nostra Storia', 'Our story (IT)'], ['La Fattoria', 'Our farm'],
+  ['I Nostri Prodotti', 'Products (IT)'], ['La Nostra Storia', 'Our story (IT)'], ['La Fattoria', 'Our farm (IT)'],
   ['Lo spaccio aziendale', 'Farm shop (IT)'],
   ['Menù completo', 'Restaurant menu'], ['Prenota Ora!', 'Book a table'], ['Prenota', 'Book a table'],
   ['Preferenze cookie', 'Cookie preferences'], ['Informativa', 'Privacy (IT)'],
@@ -34,12 +34,15 @@ export function siteLayout(path = '/', language = 'it') {
     .replaceAll('lg:hidden fixed inset-0', 'site-mobile-overlay fixed inset-0')
     .replaceAll('lg:hidden fixed inset-x-0', 'site-mobile-panel fixed inset-x-0')
     .replaceAll(' aria-current="page"', '');
-  if (path !== '/') header = header.replaceAll('href="#fattoria"', 'href="/#fattoria"').replaceAll('href="#prodotti"', 'href="/#prodotti"');
+  header = header.replaceAll('href="#fattoria"', 'href="/fattoria/"').replaceAll('href="/#fattoria"', 'href="/fattoria/"')
+    .replaceAll('href="#prodotti"', 'href="/spaccio/"').replaceAll('href="/#prodotti"', 'href="/spaccio/"').replaceAll('href="/shop/"', 'href="/spaccio/"');
+  footer = footer.replaceAll('href="/shop/"', 'href="/spaccio/"');
   if (path === '/menu/') {
-    header = header.replaceAll('href="/menu/">Menù completo', 'href="/menu/" aria-current="page">Il menù');
-    footer = footer.replaceAll('href="/menu/"', 'href="#menu-lume"').replace('href="/en/" lang="en" hreflang="en"','href="/menu/en/" lang="en" hreflang="en"');
+    header = header.replaceAll('href="/menu/">Menù completo', 'href="/menu/" aria-current="page">Menù completo');
+    footer = footer.replace('href="/en/" lang="en" hreflang="en"','href="/menu/en/" lang="en" hreflang="en"');
   }
   if (path === '/') header = header.replaceAll('href="/">Home</a>', 'href="/" aria-current="page">Home</a>');
+  if (path === '/fattoria/') header = header.replaceAll('href="/fattoria/"', 'href="/fattoria/" aria-current="page"');
   footer = footer.replace(/<div class="flex items-center gap-3 mb-6">([\s\S]*?)(?=\s*<p data-text="home.descrizione")/, block =>
     block.replace('<div class="flex items-center gap-3 mb-6">', '<a href="/" aria-label="Agriturismo Giuggioloni — home" class="site-footer-brand flex items-center gap-3 mb-6">').replace(/<\/div>(\s*)$/, '</a>$1'));
   header = renderSiteData(header);
@@ -51,7 +54,6 @@ export function siteLayout(path = '/', language = 'it') {
   }
   if (language === 'en') {
     header = header.replaceAll('href="#contenuto"', 'href="#content"').replaceAll('href="/"', 'href="/en/"')
-      .replaceAll('href="/#fattoria"', 'href="/en/#farm"').replaceAll('href="/#prodotti"', 'href="/shop/"')
       .replaceAll('href="/menu/"', 'href="/menu/en/"');
     footer = footer.replaceAll('href="/menu/"','href="/menu/en/"').replace('href="/" aria-label=', 'href="/en/" aria-label=')
       .replace('href="/en/" lang="en" hreflang="en">English', 'href="/" lang="it" hreflang="it">Italiano');

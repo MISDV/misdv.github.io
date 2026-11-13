@@ -1,8 +1,8 @@
 # File di gestione e generazione
 
 Il pannello admin è archiviato e non viene più utilizzato per aggiornare il sito.
-L’audit mobile più recente è [MOBILE-AUDIT-2026-11-09.md](MOBILE-AUDIT-2026-11-09.md):
-include correzioni, verifiche e limiti delle misurazioni locali.
+L’audit più recente è [AUDIT-COMPLETO-2026-11-13.md](AUDIT-COMPLETO-2026-11-13.md):
+include SEO, prestazioni, verifiche mobile e limiti delle misurazioni locali.
 Il servizio permette soltanto richieste GET e restituisce dati in sola lettura:
 non pubblica modifiche, menù o immagini. La cartella `admin/` resta esclusa
 dalla pubblicazione Pages tramite `_config.yml`.
@@ -69,6 +69,16 @@ Non aggiunge richieste o JavaScript al caricamento delle pagine.
 I collegamenti al menù del sito portano a `/menu/`. L’accesso a `/lume/`
 è nel riquadro finale della pagina `/menu/`; Lume mantiene i propri link interni
 per lingue, piatti e stampa.
+La navigazione pubblica porta a `/fattoria/` per animali, orto, storia e locale,
+e a `/spaccio/` per i prodotti. Dal 13 novembre 2026 il catalogo `/shop/` e le
+relative schede sono disponibili tramite link diretto: nessuna pagina esterna
+alla cartella shop deve collegarli. Tutti i suoi HTML hanno `noindex,follow`
+e sono esclusi dalla sitemap, anche dopo una nuova build. Non bloccare questi
+URL in robots.txt: Google deve poter leggere il noindex. La navigazione tra
+catalogo e prodotti rimane interna allo shop; i link pubblici «Prodotti»
+nell’header e nel footer portano allo spaccio. Il vecchio `/shop.html`
+reindirizza a `/spaccio/`. L’identità strutturata dello spaccio è
+`https://agriturismogiuggioloni.it/spaccio/#spaccio`.
 La carta inglese è `/menu/en/` e apre `/lume/en/`. `sync-menu.mjs` rigenera
 entrambe le carte dagli stessi prezzi in `menu.json`; `admin/menu-english.mjs`
 riutilizza le traduzioni di Lume per nomi, descrizioni e portate dei menù fissi.
@@ -114,13 +124,14 @@ Il file `shop.html` è soltanto un rimando per i vecchi collegamenti. Le immagin
 relative del catalogo sono risolte rispetto a `/items.json`, nella radice del sito.
 
 I prodotti dello spaccio si aggiornano in `items.json`. Dopo le modifiche esegui
-`node admin/build-shop.mjs`: genera il catalogo statico, le pagine `/shop/<slug>/`,
-la sitemap e le versioni degli asset. Viene eseguito anche da `build-pages.mjs`.
+`node admin/build-shop.mjs`: genera il catalogo statico e le pagine `/shop/<slug>/`
+con noindex, aggiorna le versioni degli asset e mantiene gli URL shop esclusi
+dalla sitemap. Viene eseguito anche da `build-pages.mjs`.
 
 Il listino **asporto** è separato, all’URL `/shop/asporto/`, e si aggiorna in
 `admin/asporto.json`. Non è presente in `items.json`, nelle categorie dello shop,
 nei menu di navigazione o nella sitemap; l’HTML contiene `noindex,follow`.
-Si accede tramite il link diretto, senza aggiungere una voce nel catalogo pubblico.
+Si accede tramite il link diretto, senza aggiungere una voce nel catalogo dello shop.
 `node admin/build-asporto.mjs` lo rigenera; viene eseguito anche da `build-shop.mjs`.
 Per i prezzi non ancora confermati usa `prezzo: null` e `unita: null`: i prezzi
 di pollo e oca da asporto restano distinti da quelli del catalogo dello spaccio.
@@ -164,6 +175,23 @@ include lo stile storico, gli extra, il popup e `admin/site-accessibility.css`.
 Dopo modifiche a questi CSS esegui `node admin/build-site-assets.mjs` e pubblica
 anche gli HTML aggiornati: il parametro di versione dipende dal contenuto.
 Shop e Lume mantengono i propri fogli di stile separati.
+I font del sito pubblico usano sottoinsiemi locali dei caratteri comuni, con gli
+stessi glifi, pesi, kerning e legature. I font originali restano disponibili come
+fallback per gli altri caratteri. `admin/site-fonts.css` viene riunito nel CSS
+comune; i WOFF2 generati sono già inclusi nel repository. Solo per rigenerare
+i sottoinsiemi, con `fonttools[woff]` installato, eseguire `python admin/build-fonts.py`
+e poi `node admin/build-site-assets.mjs`. Non serve Python nella build ordinaria
+o su GitHub Pages. Le licenze sono in `assets/site-fonts/OFL-*.txt`.
+
+`build-site-assets.mjs` aggiorna anche le versioni di `site.js`, `booking.js`,
+`consent.js` e `menu.mjs` dai rispettivi contenuti, e rigenera la sitemap con
+`admin/build-sitemap.mjs`. La sitemap include solo HTML indicizzabili con
+canonical corrispondente al proprio percorso, escludendo redirect, privacy,
+Lume e catalogo privato. La generazione si interrompe se una pagina shop perde
+il noindex o se un'altra pagina introduce un collegamento al catalogo.
+Non aggiungere un Disallow per lo shop nel robots.txt: Google deve poter leggere
+il suo noindex. Le date lastmod non vengono inventate a ogni build.
+
 Il numero di prenotazione è +39 392 252 9406. La mappa si carica soltanto
 quando il popup viene aperto; senza JavaScript i pulsanti chiamano direttamente.
 
@@ -177,7 +205,7 @@ proprietario sono in `assets/shop-map.js`; la mappa si carica solo su richiesta.
 Il link condiviso `https://share.google/qXPCdwBKjSw6ZjSwz` apre la scheda Google
 dello spaccio ed è riportato anche in `sameAs`. Le indicazioni e l’iframe
 mantengono il riferimento Maps tramite CID fornito dal proprietario.
-`admin/shop-business.mjs` definisce l’entità `Store` con ID `/shop/#spaccio`:
+`admin/shop-business.mjs` definisce l’entità `Store` con ID `/spaccio/#spaccio`:
 catalogo e prodotti usano questa entità come attività e venditore, con una
 propria scheda Maps. L’agriturismo mantiene l’entità Restaurant e la sua mappa.
 Non copiare gli orari del ristorante nello spaccio: non sono stati comunicati.

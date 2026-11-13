@@ -2,7 +2,7 @@ import shopMap from '../assets/shop-map.js';
 import { origin } from './site-seo.mjs';
 
 export const shopName=shopMap.name;
-export const shopId=origin+'/shop/#spaccio';
+export const shopId=origin+'/spaccio/#spaccio';
 export function shopBusiness(data){
   const contact=data.contatto;
   return {

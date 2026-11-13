@@ -61,6 +61,9 @@ function mapControls(){
   return `<div class="shop-location-map" data-shop-map><div class="shop-map-actions"><a href="${shopMap.profileUrl}" target="_blank" rel="noopener noreferrer">Scheda Google dello spaccio ↗</a><button type="button" data-shop-map-toggle aria-expanded="false" aria-controls="shop-map-frame" hidden>Mostra la mappa dello spaccio</button></div><div id="shop-map-frame" data-shop-map-slot hidden></div><p class="shop-map-note">La mappa interattiva si collega a Google solo quando scegli di mostrarla. <a href="/privacy/">Informativa privacy</a>.</p></div>`;
 }
 let index = await read('shop/index.html');
+index = index.replace(/(<meta\b[^>]*name="robots"[^>]*content=")[^"]*/, '$1noindex,follow')
+  .replace(/<nav class="sticky[\s\S]*?<\/nav>/, nav => nav.replace(/<a\b[^>]*>Prodotti<\/a>/g, link => link.replace('href="/shop/"', 'href="/spaccio/"').replace(' aria-current="page"', '').replace('text-primary font-bold transition-colors', 'text-gray-600 dark:text-gray-300 hover:text-primary transition-colors font-medium')))
+  .replace(/<footer id="footer"[\s\S]*?<\/footer>/, footer => footer.replaceAll('href="/shop/"', 'href="/spaccio/"'));
 index = block(index, 'SHOP-NOTICE', catalog.notice());
 index = block(index, 'SHOP-PROMO', items.filter(item => item.promozione === true).map(item => {
   const p = normalize(item);
@@ -127,7 +130,7 @@ for (const item of items) {
   const priceNote = p.prezzo === null ? '<p class="shop-price-note">Il prezzo non è ancora definito: chiedici informazioni prima di venire in azienda.</p>' : p.unita === 'kg' ? '<p class="shop-price-note">Il prezzo è al chilogrammo. Il totale dipende dal peso effettivo del prodotto.</p>' : '';
   const html = `<!doctype html>
 <html lang="it"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>${e(title)}</title><meta name="description" content="${e(description)}"><meta name="robots" content="index,follow,max-image-preview:large">
+<title>${e(title)}</title><meta name="description" content="${e(description)}"><meta name="robots" content="noindex,follow">
 <link rel="canonical" href="${url}"><meta property="og:type" content="website"><meta property="og:locale" content="it_IT"><meta property="og:site_name" content="${shopName}">
 <meta property="og:title" content="${e(title)}"><meta property="og:description" content="${e(description)}"><meta property="og:url" content="${url}">
 <meta property="og:image" content="${origin}/assets/shop-vetrina.webp"><meta property="og:image:alt" content="Insegna dello ${shopName} a Osimo"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="${e(title)}"><meta name="twitter:description" content="${e(description)}"><meta name="twitter:image" content="${origin}/assets/shop-vetrina.webp">
@@ -146,8 +149,9 @@ ${p.varianti.length ? '<h2>Formati disponibili</h2>' + catalog.variants(p) : ''}
 }
 
 let sitemap = await read('sitemap.xml');
-if (!sitemap.includes('<!-- SHOP-PRODUCTS:START -->')) sitemap = sitemap.replace('</urlset>', '<!-- SHOP-PRODUCTS:START --><!-- SHOP-PRODUCTS:END -->\n</urlset>');
-sitemap = block(sitemap, 'SHOP-PRODUCTS', items.map(p => `  <url><loc>${origin}/shop/${p.slug}/</loc></url>`).join('\n'));
+sitemap = sitemap.replace(/<!-- SHOP-PRODUCTS:START -->[\s\S]*?<!-- SHOP-PRODUCTS:END -->\s*/g, '')
+  .replace(/<url\b[^>]*>[\s\S]*?<\/url>/g, entry => entry.includes(`<loc>${origin}/shop/`) ? '' : entry)
+  .replace(/[ \t]+$/gm, '').replace(/\n[ \t]*\n/g, '\n');
 await save('sitemap.xml', sitemap);
-console.log(`Shop sincronizzato: ${items.length} prodotti e pagine statiche, varianti e avviso vendita in loco.`);
+console.log(`Shop sincronizzato: ${items.length} prodotti, accesso tramite link diretto, pagine noindex escluse dalla sitemap.`);
 await import('./build-asporto.mjs');
