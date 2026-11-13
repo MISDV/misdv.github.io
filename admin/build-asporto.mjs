@@ -5,6 +5,7 @@ import { origin, breadcrumbs, breadcrumbSchema } from './site-seo.mjs';
 import { renderSiteData, siteData } from './site-data.mjs';
 import { applyLanguage } from './site-language.mjs';
 import { applyFooterCredit } from './site-credit.mjs';
+import { applySocialMetadata } from './site-metadata.mjs';
 
 const root = new URL('../', import.meta.url);
 const catalog = createRequire(import.meta.url)('../assets/shop-catalog.js');
@@ -44,7 +45,7 @@ const pending = source.prodotti.filter(item => item.prezzo === null);
 const rows = confirmed.map(item => `<li class="asporto-row" data-asporto="${escape(item.slug)}"><div><h3>${escape(item.titolo)}</h3>${item.tipologie_da_confermare ? '<p class="asporto-row-note">Tipologie di pasta fresca da confermare al telefono.</p>' : ''}</div><span class="shop-price">${escape(catalog.priceText(item))}</span></li>`).join('\n');
 const pendingSection = pending.length ? `<section class="asporto-section asporto-pending" aria-labelledby="asporto-pending-title"><h2 id="asporto-pending-title">Altre proposte</h2><p>Contattaci per conoscere prezzi e disponibilità.</p><ul class="asporto-list">${pending.map(item => `<li class="asporto-row" data-asporto="${escape(item.slug)}"><h3>${escape(item.titolo)}</h3><span class="asporto-pending-price">Prezzo da confermare</span></li>`).join('\n')}</ul></section>` : '';
 
-const html = applyFooterCredit(applyLanguage(renderSiteData(`<!doctype html>
+const html = applySocialMetadata(applyFooterCredit(applyLanguage(renderSiteData(`<!doctype html>
 <html lang="it"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>${title}</title><meta name="description" content="${escape(description)}">
@@ -64,7 +65,7 @@ ${breadcrumbs(trail)}
 <p class="asporto-updated">Listino aggiornato il <time datetime="${escape(source.aggiornato)}">${escape(updated)}</time></p>
 </main>${footer}
 </body></html>
-`)));
+`))));
 const directory = new URL('shop/asporto/', root);
 await mkdir(directory, { recursive: true });
 const output = new URL('index.html', directory);

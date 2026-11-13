@@ -54,6 +54,18 @@ informazioni da rendere ricercabili. `menu.json` e `items.json` continuano a
 gestire, rispettivamente, piatti e prodotti; i filtri dello shop usano `items.json`.
 La pagina inglese usa lo stesso formato con testi e navigazione tradotti.
 La storia e la home si modificano direttamente nei rispettivi HTML.
+Gli schemi SEO sono generati durante la build: `admin/menu-schema.mjs`
+usa lo stesso catalogo localizzato dell’HTML per le carte italiana e inglese,
+compresi condizioni, portate, inclusioni, prezzi e unità di misura.
+`admin/site-business.mjs` mantiene il ristorante sincronizzato con i contatti
+e genera AboutPage dai metadati della storia. `admin/shop-business.mjs`
+gestisce l’identità distinta dello spaccio nelle sue pagine e nei prodotti.
+Le coordinate dei due punti Google Maps, verificate dai link del proprietario
+il 12 novembre 2026, sono centralizzate in `assets/place-map.js` e
+`assets/shop-map.js`: non sostituirle con il centro della vista dell’iframe.
+`admin/site-metadata.mjs` completa Open Graph, Twitter e icona Apple nei
+generatori, leggendo dimensioni e tipo delle immagini locali durante la build.
+Non aggiunge richieste o JavaScript al caricamento delle pagine.
 I collegamenti al menù del sito portano a `/menu/`. L’accesso a `/lume/`
 è nel riquadro finale della pagina `/menu/`; Lume mantiene i propri link interni
 per lingue, piatti e stampa.

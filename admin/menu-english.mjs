@@ -3,7 +3,8 @@ import { createRequire } from 'node:module';
 import { adaptCatalog } from './lume/build.mjs';
 import { renderMenu } from '../assets/menu-render.mjs';
 import { siteLayout } from './site-layout.mjs';
-import { origin, jsonLd, breadcrumbs, breadcrumbSchema } from './site-seo.mjs';
+import { origin, breadcrumbs, breadcrumbSchema } from './site-seo.mjs';
+import { renderMenuSchema } from './menu-schema.mjs';
 import { applySiteStyles } from './site-assets.mjs';
 
 const core = createRequire(import.meta.url)('./lume/src/core.js');
@@ -44,7 +45,7 @@ export async function buildEnglishMenu(catalog) {
 <title>${title}</title><meta name="description" content="${description}"><meta name="robots" content="index,follow,max-image-preview:large">
 <link rel="canonical" href="${origin}/menu/en/"><meta property="og:type" content="website"><meta property="og:locale" content="en_GB"><meta property="og:site_name" content="Agriturismo Giuggioloni"><meta property="og:title" content="${title}"><meta property="og:description" content="${description}"><meta property="og:url" content="${origin}/menu/en/"><meta property="og:image" content="${origin}/og-image-1200x630.png"><meta property="og:image:alt" content="Agriturismo Giuggioloni in Osimo"><meta name="twitter:card" content="summary_large_image"><meta name="theme-color" content="#f5eee3">
 <link rel="icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="stylesheet" href="/assets/site.min.css"><link rel="preload" href="/assets/shop-fonts/playfair-display-700-latin.woff2" as="font" type="font/woff2" crossorigin>
-${jsonLd({'@type':'Menu',name:'Agriturismo Giuggioloni menu',url:origin+'/menu/en/',inLanguage:'en',provider:{'@id':origin+'/#ristorante'}})}${breadcrumbSchema(trail)}
+${renderMenuSchema(english,{language:'en'})}${breadcrumbSchema(trail)}
 <script src="/assets/place-map.js?v=1" defer></script><script src="/assets/site.js?v=9" defer></script><script type="module" src="/assets/menu.mjs?v=3"></script><script src="/assets/booking.js?v=3" defer></script>
 </head><body class="bg-background-cream text-gray-800 font-display bg-texture-cream">${header}
 <main id="content" class="subpage"><section class="menu-hero bg-background-cream border-b border-primary/20"><div class="max-w-4xl mx-auto px-4 sm:px-6">${breadcrumbs(trail,'en')}${menuLanguageLinks('en')}<p class="text-primary text-sm font-bold tracking-widest uppercase mb-3 font-serif">I sapori dell’Acquaviva · Osimo</p><h1 class="text-4xl md:text-6xl font-serif font-bold text-gray-900 mb-6">Our restaurant menu</h1><p class="text-gray-600 font-light text-lg leading-relaxed mb-6">Seasonal cooking at Agriturismo Giuggioloni, inspired by our farm and its harvest.</p><a class="inline-block bg-primary hover:bg-primary-dark text-white px-6 py-3 rounded-sm font-serif font-bold uppercase tracking-wide shadow-lg" href="tel:+393922529406" data-booking>Book a table</a></div></section>

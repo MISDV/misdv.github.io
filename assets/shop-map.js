@@ -4,6 +4,9 @@
     name:'Spaccio Aziendale Giuggioloni',
     featureId:'0x132d87924f3b24d1:0x80ae131f9c226b12',
     cid:'9272369709286845202',
+    // Verified 2026-11-12 from the !3d/!4d POI, not the @ viewport centre.
+    coordinates:Object.freeze({latitude:43.5008501,longitude:13.4688448}),
+    coordinatesSource:'https://maps.app.goo.gl/gq54ttiR5VY8cQ7M6',
     profileUrl:'https://share.google/qXPCdwBKjSw6ZjSwz',
     placeUrl:'https://www.google.com/maps?cid=9272369709286845202',
     embedUrl:'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5157.701182183927!2d13.478493986174648!3d43.48852461000009!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x132d87924f3b24d1%3A0x80ae131f9c226b12!2sSpaccio%20Aziendale%20Giuggioloni!5e0!3m2!1sit!2sit!4v1794177326367!5m2!1sit!2sit'

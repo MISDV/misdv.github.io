@@ -3,6 +3,8 @@ import { createHash } from 'node:crypto';
 import { applyLanguage } from './site-language.mjs';
 import { renderSiteData } from './site-data.mjs';
 import { applyFooterCredit } from './site-credit.mjs';
+import { applySocialMetadata } from './site-metadata.mjs';
+import { applyBusinessSchemas } from './site-business.mjs';
 
 // One blocking stylesheet, shared by the public site. Shop and Lume keep their own CSS.
 const sources = ['../assets/site-legacy.min.css', '../assets/site-extras.css', '../assets/booking.css', './site-accessibility.css'];
@@ -25,5 +27,5 @@ export function applySiteStyles(html) {
   const preload = '<link rel="preload" href="/assets/site-fonts/material-icons-site.woff2" as="font" type="font/woff2" crossorigin>';
   if (!html.includes(preload)) html = html.replace('</head>', `${preload}\n</head>`);
   html = html.replace(/src="\/assets\/site\.js(?:\?[^"]*)?"/g, `src="${siteScript}"`);
-  return applyFooterCredit(applyLanguage(renderSiteData(html)));
+  return applySocialMetadata(applyBusinessSchemas(applyFooterCredit(applyLanguage(renderSiteData(html)))));
 }

@@ -1,4 +1,5 @@
 import { renderMenu } from '../assets/menu-render.mjs';
+import { updateMenuSchema } from './menu-schema.mjs';
 
 const object = value => value && typeof value === 'object' && !Array.isArray(value);
 const nonEmptyText = value => typeof value === 'string' && value.trim().length > 0;
@@ -30,5 +31,6 @@ export function updateMenuPage(html, menu, options) {
   }
   const newline = html.includes('\r\n') ? '\r\n' : '\n';
   const content = renderMenu(menu, options).replace(/\n[ \t]*(?=\n)/g, '').replaceAll('\n', newline);
-  return html.slice(0, from + start.length) + newline + content + newline + html.slice(to);
+  const updated = html.slice(0, from + start.length) + newline + content + newline + html.slice(to);
+  return !options?.preview && Array.isArray(menu.categories) ? updateMenuSchema(updated, menu, { language: options?.language || 'it' }) : updated;
 }
