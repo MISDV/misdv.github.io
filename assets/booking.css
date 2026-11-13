@@ -11,4 +11,5 @@
 .booking-directions{display:inline-flex;align-items:center;min-height:44px}.booking-email{margin-top:1rem;border-top:1px solid #dec8af;padding-top:.85rem}.booking-email a{display:inline-block;max-width:100%;overflow-wrap:anywhere;padding-block:.3rem}
 .site-booking .booking-note{font-size:.75rem;margin:1rem 0 0;color:#66594b}
 .site-booking .booking-note a{text-decoration:underline}
+.site-booking .booking-more{display:inline-flex;align-items:center;min-height:44px;margin-top:.85rem;text-decoration:underline;font-weight:600}
 @media print{.site-booking{display:none!important}}

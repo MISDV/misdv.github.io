@@ -1,11 +1,12 @@
 # File di gestione e generazione
 
 **Progetto IN PAUSA dal 13 novembre 2026, su richiesta dell'utente.**
-Prima di riprendere leggere [STATO-PROGETTO.md](STATO-PROGETTO.md): orari da
-confermare (alta), nuove foto del locale (medio-bassa), foto/prezzi/disponibilità
+Prima di riprendere leggere [STATO-PROGETTO.md](STATO-PROGETTO.md): orari dello
+spaccio da confermare (alta), nuove foto del locale (medio-bassa), foto/prezzi/disponibilità
 degli item dello shop (molto bassa). Attendere una nuova richiesta dell'utente.
 
 Il pannello admin è archiviato e non viene più utilizzato per aggiornare il sito.
+Ultimo aggiornamento: [contatti, società, orari e Pixel Meta](UPDATE-CONTATTI-PIXEL-2026-11-13.md).
 L’audit più recente è [AUDIT-COMPLETO-2026-11-13.md](AUDIT-COMPLETO-2026-11-13.md):
 include SEO, prestazioni, verifiche mobile e limiti delle misurazioni locali.
 Il servizio permette soltanto richieste GET e restituisce dati in sola lettura:
@@ -33,6 +34,27 @@ node admin/build-site-assets.mjs
 
 Le sorgenti sono `admin/build-pages.mjs` e `admin/build-english.mjs`.
 Header e footer comuni sono ricavati dalla home tramite `admin/site-layout.mjs`.
+
+La pagina `/prenotazione/` è generata da `admin/build-prenotazione.mjs`, richiamato
+da `build-pages.mjs`: contatti, orari, social e due schede Maps distinte. Il popup
+e tutti i footer la collegano. I dati societari sono in `dati.json` sotto `societa`;
+`admin/site-company.mjs` li inserisce nei footer e nei JSON-LD delle attività.
+Gli orari del ristorante, compresi i riepiloghi inglesi e di Lume, derivano da
+`dati.json.orari`. Il venerdì è chiuso; gli orari dello spaccio restano da comunicare.
+
+`admin/site-tracking.mjs` aggiunge nell'head `assets/meta-pixel.js`, `consent.js`
+e il piccolo CSS autonomo del consenso. Il passaggio comune dei metadati e la
+scansione finale di `build-site-assets.mjs` coprono tutte le pagine pubbliche,
+comprese Lume, shop, stampe e redirect. L'admin resta escluso. I redirect non
+inviano PageView: viene conteggiata la destinazione, se il marketing è consentito.
+Il Pixel Meta ha ID `1820829302492303`; il suo SDK si carica solo dopo consenso
+marketing, con raccolta automatica degli eventi disattivata e un PageView per
+documento. L'immagine noscript non viene inserita perché invierebbe la visita
+senza consenso. Google Analytics mantiene il solo ambito della home italiana.
+Le preferenze v2 sono separate per statistiche e marketing, scadono dopo 180 giorni
+e consentono revoca da tutti i footer. La scelta precedente v1 non abilita Meta.
+Informativa aggiornata in `build-pages.mjs`, anche per i cookie del Pixel.
+I test locali simulano Meta/Google: non usare l'SDK reale per generare visite di prova.
 
 La firma **Firmato DoubleN** viene inserita nei footer pubblici da
 `admin/site-credit.mjs`, integrato nei generatori di sito, shop e Lume.

@@ -76,6 +76,7 @@ index = block(index, 'SHOP-LIST-SCHEMA', jsonLd({ '@graph': [business,
 ]}));
 index = block(index, 'SHOP-LOCATION', `<section class="shop-store-location" id="spaccio" aria-labelledby="shop-location-title"><h2 id="shop-location-title">${shopName} a Osimo</h2><p>Ti aspettiamo in <strong>Via Acquaviva 34, 60027 Osimo (AN)</strong>, nella stessa struttura dell’agriturismo. Lo spaccio è l’attività dedicata alla vendita in azienda di carni, uova, olio e pasta.</p><p>Per disponibilità, prezzi da definire e prenotazione del pacco famiglia chiama <a href="tel:+393922529406">+39 392 252 9406</a>.</p>${mapControls()}</section>`);
 index = index.replace(/href="\/assets\/shop-products\.css\?[^"\s]+"/, `href="${style}"`)
+  .replaceAll('href="#footer"', 'href="/prenotazione/"')
   .replace(/src="\/assets\/shop-catalog\.js\?[^"\s]+"/, `src="${library}"`)
   .replace(/src="\/assets\/shop\.js\?[^"\s]+"/, `src="${script}"`)
   .replace(/src="\/assets\/shop-controls\.js\?[^"\s]+"/, `src="${controls}"`)

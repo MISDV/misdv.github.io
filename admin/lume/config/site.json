@@ -18,12 +18,12 @@
     "currency": "EUR",
     "timezone": "Europe/Rome",
     "hours": {
-      "it": "Venerdì a cena · sabato e domenica 11:30–15:00 e 19:00–23:00",
-      "en": "Friday dinner · Saturday and Sunday 11:30–15:00 and 19:00–23:00"
+      "it": "Sabato e domenica: 11:30–15:00 e 19:00–23:00",
+      "en": "Saturday and Sunday: 11:30–15:00 and 19:00–23:00"
     },
     "closed": {
-      "it": "Da lunedì a giovedì",
-      "en": "Monday to Thursday"
+      "it": "Da lunedì a venerdì",
+      "en": "Monday to Friday"
     },
     "address": null,
     "phone": null,
@@ -120,9 +120,9 @@
   },
   "privacy": {
     "notice": {
-      "it": "Questa pagina non usa strumenti di analisi o pubblicità. Tema e preferiti sono salvati soltanto sul dispositivo.",
-      "en": "This page does not use analytics or advertising tools. Theme and favourites are stored only on this device."
+      "it": "Tema e preferiti sono salvati soltanto sul dispositivo. Il Pixel di Meta si attiva solo con il consenso ai cookie di marketing, modificabile dalle preferenze cookie del sito.",
+      "en": "Theme and favourites are stored only on this device. The Meta Pixel activates only with consent to marketing cookies, which you can change in the website's cookie preferences."
     },
-    "policyUrl": null
+    "policyUrl": "https://agriturismogiuggioloni.it/privacy/"
   }
 }

@@ -3,6 +3,7 @@ import { escapeHtml as escape } from '../assets/menu-render.mjs';
 import { breadcrumbs, breadcrumbSchema, jsonLd, origin } from './site-seo.mjs';
 import { siteLayout } from './site-layout.mjs';
 import { applySiteStyles } from './site-assets.mjs';
+import { siteData } from './site-data.mjs';
 
 const farm = [
   {
@@ -124,15 +125,18 @@ ${entry.extra || ''}
 
 const privacyPath = '/privacy/';
 await save(privacyPath, page({
-  path: privacyPath, title: 'Privacy e cookie', description: 'Come il sito usa cookie e preferenze e come modificare il consenso alle statistiche.',
+  path: privacyPath, title: 'Privacy e cookie', description: 'Informazioni su cookie, statistiche, Pixel Meta e preferenze di consenso del sito Giuggioloni.',
   trail: [['Home', '/'], ['Privacy e cookie', privacyPath]], privacy: true,
   content: `<article class="farm-content"><h1>Privacy e cookie</h1>
-<p>Per domande sui dati trattati tramite il sito puoi scrivere all’Agriturismo Giuggioloni, Via Acquaviva 34, 60027 Osimo (AN), all’indirizzo <a href="mailto:info@agriturismogiuggioloni.it">info@agriturismogiuggioloni.it</a>.</p>
+<p>Il sito è riferito a <strong>${escape(siteData.societa.ragione_sociale)}</strong>, P. IVA ${escape(siteData.societa.partita_iva)}, Via Acquaviva 34, 60027 Osimo (AN). Per domande sui dati trattati tramite il sito puoi scrivere a <a href="mailto:info@agriturismogiuggioloni.it">info@agriturismogiuggioloni.it</a>.</p>
 <section id="cookie"><h2>Cookie e memoria del dispositivo</h2>
-<p>Il sito salva in questo browser la tua scelta sulle statistiche e la preferenza di lingua Italiano/English, utilizzata per aprire la carta nella lingua scelta. Puoi cambiare lingua dal selettore del menù o cancellare la preferenza dalle impostazioni del browser. Il menù Lume salva localmente i preferiti e il tema che scegli. Puoi cancellarli dalla voce «Privacy e preferenze» di Lume o dalle impostazioni del browser.</p>
+<p>Il sito salva in questo browser la scelta distinta per statistiche e marketing, per un massimo di 180 giorni, e la preferenza di lingua Italiano/English. Le caselle facoltative sono inizialmente disattivate: puoi rifiutarle, scegliere le singole categorie o accettarle entrambe. Il precedente consenso alle sole statistiche non abilita il Pixel Meta. Puoi modificare la scelta dal collegamento «Preferenze cookie» presente nei footer.</p>
+<p>Il menù Lume salva localmente i preferiti e il tema che scegli. Puoi cancellarli dalla voce «Privacy e preferenze» di Lume o dalle impostazioni del browser. Queste funzioni restano disponibili anche senza statistiche o marketing.</p>
 <p>Solo se lo accetti, la home carica Google Analytics 4 per misurare le visite. Analytics può salvare i cookie <code>_ga</code> e <code>_ga_*</code>, per un massimo di 180 giorni dalla creazione. Le funzioni pubblicitarie sono disattivate. Consulta le <a href="https://policies.google.com/technologies/partner-sites?hl=it">informazioni di Google sul trattamento dei dati</a>.</p>
+<p>Solo con il consenso alla categoria <strong>Marketing</strong>, le pagine del sito caricano il <strong>Pixel Meta, identificativo 1820829302492303</strong>, per comunicare a Meta la visita della pagina e misurare l’efficacia delle campagne pubblicitarie. Meta può trattare dati tecnici del dispositivo e del browser, indirizzo IP, URL visitato e identificativi, anche collegandoli a un account Meta secondo le proprie impostazioni e informative. Il codice del sito non invia dati inseriti in moduli, contenuti delle chiamate o delle email, e non attiva la raccolta automatica degli eventi.</p>
+<p>Il Pixel può usare i cookie di prima parte <code>_fbp</code> e <code>_fbc</code>, generalmente fino a 90 giorni; i cookie e gli ulteriori trattamenti del fornitore dipendono anche dalle impostazioni del browser e dell’account. Consulta la <a href="https://www.facebook.com/privacy/policy/">privacy policy di Meta</a> e l’<a href="https://www.facebook.com/privacy/policies/cookies/">informativa cookie di Meta</a> per le informazioni del fornitore, compresi eventuali trasferimenti di dati.</p>
 <p>La mappa Google si collega al fornitore quando apri il popup di prenotazione oppure scegli di mostrarla nella pagina. I collegamenti a Google Maps e ai social aprono siti esterni soggetti alle rispettive informative.</p></section>
-<section id="preferenze-cookie"><h2>Modifica le tue preferenze</h2><p id="cookie-status" class="cookie-status" role="status">Le statistiche richiedono JavaScript e una scelta esplicita.</p><div class="place-actions"><button type="button" data-cookie-settings hidden>Modifica preferenze cookie</button></div></section></article>`,
+<section id="preferenze-cookie"><h2>Modifica le tue preferenze</h2><p>Puoi revocare il consenso in qualsiasi momento, con la stessa facilità con cui lo hai fornito. La revoca disattiva le chiamate successive agli strumenti, rimuove i cookie di prima parte accessibili al sito e vale anche nelle altre schede aperte nello stesso browser. Non annulla i dati già comunicati prima della revoca. Senza JavaScript gli strumenti facoltativi non vengono caricati.</p><p id="cookie-status" class="cookie-status" role="status">Statistiche e marketing richiedono JavaScript e una scelta esplicita.</p><div class="place-actions"><button type="button" data-cookie-settings hidden>Modifica preferenze cookie</button></div></section></article>`,
 }));
 
 async function save(path, content) {
@@ -151,3 +155,4 @@ if (!sitemap.includes(`${origin}/fattoria/</loc>`)) {
 await import('./build-english.mjs');
 await import('./build-spaccio.mjs');
 await import('./build-shop.mjs');
+await import('./build-prenotazione.mjs');

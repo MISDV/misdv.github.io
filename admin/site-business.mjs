@@ -1,5 +1,6 @@
 import placeMap from '../assets/place-map.js';
-import { siteData } from './site-data.mjs';
+import { siteData, restaurantOpeningHours } from './site-data.mjs';
+import { companyIdentity } from './site-company.mjs';
 import { origin, jsonLd } from './site-seo.mjs';
 
 export const restaurantId = origin + '/#ristorante';
@@ -7,6 +8,7 @@ export const restaurantId = origin + '/#ristorante';
 export function restaurantLocation(data = siteData) {
   const contact = data.contatto;
   return {
+    ...companyIdentity(data),
     telephone: contact.numeri_telefono[0].replace(/[^+\d]/g, ''),
     email: contact.mail,
     address: {
@@ -16,6 +18,7 @@ export function restaurantLocation(data = siteData) {
     geo: { '@type': 'GeoCoordinates', ...placeMap.coordinates },
     hasMap: placeMap.placeUrl,
     hasMenu: { '@id': origin + '/menu/#menu' },
+    openingHoursSpecification: restaurantOpeningHours(data),
   };
 }
 

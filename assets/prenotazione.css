@@ -1,0 +1,37 @@
+.contact-page{color:#382b20;--contact-accent:#823815;--contact-line:#dbc5af}
+.contact-page :is(h1,h2,h3,p,a,address){overflow-wrap:break-word}
+.contact-page p{line-height:1.75}.contact-page address{font-style:normal;line-height:1.75}
+.contact-page .contact-eyebrow{font-size:.75rem;font-weight:750;letter-spacing:.1em;line-height:1.6;text-transform:uppercase;color:var(--contact-accent);margin:0 0 .75rem}
+.contact-hero{display:grid;gap:1.5rem;align-items:center;margin:1.25rem 0 2.5rem}
+.contact-hero h1{letter-spacing:-.025em;text-wrap:balance}.contact-hero>div>p:last-child{margin-bottom:0}
+.contact-callout{min-width:0;padding:clamp(1.2rem,4vw,1.75rem);border:1px solid var(--contact-line);border-inline-start:4px solid var(--contact-accent);border-radius:.55rem;background:#fffaf3}
+.contact-callout p:not(.contact-eyebrow){font-size:.9rem;margin:.75rem 0}
+.contact-page .contact-phone{display:inline-block;max-width:100%;font-size:clamp(1.45rem,6.6vw,2.2rem);font-weight:750;font-variant-numeric:tabular-nums;line-height:1.4;letter-spacing:-.025em;color:var(--contact-accent);text-decoration:underline;text-underline-offset:.2em;padding-block:.15rem}
+.contact-page .contact-email{color:var(--contact-accent);overflow-wrap:anywhere;text-decoration:underline;text-underline-offset:.2em}
+.contact-business-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:1.5rem}
+.contact-business{display:flex;flex-direction:column;min-width:0;padding:clamp(1.15rem,3vw,1.75rem);background:#fffaf3;border:1px solid var(--contact-line);border-radius:.55rem;scroll-margin-top:calc(var(--site-nav-height,6rem) + 1rem)}
+.contact-business h2{font-size:clamp(1.55rem,4.5vw,2rem);line-height:1.2;letter-spacing:-.015em;margin:0 0 .5rem}
+.contact-business .contact-subtitle{font-family:"Playfair Display",Georgia,serif;font-size:1.15rem;line-height:1.4;color:var(--contact-accent);margin:0 0 1.15rem}
+.contact-business address{padding-bottom:1.25rem;border-bottom:1px solid var(--contact-line)}
+.contact-business-hours{margin:1.25rem 0}.contact-business h3{font-size:1rem;line-height:1.5;font-weight:750;margin:0 0 .6rem}
+.contact-business p{margin:0 0 1rem}.contact-business .contact-business-hours p{margin:0}
+.contact-hours{margin:0}.contact-hours>div{display:grid;grid-template-columns:minmax(0,1fr);gap:.15rem;padding:.65rem 0;border-bottom:1px solid #eadbc9;line-height:1.5}
+.contact-hours dt{font-weight:650}.contact-hours dd{margin:0;color:#685442}.contact-hours dd span{display:block;font-variant-numeric:tabular-nums;white-space:nowrap}
+.contact-page .place-actions{gap:.6rem}.contact-page .place-actions :is(a,button){min-height:48px;max-width:100%;padding:.65rem .85rem;text-align:center;font-size:.9rem;line-height:1.45;text-decoration:none}
+.contact-page .place-actions .contact-primary{background:var(--contact-accent);border-color:var(--contact-accent);color:#fff}
+.contact-map{margin-top:auto;padding-top:1.5rem}.contact-map>.place-actions{padding-top:1.15rem;border-top:1px solid var(--contact-line)}
+.contact-map iframe{display:block;width:100%;height:clamp(17rem,55vw,22rem);border:0;border-radius:.35rem;margin-top:1rem}
+.contact-map [hidden]{display:none}.contact-map .contact-map-note{font-size:.78rem;line-height:1.6;color:#685442;margin:.8rem 0 0}
+.contact-details{display:grid;gap:2rem;margin-top:3rem;padding-block:2rem;border-block:1px solid var(--contact-line)}
+.contact-details p{margin:0 0 1rem}.contact-details h2{font-size:clamp(1.45rem,4vw,1.9rem)}
+.contact-text-link{display:inline-block;padding-block:.3rem;min-height:44px;color:var(--contact-accent);font-weight:650;text-decoration:underline;text-underline-offset:.2em}
+.contact-social-links{display:flex;flex-wrap:wrap;gap:.65rem;margin-top:1rem}
+.contact-social-links a{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;min-height:48px;padding:.65rem .85rem;border:1px solid var(--contact-line);border-radius:.4rem;background:#fffaf3;color:var(--contact-accent);font-weight:650;text-decoration:underline;text-underline-offset:.2em}
+.contact-social-links svg{flex:none;fill:currentColor}.contact-social-links a>span:last-child{font-weight:400}
+.contact-page .contact-external-note{font-size:.78rem;line-height:1.6;color:#685442;margin:1rem 0 0}
+.contact-company{margin:1.5rem 0 0;font-size:.8rem;color:#685442}.contact-company h2{font:700 .9rem/1.5 "Be Vietnam Pro",sans-serif;margin:0 0 .5rem}.contact-company p{margin:.3rem 0;overflow-wrap:anywhere}
+.contact-page :is(a,button):focus-visible{outline:3px solid #a74b11;outline-offset:4px}
+@media(min-width:480px){.contact-hours>div{grid-template-columns:minmax(0,1fr) auto;gap:1rem}.contact-hours dd{text-align:right}}
+@media(min-width:768px){.contact-hero{grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:2rem;margin-block:1.5rem 3rem}.contact-business-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:1.5rem}.contact-details{grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:2.5rem}.contact-hours>div{grid-template-columns:minmax(0,1fr)}.contact-hours dd{text-align:left}}
+@media(min-width:1024px){.contact-hours>div{grid-template-columns:minmax(0,1fr) auto}.contact-hours dd{text-align:right}}
+@media print{.contact-hero,.contact-business-grid,.contact-details{display:block}.contact-callout,.contact-business,.contact-details{break-inside:avoid;box-shadow:none}.contact-map button,.contact-map-note,.contact-social-links{display:none}.contact-business{margin-bottom:1rem}}

@@ -14,6 +14,7 @@
     <a class="booking-phone" href="${number}">${phone}</a>
     <section aria-labelledby="booking-map-title"><h3 id="booking-map-title">${english ? 'Find us' : 'Dove siamo'}</h3><p>${address}</p><div class="booking-map"></div><a class="booking-directions" href="${restaurantMap.placeUrl}" target="_blank" rel="noopener noreferrer">${english ? 'Directions on Google Maps' : 'Indicazioni su Google Maps'} ↗</a></section>
     <section class="booking-email"><h3>${english ? 'Email' : 'Scrivici'}</h3><a href="mailto:${email}">${email}</a></section>
+    <a class="booking-more" href="/prenotazione/">${english ? 'All contacts and both business maps (Italian)' : 'Scheda completa: contatti e mappe delle due attività'} ↗</a>
     <p class="booking-note">${english ? 'Map provided by Google.' : 'Mappa fornita da Google.'} <a href="/privacy/">${english ? 'Privacy information' : 'Informativa privacy'}</a></p></div>`;
   document.body.append(dialog);
   let opener;

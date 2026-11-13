@@ -3,11 +3,14 @@ import placeMap from '../assets/place-map.js';
 import { breadcrumbSchema, breadcrumbs, jsonLd } from './site-seo.mjs';
 import { siteLayout } from './site-layout.mjs';
 import { applySiteStyles } from './site-assets.mjs';
+import { restaurantHoursSummary } from './site-data.mjs';
+import { escapeHtml as escape } from '../assets/menu-render.mjs';
 
 const title = 'Farm restaurant in Osimo, Marche | Agriturismo Giuggioloni';
 const description = 'Family-run farm restaurant in Osimo: seasonal Marche cooking, two dining rooms, a garden, parking and wheelchair access. View the menu in English and call to book.';
 const trail = [['Home', '/'], ['English', '/en/']];
 const { header, footer } = siteLayout('/en/', 'en');
+const hours = restaurantHoursSummary();
 const html = `<!doctype html>
 <html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
@@ -40,7 +43,7 @@ ${header}
 <h2>A garden for everyone</h2><p>Children have a large green space to play in the restaurant’s garden, surrounded by nature, while parents can enjoy an aperitivo outdoors. Pets are welcome.</p>
 <h2>Parking and access</h2><p>There is a large car park in front of the restaurant. The premises are wheelchair accessible.</p>
 <aside class="farm-note"><h2>A working farm</h2><p>Our farm raises geese, hens, chickens, ducks, rabbits, lambs, goats, sheep, calves and pigs. It is a working farm, not an educational farm, and is not open for visits.</p></aside>
-<h2>Opening times and reservations</h2><p>Friday dinner: please call to confirm the time. Saturday and Sunday: 11:30–15:00 and 19:00–23:00. Closed Monday to Thursday.</p>
+<h2>Opening times and reservations</h2><p>${escape(hours.hours.en)}. Closed: ${escape(hours.closed.en)}.</p>
 <p>Call <a href="tel:+393922529406">+39 392 252 9406</a> to arrange your table, or email <a href="mailto:info@agriturismogiuggioloni.it">info@agriturismogiuggioloni.it</a>.</p>
 <div class="place-actions"><a href="tel:+393922529406" data-booking>Book a table</a><a href="/menu/en/">Dishes and prices</a></div>
 <h2>Find us</h2><p>Via Acquaviva 34, 60027 Osimo (AN), Marche, Italy.</p><p><a href="${placeMap.placeUrl}" target="_blank" rel="noopener noreferrer">Directions on Google Maps</a></p>

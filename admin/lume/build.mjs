@@ -6,6 +6,7 @@ import { breadcrumbs, breadcrumbSchema } from '../site-seo.mjs';
 import { applyLanguage } from '../site-language.mjs';
 import { applyFooterCredit } from '../site-credit.mjs';
 import { applySocialMetadata } from '../site-metadata.mjs';
+import { restaurantHoursSummary } from '../site-data.mjs';
 
 const require = createRequire(import.meta.url);
 const core = require('./src/core.js');
@@ -110,6 +111,9 @@ export async function buildLume(catalog, contactData) {
   site.restaurant.phone = contact?.numeri_telefono?.[0] || null;
   site.restaurant.email = contact?.mail || null;
   site.restaurant.mapsUrl = placeMap.placeUrl;
+  const opening = restaurantHoursSummary(contactData);
+  site.restaurant.hours = opening.hours;
+  site.restaurant.closed = opening.closed;
   site.features.featured = menu.items.some(item => item.id === site.featured.id && item.status === 'available');
   if (catalog.season) for (const lang of site.languages) strings[lang].season = (lang === 'it' ? 'STAGIONE ' : 'SEASON ') + catalog.season;
   const errors = core.validate(site, menu);

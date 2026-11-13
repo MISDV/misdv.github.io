@@ -1,6 +1,8 @@
 import { readFileSync } from 'node:fs';
 import { createHash } from 'node:crypto';
 import { escapeHtml as escape } from '../assets/menu-render.mjs';
+import { applyCompanyData } from './site-company.mjs';
+import { applyTracking } from './site-tracking.mjs';
 
 const origin = 'https://agriturismogiuggioloni.it';
 const imageCache = new Map();
@@ -37,6 +39,7 @@ function imageMetadata(value) {
 }
 
 export function applySocialMetadata(html) {
+  html = applyTracking(applyCompanyData(html));
   html = html.replace(/(<script\b[^>]*\bsrc=")\/assets\/place-map\.js(?:\?[^"]*)?"/g, (_, start) => start + mapScriptHref + '"');
   const match = html.match(/<head\b[^>]*>([\s\S]*?)<\/head>/i);
   if (!match) return html;
@@ -69,5 +72,5 @@ export function applySocialMetadata(html) {
   for (const key of ['title', 'description', 'image', 'image:alt']) setMeta('twitter:' + key, values.get('og:' + key));
   const links = [...head.matchAll(/<link\b[^>]*>/gi)].map(([tag]) => attributes(tag));
   if (!links.some(a => a.rel === 'apple-touch-icon')) head += '\n<link rel="apple-touch-icon" href="/apple-touch-icon.png">';
-  return html.slice(0, match.index) + match[0].replace(match[1], head) + html.slice(match.index + match[0].length);
+  return applyTracking(html.slice(0, match.index) + match[0].replace(match[1], head) + html.slice(match.index + match[0].length));
 }

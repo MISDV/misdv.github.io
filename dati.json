@@ -10,6 +10,10 @@
       "link": "https://www.tiktok.com/@agriturismogiuggioloni"
     }
   },
+  "societa": {
+    "ragione_sociale": "SOCIETA' AGRICOLA GIUGGIOLONI SRL I SAPORI DELL ACQUAVIVA",
+    "partita_iva": "03044800427"
+  },
   "contatto": {
     "via": "Via Acquaviva 34",
     "comune": "60027 Osimo (AN) - Marche",
@@ -59,8 +63,8 @@
     },
     "Venerdì": {
       "pranzo": null,
-      "cena": "",
-      "note": "Cena"
+      "cena": null,
+      "note": "Chiuso"
     },
     "Sabato": {
       "pranzo": "11:30-15:00",
@@ -90,5 +94,5 @@
       "icona": "favorite"
     }
   ],
-  "updated": "2026-11-07"
+  "updated": "2026-11-13"
 }
