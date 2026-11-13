@@ -1,5 +1,10 @@
 # File di gestione e generazione
 
+**Progetto IN PAUSA dal 13 novembre 2026, su richiesta dell'utente.**
+Prima di riprendere leggere [STATO-PROGETTO.md](STATO-PROGETTO.md): orari da
+confermare (alta), nuove foto del locale (medio-bassa), foto/prezzi/disponibilità
+degli item dello shop (molto bassa). Attendere una nuova richiesta dell'utente.
+
 Il pannello admin è archiviato e non viene più utilizzato per aggiornare il sito.
 L’audit più recente è [AUDIT-COMPLETO-2026-11-13.md](AUDIT-COMPLETO-2026-11-13.md):
 include SEO, prestazioni, verifiche mobile e limiti delle misurazioni locali.
