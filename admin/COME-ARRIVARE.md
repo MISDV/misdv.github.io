@@ -17,8 +17,8 @@ La foto dell’insegna fornita per questa pagina è `Immagine ChatGPT 16 nov 202
 
 ## Verifiche sul posto e sui telefoni
 
-- Gli itinerari aggiornati il 18 novembre 2026 usano direttamente i tre link condivisi dal titolare, salvati in `routes[].mapsUrl`. Via e tappe locali sono state riscontrate nei dettagli di Google Maps. I link mantengono il punto di partenza e le tappe del percorso condiviso.
-- Controllare che il punto stimato `43.4981617,13.4658884` coincida con l’insegna di Via Acquaviva. Aggiornare `entrance.point` e impostare `entrance.confirmed` quando verificato.
+- Le tappe in `routes[].waypoints` provengono dagli itinerari condivisi dal titolare. [Santo Stefano](https://maps.app.goo.gl/64pz4toBGJYPaajRA), [San Paterniano](https://maps.app.goo.gl/WKYTa8KWGhb45Ewv5) e [Borgo San Giacomo](https://maps.app.goo.gl/LBv2RY2Mgr6GkjZP9).
+- La build genera i link di navigazione omettendo il parametro `origin`. Google Maps può usare la posizione del dispositivo o chiedere al visitatore di inserire la partenza. La pagina mostra la foto dell’ingresso e apre i percorsi nel servizio esterno. [Documentazione Google Maps URLs](https://developers.google.com/maps/documentation/urls/get-started#directions-action)
 - Riscontrare sul posto la percorribilità dei raccordi, la segnaletica e l’accesso al parcheggio.
 - Aprire i tre pulsanti su Android e iPhone e verificare ordine delle tappe e arrivo alla scheda del ristorante.
 

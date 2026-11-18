@@ -1,14 +1,10 @@
 {
-  "entrance": {
-    "point": "43.4981617,13.4658884",
-    "confirmed": false
-  },
   "routes": [
     {
       "id": "santo-stefano",
       "title": "Santo Stefano",
       "subtitle": "Via Santo Stefano e Via San Valentino",
-      "mapsUrl": "https://maps.app.goo.gl/64pz4toBGJYPaajRA",
+      "waypoints": ["43.509162,13.4605378", "43.5062592,13.4620109"],
       "summary": "Da Santo Stefano raggiungi Via Acquaviva passando per Via San Valentino.",
       "steps": [
         "Segui Via Santo Stefano fino a Via San Valentino, all’altezza del civico 92.",
@@ -20,7 +16,7 @@
       "id": "san-paterniano",
       "title": "San Paterniano",
       "subtitle": "Via Fontemurata e Via Acquaviva",
-      "mapsUrl": "https://maps.app.goo.gl/WKYTa8KWGhb45Ewv5",
+      "waypoints": ["43.5065961,13.4402881", "43.4981617,13.4658884"],
       "summary": "Da San Paterniano raggiungi Via Acquaviva passando per Via Fontemurata.",
       "steps": [
         "Da Via Chiaravallese (SP 5) svolta in Via Fontemurata e raggiungi il civico 1.",
@@ -32,7 +28,7 @@
       "id": "osimo-borgo",
       "title": "Osimo centro",
       "subtitle": "Dal Borgo San Giacomo",
-      "mapsUrl": "https://maps.app.goo.gl/LBv2RY2Mgr6GkjZP9",
+      "waypoints": ["43.4916621,13.4746705", "43.4947978,13.4731819"],
       "summary": "Dal Borgo San Giacomo, segui Via Trento e Via Fratelli Cervi verso Via Acquaviva.",
       "steps": [
         "Dal Borgo San Giacomo segui Via Trento, poi Via Fratelli Cervi in direzione di Via Acquaviva.",

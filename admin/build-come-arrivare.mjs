@@ -1,6 +1,5 @@
 import { createHash } from 'node:crypto';
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
-import placeMap from '../assets/place-map.js';
 import { escapeHtml as escape } from '../assets/menu-render.mjs';
 import { restaurantId } from './site-business.mjs';
 import { siteData } from './site-data.mjs';
@@ -11,26 +10,34 @@ import { applySiteStyles } from './site-assets.mjs';
 const root = new URL('../', import.meta.url);
 const version = async name => '/assets/' + name + '?v=' + createHash('sha256')
   .update(await readFile(new URL('assets/' + name, root))).digest('hex').slice(0, 12);
-const { entrance, routes } = JSON.parse(await readFile(new URL('./come-arrivare.json', import.meta.url), 'utf8'));
+const { routes } = JSON.parse(await readFile(new URL('./come-arrivare.json', import.meta.url), 'utf8'));
 const path = '/come-arrivare/';
 const canonical = origin + path;
 const title = 'Come arrivare all’Agriturismo Giuggioloni a Osimo';
 const description = 'Indicazioni in auto da Santo Stefano, San Paterniano e Osimo centro. Riconosci l’insegna su Via Acquaviva e raggiungi il parcheggio dell’Agriturismo Giuggioloni.';
 const trail = [['Home', '/'], ['Come arrivare', path]];
 const { via, comune, numeri_telefono: [phone] } = siteData.contatto;
+const locality = comune.split(' - ')[0];
+const destination = `Agriturismo Giuggioloni - I Sapori dell'Acquaviva, ${via}, ${locality}`;
 const telephone = 'tel:' + phone.replace(/[^+\d]/g, '');
 const photo = '/assets/come-arrivare/ingresso';
 const photoAlt = 'Insegna in legno Agriturismo Giuggioloni e Spaccio Aziendale, su sostegno scuro e basamento di pietre chiare';
-const entranceLabel = entrance.confirmed ? 'Imbocco della strada privata' : 'Imbocco della strada privata (posizione stimata)';
-const entranceMap = 'https://www.google.com/maps/search/?' + new URLSearchParams({ api: '1', query: entrance.point });
 const newTab = 'target="_blank" rel="noopener noreferrer"';
 const { header, footer } = siteLayout(path);
+const contactHeader = header.replace(/href="tel:[^"]+" data-booking/g, 'href="/prenotazione/"');
 const footerWithoutMap = footer.replace(/<section class="place-map"[\s\S]*?<\/section>/, '');
 
+function directionsUrl(waypoints = []) {
+  // Omit origin so Maps can use the device position or prompt for a starting point.
+  const url = new URL('https://www.google.com/maps/dir/');
+  url.search = new URLSearchParams({ api: '1', destination, travelmode: 'driving' });
+  if (waypoints.length) url.searchParams.set('waypoints', waypoints.join('|'));
+  return url.href;
+}
+
 for (const route of routes) {
-  const url = new URL(route.mapsUrl);
-  if (url.origin !== 'https://maps.app.goo.gl' && !(url.origin === 'https://www.google.com' && url.pathname.startsWith('/maps/dir/'))) {
-    throw new Error(`Link Google Maps non valido per ${route.id}.`);
+  if (!Array.isArray(route.waypoints) || route.waypoints.length < 1 || route.waypoints.length > 3) {
+    throw new Error(`Imposta da una a tre tappe per ${route.id}.`);
   }
 }
 
@@ -47,8 +54,8 @@ const sections = routes.map(route => `<section id="${route.id}" class="arrival-r
     <li>Imbocca la strada privata accanto all’insegna e prosegui fino all’agriturismo e al parcheggio.</li>
   </ol>
   <div class="arrival-actions">
-    <a class="arrival-button arrival-primary" href="${escape(route.mapsUrl)}" ${newTab} data-arrival-event="maps_open" data-route="${route.id}">Apri questo percorso su Google Maps <span aria-hidden="true">↗</span></a>
-    <a class="arrival-button" href="#${route.id}" data-share-route>Condividi queste indicazioni</a>
+    <a class="arrival-button" href="${escape(directionsUrl(route.waypoints))}" ${newTab} data-arrival-event="maps_open" data-route="${route.id}" aria-label="Apri su Google Maps passando da ${escape(route.title)}">Apri su Google Maps <span aria-hidden="true">↗</span></a>
+    <a class="arrival-link" href="#${route.id}" data-share-route>Condividi il percorso</a>
     <a class="arrival-link" href="#riconosci-ingresso">Guarda l’insegna d’ingresso <span aria-hidden="true">↑</span></a>
   </div>
   <p class="arrival-share-status" role="status"></p>
@@ -69,16 +76,17 @@ const html = applySiteStyles(`<!doctype html>
 <meta property="og:image" content="${origin}${photo}-960.webp"><meta property="og:image:alt" content="${escape(photoAlt)}">
 <meta name="twitter:card" content="summary_large_image"><meta name="theme-color" content="#f5eee3"><link rel="icon" href="/favicon.ico">
 <link rel="stylesheet" href="/assets/site.min.css"><link rel="stylesheet" href="${await version('come-arrivare.css')}">
-<script src="${await version('place-map.js')}" defer></script><script src="/assets/site.js" defer></script><script src="/assets/booking.js" defer></script><script src="${await version('come-arrivare.js')}" defer></script>
+<script src="/assets/site.js" defer></script><script src="${await version('come-arrivare.js')}" defer></script>
 ${schema}
 ${breadcrumbSchema(trail)}
 </head><body class="bg-background-cream text-gray-800 font-display bg-texture-cream" data-arrival-analytics>
-${header}<main id="contenuto" class="subpage"><div class="farm-page arrival-page">
+${contactHeader}<main id="contenuto" class="subpage"><div class="farm-page arrival-page">
 ${breadcrumbs(trail)}
 <header class="arrival-intro">
   <h1>Come arrivare all’Agriturismo Giuggioloni</h1>
-  <address>${escape(via)}, ${escape(comune.split(' - ')[0])}</address>
-  <p>Scegli da dove arrivi: ti accompagniamo fino all’ingresso con indicazioni semplici e punti di riferimento.</p>
+  <address>${escape(via)}, ${escape(locality)}</address>
+  <p>Google Maps usa la tua posizione quando è disponibile. Se serve, tocca il campo di partenza in Maps e inserisci il tuo indirizzo.</p>
+  <a class="arrival-button arrival-primary" href="${escape(directionsUrl())}" ${newTab} data-arrival-event="maps_open" data-route="diretto">Indicazioni su Google Maps <span aria-hidden="true">↗</span></a>
 </header>
 <nav class="arrival-choices" aria-labelledby="arrival-choices-title">
   <h2 id="arrival-choices-title">Da dove arrivi?</h2>
@@ -97,26 +105,13 @@ ${breadcrumbs(trail)}
 </section>
 <section class="arrival-itineraries" aria-labelledby="arrival-itineraries-title">
   <h2 id="arrival-itineraries-title">Indicazioni in auto</h2>
-  <p class="arrival-route-note">Ogni link apre il percorso con le tappe già impostate. Controlla eventuali limitazioni segnalate da Maps e la segnaletica sul posto. ${entrance.confirmed ? '' : 'Il punto dell’imbocco sulla mappa è indicativo. Sul posto, cerca l’insegna in legno.'}</p>
   ${sections}
 </section>
-<div class="arrival-support">
-  <section id="mappa" class="place-map arrival-map" data-map aria-labelledby="arrival-map-title">
-    <h2 id="arrival-map-title">L’ingresso e il locale su Maps</h2>
-    <p>Usa l’insegna per riconoscere l’imbocco. La mappa qui sotto mostra il locale e si collega a Google solo quando scegli di aprirla.</p>
-    <div class="arrival-actions">
-      <a class="arrival-link" href="${escape(entranceMap)}" ${newTab} data-arrival-event="maps_open" data-route="ingresso">${entranceLabel} <span aria-hidden="true">↗</span></a>
-      <a class="arrival-link" href="${escape(placeMap.placeUrl)}" ${newTab} data-arrival-event="maps_open" data-route="locale">Scheda Google del ristorante <span aria-hidden="true">↗</span></a>
-      <button type="button" class="arrival-button" data-map-toggle data-arrival-event="maps_open" data-route="mappa" aria-expanded="false" aria-controls="arrival-map-slot" hidden>Mostra la mappa Google</button>
-    </div>
-    <div id="arrival-map-slot" data-map-slot hidden></div>
-  </section>
-  <section class="arrival-help" aria-labelledby="arrival-help-title">
-    <h2 id="arrival-help-title">Hai bisogno di aiuto? Chiamaci</h2>
-    <a class="arrival-button arrival-primary" href="${telephone}" data-arrival-event="phone_click">${escape(phone)}</a>
-    <a class="arrival-link" href="/prenotazione/">Prenotazioni e contatti <span aria-hidden="true">→</span></a>
-  </section>
-</div>
+<section class="arrival-help" aria-labelledby="arrival-help-title">
+  <h2 id="arrival-help-title">Hai bisogno di aiuto? Chiamaci</h2>
+  <a class="arrival-button arrival-primary" href="${telephone}" data-arrival-event="phone_click">${escape(phone)}</a>
+  <a class="arrival-link" href="/prenotazione/">Prenotazioni e contatti <span aria-hidden="true">→</span></a>
+</section>
 </div></main>${footerWithoutMap}
 </body></html>
 `);
@@ -125,4 +120,4 @@ const directory = new URL('come-arrivare/', root);
 await mkdir(directory, { recursive: true });
 const output = new URL('index.html', directory);
 if (await readFile(output, 'utf8').catch(() => '') !== html) await writeFile(output, html);
-console.log('Pagina /come-arrivare/ generata con i tre itinerari.');
+console.log('Pagina /come-arrivare/ generata con partenza gestita da Google Maps.');

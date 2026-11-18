@@ -11,6 +11,7 @@
 .arrival-intro address { margin-bottom: .55rem; font-style: normal; font-weight: 700; color: var(--arrival-accent); }
 .arrival-page p, .arrival-route li { line-height: 1.65; }
 .arrival-intro p { max-width: 65ch; }
+.arrival-intro .arrival-primary { margin-top: .85rem; }
 
 .arrival-choices ul {
   display: grid;
@@ -47,7 +48,6 @@
 
 .arrival-entrance img { display: block; width: 100%; height: auto; border-radius: .4rem; }
 .arrival-entrance figcaption { margin-top: .45rem; font-size: .82rem; line-height: 1.55; }
-.arrival-route-note { max-width: 72ch; margin-bottom: 1rem; }
 
 .arrival-route {
   margin-bottom: 1rem;
@@ -90,8 +90,6 @@
 .arrival-share-copy label { display: block; font-size: .9rem; }
 .arrival-share-copy input { width: 100%; max-width: 32rem; padding: .45rem; background: white; border: 1px solid var(--arrival-line); }
 
-.arrival-support { display: grid; gap: 1rem; margin-top: 2rem; }
-.arrival-map { margin: 0; }
 .arrival-help { padding: 1.1rem; border-block: 1px solid var(--arrival-line); }
 .arrival-help .arrival-link { margin-inline-start: .6rem; }
 

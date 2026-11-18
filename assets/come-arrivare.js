@@ -7,7 +7,6 @@
     if (!control) return;
 
     if (control.hasAttribute('data-arrival-event')) {
-      if (control.hasAttribute('data-map-toggle') && control.getAttribute('aria-expanded') !== 'true') return;
       window.GiuggioloniConsent?.trackArrival(control.dataset.arrivalEvent, control.dataset.route);
       return;
     }

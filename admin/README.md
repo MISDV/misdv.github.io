@@ -40,8 +40,8 @@ da `build-pages.mjs`: contatti, orari, social e due schede Maps distinte. Il pop
 e tutti i footer la collegano. I dati societari sono in `dati.json` sotto `societa`;
 `admin/site-company.mjs` li inserisce nei footer e nei JSON-LD delle attività.
 La pagina `/come-arrivare/` si rigenera con `node admin/build-come-arrivare.mjs`,
-richiamato anche da `build-pages.mjs`. Le tappe, l’imbocco stimato e i testi dei
-percorsi sono in `admin/come-arrivare.json`. Vedi [Come arrivare](COME-ARRIVARE.md)
+richiamato anche da `build-pages.mjs`. Le tappe dei tre percorsi sono in
+`admin/come-arrivare.json`. Google Maps gestisce la partenza. Vedi [Come arrivare](COME-ARRIVARE.md)
 per i punti da verificare e le foto dei bivi da raccogliere.
 Gli orari del ristorante, compresi i riepiloghi inglesi e di Lume, derivano da
 `dati.json.orari`. Il venerdì è chiuso; gli orari dello spaccio restano da comunicare.
