@@ -1,0 +1,90 @@
+.feste-list--home {
+  width: min(calc(100% - 2rem), 70rem);
+  margin: 0 auto;
+  padding-block: clamp(2rem, 6vw, 4rem);
+}
+.feste-list--menu {
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  border: 1px solid #dfc5ab;
+  border-radius: .55rem;
+  background: #fffaf3;
+}
+.feste-list h2, .feste-related h2 {
+  margin: 0 0 .85rem;
+  font: 700 clamp(1.35rem, 4vw, 1.8rem)/1.2 "Playfair Display", Georgia, serif;
+  color: #382b20;
+}
+.feste-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: .6rem;
+}
+.feste-links a {
+  display: flex;
+  min-height: 44px;
+  align-items: center;
+  justify-content: space-between;
+  gap: .65rem;
+  padding: .5rem .75rem;
+  border: 1px solid #c89f81;
+  border-radius: .4rem;
+  background: #fffaf3;
+  color: #71320f;
+  text-decoration: underline;
+  text-underline-offset: .18em;
+}
+.feste-links a:hover { background: #f5e5d4; }
+.feste-links a:focus-visible, .feste-phone:focus-visible {
+  outline: 2px solid #823815;
+  outline-offset: 3px;
+}
+.feste-links--cards { display: grid; gap: .85rem; }
+.feste-links--cards a { min-height: 5.25rem; padding: .85rem 1rem; text-decoration: none; }
+.feste-links--cards strong { display: block; font-size: 1.1rem; text-decoration: underline; }
+.feste-links--cards small { display: block; margin-top: .25rem; color: #685442; }
+.feste-intro {
+  margin-block: 1rem 1.5rem;
+  padding: clamp(1.25rem, 5vw, 3rem);
+  border-radius: .65rem;
+  border: 1px solid #dfc5ab;
+  background: #f4e5d6;
+  color: #382b20;
+}
+.feste-intro h1 { margin: .65rem 0 .8rem; }
+.feste-intro p { max-width: 55ch; line-height: 1.6; }
+.feste-intro .feste-service { color: #71320f; font-weight: 700; }
+.feste-info {
+  display: grid;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  padding: clamp(1rem, 4vw, 1.75rem);
+  border: 1px solid #dfc5ab;
+  border-radius: .55rem;
+  background: #fffaf3;
+  color: #382b20;
+}
+.feste-info h2, .feste-info h3 { margin: 0 0 .5rem; }
+.feste-info p, .feste-address address { line-height: 1.6; }
+.feste-phone {
+  display: inline-flex;
+  flex-direction: column;
+  margin-top: .9rem;
+  padding: .65rem .9rem;
+  border-radius: .4rem;
+  background: #823815;
+  color: #fffaf3;
+}
+.feste-phone:hover { background: #642a11; }
+.feste-phone strong { font-size: 1.15rem; text-decoration: underline; }
+.feste-address { border-top: 1px solid #dfc5ab; padding-top: 1rem; }
+.feste-address address { font-style: normal; margin-bottom: .65rem; }
+
+@media (min-width: 48rem) {
+  .feste-links--cards { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .feste-info { grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); gap: 2rem; }
+  .feste-address { border-top: 0; border-left: 1px solid #dfc5ab; padding: 0 0 0 1.5rem; }
+}

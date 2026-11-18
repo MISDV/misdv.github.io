@@ -5,6 +5,7 @@ import { renderSiteData } from './site-data.mjs';
 import { applyFooterCredit } from './site-credit.mjs';
 import { applySocialMetadata } from './site-metadata.mjs';
 import { applyBusinessSchemas } from './site-business.mjs';
+import { applyFestivities } from './site-feste.mjs';
 
 // One blocking stylesheet, shared by the public site. Shop and Lume keep their own CSS.
 const sources = ['../assets/site-legacy.min.css', './site-fonts.css', '../assets/site-extras.css', '../assets/booking.css', './site-accessibility.css'];
@@ -21,6 +22,7 @@ const serifFont = css.match(/src:url\((site-fonts\/giuggioloni-serif-[a-f0-9]+\.
 if (!serifFont) throw new Error('Font principale ottimizzato non trovato.');
 
 export function applySiteStyles(html) {
+  html = applyFestivities(html);
   let found = false;
   html = html.replace(/<link\b[^>]*href="\/assets\/(?:site-legacy\.min|site\.min|site-extras|booking)\.css(?:\?[^"\s]*)?"[^>]*>/g, () => {
     if (found) return '';

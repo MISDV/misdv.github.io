@@ -1,49 +1,44 @@
 {
-  "destinationPlaceId": "ChIJh62e45OGLRMR78gbF5kMRtw",
   "entrance": {
     "point": "43.4981617,13.4658884",
-    "confirmed": false,
-    "mappedLengthMetres": 430
+    "confirmed": false
   },
   "routes": [
     {
       "id": "santo-stefano",
       "title": "Santo Stefano",
-      "subtitle": "Da Offagna o San Biagio",
-      "summary": "Passa per la zona della chiesa di Santo Stefano e di Via San Valentino, poi raggiungi Via Acquaviva.",
+      "subtitle": "Via Santo Stefano e Via San Valentino",
+      "mapsUrl": "https://maps.app.goo.gl/64pz4toBGJYPaajRA",
+      "summary": "Da Santo Stefano raggiungi Via Acquaviva passando per Via San Valentino.",
       "steps": [
-        "Raggiungi Santo Stefano. Se arrivi da San Biagio, passa per Via Montegalluccio.",
-        "Prendi come riferimento la zona della chiesa di Santo Stefano e di Via San Valentino.",
-        "Al bivio per Via Acquaviva, segui la strada fino all’insegna in legno."
-      ],
-      "waypoints": ["43.5092427,13.4605380"],
-      "estimate": { "from": "Bivio Via Montegalluccio / Via Acquaviva", "origin": "43.5092427,13.4605380", "km": 2.2, "minutes": "6" }
+        "Segui Via Santo Stefano fino a Via San Valentino, all’altezza del civico 92.",
+        "Prosegui dritto su Via Acquaviva fino all’altezza del civico 46.",
+        "Continua verso il raccordo con Via Rosciano. Al bivio svolta a sinistra per restare su Via Acquaviva. Più avanti l’insegna d’ingresso è sulla sinistra."
+      ]
     },
     {
       "id": "san-paterniano",
       "title": "San Paterniano",
-      "subtitle": "Via Fontemurata e Via Rosciano",
-      "summary": "Arriva a Via Acquaviva passando per Via Fontemurata e Via Rosciano.",
+      "subtitle": "Via Fontemurata e Via Acquaviva",
+      "mapsUrl": "https://maps.app.goo.gl/WKYTa8KWGhb45Ewv5",
+      "summary": "Da San Paterniano raggiungi Via Acquaviva passando per Via Fontemurata.",
       "steps": [
-        "Dalla zona di Via XVII Luglio, percorri Via Chiaravallese in direzione Osimo.",
-        "Entra in Via Fontemurata e raggiungi il raccordo verso Via Rosciano.",
-        "Segui Via Rosciano fino a Via Acquaviva e continua fino all’insegna in legno."
-      ],
-      "waypoints": ["43.5065961,13.4402881", "43.5070098,13.4574374"],
-      "estimate": { "from": "Incrocio Via XVII Luglio / Via Chiaravallese", "origin": "43.5048729,13.4331081", "km": 4.9, "minutes": "12" }
+        "Da Via Chiaravallese (SP 5) svolta in Via Fontemurata e raggiungi il civico 1.",
+        "Dal civico 1 continua lungo Via Fontemurata per circa 800 metri, poi svolta a destra. Segui su Maps i bivi del raccordo fino a Via Acquaviva.",
+        "All’innesto svolta a sinistra su Via Acquaviva e cerca l’insegna nei pressi del civico 36."
+      ]
     },
     {
       "id": "osimo-borgo",
       "title": "Osimo centro",
       "subtitle": "Dal Borgo San Giacomo",
-      "summary": "Dal Borgo San Giacomo, raggiungi Via Acquaviva passando per Via Roncisvalle.",
+      "mapsUrl": "https://maps.app.goo.gl/LBv2RY2Mgr6GkjZP9",
+      "summary": "Dal Borgo San Giacomo, segui Via Trento e Via Fratelli Cervi verso Via Acquaviva.",
       "steps": [
-        "Dal centro di Osimo, raggiungi il Borgo San Giacomo.",
-        "Percorri Via Roncisvalle fino all’accesso a Via Acquaviva.",
-        "Prosegui su Via Acquaviva fino all’insegna in legno."
-      ],
-      "waypoints": ["43.4965538,13.4702683"],
-      "estimate": { "from": "Inizio del tratto rurale mappato come Via Acquaviva", "origin": "43.4892894,13.4788668", "km": 2, "minutes": "5–6" }
+        "Dal Borgo San Giacomo segui Via Trento, poi Via Fratelli Cervi in direzione di Via Acquaviva.",
+        "Raggiungi Via Acquaviva, all’altezza del civico 9.",
+        "Continua su Via Acquaviva verso nord-ovest. L’insegna d’ingresso è sulla destra."
+      ]
     }
   ]
 }

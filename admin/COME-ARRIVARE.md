@@ -17,17 +17,18 @@ La foto dell’insegna fornita per questa pagina è `Immagine ChatGPT 16 nov 202
 
 ## Verifiche sul posto e sui telefoni
 
+- Gli itinerari aggiornati il 18 novembre 2026 usano direttamente i tre link condivisi dal titolare, salvati in `routes[].mapsUrl`. Via e tappe locali sono state riscontrate nei dettagli di Google Maps. I link mantengono il punto di partenza e le tappe del percorso condiviso.
 - Controllare che il punto stimato `43.4981617,13.4658884` coincida con l’insegna di Via Acquaviva. Aggiornare `entrance.point` e impostare `entrance.confirmed` quando verificato.
-- Confermare nomi e percorribilità dei tre itinerari, i punti di partenza delle stime e il riferimento al parcheggio. Distanze e tempi del brief restano nella configurazione.
-- Aprire i tre pulsanti su Android e iPhone e verificare ordine delle tappe e arrivo alla scheda del ristorante. I collegamenti usano il Place ID della destinazione e fino a tre tappe. [Documentazione di Google Maps](https://developers.google.com/maps/documentation/urls/get-started#directions-action).
+- Riscontrare sul posto la percorribilità dei raccordi, la segnaletica e l’accesso al parcheggio.
+- Aprire i tre pulsanti su Android e iPhone e verificare ordine delle tappe e arrivo alla scheda del ristorante.
 
 ## Foto da raccogliere
 
-1. Bivio per Via Acquaviva arrivando da Santo Stefano, con la chiesa se visibile.
+1. Innesto tra Via San Valentino e Via Acquaviva arrivando da Santo Stefano.
 2. Incrocio Via Chiaravallese / Via Fontemurata arrivando da San Paterniano.
-3. Bivio da Via Fontemurata verso il raccordo di Via Rosciano.
-4. Incrocio Via Rosciano / Via Acquaviva nella direzione di marcia.
-5. Bivio Via Roncisvalle / Via Acquaviva arrivando dal Borgo.
+3. Svolta da Via Fontemurata verso il raccordo indicato da Maps.
+4. Innesto del raccordo con Via Acquaviva arrivando da San Paterniano.
+5. Accesso a Via Acquaviva arrivando da Via Fratelli Cervi e dal Borgo.
 6. Imbocco della strada privata arrivando da Santo Stefano o Via Rosciano.
 7. Imbocco della stessa strada arrivando dal Borgo.
 8. Ingresso del parcheggio all’arrivo all’agriturismo.

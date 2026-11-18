@@ -1,8 +1,11 @@
 import { readdir, readFile, writeFile } from 'node:fs/promises';
 import { applySiteStyles } from './site-assets.mjs';
 import { applySocialMetadata } from './site-metadata.mjs';
+import { festivities } from './site-feste.mjs';
 
-for (const name of ['index.html', 'menu/index.html', 'menu/en/index.html', 'storia.html', 'en/index.html', 'spaccio/index.html', 'fattoria/index.html', 'fattoria/animali/index.html', 'fattoria/orto/index.html', 'fattoria/locale/index.html', 'privacy/index.html', 'prenotazione/index.html', 'come-arrivare/index.html']) {
+const publicPages = ['index.html', 'menu/index.html', 'menu/en/index.html', 'storia.html', 'en/index.html', 'spaccio/index.html', 'fattoria/index.html', 'fattoria/animali/index.html', 'fattoria/orto/index.html', 'fattoria/locale/index.html', 'privacy/index.html', 'prenotazione/index.html', 'come-arrivare/index.html', 'social/index.html'];
+const festivityPages = festivities.map(event => event.path.slice(1) + 'index.html');
+for (const name of [...publicPages, ...festivityPages]) {
   const file = new URL('../' + name, import.meta.url);
   const html = await readFile(file, 'utf8');
   const updated = applySiteStyles(html);

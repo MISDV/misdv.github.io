@@ -21,6 +21,7 @@ const translations = new Map([
   ['Lo spaccio aziendale', 'Farm shop (IT)'],
   ['Menù completo', 'Restaurant menu'], ['Prenota Ora!', 'Book a table'], ['Prenota', 'Book a table'],
   ['Preferenze cookie', 'Cookie preferences'], ['Informativa', 'Privacy (IT)'],
+  ['Novità e post social', 'News and social posts (IT)'],
   ['Tutti i diritti riservati.', 'All rights reserved.'], ['Esplora', 'Explore'], ['Contatti', 'Contact'], ['Orari', 'Opening times'],
   ['Lunedì', 'Monday'], ['Martedì', 'Tuesday'], ['Mercoledì', 'Wednesday'], ['Giovedì', 'Thursday'],
   ['Venerdì', 'Friday'], ['Sabato', 'Saturday'], ['Domenica', 'Sunday'], ['Chiuso', 'Closed'], ['Prodotti', 'Products (IT)'],
@@ -38,6 +39,7 @@ export function siteLayout(path = '/', language = 'it') {
   header = header.replaceAll('href="#fattoria"', 'href="/fattoria/"').replaceAll('href="/#fattoria"', 'href="/fattoria/"')
     .replaceAll('href="#prodotti"', 'href="/spaccio/"').replaceAll('href="/#prodotti"', 'href="/spaccio/"').replaceAll('href="/shop/"', 'href="/spaccio/"');
   footer = footer.replaceAll('href="/shop/"', 'href="/spaccio/"');
+  if (path === '/social/') footer = footer.replace('href="/social/"', 'href="/social/" aria-current="page"');
   if (path === '/menu/') {
     header = header.replaceAll('href="/menu/">Menù completo', 'href="/menu/" aria-current="page">Menù completo');
     footer = footer.replace('href="/en/" lang="en" hreflang="en"','href="/menu/en/" lang="en" hreflang="en"');
@@ -45,6 +47,9 @@ export function siteLayout(path = '/', language = 'it') {
   if (path === '/') header = header.replaceAll('href="/">Home</a>', 'href="/" aria-current="page">Home</a>');
   if (path === '/fattoria/') header = header.replaceAll('href="/fattoria/"', 'href="/fattoria/" aria-current="page"');
   if (path === '/come-arrivare/') header = header.replaceAll('href="/come-arrivare/"', 'href="/come-arrivare/" aria-current="page"');
+  if (path === '/capodanno/') {
+    header = header.replaceAll(' data-booking', '').replace(/>Prenota(?: Ora!)?<\/a>/g, '>Chiama per l’asporto</a>');
+  }
   footer = footer.replace(/<div class="flex items-center gap-3 mb-6">([\s\S]*?)(?=\s*<p data-text="home.descrizione")/, block =>
     block.replace('<div class="flex items-center gap-3 mb-6">', '<a href="/" aria-label="Agriturismo Giuggioloni — home" class="site-footer-brand flex items-center gap-3 mb-6">').replace(/<\/div>(\s*)$/, '</a>$1'));
   header = renderSiteData(header);

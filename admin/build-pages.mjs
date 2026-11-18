@@ -4,6 +4,8 @@ import { breadcrumbs, breadcrumbSchema, jsonLd, origin } from './site-seo.mjs';
 import { siteLayout } from './site-layout.mjs';
 import { applySiteStyles } from './site-assets.mjs';
 import { siteData } from './site-data.mjs';
+import { festivities, renderFestivity } from './site-feste.mjs';
+import { renderSocialPosts, socialHead } from './site-social.mjs';
 
 const farm = [
   {
@@ -41,13 +43,13 @@ const farm = [
   },
 ];
 
-function photo([name, alt], eager = false, card = false) {
-  const prefix = '/assets/fattoria/' + name;
+function photo([name, alt], eager = false, card = false, folder = 'fattoria') {
+  const prefix = `/assets/${folder}/${name}`;
   const sizes = eager || card ? '(min-width: 768px) min(48vw, 540px), calc(100vw - 2rem)' : '(min-width: 768px) 33vw, calc(100vw - 2rem)';
   return `<picture><source type="image/avif" srcset="${prefix}-480.avif 480w, ${prefix}-800.avif 800w" sizes="${sizes}"><img class="farm-photo" src="${prefix}-480.webp" srcset="${prefix}-480.webp 480w, ${prefix}-800.webp 800w" sizes="${sizes}" width="480" height="360" alt="${escape(alt)}" ${eager ? 'fetchpriority="high"' : 'loading="lazy"'} decoding="async"></picture>`;
 }
 
-function page({ path, title, description, trail, content, hero, privacy = false, collection = [] }) {
+function page({ path, title, description, trail, content, hero, privacy = false, collection = [], booking = true, pageHead = '' }) {
   const { header, footer } = siteLayout(path);
   const canonical = origin + path;
   const fullTitle = escape(title + ' | Agriturismo Giuggioloni');
@@ -84,8 +86,8 @@ ${breadcrumbSchema(trail)}
 ${schema}
 <script src="/assets/place-map.js?v=1" defer></script>
 <script src="/assets/site.js?v=9" defer></script>
-<script src="/assets/booking.js?v=3" defer></script>
-${privacy ? '<script src="/assets/consent.js?v=1" defer></script>' : ''}
+${booking ? '<script src="/assets/booking.js?v=3" defer></script>' : ''}
+${privacy ? '<script src="/assets/consent.js?v=1" defer></script>' : ''}${pageHead ? '\n' + pageHead : ''}
 </head>
 <body class="bg-background-cream dark:bg-background-dark text-gray-800 dark:text-gray-200 font-display bg-texture-cream">
 ${header}<main id="contenuto" class="subpage"><div class="farm-page">
@@ -123,6 +125,54 @@ ${entry.extra || ''}
   await save(entry.path, page({ ...entry, trail: [['Home', '/'], ['Fattoria', '/fattoria/'], [entry.label, entry.path]], content }));
 }
 
+for (const event of festivities) {
+  await save(event.path, page({
+    ...event,
+    trail: [['Home', '/'], [event.label, event.path]],
+    content: renderFestivity(event),
+    booking: !event.takeaway,
+  }));
+}
+
+const socialPath = '/social/';
+const socialHero = ['giardino', 'Il giardino dell’Agriturismo Giuggioloni a Osimo'];
+const socialProfiles = [
+  ['instagram', 'Instagram'],
+  ['facebook', 'Facebook'],
+].map(([id, name]) => `<a class="gap-2" href="${escape(siteData.socials[id].link)}" data-social="${id}"><svg class="social-icon" width="18" height="18" aria-hidden="true" focusable="false"><use href="/assets/site-social.svg#${id}"></use></svg>Apri ${name}</a>`).join('\n');
+const highlights = [
+  {
+    path: '/fattoria/orto/', label: 'Dall’orto alla cucina', cta: 'Scopri l’orto',
+    image: ['campo', 'Filari dell’orto dell’Agriturismo Giuggioloni a Osimo'],
+    text: 'A Osimo il raccolto dell’orto cambia con le stagioni. Maurizio porta in cucina gli ortaggi disponibili, che accompagnano i piatti del menù.',
+  },
+  {
+    path: '/spaccio/', label: 'Pasta fresca all’uovo allo spaccio', cta: 'Scopri lo spaccio',
+    image: ['pasta-fresca', 'Pasta fresca all’uovo esposta nel banco dello spaccio Giuggioloni'],
+    folder: 'spaccio',
+    text: 'Chitarrine, tagliatelle, cappelletti e ravioli sono esposti al banco dello spaccio aziendale, in Via Acquaviva 34. Contattaci prima di passare per verificare l’assortimento.',
+  },
+];
+await save(socialPath, page({
+  path: socialPath,
+  title: 'Novità, Instagram e Facebook da Osimo',
+  description: 'I post dell’Agriturismo Giuggioloni a Osimo su menù di Natale, piatti da asporto e serate a tema. Scopri i nostri profili Instagram e Facebook.',
+  trail: [['Home', '/'], ['Novità e post social', socialPath]],
+  hero: socialHero,
+  pageHead: socialHead,
+  content: `<header class="farm-hero">
+  <div><h1>Novità e post dell’agriturismo</h1><p>Segui Giuggioloni su Instagram e Facebook per vedere le foto della cucina, dell’orto e dello spaccio aziendale di Osimo.</p>
+    <div class="place-actions" aria-label="Profili ufficiali" role="group">${socialProfiles}</div>
+  </div>
+  ${photo(socialHero, true)}
+</header>
+${renderSocialPosts()}
+<section aria-labelledby="social-highlights">
+  <h2 id="social-highlights">In evidenza sul sito</h2>
+  <div class="farm-overview-grid">${highlights.map(entry => `<a class="farm-overview-card" href="${entry.path}">${photo(entry.image, false, true, entry.folder)}<div><h3>${escape(entry.label)}</h3><p>${escape(entry.text)}</p><span aria-hidden="true">${escape(entry.cta)} <span>→</span></span></div></a>`).join('\n')}</div>
+</section>`,
+}));
+
 const privacyPath = '/privacy/';
 await save(privacyPath, page({
   path: privacyPath, title: 'Privacy e cookie', description: 'Informazioni su cookie, statistiche, Pixel Meta e preferenze di consenso del sito Giuggioloni.',
@@ -135,6 +185,7 @@ await save(privacyPath, page({
 <p>Con il consenso alle <strong>Statistiche</strong>, Google Analytics 4 misura le visite alla home italiana. Il consenso dato con le preferenze aggiornate consente di misurare anche l’apertura di Maps, la condivisione delle indicazioni e i clic sul numero di telefono nella pagina «Come arrivare». Un clic sul numero non indica che la chiamata sia stata effettuata. Il sito non richiede né salva la tua posizione. Analytics può salvare i cookie <code>_ga</code> e <code>_ga_*</code>, per un massimo di 180 giorni dalla creazione. Le funzioni pubblicitarie sono disattivate. Consulta le <a href="https://policies.google.com/technologies/partner-sites?hl=it">informazioni di Google sul trattamento dei dati</a>.</p>
 <p>Solo con il consenso alla categoria <strong>Marketing</strong>, le pagine del sito caricano il <strong>Pixel Meta, identificativo 1820829302492303</strong>, per comunicare a Meta la visita della pagina e misurare l’efficacia delle campagne pubblicitarie. Meta può trattare dati tecnici del dispositivo e del browser, indirizzo IP, URL visitato e identificativi, anche collegandoli a un account Meta secondo le proprie impostazioni e informative. Il codice del sito non invia dati inseriti in moduli, contenuti delle chiamate o delle email, e non attiva la raccolta automatica degli eventi.</p>
 <p>Il Pixel può usare i cookie di prima parte <code>_fbp</code> e <code>_fbc</code>, generalmente fino a 90 giorni; i cookie e gli ulteriori trattamenti del fornitore dipendono anche dalle impostazioni del browser e dell’account. Consulta la <a href="https://www.facebook.com/privacy/policy/">privacy policy di Meta</a> e l’<a href="https://www.facebook.com/privacy/policies/cookies/">informativa cookie di Meta</a> per le informazioni del fornitore, compresi eventuali trasferimenti di dati.</p>
+<p>Nella pagina <a href="/social/">Novità e post social</a>, il pulsante «Mostra anteprima» collega il browser a Instagram per visualizzare il singolo post. Instagram può ricevere dati tecnici della connessione e usare i propri cookie, secondo l’informativa di Meta. Puoi chiudere l’anteprima in qualsiasi momento.</p>
 <p>La mappa Google si collega al fornitore quando apri il popup di prenotazione oppure scegli di mostrarla nella pagina. I collegamenti a Google Maps e ai social aprono siti esterni soggetti alle rispettive informative.</p></section>
 <section id="preferenze-cookie"><h2>Modifica le tue preferenze</h2><p>Puoi revocare il consenso in qualsiasi momento, con la stessa facilità con cui lo hai fornito. La revoca disattiva le chiamate successive agli strumenti, rimuove i cookie di prima parte accessibili al sito e vale anche nelle altre schede aperte nello stesso browser. Non annulla i dati già comunicati prima della revoca. Senza JavaScript gli strumenti facoltativi non vengono caricati.</p><p id="cookie-status" class="cookie-status" role="status">Statistiche e marketing richiedono JavaScript e una scelta esplicita.</p><div class="place-actions"><button type="button" data-cookie-settings hidden>Modifica preferenze cookie</button></div></section></article>`,
 }));

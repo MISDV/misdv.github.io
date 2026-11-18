@@ -11,14 +11,13 @@ import { applySiteStyles } from './site-assets.mjs';
 const root = new URL('../', import.meta.url);
 const version = async name => '/assets/' + name + '?v=' + createHash('sha256')
   .update(await readFile(new URL('assets/' + name, root))).digest('hex').slice(0, 12);
-const { destinationPlaceId, entrance, routes } = JSON.parse(await readFile(new URL('./come-arrivare.json', import.meta.url), 'utf8'));
+const { entrance, routes } = JSON.parse(await readFile(new URL('./come-arrivare.json', import.meta.url), 'utf8'));
 const path = '/come-arrivare/';
 const canonical = origin + path;
 const title = 'Come arrivare all’Agriturismo Giuggioloni a Osimo';
 const description = 'Indicazioni in auto da Santo Stefano, San Paterniano e Osimo centro. Riconosci l’insegna su Via Acquaviva e raggiungi il parcheggio dell’Agriturismo Giuggioloni.';
 const trail = [['Home', '/'], ['Come arrivare', path]];
 const { via, comune, numeri_telefono: [phone] } = siteData.contatto;
-const dest = `Agriturismo Giuggioloni - I Sapori dell'Acquaviva, ${via}, Osimo`;
 const telephone = 'tel:' + phone.replace(/[^+\d]/g, '');
 const photo = '/assets/come-arrivare/ingresso';
 const photoAlt = 'Insegna in legno Agriturismo Giuggioloni e Spaccio Aziendale, su sostegno scuro e basamento di pietre chiare';
@@ -28,13 +27,11 @@ const newTab = 'target="_blank" rel="noopener noreferrer"';
 const { header, footer } = siteLayout(path);
 const footerWithoutMap = footer.replace(/<section class="place-map"[\s\S]*?<\/section>/, '');
 
-function routeUrl(route) {
-  const waypoints = [...route.waypoints, entrance.point];
-  if (waypoints.length > 3) throw new Error(`Troppi punti intermedi per ${route.id}.`);
-  return 'https://www.google.com/maps/dir/?' + new URLSearchParams({
-    api: '1', destination: dest, destination_place_id: destinationPlaceId,
-    travelmode: 'driving', waypoints: waypoints.join('|'), dir_action: 'navigate',
-  });
+for (const route of routes) {
+  const url = new URL(route.mapsUrl);
+  if (url.origin !== 'https://maps.app.goo.gl' && !(url.origin === 'https://www.google.com' && url.pathname.startsWith('/maps/dir/'))) {
+    throw new Error(`Link Google Maps non valido per ${route.id}.`);
+  }
 }
 
 const choices = routes.map(route => `<li><a class="arrival-choice" href="#${route.id}">
@@ -50,7 +47,7 @@ const sections = routes.map(route => `<section id="${route.id}" class="arrival-r
     <li>Imbocca la strada privata accanto all’insegna e prosegui fino all’agriturismo e al parcheggio.</li>
   </ol>
   <div class="arrival-actions">
-    <a class="arrival-button arrival-primary" href="${escape(routeUrl(route))}" ${newTab} data-arrival-event="maps_open" data-route="${route.id}">Apri questo percorso su Google Maps <span aria-hidden="true">↗</span></a>
+    <a class="arrival-button arrival-primary" href="${escape(route.mapsUrl)}" ${newTab} data-arrival-event="maps_open" data-route="${route.id}">Apri questo percorso su Google Maps <span aria-hidden="true">↗</span></a>
     <a class="arrival-button" href="#${route.id}" data-share-route>Condividi queste indicazioni</a>
     <a class="arrival-link" href="#riconosci-ingresso">Guarda l’insegna d’ingresso <span aria-hidden="true">↑</span></a>
   </div>
@@ -100,7 +97,7 @@ ${breadcrumbs(trail)}
 </section>
 <section class="arrival-itineraries" aria-labelledby="arrival-itineraries-title">
   <h2 id="arrival-itineraries-title">Indicazioni in auto</h2>
-  <p class="arrival-route-note">Google Maps può mostrare i passaggi intermedi come tappe. ${entrance.confirmed ? '' : 'Il punto dell’imbocco sulla mappa è indicativo. Sul posto, cerca l’insegna in legno.'}</p>
+  <p class="arrival-route-note">Ogni link apre il percorso con le tappe già impostate. Controlla eventuali limitazioni segnalate da Maps e la segnaletica sul posto. ${entrance.confirmed ? '' : 'Il punto dell’imbocco sulla mappa è indicativo. Sul posto, cerca l’insegna in legno.'}</p>
   ${sections}
 </section>
 <div class="arrival-support">
