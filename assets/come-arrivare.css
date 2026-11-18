@@ -1,0 +1,107 @@
+.arrival-page {
+  --arrival-ink: #38291f;
+  --arrival-accent: #823815;
+  --arrival-line: #dbc5af;
+  --arrival-paper: #fffaf3;
+  color: var(--arrival-ink);
+}
+
+.arrival-intro { margin: 1.25rem 0 1.75rem; }
+.arrival-intro h1 { max-width: 22ch; text-wrap: balance; }
+.arrival-intro address { margin-bottom: .55rem; font-style: normal; font-weight: 700; color: var(--arrival-accent); }
+.arrival-page p, .arrival-route li { line-height: 1.65; }
+.arrival-intro p { max-width: 65ch; }
+
+.arrival-choices ul {
+  display: grid;
+  gap: .65rem;
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.arrival-choice {
+  display: flex;
+  min-height: 56px;
+  justify-content: space-between;
+  align-items: center;
+  gap: .75rem;
+  padding: .65rem .85rem;
+  background: var(--arrival-paper);
+  border: 1px solid var(--arrival-line);
+  border-radius: .5rem;
+}
+
+.arrival-choice strong, .arrival-choice small { display: block; }
+.arrival-choice small { font-size: .85rem; }
+.arrival-choice > span:last-child { color: var(--arrival-accent); }
+
+.arrival-entrance {
+  display: grid;
+  align-items: center;
+  gap: 1rem;
+  margin: 1.5rem 0 2rem;
+  padding: clamp(1rem, 3vw, 1.75rem);
+  background: #f8e8d8;
+  border: 1px solid var(--arrival-line);
+  border-radius: .55rem;
+}
+
+.arrival-entrance img { display: block; width: 100%; height: auto; border-radius: .4rem; }
+.arrival-entrance figcaption { margin-top: .45rem; font-size: .82rem; line-height: 1.55; }
+.arrival-route-note { max-width: 72ch; margin-bottom: 1rem; }
+
+.arrival-route {
+  margin-bottom: 1rem;
+  padding: clamp(1rem, 3vw, 1.65rem);
+  border: 1px solid var(--arrival-line);
+  border-radius: .55rem;
+  background: var(--arrival-paper);
+}
+
+.arrival-route:target, .arrival-entrance:target { border-color: var(--arrival-accent); }
+.arrival-route h3 { margin-bottom: .4rem; font: 700 clamp(1.3rem, 3vw, 1.7rem)/1.2 "Playfair Display", Georgia, serif; }
+.arrival-route ol { margin: .85rem 0 1rem; padding-inline-start: 1.45rem; list-style: decimal; }
+.arrival-route li + li { margin-top: .45rem; }
+.arrival-route li::marker { color: var(--arrival-accent); font-weight: 700; }
+
+.arrival-actions { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem .75rem; }
+.arrival-button, .arrival-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .4rem;
+  min-height: 44px;
+  max-width: 100%;
+  padding-block: .35rem;
+  color: var(--arrival-accent);
+  font-size: .9rem;
+  font-weight: 700;
+  line-height: 1.45;
+  text-underline-offset: .2em;
+}
+
+.arrival-link { text-decoration: underline; }
+.arrival-button { padding-inline: .75rem; border: 1px solid var(--arrival-accent); border-radius: .35rem; text-align: center; }
+.arrival-primary { background: var(--arrival-accent); color: white; }
+.arrival-primary:hover { background: #692c10; }
+.arrival-choice:hover, .arrival-button:not(.arrival-primary):hover { background: #f8eee2; border-color: var(--arrival-accent); }
+.arrival-page :is(a, button, input):focus-visible { outline: 3px solid #963e17; outline-offset: 3px; }
+.arrival-page [hidden] { display: none; }
+.arrival-share-status:not(:empty), .arrival-share-copy { margin-top: .65rem; }
+.arrival-share-copy label { display: block; font-size: .9rem; }
+.arrival-share-copy input { width: 100%; max-width: 32rem; padding: .45rem; background: white; border: 1px solid var(--arrival-line); }
+
+.arrival-support { display: grid; gap: 1rem; margin-top: 2rem; }
+.arrival-map { margin: 0; }
+.arrival-help { padding: 1.1rem; border-block: 1px solid var(--arrival-line); }
+.arrival-help .arrival-link { margin-inline-start: .6rem; }
+
+@media (min-width: 48rem) {
+  .arrival-choices ul { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .arrival-choice { height: 100%; }
+  .arrival-entrance { grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: 1.75rem; }
+}
+
+@media (max-width: 31rem) {
+  .arrival-route .arrival-actions { display: grid; grid-template-columns: minmax(0, 1fr); }
+  .arrival-help .arrival-link { display: flex; justify-content: flex-start; margin-inline-start: 0; }
+}

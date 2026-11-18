@@ -85,7 +85,7 @@
 .place-map iframe{display:block;border:0;width:100%;height:clamp(16rem,55vw,23rem);margin-top:.85rem;border-radius:.35rem}
 .site-meta-links{text-align:center;padding-block:.75rem;font-size:.85rem}
 #mobileMenu{max-height:calc(100dvh - var(--site-nav-height));overscroll-behavior:contain}
-.site-desktop-links{display:none;gap:0;flex-shrink:0}.site-mobile-toggle{display:flex}
+.site-desktop-links{display:none;gap:clamp(1rem,2vw,2rem);flex-shrink:0}.site-mobile-toggle{display:flex}
 #siteNav>div>div{height:auto;min-height:5rem}
 #siteNav a.group{min-width:0;flex-shrink:1}
 #siteNav a.group>div:last-child{min-width:0;overflow-wrap:anywhere}

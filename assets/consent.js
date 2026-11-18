@@ -3,16 +3,18 @@
   const id = 'G-D754GXFBLZ';
   const storageKey = 'giuggioloni-cookie-v2';
   const analyticsPage = document.body.hasAttribute('data-analytics');
+  const arrivalPage = document.body.hasAttribute('data-arrival-analytics');
+  const arrivalEvents = new Set(['maps_open', 'directions_share', 'phone_click']);
   const english = document.documentElement.lang.toLowerCase().startsWith('en');
   const words = english ? {
     title: 'Cookie preferences', intro: 'Choose whether to allow visit statistics and marketing tracking. Essential functions stay available with any choice.',
-    privacy: 'Privacy notice (Italian)', statistics: 'Statistics', statisticsInfo: 'Google Analytics measures visits to the Italian home page.',
+    privacy: 'Privacy notice (Italian)', statistics: 'Statistics', statisticsInfo: 'Google Analytics measures visits to the Italian home page and interactions with Maps, sharing and phone links on the directions page.',
     marketing: 'Marketing', marketingInfo: 'Meta Pixel measures visits and advertising results on this website.',
     reject: 'Reject optional cookies', save: 'Save preferences', all: 'Accept all',
     none: 'No choice saved. Statistics and marketing are disabled.', on: 'enabled', off: 'disabled',
   } : {
     title: 'Preferenze cookie', intro: 'Scegli se consentire le statistiche sulle visite e il tracciamento di marketing. Le funzioni essenziali restano disponibili con qualsiasi scelta.',
-    privacy: 'Informativa privacy e cookie', statistics: 'Statistiche', statisticsInfo: 'Google Analytics misura le visite alla home italiana.',
+    privacy: 'Informativa privacy e cookie', statistics: 'Statistiche', statisticsInfo: 'Google Analytics misura le visite alla home italiana e le interazioni con Maps, la condivisione e i link telefonici nella pagina Come arrivare.',
     marketing: 'Marketing', marketingInfo: 'Il Pixel Meta misura le visite e i risultati delle campagne pubblicitarie su questo sito.',
     reject: 'Rifiuta non necessari', save: 'Salva preferenze', all: 'Accetta tutti',
     none: 'Nessuna scelta salvata. Statistiche e marketing disattivati.', on: 'attivi', off: 'disattivati',
@@ -47,20 +49,31 @@
   }
   let choice = null, analyticsLoaded = false, opener;
   try { choice = parse(localStorage.getItem(storageKey)); } catch { /* storage unavailable */ }
-  function setAnalytics(allowed) {
+  function setAnalytics(allowed, load = analyticsPage) {
     window['ga-disable-' + id] = !allowed;
     if (window.gtag) window.gtag('consent', 'update', { analytics_storage: allowed ? 'granted' : 'denied' });
-    if (!allowed || !analyticsPage || analyticsLoaded) return;
+    if (!allowed || !load || analyticsLoaded) return;
     analyticsLoaded = true;
     window.dataLayer = window.dataLayer || [];
     window.gtag = function () { window.dataLayer.push(arguments); };
     window.gtag('consent', 'default', { analytics_storage: 'granted', ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied' });
     window.gtag('js', new Date());
-    window.gtag('config', id, { allow_google_signals: false, allow_ad_personalization_signals: false, cookie_expires: 15552000, cookie_update: false });
+    window.gtag('config', id, {
+      allow_google_signals: false, allow_ad_personalization_signals: false,
+      cookie_expires: 15552000, cookie_update: false, send_page_view: !arrivalPage,
+    });
     const script = document.createElement('script');
     script.async = true;
     script.src = 'https://www.googletagmanager.com/gtag/js?id=' + id;
     document.head.append(script);
+  }
+  function arrivalAllowed() {
+    return arrivalPage && choice?.analytics === true && choice?.arrivalAnalytics === true;
+  }
+  function trackArrival(event, route) {
+    if (!arrivalAllowed() || !arrivalEvents.has(event)) return;
+    if (!analyticsLoaded) setAnalytics(true, true);
+    window.gtag('event', event, route ? { route } : {});
   }
   function clearCookies(pattern) {
     const domains = ['', '; Domain=' + location.hostname, '; Domain=agriturismogiuggioloni.it'];
@@ -72,7 +85,7 @@
   }
   function apply() {
     const analytics = choice?.analytics === true, marketing = choice?.marketing === true;
-    setAnalytics(analytics);
+    setAnalytics(arrivalPage ? arrivalAllowed() : analytics);
     window.GiuggioloniMetaPixel?.setConsent(marketing);
     if (!analytics) clearCookies(/^(_ga(?:_[a-z\d]+)?|_gid|_gat(?:_[a-z\d_]+)?)$/i);
     if (!marketing) clearCookies(/^_fb[pc]$/i);
@@ -95,7 +108,7 @@
   banner.addEventListener('click', event => {
     const action = event.target.closest('[data-cookie-choice]')?.dataset.cookieChoice;
     if (!['essential', 'save', 'all'].includes(action)) return;
-    choice = { version: 2, analytics: action === 'all' || action === 'save' && analyticsInput.checked,
+    choice = { version: 2, arrivalAnalytics: true, analytics: action === 'all' || action === 'save' && analyticsInput.checked,
       marketing: action === 'all' || action === 'save' && marketingInput.checked, updatedAt: new Date().toISOString() };
     try { localStorage.setItem(storageKey, JSON.stringify(choice)); } catch { /* apply for this page */ }
     apply();
@@ -108,7 +121,7 @@
     apply();
     banner.hidden = !!choice;
   });
-  window.GiuggioloniConsent = Object.freeze({ open: () => open(document.activeElement) });
+  window.GiuggioloniConsent = Object.freeze({ open: () => open(document.activeElement), trackArrival });
   apply();
   // The previous analytics-only choice never authorizes the newly added Meta Pixel.
   if (!choice) banner.hidden = false;

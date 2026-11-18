@@ -6,7 +6,11 @@ import { applyTracking } from './site-tracking.mjs';
 
 const origin = 'https://agriturismogiuggioloni.it';
 const imageCache = new Map();
-const mapScriptHref = '/assets/place-map.js?v=' + createHash('sha256').update(readFileSync(new URL('../assets/place-map.js', import.meta.url))).digest('hex').slice(0, 12);
+const scriptVersions = Object.fromEntries(['place-map', 'booking'].map(name => {
+  const file = '/assets/' + name + '.js';
+  const hash = createHash('sha256').update(readFileSync(new URL('..' + file, import.meta.url))).digest('hex').slice(0, 12);
+  return [name, file + '?v=' + hash];
+}));
 const decode = value => value.replace(/&(?:amp|quot|apos|lt|gt|#39|#x27);/g, entity => ({ '&amp;': '&', '&quot;': '"', '&apos;': "'", '&lt;': '<', '&gt;': '>', '&#39;': "'", '&#x27;': "'" })[entity]);
 function attributes(tag) {
   return Object.fromEntries([...tag.matchAll(/([\w:-]+)\s*=\s*(?:"([^"]*)"|'([^']*)')/g)].map(match => [match[1].toLowerCase(), decode(match[2] ?? match[3])]));
@@ -40,7 +44,7 @@ function imageMetadata(value) {
 
 export function applySocialMetadata(html) {
   html = applyTracking(applyCompanyData(html));
-  html = html.replace(/(<script\b[^>]*\bsrc=")\/assets\/place-map\.js(?:\?[^"]*)?"/g, (_, start) => start + mapScriptHref + '"');
+  html = html.replace(/(<script\b[^>]*\bsrc=")\/assets\/(place-map|booking)\.js(?:\?[^"]*)?"/g, (_, start, name) => start + scriptVersions[name] + '"');
   const match = html.match(/<head\b[^>]*>([\s\S]*?)<\/head>/i);
   if (!match) return html;
   let head = match[1];

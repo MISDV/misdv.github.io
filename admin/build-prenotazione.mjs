@@ -40,7 +40,8 @@ function map(kind, place, label) {
   const data = store ? 'data-shop-map' : 'data-map';
   const toggle = store ? 'data-shop-map-toggle' : 'data-map-toggle';
   const slot = store ? 'data-shop-map-slot' : 'data-map-slot';
-  return `<div class="contact-map" ${data}><div class="place-actions"><a href="${escape(place.placeUrl)}" target="_blank" rel="noopener noreferrer">Scheda e indicazioni ${label} <span aria-hidden="true">↗</span></a><button type="button" ${toggle} aria-controls="${kind}-map" aria-expanded="false" hidden>Mostra la mappa ${label}</button></div><div id="${kind}-map" ${slot} hidden></div><p class="contact-map-note">La mappa interattiva si collega a Google solo quando scegli di mostrarla.</p></div>`;
+  const routes = store ? '' : '<a href="/come-arrivare/">Come arrivare al ristorante <span aria-hidden="true">→</span></a>';
+  return `<div class="contact-map" ${data}><div class="place-actions">${routes}<a href="${escape(place.placeUrl)}" target="_blank" rel="noopener noreferrer">Scheda e indicazioni ${label} <span aria-hidden="true">↗</span></a><button type="button" ${toggle} aria-controls="${kind}-map" aria-expanded="false" hidden>Mostra la mappa ${label}</button></div><div id="${kind}-map" ${slot} hidden></div><p class="contact-map-note">La mappa interattiva si collega a Google solo quando scegli di mostrarla.</p></div>`;
 }
 
 const socialNames = { instagram: 'Instagram', facebook: 'Facebook', tiktok: 'TikTok' };

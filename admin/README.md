@@ -39,6 +39,10 @@ La pagina `/prenotazione/` è generata da `admin/build-prenotazione.mjs`, richia
 da `build-pages.mjs`: contatti, orari, social e due schede Maps distinte. Il popup
 e tutti i footer la collegano. I dati societari sono in `dati.json` sotto `societa`;
 `admin/site-company.mjs` li inserisce nei footer e nei JSON-LD delle attività.
+La pagina `/come-arrivare/` si rigenera con `node admin/build-come-arrivare.mjs`,
+richiamato anche da `build-pages.mjs`. Le tappe, l’imbocco stimato e i testi dei
+percorsi sono in `admin/come-arrivare.json`. Vedi [Come arrivare](COME-ARRIVARE.md)
+per i punti da verificare e le foto dei bivi da raccogliere.
 Gli orari del ristorante, compresi i riepiloghi inglesi e di Lume, derivano da
 `dati.json.orari`. Il venerdì è chiuso; gli orari dello spaccio restano da comunicare.
 
@@ -50,7 +54,9 @@ inviano PageView: viene conteggiata la destinazione, se il marketing è consenti
 Il Pixel Meta ha ID `1820829302492303`; il suo SDK si carica solo dopo consenso
 marketing, con raccolta automatica degli eventi disattivata e un PageView per
 documento. L'immagine noscript non viene inserita perché invierebbe la visita
-senza consenso. Google Analytics mantiene il solo ambito della home italiana.
+senza consenso. Google Analytics misura le visite alla home italiana e, con il
+consenso alle statistiche dato dalle preferenze aggiornate, le interazioni con
+Maps, condivisione e link telefonico nella pagina `/come-arrivare/`.
 Le preferenze v2 sono separate per statistiche e marketing, scadono dopo 180 giorni
 e consentono revoca da tutti i footer. La scelta precedente v1 non abilita Meta.
 Informativa aggiornata in `build-pages.mjs`, anche per i cookie del Pixel.

@@ -13,6 +13,7 @@ const translations = new Map([
   ['Un angolo di paradiso nelle Marche dove riscoprire i sapori autentici e la bellezza della vita semplice, immersi nei colori caldi della natura.', 'Discover the flavours of the Marche countryside, seasonal family cooking and the warmth of our welcome in Osimo.'],
   ['La mappa interattiva si collega a Google quando scegli di mostrarla.', 'The interactive map connects to Google when you choose to display it.'],
   ['Come arrivare all’agriturismo', 'Find our restaurant'], ['Indicazioni su Google Maps', 'Directions on Google Maps'],
+  ['>Come arrivare<', '>Getting here (IT)<'], ['Percorsi e ingresso', 'Driving routes and entrance (IT)'],
   ['Mostra la mappa Google', 'Show Google map'], ['Cena, orario da confermare', 'Dinner, time to be confirmed'],
   ['Navigazione principale', 'Main navigation'], ['Menu principale mobile', 'Mobile navigation'],
   ['Apri menu principale', 'Open navigation menu'], ['Chiudi menu', 'Close menu'], ['Vai al contenuto', 'Skip to content'],
@@ -43,6 +44,7 @@ export function siteLayout(path = '/', language = 'it') {
   }
   if (path === '/') header = header.replaceAll('href="/">Home</a>', 'href="/" aria-current="page">Home</a>');
   if (path === '/fattoria/') header = header.replaceAll('href="/fattoria/"', 'href="/fattoria/" aria-current="page"');
+  if (path === '/come-arrivare/') header = header.replaceAll('href="/come-arrivare/"', 'href="/come-arrivare/" aria-current="page"');
   footer = footer.replace(/<div class="flex items-center gap-3 mb-6">([\s\S]*?)(?=\s*<p data-text="home.descrizione")/, block =>
     block.replace('<div class="flex items-center gap-3 mb-6">', '<a href="/" aria-label="Agriturismo Giuggioloni — home" class="site-footer-brand flex items-center gap-3 mb-6">').replace(/<\/div>(\s*)$/, '</a>$1'));
   header = renderSiteData(header);

@@ -1,0 +1,49 @@
+{
+  "destinationPlaceId": "ChIJh62e45OGLRMR78gbF5kMRtw",
+  "entrance": {
+    "point": "43.4981617,13.4658884",
+    "confirmed": false,
+    "mappedLengthMetres": 430
+  },
+  "routes": [
+    {
+      "id": "santo-stefano",
+      "title": "Santo Stefano",
+      "subtitle": "Da Offagna o San Biagio",
+      "summary": "Passa per la zona della chiesa di Santo Stefano e di Via San Valentino, poi raggiungi Via Acquaviva.",
+      "steps": [
+        "Raggiungi Santo Stefano. Se arrivi da San Biagio, passa per Via Montegalluccio.",
+        "Prendi come riferimento la zona della chiesa di Santo Stefano e di Via San Valentino.",
+        "Al bivio per Via Acquaviva, segui la strada fino all’insegna in legno."
+      ],
+      "waypoints": ["43.5092427,13.4605380"],
+      "estimate": { "from": "Bivio Via Montegalluccio / Via Acquaviva", "origin": "43.5092427,13.4605380", "km": 2.2, "minutes": "6" }
+    },
+    {
+      "id": "san-paterniano",
+      "title": "San Paterniano",
+      "subtitle": "Via Fontemurata e Via Rosciano",
+      "summary": "Arriva a Via Acquaviva passando per Via Fontemurata e Via Rosciano.",
+      "steps": [
+        "Dalla zona di Via XVII Luglio, percorri Via Chiaravallese in direzione Osimo.",
+        "Entra in Via Fontemurata e raggiungi il raccordo verso Via Rosciano.",
+        "Segui Via Rosciano fino a Via Acquaviva e continua fino all’insegna in legno."
+      ],
+      "waypoints": ["43.5065961,13.4402881", "43.5070098,13.4574374"],
+      "estimate": { "from": "Incrocio Via XVII Luglio / Via Chiaravallese", "origin": "43.5048729,13.4331081", "km": 4.9, "minutes": "12" }
+    },
+    {
+      "id": "osimo-borgo",
+      "title": "Osimo centro",
+      "subtitle": "Dal Borgo San Giacomo",
+      "summary": "Dal Borgo San Giacomo, raggiungi Via Acquaviva passando per Via Roncisvalle.",
+      "steps": [
+        "Dal centro di Osimo, raggiungi il Borgo San Giacomo.",
+        "Percorri Via Roncisvalle fino all’accesso a Via Acquaviva.",
+        "Prosegui su Via Acquaviva fino all’insegna in legno."
+      ],
+      "waypoints": ["43.4965538,13.4702683"],
+      "estimate": { "from": "Inizio del tratto rurale mappato come Via Acquaviva", "origin": "43.4892894,13.4788668", "km": 2, "minutes": "5–6" }
+    }
+  ]
+}
